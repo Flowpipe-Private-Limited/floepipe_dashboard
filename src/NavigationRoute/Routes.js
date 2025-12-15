@@ -24,15 +24,28 @@ import TestingKeys from "../pages/keys/TestingKeys";
 import MainDashboardPage from "../pages/MainPage/MainPage";
 import ApiKeys from "../components/apiKeys/apikeys";
 import WhiteListIP from "../components/whiteList/whiteList";
+import RegisterPage from "../pages/Register/Register";
+import OtpLogin from "../pages/OTPverify/registerOTPverify";
+import IsLoginUser from "../components/protectionRoutes/isLogin";
+import ProtectionRoute from "../components/protectionRoutes/Protection";
+import ProfilePage from "../components/profile/UserProfile";
 
 const AppRoute = () => {
+
+
   return (
     <Router>
       <Routes>
+        {/* Landing Page */}
         <Route path="/" element={<MainDashboardPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/otpVerify" element={<Otp />} />
-        <Route path="/dashboard" element={<Dashboard />} >
+
+        {/* Sign || login with OTP */}
+        <Route path="/login" element={<IsLoginUser><Login /></IsLoginUser>} />
+        <Route path="/Register" element={<IsLoginUser><RegisterPage /></IsLoginUser>} />
+        <Route path="/loginOtp" element={<IsLoginUser ><OtpLogin /></IsLoginUser>} />
+
+        {/* User DashBoard Routes */}
+        <Route path="/dashboard" element={<ProtectionRoute ><Dashboard /></ProtectionRoute>} >
           <Route index element={<MainContent />} />
           <Route path="apiKeys" element={<ApiKeys />} />
           <Route path="WhitelistIP" element={<WhiteListIP />} />
@@ -61,6 +74,9 @@ const AppRoute = () => {
           <Route path="bbps/BillPay" element={<BbpsBillPay />} />
           <Route path="bbps/BillValidation" element={<BbpsBillVallidation />} />
           <Route path="bbps/QuickPay" element={<BbpsBillQuickPay />} />
+
+
+          <Route path="Profile" element={<ProfilePage />} />
         </Route>
       </Routes>
     </Router>

@@ -428,7 +428,7 @@ export const VerifyOTP = {
 export const panVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/pan/panverifying",
+    URLS: "http://localhost:7006/pan/verify",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -498,7 +498,7 @@ export const panVerify = {
 export const panAadhaarVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/pan/panToAadhaar",
+    URLS: "http://localhost:7006/pan/verify-to-aadhaar",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -568,7 +568,7 @@ export const panAadhaarVerify = {
 export const accountVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/account/pennyDrop/verifyBankAccount",
+    URLS: "http://localhost:7006/accounts/verify/penny-drop",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -812,7 +812,7 @@ export const CINVerify = {
 export const UdamVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/udyam/udyamNumberverify",
+    URLS: "http://localhost:7006/udyam/verify",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -823,7 +823,7 @@ export const UdamVerify = {
   },
   inputParams: ["udyamNumber"],
   isDisable: false,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'http://localhost:7006/udyam/verify' \\
     --header 'Content-Type: application/json' \\
     --header 'secretKey: {{secretKey}}' \\
     --header 'clientId: {{clientId}}' \\
@@ -939,7 +939,7 @@ export const NameMatch = {
 export const RechargeOperators = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/Reacharge/Operators",
+    URLS: "http://localhost:7006/Recharge/Operators",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -976,7 +976,7 @@ export const RechargeOperators = {
 export const RechargePlans = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/Reacharge/Plans",
+    URLS: "http://localhost:7006/Recharge/Plans",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1012,7 +1012,7 @@ export const RechargePlans = {
 export const RechargeOldPlans = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/Reacharge/OldPlans",
+    URLS: "http://localhost:7006/Recharge/OldPlans",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1048,7 +1048,7 @@ export const RechargeOldPlans = {
 export const RechargeOffersPlans = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/Reacharge/OffersPlans",
+    URLS: "http://localhost:7006/Recharge/OffersPlans",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1084,7 +1084,7 @@ export const RechargeOffersPlans = {
 export const RechargeURL = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/Reacharge/RechargeURL",
+    URLS: "http://localhost:7006/Recharge/RechargeURL",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },

@@ -1,3 +1,5 @@
+import { decryptServerResponse } from "../helper";
+
 export const ApirequestHandler = async (
   api,
   setLoading,
@@ -9,6 +11,7 @@ export const ApirequestHandler = async (
   }
   try {
     const response = await api();
+    console.log('response', response)
     const { data } = response;
     console.log('RequestHandler and response Data ===>', data);
 
@@ -22,10 +25,52 @@ export const ApirequestHandler = async (
     console.log(error);
     console.error(error?.response);
     if ((error?.response?.data?.statusCode === 404) && (error?.response?.data?.message === 'Session Expired')) {
+
+      // updated 
       sessionStorage.removeItem('token');
       localStorage.clear();
       sessionStorage.clear();
-    //   document.body.className = "sidebar-closed"
+      //   document.body.className = "sidebar-closed"
+      window.location.href = "/";
+    }
+    const errorMessage = error?.response?.data?.message || error?.message || "Something went wrong";
+    onError(errorMessage);
+  } finally {
+    if (setLoading) setLoading(false);
+  }
+};
+export const EncryptedApirequestHandler = async (
+  api,
+  setLoading,
+  onSuccess,
+  onError
+) => {
+  if (setLoading) {
+    setLoading(true);
+  }
+  try {
+    const response = await api();
+    console.log('response', response,  window.PRIVITEKEY)
+    const { data } = response;
+    const finalResponse = await decryptServerResponse(data, window.PRIVITEKEY)
+    console.log('RequestHandler and response Data after decryption ===>', finalResponse);
+
+    if (finalResponse?.success) {
+      onSuccess(finalResponse || []);
+    } else {
+      throw new Error(finalResponse?.message || "Unknown error occurred");
+    }
+
+  } catch (error) {
+    console.log(error);
+    console.error(error?.response);
+    if ((error?.response?.data?.statusCode === 404) && (error?.response?.data?.message === 'Session Expired')) {
+
+      // updated 
+      sessionStorage.removeItem('token');
+      localStorage.clear();
+      sessionStorage.clear();
+      //   document.body.className = "sidebar-closed"
       window.location.href = "/";
     }
     const errorMessage = error?.response?.data?.message || error?.message || "Something went wrong";

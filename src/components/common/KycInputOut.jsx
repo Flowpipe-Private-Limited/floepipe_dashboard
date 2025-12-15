@@ -2,18 +2,22 @@ import axios from "axios";
 import EXResponse from "../../components/common/response";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ERROR_RESPONSES } from "../../utils/KYCContext/kycContex";
-import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
-import { ApiVerification } from "../../utils/Apis/api";
+import { ApirequestHandler, EncryptedApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import { ApiVerification, fetchPublickey } from "../../utils/Apis/api";
+import { encryptPayload, generateFrontendKeyPair } from "../../utils/helper";
+import { useUserStore } from "../../Store/userStore";
+import { useNavigate } from "react-router-dom";
 
 const KycReuseComponet = ({ data }) => {
+    const {IskycApproved,kycCompleted} = useUserStore()
     const [formData, setFormData] = useState({});
+    const [Publickey, setPublickey] = useState('')
     const [apiResponse, setApiResponse] = useState({});
     const [Loading, setLoading] = useState(false);
     const [apiErrorMessage, setApiErrormessage] = useState('');
     const [errors, setErrors] = useState({}); // ONly for the regex 
-    const [IsKyc, setIsKyc] = useState(false)
     const [showAlert, setShowAlert] = useState(false);
     const [selectedExampleCode, setSelectedExampleCode] = useState(
         data.exampleResponse
@@ -52,38 +56,45 @@ const KycReuseComponet = ({ data }) => {
             setApiErrormessage("Please fix the validation errors before submitting.");
             return;
         }
-
         const hasEmptyField = data?.inputParams?.some(
             (key, index) => !data?.isDisable && !formData?.[key]
         );
-
         if (hasEmptyField) {
             setApiErrormessage("All fields are required.");
             return;
         }
-        // if (!IsKyc) {
-        //     console.log('is trigred')
-        //     setShowAlert(true);
-        //     return;
-        // }
+
+        console.log('Handle Verification');
+
+        let finalPayload = await encryptPayload(formData, Publickey);
+        console.log('is called', finalPayload);
+        const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair()
+        window.PRIVITEKEY = privateKeyPem;
+        console.log(finalPayload, publicKeyPem, privateKeyPem);
+        if (!IskycApproved || !kycCompleted) {
+            console.log('is trigred')
+            setShowAlert(true);
+            return;
+        };
         setApiErrormessage('');
         setLoading(true);
-        try {
-            const responseData = await axios.post(`${data?.apiUrl?.URLS}`, formData);
-            console.log(responseData?.data)
-            setApiResponse(responseData?.data);
-            setApiErrormessage('');
-            setLoading(false)
 
-        } catch (error) {
-            const fallback =
-                error?.response?.data ||
-                ERROR_RESPONSES[error?.response?.status] ||
-                { message: "Server Error", success: false };
-
-            setApiResponse(fallback);
-            console.log("Error:", fallback);
-        }
+        await ApirequestHandler(
+            async () => await ApiVerification(data?.apiUrl?.URLS, { ...finalPayload, publicKeyPem }),
+            setLoading,
+            (res) => {
+                const { data } = res;
+                console.log(data)
+                setApiResponse(data);
+                setApiErrormessage('');
+                setLoading(false)
+            },
+            (errorMessage) => {
+                console.log('Error:', errorMessage);
+                setApiErrormessage(errorMessage);
+                setLoading(false);
+            }
+        )
     };
 
     const handleCopy = async (text) => {
@@ -99,6 +110,31 @@ const KycReuseComponet = ({ data }) => {
             textarea.remove();
         }
     };
+
+    const GetPublickey = async () => {
+        console.log('is called');
+        await ApirequestHandler(
+            async () => fetchPublickey(),
+            null,
+            (res) => {
+                const { publicKey } = res;
+                console.log(publicKey)
+                setPublickey(publicKey);
+            },
+            (errMessage) => {
+                console.log(errMessage)
+            }
+        )
+        // const response = await axios.get(`${process.env.REACT_APP_DASHBOARD_URL}ApiModuel/key/Publickey`);
+        // const { publicKey } = response.data;
+        // console.log(response)
+        // setPublickey(publicKey);
+    }
+
+    useEffect(() => {
+        GetPublickey()
+    }, [])
+
 
     return (
         <div className="mainDashBaord font-sans w-full mb-10 ">
@@ -147,7 +183,7 @@ const KycReuseComponet = ({ data }) => {
                         <button
                             className=" mt-6 w-full bg-purple-700 text-white py-2.5 rounded-lg font-semibold tracking-wide shadow transition hover:shadow-[0_0_15px_rgba(139,92,246,0.7)] active:shadow-inner active:bg-purple-900"
                             onClick={HandleVerificaton}
-                            disabled={Loading}
+                            disabled={data?.isDisable}
                         >
                             {Loading ? 'Loading ...' : data?.title?.submitButton}
                         </button>
@@ -157,7 +193,7 @@ const KycReuseComponet = ({ data }) => {
                             </p>
                         )}
 
-                        {!IsKyc && showAlert && (
+                        {(!IskycApproved || !kycCompleted) && showAlert && (
                             <div className="relative mt-6 flex items-start gap-3 rounded-lg border border-red-300 bg-red-50 p-4 text-sm text-red-800 shadow-sm">
                                 <svg
                                     className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0"

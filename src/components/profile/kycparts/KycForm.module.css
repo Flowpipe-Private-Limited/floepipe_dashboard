@@ -1,0 +1,155 @@
+/* General Layout */
+.formContainer {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  max-width: 900px; /* Adjusted max width for better form display */
+  margin: 40px auto;
+}
+
+/* Header Styling */
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.editButton {
+  background: none;
+  border: none;
+  color: #8c00ff; /* Purple accent color */
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 20px 0;
+}
+
+.sectionTitle {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Form Group Layout */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroupWide {
+  margin-bottom: 20px;
+}
+
+/* Form Elements Styling */
+.formGroup label,
+.formGroupWide label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.formGroup input,
+.formGroupWide input,
+.formGroupWide textarea {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #f9f9f9; /* Light background for read-only fields */
+  color: #333;
+}
+
+.formGroupWide textarea {
+  resize: none;
+}
+
+/* Upload Button Styling */
+.uploadButton {
+  background-color: #f7f0ff; /* Light purple background */
+  border: 1px dashed #d1b3ff; /* Dashed purple border */
+  color: #8c00ff; /* Purple text color */
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.uploadButton:hover {
+  background-color: #efe8ff;
+}
+
+/* Approval Status Styling */
+.statusPending {
+  border-left: 5px solid orange !important; /* Visual indicator for status */
+  font-weight: bold;
+}
+
+/* Footer Styling */
+.formFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+}
+
+.formFooterRight {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.cancelButton,
+.submitButton {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  min-width: 100px;
+}
+
+.cancelButton {
+  background-color: #fff;
+  color: #8c00ff;
+  border: 1px solid #8c00ff;
+}
+
+.submitButton {
+  background-color: #8c00ff;
+  color: #fff;
+  border: none;
+}
+
+.submitButton:hover {
+  background-color: #6a00cc;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}

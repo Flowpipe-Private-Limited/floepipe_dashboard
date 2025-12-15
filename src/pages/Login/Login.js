@@ -3,12 +3,14 @@ import '../../styles/Login.css';
 
 import logo from "../../assets/images/Asset 41@300x-8.png"
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
-import { HandleGetOtp } from "../../utils/Apis/api";
+import { loginwithNumber } from "../../utils/Apis/api";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
   const [Loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({});
 
   const HandleFromChange = (e) => {
@@ -21,12 +23,12 @@ const Login = () => {
     setErrorMessage("");
     setLoading(true);
     await ApirequestHandler(
-      async () => HandleGetOtp(formData),
+      async () => loginwithNumber(formData),
       setLoading,
       (res) => {
-        const { data, message } = res;
-        if(message === 'OTP sent to 8688571181'){
-          
+        const { token, success } = res;
+        if(success){
+          navigate('/loginOtp',{state:formData});
         }
         console.log('OTP Response:', message);
       },
@@ -71,7 +73,7 @@ const Login = () => {
 
         <p className="login-footer">
           Don’t have an account?{" "}
-          <span className="login-footer-link">Sign up</span>
+          <span className="login-footer-link" onClick={()=>navigate('/Register')}>Sign up</span>
         </p>
 
       </div>
