@@ -30,7 +30,7 @@ const Login = () => {
         if(success){
           navigate('/loginOtp',{state:formData});
         }
-        console.log('OTP Response:', message);
+        // console.log('OTP Response:', message);
       },
       (errMessage) => {
         console.log('Error:', errMessage);

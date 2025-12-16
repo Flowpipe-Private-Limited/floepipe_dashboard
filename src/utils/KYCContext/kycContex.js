@@ -1337,3 +1337,46 @@ export const BBPSBillQuickPay = {
     }
   }
 };
+
+
+export const InstantBillPay = {
+  apiUrl: {
+    Method: 'POST',
+    URLS: "http://localhost:7006/BBPS/instantpay/billPay",
+    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
+    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+  },
+  title: {
+    header: "STEP 1: InstantBill Pay",
+    headerTitle: "InstantPay using NTAR service",
+    submitButton: 'InatantBill Pay'
+  },
+  inputParams: ["X-Ipay-Auth-Code", "X-Ipay-Client-Id", "X-Ipay-Client-Secret", "X-Ipay-Endpoint-Ip"],
+  bodyParams: "(params)",
+  Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg", "8d57XXX99ac4dXXXXX09011XXXXX"],
+  isDisable: true,
+  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secretKey: {{secretKey}}' \\
+    --header 'clientId: {{clientId}}' \\
+    --data '{
+      "panNumber": ""
+  }'`,
+  exampleResponse: {
+    "message": "Success",
+    "success": true,
+    "data": {
+      "ERROR": "0",
+      "STATUS": "1",
+      "Mobile": "918688571181",
+      "Operator": "Reliance Jio Infocomm Limited",
+      "OpCode": "11",
+      "Circle": "Andhra Pradesh",
+      "CircleCode": "49",
+      "Message": "Successfully"
+    }
+  }
+};
+
+
+
