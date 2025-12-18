@@ -21,6 +21,8 @@ import {
 import flowpipeLogo from '../../assets/images/FlowpipeLogo.png'
 import { useUserStore } from "../../Store/userStore";
 import { toTitleCase } from "../../utils/simpleHellperFn";
+// import "../../styles/Dashboard.css";
+
 const sideDashboardConfig = [
   {
     label: "Dashboard",
@@ -94,7 +96,7 @@ const sideDashboardConfig = [
     icon: Briefcase,
     type: "group",
     children: [
-      { label: "InstantBill Pay", href: "/dashboard/bbps/Category", method: "POST" },
+      { label: "InstantBill Pay", href: "/dashboard/InstantPayVerification", method: "POST" },
     ]
   }
 ];
@@ -251,7 +253,7 @@ function Header({ onToggle, data, onNavigate }) {
       </div>
 
       <div className="flex items-center gap-3">
-        <button className="px-3 py-1.5 text-sm border border-purple-700 text-purple-700 rounded-lg">Balance</button>
+        <button className="px-3 py-1.5 text-sm border border-purple-700 text-purple-700 rounded-lg" onClick={()=>onNavigate("/WalletToPop")}>Balance</button>
         <button className="px-3 py-1.5 text-sm border border-purple-700 text-purple-700 rounded-lg flex items-center gap-1">
           <HelpCircle size={16} /> Help
         </button>

@@ -29,6 +29,8 @@ import OtpLogin from "../pages/OTPverify/registerOTPverify";
 import IsLoginUser from "../components/protectionRoutes/isLogin";
 import ProtectionRoute from "../components/protectionRoutes/Protection";
 import ProfilePage from "../components/profile/UserProfile";
+import WalletToPop from "../pages/WalletToPop/WalletToPop";
+import InstantPayVerification from "../pages/InstantPay/InstantPay";
 
 const AppRoute = () => {
 
@@ -74,9 +76,10 @@ const AppRoute = () => {
           <Route path="bbps/BillPay" element={<BbpsBillPay />} />
           <Route path="bbps/BillValidation" element={<BbpsBillVallidation />} />
           <Route path="bbps/QuickPay" element={<BbpsBillQuickPay />} />
-
-
-          <Route path="Profile" element={<ProfilePage />} />
+          <Route path="WalletToPop" element={<WalletToPop />} />
+          <Route path="WalletToPop" element={<WalletToPop />} />
+         
+          <Route path="InstantPayVerification" element={<InstantPayVerification />} />
         </Route>
       </Routes>
     </Router>

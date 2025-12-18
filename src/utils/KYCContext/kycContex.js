@@ -88,7 +88,7 @@ export const Aadhaar = {
   exampleCurl: `curl --location 'http://localhost:7006/business/Gstinverify' \\
     --header 'Content-Type: application/json' \\
     --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'X-Ipay-Client-Id: {{clientId}}' \\
     --data '{
       "aadharNumber": ""
   }'`,
@@ -1338,7 +1338,7 @@ export const BBPSBillQuickPay = {
   }
 };
 
-
+// instantPay
 export const InstantBillPay = {
   apiUrl: {
     Method: 'POST',
@@ -1351,31 +1351,74 @@ export const InstantBillPay = {
     headerTitle: "InstantPay using NTAR service",
     submitButton: 'InatantBill Pay'
   },
-  inputParams: ["X-Ipay-Auth-Code", "X-Ipay-Client-Id", "X-Ipay-Client-Secret", "X-Ipay-Endpoint-Ip"],
+  inputParams: ["cardNumber"],
   bodyParams: "(params)",
-  Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg", "8d57XXX99ac4dXXXXX09011XXXXX"],
-  isDisable: true,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  Inputvalues: ["****************"],
+  // isDisable: true,
+  exampleCurl: `curl --location 'https://api.instantpay.in/payments/payout' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'X-Ipay-Auth-Code: "1' \\
+    --header 'X-Ipay-Client-Id: "YWY3OTAzYzNlM2ExZTJlOTkGFejchO7DwZh09al+5Fc=' \\
+    --header 'X-Ipay-Client-Secret: "13fd431cb97c70eb103842aa8f597f4732f7aee4e0e38272ca69d681a3af7c74' \\
+    --header 'X-Ipay-Endpoint-Ip: "183.82.125.157' \\
     --data '{
-      "panNumber": ""
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "success": true,
-    "data": {
-      "ERROR": "0",
-      "STATUS": "1",
-      "Mobile": "918688571181",
-      "Operator": "Reliance Jio Infocomm Limited",
-      "OpCode": "11",
-      "Circle": "Andhra Pradesh",
-      "CircleCode": "49",
-      "Message": "Successfully"
+    "payer": {
+        "bankId": "",
+        "bankProfileId": "",
+        "accountNumber": "",
+        "name": "Instantpay",
+        "paymentMode": "",
+        "cardNumber": "",
+        "cardSecurityCode": "",
+        "cardExpiry": {
+            "month": "",
+            "year": ""
+        },
+        "referenceNumber": ""
+    },
+    "payee": {
+        "accountNumber": "",
+        "name": "Instantpay"
+    },
+    "transferMode": "",
+    "transferAmount": "",
+    "externalRef": "",
+    "latitude": "",
+    "longitude": "",
+    "remarks": "",
+    "alertEmail": ""
+}'`,
+  exampleResponse:  {
+       statusCode: "TXN",
+       actcode: null,
+      status: "Transaction Successful",
+      data: {
+        externalRef: "XXXXXXXXXXXX",
+        poolReferenceId: "XXXXXXXXXXXX",
+        txnValue: "4.00",
+        txnReferenceId: "XXXXXXXX",
+        pool: {
+          account: "7428XXXXXX42",
+          openingBal: "3697.27",
+          mode: "DR",
+          amount: "9.90",
+          closingBal: "3687.37"
+        },
+        payer: {
+          account: "7428XXXXXX42",
+          name: "Sample Store"
+        },
+        payee: {
+          account: "3798XXXXXXXX2004",
+          name: "Instantpay India Ltd"
+        }
+      },
+      timestamp: "2022-03-15 18:08:13",
+      ipay_uuid: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+      orderid: "XXXXXXXXXXXX",
+      environment: "LIVE",
+      internalCode: null
     }
-  }
 };
 
 

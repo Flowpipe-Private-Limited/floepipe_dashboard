@@ -1,74 +1,200 @@
-/* 
-.DashboardLogo{
-  background-image: url("../assets/images/FlowpipeLogo.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  padding: 18px;
-  margin-right: 5px
-}
-.sidebar-title {
-  font-weight: 700;
-  font-size: 35px;
-  font-style: Konnect
-} */
+/* ============================= */
+/* DASHBOARD LAYOUT BACKGROUND */
+/* ============================= */
 
-.sidebar {
-  @apply w-64 bg-secondary text-white flex flex-col p-6;
+.dashboard-wrapper {
+  background-color: #f8f9fd;
 }
 
-.sidebar-title {
-  @apply text-xl font-bold mb-6;
-}
+/* ============================= */
+/* WALLET CARD */
+/* ============================= */
 
-.sidebar-section-title {
-  @apply text-gray-400 text-xs uppercase mb-2;
-}
-
-.sidebar-item {
-  @apply flex items-center gap-3 px-4 py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-gray-300 hover:bg-white/10 hover:text-white;
-}
-
-.sidebar-item-active {
-  @apply bg-gradient-to-r from-purple-700 to-purple-500 text-white;
-}
-
-.main-content {
-  @apply flex-1 bg-gray-50 p-8 overflow-y-auto;
-}
-
-.top-bar-btn {
-  @apply flex items-center gap-2 border border-primary text-primary px-4 py-2 rounded-md text-sm hover:bg-primary hover:text-white transition;
-}
-
-.add-account-btn {
-  @apply flex items-center gap-2 border border-primary text-primary px-4 py-2 rounded-md mb-5 hover:bg-primary hover:text-white transition;
-}
-.prev-transactions {
-  @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
-}
-
-.prev-transactions-title {
-  @apply text-lg font-semibold mb-3;
-}
-
-.prev-transactions-text {
-  @apply text-center text-gray-500 py-6;
-}
-
-.blogs-grid {
-  @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4;
-}
-
-.blog-card {
-  @apply text-white rounded-xl p-4 shadow hover:shadow-md transition;
+.wallet-card {
   background: linear-gradient(135deg, #7b2cbf 0%, #9d4edd 100%);
+  color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  min-height: 180px;
+  box-shadow: 0 12px 30px rgba(123, 44, 191, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.blog-card-title {
-  @apply font-semibold text-base mb-1;
+.wallet-card-title {
+  font-size: 14px;
+  letter-spacing: 2px;
+  opacity: 0.9;
 }
 
-.blog-card-desc {
-  @apply text-sm opacity-90;
+.wallet-card-amount {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.wallet-card-actions {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+/* ============================= */
+/* STAT CARDS */
+/* ============================= */
+
+.stat-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px 22px;
+  border: 1px solid #eef0f6;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+}
+
+.stat-card-title {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.stat-card-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.stat-card-sub {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 4px;
+}
+
+/* ============================= */
+/* QUICK ACTIONS */
+/* ============================= */
+
+.quick-action-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #eef0f6;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.quick-action-card:hover {
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+}
+
+.quick-action-icon {
+  background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+  color: #fff;
+  height: 44px;
+  width: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.quick-action-title {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.quick-action-desc {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.quick-action-link {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #7b2cbf;
+  font-weight: 500;
+}
+
+/* ============================= */
+/* PROMO RIGHT PANEL */
+/* ============================= */
+
+.promo-panel {
+  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
+  color: #ffffff;
+  border-radius: 18px;
+  padding: 28px;
+  height: 100%;
+  box-shadow: 0 14px 36px rgba(76, 29, 149, 0.35);
+}
+
+.promo-panel-title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.promo-panel-text {
+  font-size: 14px;
+  opacity: 0.95;
+  margin-bottom: 18px;
+}
+
+.promo-store-buttons img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+/* ============================= */
+/* SECTION HEADERS */
+/* ============================= */
+
+.dashboard-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 14px;
+}
+
+/* ============================= */
+/* RECENT ACTIVITY */
+/* ============================= */
+
+.recent-activity {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #eef0f6;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.recent-activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f3f8;
+}
+
+.recent-activity-item:last-child {
+  border-bottom: none;
+}
+
+.recent-activity-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.recent-activity-sub {
+  font-size: 12px;
+  color: #6b7280;
 }

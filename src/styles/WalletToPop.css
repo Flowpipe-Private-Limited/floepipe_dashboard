@@ -1,0 +1,151 @@
+
+.wallet-container {
+  min-height: 100vh;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.wallet-wrapper {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.wallet-card {
+  background: #000;
+  color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.wallet-title {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #cfcfcf;
+}
+
+.wallet-balance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.wallet-balance {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.wallet-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #b6ff00;
+}
+
+.wallet-statement {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #cfcfcf;
+}
+
+
+.add-money-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.add-money-card h3 {
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+
+.upi-input-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.currency {
+  color: #999;
+  margin-right: 6px;
+}
+
+.upi-input-row input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.pay-btn {
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  cursor: pointer;
+}
+
+
+.amount-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.amount-buttons button {
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+.other-ways h3 {
+  color: #6b21a8;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.bank-transfer {
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.bank-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bank-icon {
+  background: #ede9fe;
+  color: #6b21a8;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.arrow {
+  font-size: 20px;
+  color: #aaa;
+}
