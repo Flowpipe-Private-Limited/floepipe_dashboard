@@ -1,17 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/WalletToPop.css";
 
 const WalletToPop = () => {
+  const CLIENT_ID = "CID-3138469996";
+
+  const [balance, setBalance] = useState(0);
+  const [amount, setAmount] = useState("");
+  
+ 
+  const getWalletBalance = async () => {
+    try {
+      const res = await fetch(
+        `http://10.1.1.97:5000/api/v1/apimodule/get-wallte-balance?clientId=${CLIENT_ID}`
+      );
+      const data = await res.json();
+
+      if (data?.success) {
+        setBalance(data?.data?.balance);
+      }
+    } catch (error) {
+      console.error("Failed to fetch wallet balance", error);
+    }
+  };
+
+  useEffect(() => {
+    getWalletBalance();
+  }, []);
+
+
+  const handleTopUp = async () => {
+    if (!amount || amount <= 0) {
+      alert("Please enter a valid amount");
+      return;
+    }
+
+    const payload = {
+      clientId: CLIENT_ID,
+      transactionId: "TNX-" + Date.now(),
+      amount: Number(amount),
+    };
+
+    try {
+      const res = await fetch(
+        "http://10.1.1.97:5000/api/v1/apimodule/wallet-topup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.success) {
+        alert(
+          `Top-up successful!\nCredited: ₹${data.data.creditedAmount}\nGST: ₹${data.data.gstAmount}`
+        );
+
+        setBalance(data.data.remainingBalance);
+        setAmount("");
+      }
+    } catch (error) {
+      console.error("Wallet top-up failed", error);
+    }
+  };
+
   return (
     <div className="wallet-container">
       <div className="wallet-wrapper">
 
-     
         <div className="wallet-card">
-          <p className="wallet-title">APIWALLET</p>
+          <p className="wallet-title">API WALLET</p>
 
           <div className="wallet-balance-row">
-            <h2 className="wallet-balance">₹ 2,465.08</h2>
+            <h2 className="wallet-balance">₹ {balance}</h2>
             <div className="wallet-logo"></div>
           </div>
 
@@ -20,26 +84,29 @@ const WalletToPop = () => {
             <span>View Statement</span>
           </div>
         </div>
-
-       
         <div className="add-money-card">
           <h3>Add Money via UPI</h3>
 
           <div className="upi-input-row">
             <span className="currency">₹</span>
-            <input type="number" placeholder="0.00" />
-            <button className="pay-btn">pay</button>
+            <input
+              type="number"
+              placeholder="0.00"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <button className="pay-btn" onClick={handleTopUp}>
+              Pay
+            </button>
           </div>
 
           <div className="amount-buttons">
-            <button>500</button>
-            <button>1000</button>
-            <button>2000</button>
-            <button>3000</button>
+            <button onClick={() => setAmount(500)}>500</button>
+            <button onClick={() => setAmount(1000)}>1000</button>
+            <button onClick={() => setAmount(2000)}>2000</button>
+            <button onClick={() => setAmount(3000)}>3000</button>
           </div>
         </div>
-
-      
         <div className="other-ways">
           <h3>Other ways to add Money</h3>
 

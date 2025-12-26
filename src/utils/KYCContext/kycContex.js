@@ -1,11 +1,8 @@
-// ErrorResponse
 export const ERROR_RESPONSES = {
   400: { message: "Bad Request", success: false },
   503: { message: "Service Unavailable", success: false },
   504: { message: "Gateway Timeout", success: false }
 };
-// Regex partern
-
 const validationPatterns = [
   {
     key: "mobile",
@@ -68,8 +65,6 @@ const validationPatterns = [
     message: "Enter a valid 6-digit pincode"
   }
 ];
-
-// success Response
 export const Aadhaar = {
   apiUrl: {
     Method: 'Post',
@@ -934,8 +929,6 @@ export const NameMatch = {
     }
   }
 };
-
-// Recharge Responses
 export const RechargeOperators = {
   apiUrl: {
     Method: 'Post',
@@ -1117,7 +1110,6 @@ export const RechargeURL = {
     "success": true
   }
 };
-
 // BBPS Responses
 // export const BBPSServices = {
 //   apiUrl: {
@@ -1153,7 +1145,6 @@ export const RechargeURL = {
 //     } 
 //   }
 // };
-
 export const BBPSCategory = {
   apiUrl: {
     Method: 'Get',
@@ -1337,8 +1328,6 @@ export const BBPSBillQuickPay = {
     }
   }
 };
-
-// instantPay
 export const InstantBillPay = {
   apiUrl: {
     Method: 'POST',
@@ -1355,12 +1344,12 @@ export const InstantBillPay = {
   bodyParams: "(params)",
   Inputvalues: ["****************"],
   // isDisable: true,
-  exampleCurl: `curl --location 'https://api.instantpay.in/payments/payout' \\
+  exampleCurl: `curl --location 'http://localhost:7006/instant/cardPayment' \\
     --header 'Content-Type: application/json' \\
-    --header 'X-Ipay-Auth-Code: "1' \\
-    --header 'X-Ipay-Client-Id: "YWY3OTAzYzNlM2ExZTJlOTkGFejchO7DwZh09al+5Fc=' \\
-    --header 'X-Ipay-Client-Secret: "13fd431cb97c70eb103842aa8f597f4732f7aee4e0e38272ca69d681a3af7c74' \\
-    --header 'X-Ipay-Endpoint-Ip: "183.82.125.157' \\
+    --header 'X-Ipay-Auth-Code: "' \\
+    --header 'X-Ipay-Client-Id: "' \\
+    --header 'X-Ipay-Client-Secret: "' \\
+    --header 'X-Ipay-Endpoint-Ip: "' \\
     --data '{
     "payer": {
         "bankId": "",

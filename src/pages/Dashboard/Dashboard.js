@@ -91,7 +91,7 @@ const sideDashboardConfig = [
       { label: "Quick Pay", href: "/dashboard/bbps/QuickPay", method: "POST" }
     ]
   },
-   {
+  {
     label: "InstantPay",
     icon: Briefcase,
     type: "group",
@@ -114,7 +114,7 @@ export default function DashboardPage() {
     <div className="h-screen w-full flex bg-[#0f0f12]">
       <Sidebar collapsed={collapsed} />
       <div className="flex-1 flex flex-col">
-        <Header onToggle={() => setCollapsed(!collapsed)} onNavigate={(data)=>navigate(data)} data={users} />
+        <Header onToggle={() => setCollapsed(!collapsed)} onNavigate={(data) => navigate(data)} data={users} />
         <main className="flex-1 overflow-y-auto p-6 bg-[#f8f9fd]">
           <Outlet />
         </main>
@@ -253,14 +253,14 @@ function Header({ onToggle, data, onNavigate }) {
       </div>
 
       <div className="flex items-center gap-3">
-        <button className="px-3 py-1.5 text-sm border border-purple-700 text-purple-700 rounded-lg" onClick={()=>onNavigate("/WalletToPop")}>Balance</button>
+        <button className="px-3 py-1.5 text-sm border border-purple-700 text-purple-700 rounded-lg" onClick={() => onNavigate("WalletToPop")}>Balance</button>
         <button className="px-3 py-1.5 text-sm border border-purple-700 text-purple-700 rounded-lg flex items-center gap-1">
           <HelpCircle size={16} /> Help
         </button>
         <button className="px-3 py-1.5 text-sm border border-purple-700 text-purple-700 rounded-lg flex items-center gap-1">
           <Bell size={16} /> Updates
         </button>
-        <button className="relative h-9 w-9 rounded-full border border-purple-700 text-purple-700 flex items-center justify-center" onClick={()=>onNavigate('Profile')}>
+        <button className="relative h-9 w-9 rounded-full border border-purple-700 text-purple-700 flex items-center justify-center" onClick={() => onNavigate('Profile')}>
           <User size={18} />
           {(!data?.IskycApproved || !data?.kycCompleted) && (
             <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-red-600 rounded-full border-2 border-white" />

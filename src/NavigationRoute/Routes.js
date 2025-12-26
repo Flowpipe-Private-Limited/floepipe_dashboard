@@ -33,9 +33,7 @@ import WalletToPop from "../pages/WalletToPop/WalletToPop";
 import InstantPayVerification from "../pages/InstantPay/InstantPay";
 
 const AppRoute = () => {
-
-
-  return (
+return (
     <Router>
       <Routes>
         {/* Landing Page */}
@@ -77,8 +75,9 @@ const AppRoute = () => {
           <Route path="bbps/BillValidation" element={<BbpsBillVallidation />} />
           <Route path="bbps/QuickPay" element={<BbpsBillQuickPay />} />
           <Route path="WalletToPop" element={<WalletToPop />} />
-          <Route path="WalletToPop" element={<WalletToPop />} />
-         
+/         
+         <Route path="Profile" element={<ProfilePage />} />
+
           <Route path="InstantPayVerification" element={<InstantPayVerification />} />
         </Route>
       </Routes>
