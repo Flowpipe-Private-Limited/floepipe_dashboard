@@ -4,6 +4,7 @@ import { VerifyOTP } from "../../utils/Apis/api";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 export default function OtpLogin() {
 
@@ -16,6 +17,9 @@ export default function OtpLogin() {
   const location = useLocation();
   const formData = location.state;
 
+  const token = location.state?.token;
+  const mobileNumber = location.state?.mobileNumber;
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const CORRECT_OTP = "123456";
 
@@ -44,28 +48,58 @@ export default function OtpLogin() {
       }
     }
   };
-
   const handleSubmit = async () => {
-    const fullOtp = otp.join("")
-    setErrorMessage("");
+    const finalOtp = otp.join("");
+    if (!finalOtp || finalOtp.length < 4) {
+      setErrorMessage("Please enter complete OTP");
+      return;
+    }
     setLoading(true);
-    await ApirequestHandler(
-      async () => VerifyOTP({submittedOtp:fullOtp,mobileNumber:formData?.mobileNumber}),
-      setLoading,
-      (res) => {
-        const { token, message,success } = res;
-        console.log('OTP Response:',res, message);
-        if(success){
-          Cookies.set('token',token);
-          navigate('/dashboard');
-        }
-      },
-      (errMessage) => {
-        console.log('Error:', errMessage);
-        setErrorMessage(errMessage);
+    setErrorMessage("");
+    try {
+      console.log("Verifying OTP in registerotp:", finalOtp, "with token:", token);
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/client/login/verify-otp`,
+        { token, otp: finalOtp, "channel": "MOBILE" }
+      );
+      console.log("OTP verification response:", response?.data);
+
+      if (response?.data?.success === true) {
+        Cookies.set('token',token);
+        
+        navigate("/dashboard");
+      } else {
+        setErrorMessage(response.data?.message || "Invalid OTP");
       }
-    )
-  }
+    } catch (error) {
+      console.error("OTP verify API error:", error.response || error);
+      setErrorMessage(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // const handleSubmit = async () => {
+  //   const fullOtp = otp.join("")
+  //   setErrorMessage("");
+  //   setLoading(true);
+  //   await ApirequestHandler(
+  //     async () => VerifyOTP({submittedOtp:fullOtp,mobileNumber:formData?.mobileNumber}),
+  //     setLoading,
+  //     (res) => { 
+  //       const { token, message,success } = res;
+  //       console.log('OTP Response:',res, message);
+  //       if(success){
+  //         Cookies.set('token',token);
+  //         navigate('/dashboard');
+  //       }
+  //     },
+  //     (errMessage) => {
+  //       console.log('Error:', errMessage);
+  //       setErrorMessage(errMessage);
+  //     }
+  //   )
+  // }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0b0b0f] px-4">

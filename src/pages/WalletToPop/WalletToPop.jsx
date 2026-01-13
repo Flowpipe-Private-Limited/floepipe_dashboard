@@ -1,33 +1,40 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/WalletToPop.css";
+import axios from "axios";
 
 const WalletToPop = () => {
-  const CLIENT_ID = "CID-3138469996";
+  const CLIENT_ID = "CID_1766992391408";
 
   const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState("");
-  
- 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const getWalletBalance = async () => {
+    setLoading(true);
+    setError("");
     try {
-      const res = await fetch(
-        `http://10.1.1.97:5000/api/v1/apimodule/get-wallte-balance?clientId=${CLIENT_ID}`
+      const res = await axios.get(
+        `${BASE_URL}/api/v1/apimodule/get-wallte-balance?clientId=${CLIENT_ID}`
       );
-      const data = await res.json();
+      console.log("Wallet API Response:", res);
+      console.log("Wallet API Response:", res.data);
 
-      if (data?.success) {
-        setBalance(data?.data?.balance);
+      if (res.data?.success) {
+        setBalance(res.data?.data?.balance);
+      } else {
+        setError(res.data?.message || "Failed to fetch balance");
       }
-    } catch (error) {
-      console.error("Failed to fetch wallet balance", error);
+    } catch (err) {
+      console.error("Error fetching wallet balance:", err.response || err);
+      setError(err.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
-
   useEffect(() => {
     getWalletBalance();
   }, []);
-
-
   const handleTopUp = async () => {
     if (!amount || amount <= 0) {
       alert("Please enter a valid amount");
@@ -42,7 +49,7 @@ const WalletToPop = () => {
 
     try {
       const res = await fetch(
-        "http://10.1.1.97:5000/api/v1/apimodule/wallet-topup",
+        `${BASE_URL}/api/v1/apimodule/wallet-topup`,
         {
           method: "POST",
           headers: {
@@ -59,14 +66,13 @@ const WalletToPop = () => {
           `Top-up successful!\nCredited: ₹${data.data.creditedAmount}\nGST: ₹${data.data.gstAmount}`
         );
 
-        setBalance(data.data.remainingBalance);
+        setBalance(data?.data?.remainingBalance);
         setAmount("");
       }
     } catch (error) {
       console.error("Wallet top-up failed", error);
     }
   };
-
   return (
     <div className="wallet-container">
       <div className="wallet-wrapper">
@@ -123,5 +129,4 @@ const WalletToPop = () => {
     </div>
   );
 };
-
 export default WalletToPop;
