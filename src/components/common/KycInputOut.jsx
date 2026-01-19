@@ -72,7 +72,7 @@ const KycReuseComponet = ({ data }) => {
         window.PRIVITEKEY = privateKeyPem;
         console.log(finalPayload, publicKeyPem, privateKeyPem);
         if (!IskycApproved || !kycCompleted) {
-            console.log('is trigred')
+            console.log('is trigred') 
             setShowAlert(true);
             return;
         };
@@ -85,7 +85,7 @@ const KycReuseComponet = ({ data }) => {
             (res) => {
                 const { data } = res;
                 console.log(data)
-                setApiResponse(data);
+                setApiResponse(res);
                 setApiErrormessage('');
                 setLoading(false)
             },
@@ -192,7 +192,6 @@ const KycReuseComponet = ({ data }) => {
                                 {apiErrorMessage}
                             </p>
                         )}
-
                         {(!IskycApproved || !kycCompleted) && showAlert && (
                             <div className="relative mt-6 flex items-start gap-3 rounded-lg border border-red-300 bg-red-50 p-4 text-sm text-red-800 shadow-sm">
                                 <svg
@@ -222,7 +221,6 @@ const KycReuseComponet = ({ data }) => {
                                 </button>
                             </div>
                         )}
-
                     </div>
                 </div>
 
@@ -323,7 +321,7 @@ const KycReuseComponet = ({ data }) => {
                                     style={atomOneDark}
                                     className="json-highlighter rounded-lg overflow-hidden"
                                 >
-                                    {JSON.stringify(apiResponse?.message ? apiResponse : selectedExampleCode, null, 2)}
+                                    {JSON.stringify(apiResponse ? apiResponse : selectedExampleCode, null, 2)}
                                 </SyntaxHighlighter>
 
                             </div>

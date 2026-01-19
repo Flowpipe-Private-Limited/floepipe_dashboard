@@ -493,7 +493,7 @@ export const panVerify = {
 export const panAadhaarVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/pan/verify-to-aadhaar",
+    URLS: "http://localhost:7006/pan/verify_to_aadhaar",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -991,13 +991,13 @@ export const RechargePlans = {
     "message": "Success",
     "data": {
       "ERROR": "0",
-      "STATUS": "1",
-      "Mobile": "918688571181",
-      "Operator": "Reliance Jio Infocomm Limited",
-      "OpCode": "11",
-      "Circle": "Andhra Pradesh",
-      "CircleCode": "49",
-      "Message": "Successfully"
+      "STATUS": "0",
+      "Operator": "RELIANCE JIO",
+      "Circle": "AP",
+      "RDATA": {
+        "Popular Plans": []
+      },
+      "MESSAGE": "Operator Plan Successfully"
     },
     "success": true
   }
@@ -1027,13 +1027,13 @@ export const RechargeOldPlans = {
     "message": "Success",
     "data": {
       "ERROR": "0",
-      "STATUS": "1",
-      "Mobile": "918688571181",
-      "Operator": "Reliance Jio Infocomm Limited",
-      "OpCode": "11",
-      "Circle": "Andhra Pradesh",
-      "CircleCode": "49",
-      "Message": "Successfully"
+      "STATUS": "0",
+      "Operator": "RELIANCE JIO",
+      "Circle": "AP",
+      "RDATA": {
+        "Popular Plans": []
+      },
+      "MESSAGE": "Operator Plan Successfully"
     },
     "success": true
   }
@@ -1062,14 +1062,11 @@ export const RechargeOffersPlans = {
   exampleResponse: {
     "message": "Success",
     "data": {
-      "ERROR": "0",
-      "STATUS": "1",
-      "Mobile": "918688571181",
-      "Operator": "Reliance Jio Infocomm Limited",
-      "OpCode": "11",
-      "Circle": "Andhra Pradesh",
-      "CircleCode": "49",
-      "Message": "Successfully"
+      "ERROR": "11",
+      "STATUS": "3",
+      "MOBILENO": "",
+      "RDATA": null,
+      "MESSAGE": "Roffer Check service only availble in Airtel and VI."
     },
     "success": true
   }
