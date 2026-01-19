@@ -4,11 +4,16 @@ import Images from "../../Images/Images";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import { HandleGetOtp } from "../../utils/Apis/api";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
+import Background_Login from "../../components/ui/Background_Folder/Background_Login";
 
 const Login = () => {
   const [Loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     mobileNumber: "",
     email: "",
@@ -68,43 +73,53 @@ const Login = () => {
       },
       (errMessage) => {
         setErrorMessage(errMessage);
-      }
+      },
     );
   };
 
+  // const handleRegister = async () => {
+  //   const { name, email, mobileNumber } = formData;
+
+  //   if (!name || !email || !mobileNumber) {
+  //     setErrorMessage("Please fill all fields");
+  //     return;
+  //   }
+
+  //   setLoading(true);
+  //   setErrorMessage("");
+
+  //   try {
+  //     console.log("Register API called with:", formData);
+  //     const response = await axios.post(`${BASE_URL}/api/v1/client/register`, {
+  //       fullName: name,
+  //       email: email,
+  //       mobile: mobileNumber,
+  //       module: "API_MODULE",
+  //     });
+  //     console.log("Register response:", response?.data);
+
+  //     if (response.data?.success) {
+  //       const clientId = response?.data?.clientId;
+  //       console.log("clientId in handleregister", clientId);
+  //       if (clientId) {
+  //         localStorage.setItem("clientId", clientId);
+
+  //         console.log("Client ID stored in localStorage:", clientId);
+  //       }
+  //       navigate("/login");
+  //     } else {
+  //       setErrorMessage(response.data?.message || "Registration failed");
+  //     }
+  //   } catch (error) {
+  //     console.error("Register API error:", error.response || error);
+  //     setErrorMessage(error.response?.data?.message || "Something went wrong");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   return (
     <>
-      <div>
-        <img
-          src={Images.FlowLoginImage}
-          alt="Flow Login"
-          className="login-background-image"
-        />
-        <div className="lighting-lines">
-          <div className="hrlines-img">
-            <div className="login-divider-lineAn"></div>
-            <div className="login-divider-lineAn"></div>
-            <div className="login-divider-lineAn"></div>
-          </div>
-
-          <div className="hrlines-img2">
-            <div className="login-divider-lineAn2"></div>
-            <div className="login-divider-lineAn2"></div>
-            <div className="login-divider-lineAn2"></div>
-          </div>
-
-          <div className="hrlines-img3">
-            <div className="login-divider-lineAn3"></div>
-            <div className="login-divider-lineAn3"></div>
-            <div className="login-divider-lineAn3"></div>
-          </div>
-
-          <div className="hrlines-img4">
-            <div className="login-divider-lineAn4"></div>
-            <div className="login-divider-lineAn4"></div>
-            <div className="login-divider-lineAn4"></div>
-          </div>
-        </div>
         <div className="login-container">
           <div className="login-card">
             <div className="Image-bg-conatiner">
@@ -114,7 +129,7 @@ const Login = () => {
                 className="login-logo"
               />
             </div>
-            <h2 className="login-title">Register in to flowpipe</h2>
+            <h2 className="login-title">Signup to flowpipe</h2>
             <div className="input-email-password">
               <div>
                 <div className="relative w-full">
@@ -126,7 +141,7 @@ const Login = () => {
                     onChange={HandleFromChange}
                     placeholder=""
                     className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
-               focus:outline-none focus:ring-1 focus:ring-[#424D64]"
+                focus:outline-none focus:ring-1 focus:ring-[#424D64]"
                   />
                   <label
                     htmlFor="mobileNumber"
@@ -195,19 +210,18 @@ const Login = () => {
                 )}
               </div>
             </div>
-<br/>
-            <button className="login-btn-primary" onClick={() => GetOtp()}>
-              Continue
-            </button>
+            <br />
+            <Purple_Button textonchange={"Continue"} onClick={() => GetOtp()} />
             <br />
             <br />
             <div>
-              <button className="back-button-bg-register">
+              <button  onClick={() => navigate(-1)} className="back-button-bg-register">
                 <IoChevronBackOutline />
               </button>
             </div>
           </div>
         </div>
+        <Background_Login/>
         <div className="Video-class">
           <video
             src={Images.loadernew2}
@@ -218,7 +232,6 @@ const Login = () => {
             className="loader-video"
           />
         </div>
-      </div>
     </>
   );
 };

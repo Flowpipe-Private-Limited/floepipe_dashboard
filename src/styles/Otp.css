@@ -5,7 +5,9 @@
 }
 /* Centering background like Figma */
 .otp-bg {
-  @apply min-h-[100vh] w-full bg-black flex items-center justify-center px-4;
+  @apply min-h-[100vh] w-full flex items-center justify-center px-4 ;
+  position: relative;
+    z-index: 1;
 }
 
 /* Main OTP Box */
@@ -55,7 +57,7 @@
 
 /* OTP Input Boxes */
 .otp-input-box {
-  @apply w-12 h-16
+  @apply w-14 h-16
          border border-gray-500
          bg-transparent
          text-white

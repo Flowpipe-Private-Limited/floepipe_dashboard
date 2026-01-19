@@ -3,12 +3,13 @@ import "../../styles/Login.css";
 import logo from "../../assets/images/Asset 41@300x-8.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    mobileNumber: ""
+    mobileNumber: "",
   });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,23 +34,20 @@ const RegisterPage = () => {
 
     try {
       console.log("Register API called with:", formData);
-      const response = await axios.post(
-        `${BASE_URL}/api/v1/client/register`,
-        {
-          fullName: name,
-          email: email,
-          mobile: mobileNumber,
-          module: "API_MODULE"
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/api/v1/client/register`, {
+        fullName: name,
+        email: email,
+        mobile: mobileNumber,
+        module: "API_MODULE",
+      });
       console.log("Register response:", response?.data);
 
       if (response.data?.success) {
         const clientId = response?.data?.clientId;
-        console.log("clientId in handleregister",clientId)
+        console.log("clientId in handleregister", clientId);
         if (clientId) {
           localStorage.setItem("clientId", clientId);
-         
+
           console.log("Client ID stored in localStorage:", clientId);
         }
         navigate("/login");
@@ -98,10 +96,9 @@ const RegisterPage = () => {
         />
 
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-
-        <button className="login-btn-primary" onClick={handleRegister} disabled={loading}>
+        <Purple_Button onClick={handleRegister} disabled={loading}>
           {loading ? "Registering..." : "Register"}
-        </button>
+        </Purple_Button>
       </div>
     </div>
   );

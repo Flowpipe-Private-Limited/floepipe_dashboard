@@ -3,6 +3,8 @@ import "../../styles/Login.css";
 import Images from "../../Images/Images";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
+import Background_Login from "../../components/ui/Background_Folder/Background_Login";
 
 const Create_Pin = () => {
   const [Loading, setLoading] = useState(false);
@@ -46,37 +48,6 @@ const Create_Pin = () => {
 
   return (
     <>
-      <div>
-        <img
-          src={Images.FlowLoginImage}
-          alt="Flow Login"
-          className="login-background-image"
-        />
-        <div className="lighting-lines">
-          <div className="hrlines-img">
-            <div className="login-divider-lineAn"></div>
-            <div className="login-divider-lineAn"></div>
-            <div className="login-divider-lineAn"></div>
-          </div>
-
-          <div className="hrlines-img2">
-            <div className="login-divider-lineAn2"></div>
-            <div className="login-divider-lineAn2"></div>
-            <div className="login-divider-lineAn2"></div>
-          </div>
-
-          <div className="hrlines-img3">
-            <div className="login-divider-lineAn3"></div>
-            <div className="login-divider-lineAn3"></div>
-            <div className="login-divider-lineAn3"></div>
-          </div>
-
-          <div className="hrlines-img4">
-            <div className="login-divider-lineAn4"></div>
-            <div className="login-divider-lineAn4"></div>
-            <div className="login-divider-lineAn4"></div>
-          </div>
-        </div>
         <div className="login-container">
           <div className="login-card-ipin">
             <div className="ipin-arrow">
@@ -123,7 +94,8 @@ const Create_Pin = () => {
               </div>
             </div>
             <br />
-            <button className="login-btn-primary">Confirm</button>
+            <Purple_Button textonchange={"Confirm"} />
+
             <div>
               {/* <button className="back-button-bg-register">
                 <IoChevronBackOutline />
@@ -131,6 +103,7 @@ const Create_Pin = () => {
             </div>
           </div>
         </div>
+        <Background_Login/>
         <div className="Video-class">
           <video
             src={Images.loadernew2}
@@ -141,7 +114,6 @@ const Create_Pin = () => {
             className="loader-video"
           />
         </div>
-      </div>
     </>
   );
 };

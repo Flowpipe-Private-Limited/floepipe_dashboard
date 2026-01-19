@@ -5,6 +5,8 @@ import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import { HandleGetOtp } from "../../utils/Apis/api";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
+import Background_Login from "../../components/ui/Background_Folder/Background_Login";
 
 const Forget_Password = () => {
   const navigate = useNavigate();
@@ -51,7 +53,7 @@ const Forget_Password = () => {
       },
       (errMessage) => {
         setErrorMessage(errMessage);
-      }
+      },
     );
   };
 
@@ -61,106 +63,70 @@ const Forget_Password = () => {
 
   return (
     <>
-      <div>
-        <img
-          src={Images.FlowLoginImage}
-          alt="Flow Login"
-          className="login-background-image"
-        />
-        <div className="lighting-lines">
-          <div className="hrlines-img">
-            <div className="login-divider-lineAn"></div>
-            <div className="login-divider-lineAn"></div>
-            <div className="login-divider-lineAn"></div>
+      <div className="login-container">
+        <div className="login-card">
+          <div className="Image-bg-conatiner">
+            <img src={Images.LoginLogoImg} alt="logo" className="login-logo" />
           </div>
 
-          <div className="hrlines-img2">
-            <div className="login-divider-lineAn2"></div>
-            <div className="login-divider-lineAn2"></div>
-            <div className="login-divider-lineAn2"></div>
-          </div>
-
-          <div className="hrlines-img3">
-            <div className="login-divider-lineAn3"></div>
-            <div className="login-divider-lineAn3"></div>
-            <div className="login-divider-lineAn3"></div>
-          </div>
-
-          <div className="hrlines-img4">
-            <div className="login-divider-lineAn4"></div>
-            <div className="login-divider-lineAn4"></div>
-            <div className="login-divider-lineAn4"></div>
-          </div>
-        </div>
-        <div className="login-container">
-          <div className="login-card">
-            <div className="Image-bg-conatiner">
-              <img
-                src={Images.LoginLogoImg}
-                alt="logo"
-                className="login-logo"
-              />
-            </div>
-
-            <h2 className="login-title">Reset Password</h2>
-            <div className="input-email-password">
-              {/* Email */}
-              <div className="forget-label-input">
-                <label className="forget-label">
-                  Enter your registered email to reset your password.
-                </label>
-                <div className="relative w-full">
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={HandleFromChange}
-                    placeholder=" "
-                    className="peer block w-full px-4 py-2 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
+          <h2 className="login-title">Reset Password</h2>
+          <div className="input-email-password">
+            {/* Email */}
+            <div className="forget-label-input">
+              <label className="forget-label">
+                Enter your registered email to reset your password.
+              </label>
+              <div className="relative w-full">
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={HandleFromChange}
+                  placeholder=" "
+                  className="peer block w-full px-4 py-2 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
                 focus:outline-none focus:ring-1 focus:ring-[#424D64]"
-                  />
-                  <label className="floating-label">Email</label>
-                </div>
-                {errors.email && (
-                  <p className="text-red-400 text-xs">{errors.email}</p>
-                )}
+                />
+                <label className="floating-label">Email</label>
               </div>
-            </div>
-            <br />
-            <br />
-
-            <button
-              className="login-btn-primary"
-              onClick={handleConfirm}
-              disabled={loading}
-            >
-              {loading ? "Please wait..." : "Confirm"}
-            </button>
-            <br />
-            <br />
-            <br />
-            <br />
-            <div>
-              <button
-                className="back-button-bg-register"
-                onClick={() => navigate(-1)}
-              >
-                <IoChevronBackOutline />
-              </button>
+              {errors.email && (
+                <p className="text-red-400 text-xs">{errors.email}</p>
+              )}
             </div>
           </div>
-        </div>
+          <br />
+          <br />
 
-        <div className="Video-class">
-          <video
-            src={Images.loadernew2}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="loader-video"
-          />
+          <Purple_Button
+            textonchange={"Confirm"}
+            onClick={handleConfirm}
+            disabled={loading}
+          >
+            {loading ? "Please wait..." : "Confirm"}
+          </Purple_Button>
+          <br />
+          <br />
+          <br />
+          <br />
+          <div>
+            <button
+              className="back-button-bg-register"
+              onClick={() => navigate(-1)}
+            >
+              <IoChevronBackOutline />
+            </button>
+          </div>
         </div>
+      </div>
+      <Background_Login />
+      <div className="Video-class">
+        <video
+          src={Images.loadernew2}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="loader-video"
+        />
       </div>
     </>
   );

@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import "../../styles/Otp.css";
 import Images from "../../Images/Images";
 import { IoChevronBackOutline } from "react-icons/io5";
+import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
+import Background_Login from "../../components/ui/Background_Folder/Background_Login";
 
 const Forget_Verification = ({onResend }) => {
   const [otp, setOtp] = useState(["", "", "", ""]); // Changed to 4 elements for 4-digit OTP
@@ -130,36 +132,6 @@ const Forget_Verification = ({onResend }) => {
 
   return (
     <div>
-      <img
-        src={Images.FlowLoginImage}
-        alt="Flow Login"
-        className="login-background-image"
-      />
-      <div className="lighting-lines">
-        <div className="hrlines-img">
-          <div className="login-divider-lineAn"></div>
-          <div className="login-divider-lineAn"></div>
-          <div className="login-divider-lineAn"></div>
-        </div>
-
-        <div className="hrlines-img2">
-          <div className="login-divider-lineAn2"></div>
-          <div className="login-divider-lineAn2"></div>
-          <div className="login-divider-lineAn2"></div>
-        </div>
-
-        <div className="hrlines-img3">
-          <div className="login-divider-lineAn3"></div>
-          <div className="login-divider-lineAn3"></div>
-          <div className="login-divider-lineAn3"></div>
-        </div>
-
-        <div className="hrlines-img4">
-          <div className="login-divider-lineAn4"></div>
-          <div className="login-divider-lineAn4"></div>
-          <div className="login-divider-lineAn4"></div>
-        </div>
-      </div>
       <div className="otp-bg">
         <div className="otp-card">
           <div className="Image-bg-conatiner">
@@ -171,7 +143,7 @@ const Forget_Verification = ({onResend }) => {
           </h2>
 
           <div>
-            <p className="text-gray-300 text-xs mb-3 ml-5">
+            <p className="text-gray-300 text-xs mb-3">
               We’ve sent a Verification Code to your registered email, Please
               verify to continue.
             </p>
@@ -210,11 +182,7 @@ const Forget_Verification = ({onResend }) => {
         </span>
       )}
     </div>
-
-          <button className="otp-submit-btn" onClick={handleSubmit}>
-            Continue
-          </button>
-          <br />
+          <Purple_Button textonchange={'Confirm'} onClick={handleSubmit}/>
           <br />
           <br />
           <div>
@@ -224,6 +192,7 @@ const Forget_Verification = ({onResend }) => {
           </div>
         </div>
       </div>
+      <Background_Login/>
       <div className="Video-class">
         <video
           src={Images.loadernew2}

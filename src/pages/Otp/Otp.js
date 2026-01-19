@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import "../../styles/Otp.css";
 import Images from "../../Images/Images";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { useLocation, useNavigate } from "react-router-dom";
+import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
 
 const OtpScreen = ({ navigation }) => {
   const [otp, setOtp] = useState(["", "", "", ""]); // Changed to 4 elements for 4-digit OTP
@@ -13,7 +15,7 @@ const OtpScreen = ({ navigation }) => {
 
   const token = location.state?.token;
   const mobileNumber = location.state?.mobileNumber;
-     const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   if (!token || !mobileNumber) {
     console.warn("Token or mobile number missing, redirecting to login");
@@ -121,31 +123,31 @@ const OtpScreen = ({ navigation }) => {
         alt="Flow Login"
         className="login-background-image"
       />
-        <div className="lighting-lines">
-          <div className="hrlines-img">
-            <div className="login-divider-lineAn"></div>
-            <div className="login-divider-lineAn"></div>
-            <div className="login-divider-lineAn"></div>
-          </div>
-
-          <div className="hrlines-img2">
-            <div className="login-divider-lineAn2"></div>
-            <div className="login-divider-lineAn2"></div>
-            <div className="login-divider-lineAn2"></div>
-          </div>
-
-          <div className="hrlines-img3">
-            <div className="login-divider-lineAn3"></div>
-            <div className="login-divider-lineAn3"></div>
-            <div className="login-divider-lineAn3"></div>
-          </div>
-
-          <div className="hrlines-img4">
-            <div className="login-divider-lineAn4"></div>
-            <div className="login-divider-lineAn4"></div>
-            <div className="login-divider-lineAn4"></div>
-          </div>
+      <div className="lighting-lines">
+        <div className="hrlines-img">
+          <div className="login-divider-lineAn"></div>
+          <div className="login-divider-lineAn"></div>
+          <div className="login-divider-lineAn"></div>
         </div>
+
+        <div className="hrlines-img2">
+          <div className="login-divider-lineAn2"></div>
+          <div className="login-divider-lineAn2"></div>
+          <div className="login-divider-lineAn2"></div>
+        </div>
+
+        <div className="hrlines-img3">
+          <div className="login-divider-lineAn3"></div>
+          <div className="login-divider-lineAn3"></div>
+          <div className="login-divider-lineAn3"></div>
+        </div>
+
+        <div className="hrlines-img4">
+          <div className="login-divider-lineAn4"></div>
+          <div className="login-divider-lineAn4"></div>
+          <div className="login-divider-lineAn4"></div>
+        </div>
+      </div>
       <div className="otp-bg">
         <div className="otp-card">
           <div className="Image-bg-conatiner">
@@ -162,7 +164,7 @@ const OtpScreen = ({ navigation }) => {
               {otp.map(
                 (
                   value,
-                  index // This will now render exactly 4 inputs
+                  index, // This will now render exactly 4 inputs
                 ) => (
                   <input
                     key={index}
@@ -174,7 +176,7 @@ const OtpScreen = ({ navigation }) => {
                     onBlur={() => handleBlur(index)}
                     className={`otp-input-box ${getBorderColorClass(index)}`}
                   />
-                )
+                ),
               )}
             </div>
           </div>
@@ -185,16 +187,10 @@ const OtpScreen = ({ navigation }) => {
             </div>
             <span className="resend-link">Resend OTP</span>
           </div>
-
-          <button className="otp-submit-btn" onClick={handleSubmit}>
-            Submit
-          </button>
-          {/* <p className="signup-text">
-            Don't have an account? <span>Sign up</span>
-          </p> */}
+          <Purple_Button textonchange={"Submit"} onClick={handleSubmit} />
           <br />
           <br />
-<br/>
+          <br />
           <div>
             <button className="back-button-bg-register">
               <IoChevronBackOutline />
@@ -202,16 +198,16 @@ const OtpScreen = ({ navigation }) => {
           </div>
         </div>
       </div>
-       <div className="Video-class">
-           <video
-            src={Images.loadernew2}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="loader-video"
-          />
-        </div>
+      <div className="Video-class">
+        <video
+          src={Images.loadernew2}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="loader-video"
+        />
+      </div>
     </div>
   );
 };
