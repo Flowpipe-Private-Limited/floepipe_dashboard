@@ -1,13 +1,51 @@
 /* otp.css */
-
+.login-background-image {
+  width: 100%;
+  position: absolute;
+}
 /* Centering background like Figma */
 .otp-bg {
-  @apply min-h-screen w-full flex justify-center items-center bg-black relative;
+  @apply min-h-[100vh] w-full bg-black flex items-center justify-center px-4;
 }
 
 /* Main OTP Box */
 .otp-card {
-  @apply w-full max-w-md bg-[#1b1b1d] rounded-2xl p-8 shadow-xl border border-gray-700;
+  @apply w-[22rem] max-w-md bg-[#1b1b1d] rounded-2xl p-8 shadow-xl border border-gray-700;
+  position: relative;
+}
+
+
+.otp-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(#25242f, #131219) padding-box,
+  linear-gradient(
+    var(--angle),
+    #dbc5ff 50%,
+    #424d64 35%,
+    #dbc5ff 50%,
+    #424d64 80%
+  ) border-box;
+  border: 2px solid transparent;
+  animation: rotate 4s linear infinite;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
 }
 
 /* Logo container */
@@ -17,19 +55,34 @@
 
 /* OTP Input Boxes */
 .otp-input-box {
-  @apply w-12 h-12 border border-gray-500 bg-transparent text-white 
-         rounded-lg text-center text-xl outline-none focus:border-purple-500;
+  @apply w-12 h-16
+         border border-gray-500
+         bg-transparent
+         text-white
+         rounded-lg
+         text-center
+         text-xl
+         outline-none
+         transition-all
+         focus:border-[#CCFF00]
+         focus:ring-1
+         focus:ring-[#CCFF00];
 }
-
+.otp-error-text {
+  color: #ff0000;
+  font-size: 0.65rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
 /* Submit Button */
 .otp-submit-btn {
-  @apply w-full py-3 mt-6 rounded-lg font-semibold text-white 
+  @apply w-full py-2 mt-6 rounded-lg font-semibold text-white 
          bg-purple-600 hover:bg-purple-700 transition duration-300;
 }
 
 /* “Resend OTP” */
 .resend-link {
-  @apply text-purple-400 cursor-pointer text-sm ml-2 hover:text-purple-300;
+  @apply text-purple-400 underline text-xs ml-2 hover:text-purple-300;
 }
 
 /* “Sign up” */
@@ -38,4 +91,64 @@
 }
 .signup-text span {
   @apply text-purple-400 cursor-pointer;
+}
+/* Add these to your existing otp.css */
+
+/* ✅ Correct OTP border (Green glow + blur) */
+.otp-input-box.correct-border {
+  border-color: #CCFF00 !important;
+
+  box-shadow:
+    0 0 8px rgba(204, 255, 0, 0.2),
+    0 0 18px rgba(204, 255, 0, 0.2),
+    0 0 30px rgba(204, 255, 0, 0.2);
+
+  filter: blur(0.1px); /* subtle softness */
+}
+
+/* ❌ Error OTP border (Red glow + blur) */
+.otp-input-box.error-border {
+  border-color: #FF0000 !important;
+
+  box-shadow:
+    0 0 8px rgba(255, 0, 0, 0.3),
+    0 0 18px rgba(249, 172, 172, 0.2),
+    0 0 30px rgba(249, 172, 172, 0.2);
+
+  filter: blur(0.1px); /* subtle softness */
+}
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 8px rgba(204,255,0,0.4); }
+  50% { box-shadow: 0 0 20px rgba(204,255,0,0.7); }
+  100% { box-shadow: 0 0 8px rgba(204,255,0,0.4); }
+}
+
+.otp-input-box.correct-border {
+  /* animation: glowPulse 1.5s infinite; */
+}
+
+
+/* Typing/Active border color */
+.otp-input-box.typing-border {
+  border-color: #7C3AED !important;
+  box-shadow: 0 0 0 1px #7C3AED;
+}
+
+/* Override default focus styles when we have custom states */
+.otp-input-box.correct-border:focus,
+.otp-input-box.error-border:focus,
+.otp-input-box.typing-border:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px currentColor;
+   border-color: #7C3AED !important;
+}
+
+/* Make sure error text is visible */
+.otp-error-text {
+  color: #FF0000;
+  font-size: 0.7rem;
+  margin-bottom: 0.75rem;
+  text-align: left;
+  display: block;
+  min-height: 1.2rem;
 }

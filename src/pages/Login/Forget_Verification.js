@@ -3,11 +3,36 @@ import "../../styles/Otp.css";
 import Images from "../../Images/Images";
 import { IoChevronBackOutline } from "react-icons/io5";
 
-const OtpScreen = ({ navigation }) => {
+const Forget_Verification = ({onResend }) => {
   const [otp, setOtp] = useState(["", "", "", ""]); // Changed to 4 elements for 4-digit OTP
   const [otpError, setOtpError] = useState("");
   const [inputStates, setInputStates] = useState(["", "", "", ""]); // Track border colors for each input (4 elements)
   const inputRefs = useRef([]);
+  const [seconds, setSeconds] = useState(45);
+  const [canResend, setCanResend] = useState(false);
+
+  useEffect(() => {
+    if (canResend) return;
+
+    const timer = setInterval(() => {
+      setSeconds((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setCanResend(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [canResend]);
+
+  const handleResend = () => {
+    setSeconds(45);
+    setCanResend(false);
+    onResend && onResend();
+  };
 
   // Function to update border colors
   const updateInputState = (index, state) => {
@@ -110,31 +135,31 @@ const OtpScreen = ({ navigation }) => {
         alt="Flow Login"
         className="login-background-image"
       />
-        <div className="lighting-lines">
-          <div className="hrlines-img">
-            <div className="login-divider-lineAn"></div>
-            <div className="login-divider-lineAn"></div>
-            <div className="login-divider-lineAn"></div>
-          </div>
-
-          <div className="hrlines-img2">
-            <div className="login-divider-lineAn2"></div>
-            <div className="login-divider-lineAn2"></div>
-            <div className="login-divider-lineAn2"></div>
-          </div>
-
-          <div className="hrlines-img3">
-            <div className="login-divider-lineAn3"></div>
-            <div className="login-divider-lineAn3"></div>
-            <div className="login-divider-lineAn3"></div>
-          </div>
-
-          <div className="hrlines-img4">
-            <div className="login-divider-lineAn4"></div>
-            <div className="login-divider-lineAn4"></div>
-            <div className="login-divider-lineAn4"></div>
-          </div>
+      <div className="lighting-lines">
+        <div className="hrlines-img">
+          <div className="login-divider-lineAn"></div>
+          <div className="login-divider-lineAn"></div>
+          <div className="login-divider-lineAn"></div>
         </div>
+
+        <div className="hrlines-img2">
+          <div className="login-divider-lineAn2"></div>
+          <div className="login-divider-lineAn2"></div>
+          <div className="login-divider-lineAn2"></div>
+        </div>
+
+        <div className="hrlines-img3">
+          <div className="login-divider-lineAn3"></div>
+          <div className="login-divider-lineAn3"></div>
+          <div className="login-divider-lineAn3"></div>
+        </div>
+
+        <div className="hrlines-img4">
+          <div className="login-divider-lineAn4"></div>
+          <div className="login-divider-lineAn4"></div>
+          <div className="login-divider-lineAn4"></div>
+        </div>
+      </div>
       <div className="otp-bg">
         <div className="otp-card">
           <div className="Image-bg-conatiner">
@@ -142,11 +167,14 @@ const OtpScreen = ({ navigation }) => {
           </div>
 
           <h2 className="text-center text-white text-l font-Medium mb-6">
-            Sign in to flowpipe
+            Reset Password
           </h2>
 
           <div>
-            <p className="text-gray-300 text-sm mb-3 ml-5">Enter the OTP</p>
+            <p className="text-gray-300 text-xs mb-3 ml-5">
+              We’ve sent a Verification Code to your registered email, Please
+              verify to continue.
+            </p>
             <div className="flex justify-center gap-5 mb-3">
               {otp.map(
                 (
@@ -167,23 +195,28 @@ const OtpScreen = ({ navigation }) => {
               )}
             </div>
           </div>
+         <div className="flex justify-end mb-3 items-center">
+      <div className="flex-1">
+        {otpError && <p className="otp-error-text-forget">{otpError}</p>}
+      </div>
 
-          <div className="flex justify-end mb-3">
-            <div className="flex-1">
-              {otpError && <p className="otp-error-text">{otpError}</p>}
-            </div>
-            <span className="resend-link">Resend OTP</span>
-          </div>
+      {canResend ? (
+        <span className="resend-link" onClick={handleResend}>
+          Resend OTP
+        </span>
+      ) : (
+        <span className="resend-timer">
+          Resend in {seconds}s
+        </span>
+      )}
+    </div>
 
           <button className="otp-submit-btn" onClick={handleSubmit}>
-            Submit
+            Continue
           </button>
-          {/* <p className="signup-text">
-            Don't have an account? <span>Sign up</span>
-          </p> */}
           <br />
           <br />
-<br/>
+          <br />
           <div>
             <button className="back-button-bg-register">
               <IoChevronBackOutline />
@@ -191,18 +224,18 @@ const OtpScreen = ({ navigation }) => {
           </div>
         </div>
       </div>
-       <div className="Video-class">
-           <video
-            src={Images.loadernew2}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="loader-video"
-          />
-        </div>
+      <div className="Video-class">
+        <video
+          src={Images.loadernew2}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="loader-video"
+        />
+      </div>
     </div>
   );
 };
 
-export default OtpScreen;
+export default Forget_Verification;

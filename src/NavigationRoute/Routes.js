@@ -19,6 +19,12 @@ import AadhaarVerifyPage from "../pages/Aadhaar/AadhaarVerify";
 import { BbpsBillerInfoPage, BbpsBillFetch, BbpsBillPay, BbpsBillQuickPay, BbpsBillVallidation, BbpsCategoryPage } from "../pages/BBPS/Bbps";
 import Otp from "../pages/Otp/Otp";
 import Login from "../pages/Login/Login";
+import Register_Form from "../pages/Login/Register_Form";
+import Create_Pin from "../pages/Login/Create_Pin";
+import Loginwith_Email from "../pages/Login/Loginwith_Email";
+import Forget_Password from "../pages/Login/Forget_Password";
+import Forget_Verification from "../pages/Login/Forget_Verification";
+import New_Password from "../pages/Login/New_Password"
 import Whitelistapis from "../pages/IpAccess/IpAccess";
 import TestingKeys from "../pages/keys/TestingKeys";
 import MainDashboardPage from "../pages/MainPage/MainPage";
@@ -31,7 +37,13 @@ const AppRoute = () => {
       <Routes>
         <Route path="/" element={<MainDashboardPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register_form" element={<Register_Form />} />
+        <Route path="/create_pin" element={<Create_Pin />} />
         <Route path="/otpVerify" element={<Otp />} />
+        <Route path="/Loginwith_Email" element={<Loginwith_Email />} />
+        <Route path="/Forget_Password" element={<Forget_Password/>}/>
+        <Route path="/Forget_Verification" element={<Forget_Verification/>}/>
+        <Route path="/New_Password" element={<New_Password/>}/>
         <Route path="/dashboard" element={<Dashboard />} >
           <Route index element={<MainContent />} />
           <Route path="apiKeys" element={<ApiKeys />} />
