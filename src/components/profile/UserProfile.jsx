@@ -17,6 +17,7 @@ const Settings = () => (
 export default function ProfilePage() {
     const [activeTab, setActiveTab] = useState("basic");
     const { users, IskycApproved, kycCompleted, updateUsers } = useUserStore();
+    console.log('user Data', users)
 
     const handleLogout = () => {
         console.log("User logged out");

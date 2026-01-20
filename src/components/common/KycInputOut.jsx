@@ -71,11 +71,11 @@ const KycReuseComponet = ({ data }) => {
         const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair()
         window.PRIVITEKEY = privateKeyPem;
         console.log(finalPayload, publicKeyPem, privateKeyPem);
-        if (!IskycApproved || !kycCompleted) {
-            console.log('is trigred') 
-            setShowAlert(true);
-            return;
-        };
+        // if (!IskycApproved || !kycCompleted) {
+        //     console.log('is trigred') 
+        //     setShowAlert(true);
+        //     return;
+        // };
         setApiErrormessage('');
         setLoading(true);
 

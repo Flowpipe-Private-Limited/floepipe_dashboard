@@ -8,11 +8,13 @@ import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
 import Background_Login from "../../components/ui/Background_Folder/Background_Login";
+import axios from "axios";
 
 const Login = () => {
   const [Loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({});
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const navigate = useNavigate();
 
   const HandleFromChange = (e) => {
@@ -29,23 +31,65 @@ const Login = () => {
     navigate("/Register_Form");
   };
 
+  // const GetOtp = async () => {
+  //   setErrorMessage("");
+  //   setLoading(true);
+  //   await ApirequestHandler(
+  //     async () => HandleGetOtp(formData),
+  //     setLoading,
+  //     (res) => {
+  //       const { data, message } = res;
+  //       if (message === "OTP sent to 8688571181") {
+  //       }
+  //       console.log("OTP Response:", message);
+  //     },
+  //     (errMessage) => {
+  //       console.log("Error:", errMessage);
+  //       setErrorMessage(errMessage);
+  //     },
+  //   );
+  // };
+
   const GetOtp = async () => {
-    setErrorMessage("");
+    if (!formData?.mobileNumber) {
+      setErrorMessage("Please enter mobile number");
+      return;
+    }
     setLoading(true);
-    await ApirequestHandler(
-      async () => HandleGetOtp(formData),
-      setLoading,
-      (res) => {
-        const { data, message } = res;
-        if (message === "OTP sent to 8688571181") {
+    setErrorMessage("");
+    try {
+      console.log("Login API called with mobile:", formData?.mobileNumber);
+      const clientId = localStorage.getItem("clientId");
+      console.log("clientId in handleLogin", clientId);
+      if (!clientId) {
+        setErrorMessage("Client ID not found. Please register first.");
+        setLoading(false);
+        return;
+      }
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/client/login/send-otp`,
+        {
+          identifier: formData?.mobileNumber,
+          channel: "MOBILE",
+          clientId
         }
-        console.log("OTP Response:", message);
-      },
-      (errMessage) => {
-        console.log("Error:", errMessage);
-        setErrorMessage(errMessage);
-      },
-    );
+      );
+      console.log("Login response:", response?.data);
+
+      if (response.data?.success) {
+
+        const token = response?.data?.token;
+        console.log("Received token:", token);
+        navigate("/otpVerify", { state: { token, mobileNumber:formData?.mobileNumber } });
+      } else {
+        setErrorMessage(response.data?.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login API error:", error.response || error);
+      setErrorMessage(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

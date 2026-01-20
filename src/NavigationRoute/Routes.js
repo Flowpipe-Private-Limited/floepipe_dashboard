@@ -39,7 +39,7 @@ import WalletToPop from "../pages/WalletToPop/WalletToPop";
 import InstantPayVerification from "../pages/InstantPay/InstantPay";
 
 const AppRoute = () => {
-return (
+  return (
     <Router>
       <Routes>
         {/* Landing Page */}
@@ -50,18 +50,22 @@ return (
         <Route path="/Register" element={<IsLoginUser><RegisterPage /></IsLoginUser>} />
         <Route path="/loginOtp" element={<IsLoginUser ><OtpLogin /></IsLoginUser>} /> */}
 
-        {/* User DashBoard Routes */}
-        <Route path="/dashboard" element={<ProtectionRoute ><Dashboard /></ProtectionRoute>} />
+
+
         <Route path="/login" element={<Login />} />
         <Route path="/register_form" element={<Register_Form />} />
         <Route path="/create_pin" element={<Create_Pin />} />
         <Route path="/otpVerify" element={<Otp />} />
         <Route path="/Loginwith_Email" element={<Loginwith_Email />} />
-        <Route path="/Forget_Password" element={<Forget_Password/>}/>
-        <Route path="/Forget_Verification" element={<Forget_Verification/>}/>
-        <Route path="/New_Password" element={<New_Password/>}/>
-        <Route path="/dashboard" element={<Dashboard />} >
+        <Route path="/Forget_Password" element={<Forget_Password />} />
+        <Route path="/Forget_Verification" element={<Forget_Verification />} />
+        <Route path="/New_Password" element={<New_Password />} />
+
+        {/* User DashBoard Routes */}
+        <Route path="/dashboard" element={<ProtectionRoute ><Dashboard /></ProtectionRoute>} >
+          {/* <Route path="/dashboard" element={<Dashboard />}> */}
           <Route index element={<MainContent />} />
+          <Route path="Profile" element={<ProfilePage />} />
           <Route path="apiKeys" element={<ApiKeys />} />
           <Route path="WhitelistIP" element={<WhiteListIP />} />
           <Route path="KYC/aadhaar" element={<AadhaarVerifyPage />} />
@@ -90,8 +94,8 @@ return (
           <Route path="bbps/BillValidation" element={<BbpsBillVallidation />} />
           <Route path="bbps/QuickPay" element={<BbpsBillQuickPay />} />
           <Route path="WalletToPop" element={<WalletToPop />} />
-/         
-         <Route path="Profile" element={<ProfilePage />} />
+
+
 
           <Route path="InstantPayVerification" element={<InstantPayVerification />} />
         </Route>
