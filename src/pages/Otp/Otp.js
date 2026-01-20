@@ -4,6 +4,8 @@ import Images from "../../Images/Images";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
 import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
+import axios from "axios";
+import Cookies from 'js-cookie'
 
 const OtpScreen = ({ navigation }) => {
   const [otp, setOtp] = useState(["", "", "", ""]); // Changed to 4 elements for 4-digit OTP
@@ -12,6 +14,8 @@ const OtpScreen = ({ navigation }) => {
   const inputRefs = useRef([]);
   const navigate = useNavigate();
   const location = useLocation();
+  const [Loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const token = location.state?.token;
   const mobileNumber = location.state?.mobileNumber;
@@ -67,38 +71,69 @@ const OtpScreen = ({ navigation }) => {
     }
   };
 
-  const handleSubmit = async () => {
-    const finalOtp = otp.join("");
+  // const handleSubmit = async () => {
+  //   const finalOtp = otp.join("");
 
-    if (finalOtp.length !== 4) {
-      // Changed to 4
-      setOtpError("Sorry! OTP is invalid, Please try again.");
-      // Set all inputs to error state
-      const newStates = ["error", "error", "error", "error"]; // 4 elements
-      setInputStates(newStates);
-      return;
-    }
+  //   if (finalOtp.length !== 4) {
+  //     // Changed to 4
+  //     setOtpError("Sorry! OTP is invalid, Please try again.");
+  //     // Set all inputs to error state
+  //     const newStates = ["error", "error", "error", "error"]; // 4 elements
+  //     setInputStates(newStates);
+  //     return;
+  //   }
 
-    // 🔴 Example incorrect OTP check (replace with API)
-    if (finalOtp !== "1234") {
-      // Changed to 4-digit check
-      setOtpError("Sorry! OTP is invalid, Please try again.");
-      // Set all inputs to error state
-      const newStates = ["error", "error", "error", "error"]; // 4 elements
-      setInputStates(newStates);
-      return;
-    }
+  //   // 🔴 Example incorrect OTP check (replace with API)
+  //   if (finalOtp !== "1234") {
+  //     // Changed to 4-digit check
+  //     setOtpError("Sorry! OTP is invalid, Please try again.");
+  //     // Set all inputs to error state
+  //     const newStates = ["error", "error", "error", "error"]; // 4 elements
+  //     setInputStates(newStates);
+  //     return;
+  //   }
 
-    // If OTP is correct
-    setOtpError("");
-    const newStates = ["correct", "correct", "correct", "correct"]; // 4 elements
-    setInputStates(newStates);
+  //   // If OTP is correct
+  //   setOtpError("");
+  //   const newStates = ["correct", "correct", "correct", "correct"]; // 4 elements
+  //   setInputStates(newStates);
 
-    console.log("Submitted OTP:", finalOtp);
-    // navigation.navigate("Maindashboard");
-  };
+  //   console.log("Submitted OTP:", finalOtp);
+  //   // navigation.navigate("Maindashboard");
+  // };
 
   // Reset input states when OTP error is cleared
+  const handleSubmit = async () => {
+    const finalOtp = otp.join("");
+    if (!finalOtp || finalOtp.length < 4) {
+      setErrorMessage("Please enter complete OTP");
+      return;
+    }
+    setLoading(true);
+    setErrorMessage("");
+    try {
+      console.log("Verifying OTP in registerotp:", finalOtp, "with token:", token);
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/client/login/verify-otp`,
+        { token, otp: finalOtp, "channel": "MOBILE" }
+      );
+      console.log("OTP verification response:", response?.data);
+
+      if (response?.data?.success === true) {
+        Cookies.set('token', token);
+
+        navigate("/dashboard");
+      } else {
+        setErrorMessage(response.data?.message || "Invalid OTP");
+      }
+    } catch (error) {
+      console.error("OTP verify API error:", error.response || error);
+      setErrorMessage(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!otpError && otp.join("").length === 4) {
       // Changed to 4

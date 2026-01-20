@@ -135,7 +135,6 @@ export async function decryptServerResponse({ encryptedKey, data, iv, tag }, cli
   return JSON.parse(new TextDecoder().decode(decryptedBuffer));
 }
 
-
 function pemToArrayBuffer(pem) {
   // Remove header, footer, and line breaks
   const base64 = pem
