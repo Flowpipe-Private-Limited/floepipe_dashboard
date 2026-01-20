@@ -20,12 +20,28 @@ const Login = () => {
     pan: "",
   });
 
+  // const HandleFromChange = (e) => {
+  //   const { name, value } = e.target;
+
+  //   setFormData({
+  //     ...formData,
+  //     [name]: name === "pan" ? value.toUpperCase() : value,
+  //   });
+
+  //   setErrors({ ...errors, [name]: "" });
+  // };
+
   const HandleFromChange = (e) => {
     const { name, value } = e.target;
 
     setFormData({
       ...formData,
-      [name]: name === "pan" ? value.toUpperCase() : value,
+      [name]:
+        name === "mobileNumber"
+          ? value.replace(/\D/g, "") // Remove ALL non-digit characters
+          : name === "pan"
+            ? value.toUpperCase()
+            : value,
     });
 
     setErrors({ ...errors, [name]: "" });
@@ -120,118 +136,144 @@ const Login = () => {
 
   return (
     <>
-        <div className="login-container">
-          <div className="login-card">
-            <div className="Image-bg-conatiner">
-              <img
-                src={Images.LoginLogoImg}
-                alt="logo"
-                className="login-logo"
-              />
-            </div>
-            <h2 className="login-title">Signup to flowpipe</h2>
-            <div className="input-email-password">
-              <div>
-                <div className="relative w-full">
-                  <input
-                    type="tel"
-                    name="mobileNumber"
-                    maxLength={10}
-                    value={formData.mobileNumber}
-                    onChange={HandleFromChange}
-                    placeholder=""
-                    className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
-                focus:outline-none focus:ring-1 focus:ring-[#424D64]"
-                  />
-                  <label
-                    htmlFor="mobileNumber"
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base transition-all duration-200
-               peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-[0.8rem]
-               peer-focus:top-0 peer-focus:-translate-y--10 peer-focus:text-[#424D64] peer-focus:text-sm peer-valid:bg-[#181818]"
-                  >
-                    Mobile Number
-                  </label>
-                </div>
-                {errors.mobileNumber && (
-                  <p className="text-red-400 text-xs mt-1">
-                    {errors.mobileNumber}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <div className="relative w-full">
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={HandleFromChange}
-                    placeholder=" "
-                    className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
-               focus:outline-none focus:ring-1 focus:ring-[#424D64]"
-                  />
-                  <label
-                    htmlFor="email"
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base transition-all duration-200
-               peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-[0.8rem]
-               peer-focus:top-0 peer-focus:-translate-y--10 peer-focus:text-[#424D64] peer-focus:text-sm peer-valid:bg-[#181818]"
-                  >
-                    Email
-                  </label>
-                </div>
-                {errors.email && (
-                  <p className="text-red-400 text-xs mt-1">{errors.email}</p>
-                )}
-              </div>
-
-              <div>
-                <div className="relative w-full">
-                  <input
-                    type="text"
-                    name="pan"
-                    value={formData.pan}
-                    maxLength={10}
-                    onChange={HandleFromChange}
-                    placeholder=" "
-                    className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
-               focus:outline-none focus:ring-1 focus:ring-[#424D64]"
-                  />
-                  <label
-                    htmlFor="pan"
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base transition-all duration-200
-               peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-[0.8rem]
-               peer-focus:top-0 peer-focus:-translate-y--10 peer-focus:text-[#424D64] peer-focus:text-sm peer-valid:bg-[#181818]"
-                  >
-                    PAN
-                  </label>
-                </div>
-                {errors.pan && (
-                  <p className="text-red-400 text-xs mt-1">{errors.pan}</p>
-                )}
-              </div>
-            </div>
-            <br />
-            <Purple_Button textonchange={"Continue"} onClick={() => GetOtp()} />
-            <br />
-            <br />
+      <div className="login-container">
+        <div className="login-card">
+          <div className="Image-bg-conatiner">
+            <img src={Images.LoginLogoImg} alt="logo" className="login-logo" />
+          </div>
+          <h2 className="login-title">Signup to flowpipe</h2>
+          <div className="input-email-password">
             <div>
-              <button  onClick={() => navigate(-1)} className="back-button-bg-register">
-                <IoChevronBackOutline />
-              </button>
+              <div className="relative w-full">
+                <input
+                  type="tel"
+                  name="mobileNumber"
+                  maxLength={10}
+                  value={formData.mobileNumber}
+                  onChange={HandleFromChange}
+                  onKeyDown={(e) => {
+                    // Allow: backspace, delete, tab, escape, enter, arrows
+                    const allowedKeys = [
+                      "Backspace",
+                      "Delete",
+                      "Tab",
+                      "Escape",
+                      "Enter",
+                      "ArrowLeft",
+                      "ArrowRight",
+                      "ArrowUp",
+                      "ArrowDown",
+                    ];
+
+                    // If key is not a number and not an allowed control key, prevent it
+                    if (!/^\d$/.test(e.key) && !allowedKeys.includes(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
+                  onPaste={(e) => {
+                    // Handle paste: only allow numbers
+                    const pastedText = e.clipboardData.getData("text");
+                    if (!/^\d+$/.test(pastedText)) {
+                      e.preventDefault();
+                    }
+                  }}
+                  placeholder=""
+                  className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
+                focus:outline-none focus:ring-1 focus:ring-[#424D64]"
+                />
+                <label
+                  htmlFor="mobileNumber"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base transition-all duration-200
+               peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-[0.8rem]
+               peer-focus:top-0 peer-focus:-translate-y--10 peer-focus:text-[#424D64] peer-focus:text-sm peer-valid:bg-[#181818]"
+                >
+                  Mobile Number
+                </label>
+              </div>
+              {errors.mobileNumber && (
+                <p className="text-red-400 text-xs mt-1">
+                  {errors.mobileNumber}
+                </p>
+              )}
             </div>
+
+            <div>
+              <div className="relative w-full">
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={HandleFromChange}
+                  placeholder=" "
+                  className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
+               focus:outline-none focus:ring-1 focus:ring-[#424D64]"
+                />
+                <label
+                  htmlFor="email"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base transition-all duration-200
+               peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-[0.8rem]
+               peer-focus:top-0 peer-focus:-translate-y--10 peer-focus:text-[#424D64] peer-focus:text-sm peer-valid:bg-[#181818]"
+                >
+                  Email
+                </label>
+              </div>
+              {errors.email && (
+                <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+              )}
+            </div>
+
+            <div>
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  name="pan"
+                  value={formData.pan}
+                  maxLength={10}
+                  onChange={HandleFromChange}
+                  placeholder=" "
+                  className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
+               focus:outline-none focus:ring-1 focus:ring-[#424D64]"
+                />
+                <label
+                  htmlFor="pan"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base transition-all duration-200
+               peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-[0.8rem]
+               peer-focus:top-0 peer-focus:-translate-y--10 peer-focus:text-[#424D64] peer-focus:text-sm peer-valid:bg-[#181818]"
+                >
+                  PAN
+                </label>
+              </div>
+              {errors.pan && (
+                <p className="text-red-400 text-xs mt-1">{errors.pan}</p>
+              )}
+            </div>
+
+          </div>
+          <br />
+          <Purple_Button textonchange={"Continue"} onClick={() => GetOtp()} />
+          <br />
+          <br />
+          <div>
+            <button
+              onClick={() => navigate(-1)}
+              className="back-button-bg-register"
+            >
+              <IoChevronBackOutline />
+            </button>
           </div>
         </div>
-        <Background_Login/>
-        <div className="Video-class">
-          <video
-            src={Images.loadernew2}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="loader-video"
-          />
-        </div>
+      </div>
+      <Background_Login />
+      <div className="Video-class">
+        <video
+          src={Images.loadernew2}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="loader-video"
+        />
+      </div>
     </>
   );
 };

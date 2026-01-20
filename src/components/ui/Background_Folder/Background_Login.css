@@ -269,11 +269,6 @@
          transition-colors duration-200
          hover:text-purple-300;
 }
-.input-email-password {
-  display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
-}
 
 /* forget_password css */
 .forget-label-input {

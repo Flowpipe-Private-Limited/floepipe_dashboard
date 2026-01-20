@@ -89,7 +89,7 @@ const Forget_Password = () => {
                 <label className="floating-label">Email</label>
               </div>
               {errors.email && (
-                <p className="text-red-400 text-xs">{errors.email}</p>
+                <p className="text-red-400 text-xs mt-1">{errors.email}</p>
               )}
             </div>
           </div>

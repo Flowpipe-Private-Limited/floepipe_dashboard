@@ -29,7 +29,7 @@
 
 /* ===== Apply globally ===== */
 body, #root {
-  font-family: "Figtree", sans-serif;
+  font-family: "Figtree";
   margin: 0;
   color: #fff;
   -webkit-font-smoothing: antialiased;

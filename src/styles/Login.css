@@ -413,7 +413,7 @@
 .input-email-password {
   display: flex;
   flex-direction: column;
-  gap: 1.3rem;
+  gap: 1rem;
 }
 
 /* forget_password css */

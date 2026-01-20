@@ -18,7 +18,13 @@ const Login = () => {
   const HandleFromChange = (e) => {
     const formName = e.target.name;
     const formValue = e.target.value;
-    setFormData({ ...formData, [formName]: formValue });
+
+    // Only update if the value is a number or empty
+    if (formValue === "" || /^\d+$/.test(formValue)) {
+      setFormData({ ...formData, [formName]: formValue });
+    }
+    // Optionally: prevent default behavior to block non-numeric input
+    e.target.value = e.target.value.replace(/[^0-9]/g, "");
   };
 
   const handleNavigateEmail = () => {
@@ -63,7 +69,15 @@ const Login = () => {
               name="mobileNumber"
               maxLength={10}
               placeholder=" "
-              onChange={(e) => HandleFromChange(e)}
+              // onChange={(e) => HandleFromChange(e)}
+              onChange={HandleFromChange}
+              onKeyPress={(e) => {
+                // Prevent non-numeric key presses
+                if (!/[0-9]/.test(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+              pattern="[0-9]*"
               className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
                focus:outline-none focus:ring-1 focus:ring-[#424D64]"
             />
@@ -86,7 +100,7 @@ const Login = () => {
           <div className="Login-two-buttons">
             <button className="login-btn-google">
               <span
-                style={{ fontWeight: "700", fontSize: "24px" }}
+                style={{ fontWeight: "700", fontSize: "22px" }}
                 className="text-lg"
               >
                 <FaGoogle />
@@ -96,7 +110,7 @@ const Login = () => {
 
             <button onClick={handleNavigateEmail} className="login-btn-google">
               <span
-                style={{ fontWeight: "700", fontSize: "27px" }}
+                style={{ fontWeight: "700", fontSize: "25px" }}
                 className="text-lg"
               >
                 <CiMail />
