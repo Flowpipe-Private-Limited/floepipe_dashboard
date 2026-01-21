@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "flowpipe API",
+  "name": "Create flowpipe API Sample",
   "icons": [
     {
       "src": "favicon.ico",

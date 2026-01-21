@@ -18,6 +18,8 @@ const Login = () => {
     mobileNumber: "",
     email: "",
     pan: "",
+    panName: "",
+
   });
 
   // const HandleFromChange = (e) => {
@@ -69,6 +71,10 @@ const Login = () => {
       newErrors.pan = "PAN number is required";
     } else if (!panRegex.test(formData.pan)) {
       newErrors.pan = "PAN format: ABCDE1234F";
+    }
+
+    if (!formData.panName) {
+      newErrors.panName = "Name is required";
     }
 
     setErrors(newErrors);
@@ -222,7 +228,7 @@ const Login = () => {
               )}
             </div>
 
-            <div>
+            {/* <div>
               <div className="relative w-full">
                 <input
                   type="text"
@@ -246,6 +252,31 @@ const Login = () => {
               {errors.pan && (
                 <p className="text-red-400 text-xs mt-1">{errors.pan}</p>
               )}
+            </div> */}
+
+                 <div>
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  name="panName"
+                  value={formData.panName}
+                  onChange={HandleFromChange}
+                  placeholder=" "
+                  className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
+               focus:outline-none focus:ring-1 focus:ring-[#424D64]"
+                />
+                <label
+                  htmlFor="pan"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base transition-all duration-200
+               peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-[0.8rem]
+               peer-focus:top-0 peer-focus:-translate-y--10 peer-focus:text-[#424D64] peer-focus:text-sm peer-valid:bg-[#181818]"
+                >
+                 Name
+                </label>
+              </div>
+              {errors.pan && (
+                <p className="text-red-400 text-xs mt-1">{errors.panName}</p>
+              )}
             </div>
 
           </div>
@@ -263,7 +294,9 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <Background_Login />
+         <div className="desktop-background">
+          <Background_Login />
+        </div>
       <div className="Video-class">
         <video
           src={Images.loadernew2}

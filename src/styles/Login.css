@@ -14,45 +14,27 @@
   padding: 1rem;
   position: relative;
 }
-
 .login-card {
   position: relative;
   width: 100%;
   max-width: 380px;
-  background: #181818;
+  background: transparent;
   padding: 1.8rem;
   border-radius: 16px;
   z-index: 2;
-
-  box-shadow:
-    inset 0 2px 12px rgba(38, 38, 38, 0.25),
-    0 25px 50px -12px rgba(0, 0, 0, 0.45);
 }
-
 .login-card::before {
   content: "";
   position: absolute;
-  inset: -2px;
+  inset: 1px;
   border-radius: inherit;
-  /* background: linear-gradient(#25242f, #131219) padding-box,
-    linear-gradient(var(--angle), #dbc5ff, #424d64) border-box; */
-  background:
-    linear-gradient(#25242f, #131219) padding-box,
-    linear-gradient(
-        var(--angle),
-        #dbc5ff 50%,
-        #424d64 35%,
-        #dbc5ff 50%,
-        #424d64 80%
-      )
-      border-box;
-  border: 2px solid transparent;
+  background: transparent;
+  border: 1.1px solid transparent;
   animation: rotate 6s linear infinite;
   pointer-events: none;
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
 
@@ -78,7 +60,7 @@
   text-align: center;
   color: #fff;
   font-size: 1.2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
   font-weight: 500;
 }
 
@@ -184,11 +166,7 @@
 }
 
 .Video-class {
-  align-self: center;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: none;
 }
 .loader-video {
   width: 27%;
@@ -323,17 +301,6 @@
   mask-composite: exclude;
 }
 
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes rotate {
-  to {
-    --angle: 360deg;
-  }
-}
 .ipin-subtext {
   text-align: left;
   color: #fff;
@@ -440,6 +407,74 @@
 
 .password-eye-icon:hover {
   color: #dbc5ff;
+}
+
+.desktop-background {
+  display: none;
+}
+
+/* Show background only for laptops & desktops */
+@media screen and (min-width: 1024px) {
+  .desktop-background {
+    display: block;
+  }
+  .login-card {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    background: #181818;
+    padding: 1.8rem;
+    border-radius: 16px;
+    z-index: 2;
+    box-shadow:
+      inset 0 2px 12px rgba(38, 38, 38, 0.25),
+      0 25px 50px -12px rgba(0, 0, 0, 0.45);
+  }
+
+  .login-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px; /* Matches border thickness */
+  
+  /* Conic gradient creates one single rotating point/line */
+  background: 
+    linear-gradient(#25242f, #131219) padding-box,
+    conic-gradient(
+      from var(--angle) at 60% 60%,
+      #DBC5FF,          /* The line color */
+      transparent 30%    /* Adjust 15% to change the line's length/tail */
+    ) border-box;
+  border: 2px solid #dbc5ff4a;
+  animation: rotate 12s linear infinite; /* Faster rotation often looks better */
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+  .Video-class {
+    align-self: center;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 /* =======================

@@ -77,7 +77,7 @@ const New_Password = () => {
             <img src={Images.LoginLogoImg} alt="logo" className="login-logo" />
           </div>
 
-          <h2 className="login-title">Trouble in logging In</h2>
+          <h2 className="login-title">Reset Password</h2>
           <div className="input-email-password">
             {/* New Password */}
             <div>
@@ -152,7 +152,6 @@ const New_Password = () => {
           <br />
           <br />
           <br />
-          <br />
           <div>
             <button
               className="back-button-bg-register"
@@ -163,7 +162,9 @@ const New_Password = () => {
           </div>
         </div>
       </div>
-      <Background_Login />
+      <div className="desktop-background">
+        <Background_Login />
+      </div>
       <div className="Video-class">
         <video
           src={Images.loadernew2}
