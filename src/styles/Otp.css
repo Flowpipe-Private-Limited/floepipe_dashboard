@@ -5,36 +5,34 @@
 }
 /* Centering background like Figma */
 .otp-bg {
-  @apply min-h-[100vh] w-full flex items-center justify-center px-4 ;
+  @apply min-h-[100vh] bg-[#1b1b1d] w-full flex items-center justify-center px-4;
   position: relative;
-    z-index: 1;
+  z-index: 1;
 }
 
 /* Main OTP Box */
+
 .otp-card {
-  @apply w-[22rem] max-w-md bg-[#1b1b1d] rounded-2xl p-8 shadow-xl border border-gray-700;
+  @apply w-[22rem] max-w-md bg-[#1b1b1d] rounded-2xl p-8;
   position: relative;
 }
 
+.desktop-background {
+  display: none;
+}
 
 .otp-card::before {
   content: "";
   position: absolute;
-  inset: -2px;
+  inset: 1px;
   border-radius: inherit;
-  background: linear-gradient(#25242f, #131219) padding-box,
-  linear-gradient(
-    var(--angle),
-    #dbc5ff 50%,
-    #424d64 35%,
-    #dbc5ff 50%,
-    #424d64 80%
-  ) border-box;
-  border: 2px solid transparent;
-  animation: rotate 4s linear infinite;
+  background: transparent;
+  border: 1.1px solid transparent;
+  animation: rotate 6s linear infinite;
   pointer-events: none;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: exclude;
 }
 
@@ -98,7 +96,7 @@
 
 /* ✅ Correct OTP border (Green glow + blur) */
 .otp-input-box.correct-border {
-  border-color: #CCFF00 !important;
+  border-color: #ccff00 !important;
 
   box-shadow:
     0 0 8px rgba(204, 255, 0, 0.2),
@@ -110,7 +108,7 @@
 
 /* ❌ Error OTP border (Red glow + blur) */
 .otp-input-box.error-border {
-  border-color: #FF0000 !important;
+  border-color: #ff0000 !important;
 
   box-shadow:
     0 0 8px rgba(255, 0, 0, 0.3),
@@ -120,20 +118,25 @@
   filter: blur(0.1px); /* subtle softness */
 }
 @keyframes glowPulse {
-  0% { box-shadow: 0 0 8px rgba(204,255,0,0.4); }
-  50% { box-shadow: 0 0 20px rgba(204,255,0,0.7); }
-  100% { box-shadow: 0 0 8px rgba(204,255,0,0.4); }
+  0% {
+    box-shadow: 0 0 8px rgba(204, 255, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(204, 255, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(204, 255, 0, 0.4);
+  }
 }
 
 .otp-input-box.correct-border {
   /* animation: glowPulse 1.5s infinite; */
 }
 
-
 /* Typing/Active border color */
 .otp-input-box.typing-border {
-  border-color: #7C3AED !important;
-  box-shadow: 0 0 0 1px #7C3AED;
+  border-color: #7c3aed !important;
+  box-shadow: 0 0 0 1px #7c3aed;
 }
 
 /* Override default focus styles when we have custom states */
@@ -142,15 +145,63 @@
 .otp-input-box.typing-border:focus {
   outline: none;
   box-shadow: 0 0 0 2px currentColor;
-   border-color: #7C3AED !important;
+  border-color: #7c3aed !important;
 }
 
 /* Make sure error text is visible */
 .otp-error-text {
-  color: #FF0000;
+  color: #ff0000;
   font-size: 0.7rem;
   margin-bottom: 0.75rem;
   text-align: left;
   display: block;
   min-height: 1.2rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .desktop-background {
+    display: block;
+  }
+  .otp-bg {
+    @apply min-h-[100vh] bg-[transparent] w-full flex items-center justify-center px-4;
+    position: relative;
+    z-index: 1;
+  }
+  .otp-card {
+    @apply w-[22rem] max-w-md bg-[#1b1b1d] rounded-2xl p-8 shadow-xl border border-gray-700;
+    position: relative;
+  }
+  .otp-card::before {
+    content: "";
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    padding: 2px; /* Matches border thickness */
+
+    /* Conic gradient creates one single rotating point/line */
+    background:
+      linear-gradient(#25242f, #131219) padding-box,
+      conic-gradient(
+          from var(--angle) at 60% 60%,
+          #dbc5ff,
+          /* The line color */ transparent 30%
+            /* Adjust 15% to change the line's length/tail */
+        )
+        border-box;
+    border: 2px solid #dbc5ff4a;
+    animation: rotate 10s linear infinite; /* Faster rotation often looks better */
+    pointer-events: none;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  .Video-class {
+    align-self: center;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

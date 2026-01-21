@@ -104,7 +104,9 @@ const Create_Pin = () => {
           </div>
         </div>
       </div>
-      <Background_Login />
+       <div className="desktop-background">
+          <Background_Login />
+        </div>
       <div className="Video-class">
         <video
           src={Images.loadernew2}

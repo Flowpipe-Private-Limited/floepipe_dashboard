@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
 import axios from "axios";
 import Cookies from 'js-cookie'
+import Background_Login from "../../components/ui/Background_Folder/Background_Login";
 
 const OtpScreen = ({ navigation }) => {
   const [otp, setOtp] = useState(["", "", "", ""]); // Changed to 4 elements for 4-digit OTP
@@ -153,36 +154,6 @@ const OtpScreen = ({ navigation }) => {
 
   return (
     <div>
-      <img
-        src={Images.FlowLoginImage}
-        alt="Flow Login"
-        className="login-background-image"
-      />
-      <div className="lighting-lines">
-        <div className="hrlines-img">
-          <div className="login-divider-lineAn"></div>
-          <div className="login-divider-lineAn"></div>
-          <div className="login-divider-lineAn"></div>
-        </div>
-
-        <div className="hrlines-img2">
-          <div className="login-divider-lineAn2"></div>
-          <div className="login-divider-lineAn2"></div>
-          <div className="login-divider-lineAn2"></div>
-        </div>
-
-        <div className="hrlines-img3">
-          <div className="login-divider-lineAn3"></div>
-          <div className="login-divider-lineAn3"></div>
-          <div className="login-divider-lineAn3"></div>
-        </div>
-
-        <div className="hrlines-img4">
-          <div className="login-divider-lineAn4"></div>
-          <div className="login-divider-lineAn4"></div>
-          <div className="login-divider-lineAn4"></div>
-        </div>
-      </div>
       <div className="otp-bg">
         <div className="otp-card">
           <div className="Image-bg-conatiner">
@@ -194,7 +165,7 @@ const OtpScreen = ({ navigation }) => {
           </h2>
 
           <div>
-            <p className="text-gray-300 text-sm mb-3 ml-5">Enter the OTP</p>
+            <p className="text-gray-300 text-sm mb-3">Enter the OTP</p>
             <div className="flex justify-center gap-5 mb-3">
               {otp.map(
                 (
@@ -233,6 +204,7 @@ const OtpScreen = ({ navigation }) => {
           </div>
         </div>
       </div>
+      <Background_Login/>
       <div className="Video-class">
         <video
           src={Images.loadernew2}

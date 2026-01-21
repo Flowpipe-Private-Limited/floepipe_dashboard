@@ -4,14 +4,16 @@ import Images from "../../Images/Images";
 import { IoChevronBackOutline } from "react-icons/io5";
 import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
 import Background_Login from "../../components/ui/Background_Folder/Background_Login";
+import { useNavigate } from "react-router-dom";
 
-const Forget_Verification = ({onResend }) => {
-  const [otp, setOtp] = useState(["", "", "", ""]); // Changed to 4 elements for 4-digit OTP
+const Forget_Verification = ({ onResend }) => {
+  const [otp, setOtp] = useState(["", "", "", ""]);
   const [otpError, setOtpError] = useState("");
-  const [inputStates, setInputStates] = useState(["", "", "", ""]); // Track border colors for each input (4 elements)
+  const [inputStates, setInputStates] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
   const [seconds, setSeconds] = useState(45);
   const [canResend, setCanResend] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (canResend) return;
@@ -151,7 +153,7 @@ const Forget_Verification = ({onResend }) => {
               {otp.map(
                 (
                   value,
-                  index // This will now render exactly 4 inputs
+                  index, // This will now render exactly 4 inputs
                 ) => (
                   <input
                     key={index}
@@ -163,36 +165,39 @@ const Forget_Verification = ({onResend }) => {
                     onBlur={() => handleBlur(index)}
                     className={`otp-input-box ${getBorderColorClass(index)}`}
                   />
-                )
+                ),
               )}
             </div>
           </div>
-         <div className="flex justify-end mb-3 items-center">
-      <div className="flex-1">
-        {otpError && <p className="otp-error-text-forget">{otpError}</p>}
-      </div>
+          <div className="flex justify-end mb-3 items-center">
+            <div className="flex-1">
+              {otpError && <p className="otp-error-text-forget">{otpError}</p>}
+            </div>
 
-      {canResend ? (
-        <span className="resend-link" onClick={handleResend}>
-          Resend OTP
-        </span>
-      ) : (
-        <span className="resend-timer">
-          Resend in {seconds}s
-        </span>
-      )}
-    </div>
-          <Purple_Button textonchange={'Confirm'} onClick={handleSubmit}/>
+            {canResend ? (
+              <span className="resend-link" onClick={handleResend}>
+                Resend OTP
+              </span>
+            ) : (
+              <span className="resend-timer">Resend in {seconds}s</span>
+            )}
+          </div>
+          <Purple_Button textonchange={"Confirm"} onClick={handleSubmit} />
           <br />
           <br />
           <div>
-            <button className="back-button-bg-register">
+            <button
+              onClick={() => navigate(-1)}
+              className="back-button-bg-register"
+            >
               <IoChevronBackOutline />
             </button>
           </div>
         </div>
       </div>
-      <Background_Login/>
+      <div className="desktop-background">
+        <Background_Login />
+      </div>
       <div className="Video-class">
         <video
           src={Images.loadernew2}

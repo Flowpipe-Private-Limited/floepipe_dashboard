@@ -48,12 +48,9 @@
   @apply flex items-center my-4;
 }
 
+
 .Video-class {
-  align-self: center;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: none;
 }
 .loader-video {
   width: 27%;
@@ -325,4 +322,13 @@
     right: 87%;
     top: 39.8rem;
   }
+}
+@media screen and (min-width: 1024px) {
+.Video-class {
+  align-self: center;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 }

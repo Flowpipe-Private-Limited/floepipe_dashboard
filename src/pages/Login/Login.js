@@ -172,7 +172,9 @@ const Login = () => {
             </span>
           </p>
         </div>
-        <Background_Login></Background_Login>
+        <div className="desktop-background">
+          <Background_Login />
+        </div>
       </div>
 
       <div className="Video-class">

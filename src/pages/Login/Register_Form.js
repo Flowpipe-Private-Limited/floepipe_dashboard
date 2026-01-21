@@ -80,6 +80,10 @@ const Login = () => {
       newErrors.name = "name format: Sham, John, ";
     }
 
+    if (!formData.panName) {
+      newErrors.panName = "Name is required";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -214,16 +218,16 @@ const Login = () => {
                 )}
               </div>
 
-              {/* <div>
-                <div className="relative w-full">
-                  <input
-                    type="text"
-                    name="pan"
-                    value={formData.pan}
-                    maxLength={10}
-                    onChange={HandleFromChange}
-                    placeholder=" "
-                    className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
+            {/* <div>
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  name="pan"
+                  value={formData.pan}
+                  maxLength={10}
+                  onChange={HandleFromChange}
+                  placeholder=" "
+                  className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
                focus:outline-none focus:ring-1 focus:ring-[#424D64]"
                   />
                   <label
@@ -270,7 +274,9 @@ const Login = () => {
             <br />
         </div>
       </div>
-      <Background_Login />
+         <div className="desktop-background">
+          <Background_Login />
+        </div>
       <div className="Video-class">
         <video
           src={Images.loadernew2}

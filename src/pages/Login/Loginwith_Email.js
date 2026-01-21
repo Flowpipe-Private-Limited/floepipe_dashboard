@@ -75,7 +75,7 @@ const Loginwith_Email = () => {
             <img src={Images.LoginLogoImg} alt="logo" className="login-logo" />
           </div>
 
-          <h2 className="login-title">Trouble in logging In</h2>
+          <h2 className="login-title">Login to flowpipe</h2>
           <div className="input-email-password">
             {/* Email */}
             <div>
@@ -149,7 +149,9 @@ const Loginwith_Email = () => {
           </div>
         </div>
       </div>
-      <Background_Login />
+       <div className="desktop-background">
+          <Background_Login />
+        </div>
       <div className="Video-class">
         <video
           src={Images.loadernew2}
