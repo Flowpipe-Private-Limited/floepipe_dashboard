@@ -107,6 +107,7 @@ const Login = () => {
   // };
 
   const handleRegister = async () => {
+    alert('say hello ')
     console.log('Hello World is triggred');
     const { mobileNumber,email,name} = formData;
 

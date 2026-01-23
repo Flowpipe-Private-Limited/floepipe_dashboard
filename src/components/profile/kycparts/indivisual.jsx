@@ -72,7 +72,7 @@ const IndividualKycForm = () => {
         <h2>Individual KYC</h2>
         <button
           onClick={handleEdit}
-          className="flex items-center gap-1 text-purple-600"
+          className={styles.editButton}
         >
           {isEditing ? "Cancel" : "Edit"} <Pencil size={16} />
         </button>
@@ -134,7 +134,7 @@ const IndividualKycForm = () => {
       {/* AADHAAR DETAILS */}
       <div className={styles.sectionTitle}>Aadhaar details</div>
       <div className={styles.formGrid}>
-        
+
         {/* Aadhaar Number */}
         <div className={styles.formGroup}>
           <label>Aadhaar number</label>

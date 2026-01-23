@@ -1,0 +1,198 @@
+/* ================= Container ================= */
+.products-container {
+    background-color: #fafbfc;
+    min-height: 100vh;
+}
+
+/* ================= Header ================= */
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.products-title-group .products-title-text {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 0.15rem;
+}
+
+.products-subtitle {
+    font-size: 0.75rem;
+    color: #8b8b8b;
+}
+
+/* ================= Dropdown ================= */
+.filter-dropdown-container {
+    position: relative;
+}
+
+.filter-toggle-btn {
+    background: none;
+    border: none;
+    color: #7c3aed;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.35rem;
+    background-color: #fff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    border-radius: 0.6rem;
+    padding: 0.4rem;
+    min-width: 160px;
+    z-index: 10;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.75rem;
+    color: #4b5563;
+    border-radius: 0.35rem;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f3f4f6;
+}
+
+.dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+}
+
+.dot.all { background: #6b7280; }
+.dot.subscribed { background: #22c55e; }
+.dot.unsubscribed { background: #8b5cf6; }
+.dot.pending { background: #d97706; }
+
+/* ================= Grid ================= */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 0.85rem;
+}
+
+/* ================= Product Card ================= */
+.product-card {
+    background: #fff;
+    border-radius: 0.6rem;
+    padding: 0.9rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    min-height: 175px;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* ================= Pending Badge ================= */
+.pending-label {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    background-color: #fef3c7;
+    color: #d97706;
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+/* ================= Icon ================= */
+.icon-container {
+    width: 2.1rem;
+    height: 2.1rem;
+    background-color: #8b5cf6;
+    border-radius: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-bottom: 0.55rem;
+}
+
+.icon-container.green {
+    background-color: #22c55e;
+}
+
+/* ================= Text ================= */
+.product-title-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 0.2rem;
+}
+
+.product-desc {
+    font-size: 0.72rem;
+    color: #6b7280;
+    line-height: 1.4;
+    margin-bottom: 0.6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ================= Footer ================= */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.credits-info {
+    font-size: 0.68rem;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+/* ================= Button ================= */
+.action-btn {
+    padding: 0.32rem 0.65rem;
+    border-radius: 0.35rem;
+    font-weight: 600;
+    font-size: 0.7rem;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s;
+}
+
+.action-btn.subscribed {
+    border: 1px solid #8b5cf6;
+    color: #8b5cf6;
+}
+
+.action-btn.subscribed:hover {
+    background-color: #f5f3ff;
+}
+
+.action-btn.unsubscribed {
+    border: 1px solid #8b5cf6;
+    color: #8b5cf6;
+}

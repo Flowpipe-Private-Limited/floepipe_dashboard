@@ -1,0 +1,562 @@
+/* Container */
+.reports-container {
+    /* padding: 1.5rem; */
+    background-color: #fafbfc;
+    min-height: 100vh;
+}
+
+.page-header-card {
+    background: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.page-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0;
+}
+
+/* Filter Section */
+.filter-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.filter-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.clear-all-btn {
+    background: none;
+    border: none;
+    color: #7c3aed;
+    /* Purple */
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    row-gap: 2rem;
+}
+
+/* Form Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.label {
+    font-size: 0.9rem;
+    color: #8b5cf6;
+    /* Purple label per image */
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+    font-family: monospace;
+    /* Monospace font match */
+}
+
+/* Custom Select / Input Styling */
+.custom-select-trigger,
+.input-trigger {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    color: #111;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.input-trigger {
+    color: #6b7280;
+    /* Placeholder color */
+}
+
+.input-trigger.has-value {
+    color: #111;
+}
+
+.custom-select-trigger:focus,
+.input-trigger:focus {
+    outline: none;
+    border-color: #a78bfa;
+}
+
+/* Custom Dropdown Menu */
+.select-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.4rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    z-index: 20;
+    margin-top: 0.25rem;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.select-option {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    color: #4b5563;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.select-option:hover {
+    background-color: #f3f4f6;
+}
+
+.select-option.selected {
+    background-color: #f5f3ff;
+    color: #7c3aed;
+}
+
+/* Radio Groups */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    height: 100%;
+    min-height: 40px;
+    /* Align with inputs */
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #111;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.radio-label input[type="radio"] {
+    appearance: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"]:checked {
+    border-color: #7c3aed;
+}
+
+.radio-label input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.6rem;
+    height: 0.6rem;
+    background-color: #7c3aed;
+    border-radius: 50%;
+}
+
+/* Run Report Button */
+.run-report-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.run-report-btn {
+    background-color: #7c3aed;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.4rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);
+    transition: background 0.2s;
+}
+
+.run-report-btn:hover {
+    background-color: #6d28d9;
+}
+
+/* Result Set */
+.result-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.result-placeholder {
+    background-color: #f3f0ff;
+    /* Light purple bg per image */
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    gap: 1rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* ========================================= */
+/* Date Picker Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.date-picker-modal {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    overflow: hidden;
+    width: 800px;
+    max-width: 95vw;
+    height: 480px;
+}
+
+/* Sidebar */
+.presets-sidebar {
+    width: 200px;
+    background-color: #fcfcfc;
+    border-right: 1px solid #f3f4f6;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.preset-btn {
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #4b5563;
+    border-radius: 0.4rem;
+}
+
+.preset-btn:hover {
+    background-color: #f3f4f6;
+}
+
+.preset-btn.active {
+    background-color: #f5f3ff;
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+.active-preset-highlight {
+    background-color: #f5f3ff;
+    color: #7c3aed;
+}
+
+/* Calendar Area */
+.calendar-container {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.date-inputs-row {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.date-display-box {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-family: monospace;
+    text-align: center;
+    border-radius: 0.6rem;
+    background: #ffffff;
+    border: 1.5px solid #d1d5db;   /* default grey */
+    color: #374151;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
+}
+
+.calendars-wrapper {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.single-calendar {
+    width: 48%;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 0.2rem;
+}
+
+.month-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 0.5rem;
+    text-align: center;
+}
+
+.day-label {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+}
+
+.day-cell {
+    font-size: 0.85rem;
+    color: #374151;
+    padding: 0.4rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.day-cell.empty {
+    cursor: default;
+}
+
+.day-cell:not(.empty):hover {
+    background-color: #f3f4f6;
+}
+
+.day-cell.selected {
+    background-color: #7c3aed;
+    color: white;
+}
+
+.day-cell.in-range {
+    background-color: #f5f3ff;
+    color: #7c3aed;
+    border-radius: 0;
+}
+
+/* Round edges for start/end of range if desired */
+.day-cell.range-start {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background-color: #7c3aed;
+    color: white;
+}
+
+.day-cell.range-end {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-color: #7c3aed;
+    color: white;
+}
+
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: auto;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 1rem;
+}
+
+.modal-btn {
+    padding: 0.45rem 1.5rem;
+    border-radius: 0.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.modal-btn.cancel {
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #7c3aed;
+}
+
+.modal-btn.confirm {
+    background: #7c3aed;
+    color: white;
+    border: none;
+}
+@media (max-width: 1023px) {
+
+  .filter-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.5rem;
+  }
+
+  .date-picker-modal {
+    width: 90vw;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .presets-sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .preset-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .calendar-container {
+    padding: 1rem;
+  }
+
+  .calendars-wrapper {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .single-calendar {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+
+  /* Page spacing */
+  .reports-container {
+    padding: 0.8rem;
+  }
+
+  .page-header-card,
+  .filter-card {
+    padding: 1rem;
+  }
+
+  /* Filters */
+  .filter-grid {
+    grid-template-columns: 1fr;
+    row-gap: 1.25rem;
+  }
+
+  .filter-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Date inputs */
+  .date-inputs-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .date-display-box {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  /* Radios */
+  .radio-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  /* Buttons */
+  .run-report-container {
+    justify-content: stretch;
+  }
+
+  .run-report-btn {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  /* Modal */
+  .date-picker-modal {
+    width: 95vw;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-btn {
+    width: 100%;
+  }
+
+  /* Result */
+  .result-placeholder {
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,103 @@
+/* ================= Wrapper ================= */
+.api-logs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* space between header box and content box */
+}
+
+/* ================= Header Card ================= */
+.logs-header {
+    background: #ffffff;
+    border-radius: 0.6rem;
+    border: 1px solid #e9d5ff;   /* purple outline */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    padding: 0.9rem 1.2rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Title */
+.secondary-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #8b5cf6;
+    margin: 0;
+}
+
+/* Buttons */
+.logs-actions {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.log-btn {
+    padding: 0.45rem 0.95rem;
+    border-radius: 0.45rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: monospace;
+    transition: all 0.2s ease;
+}
+
+.log-btn.primary {
+    background-color: #7c3aed;
+    color: #ffffff;
+    border: 1px solid #7c3aed;
+}
+
+.log-btn.secondary {
+    background-color: #ffffff;
+    color: #7c3aed;
+    border: 1px solid #c4b5fd;
+}
+
+.log-btn.secondary:hover {
+    background-color: #f5f3ff;
+}
+
+/* ================= Content Card ================= */
+.logs-content {
+    background: #ffffff;
+    border-radius: 0.6rem;
+    border: 1px solid #e9d5ff;   /* SAME outline as header */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ================= Empty State ================= */
+.empty-state-illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.9;
+}
+
+.empty-state-illustration svg {
+    width: 130px;
+    height: 130px;
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 768px) {
+    .logs-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+    }
+
+    .logs-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .logs-content {
+        min-height: 300px;
+    }
+}

@@ -31,9 +31,33 @@ const sideDashboardConfig = [
     type: "single"
   },
   {
+    label: "My Account",
+    icon: LayoutDashboard,
+    href: "/dashboard/Profile",
+    type: "single"
+  },
+  {
+    label: "Products",
+    icon: LayoutDashboard,
+    href: "/dashboard/Products",
+    type: "single"
+  },
+  {
+    label: "Reports",
+    icon: LayoutDashboard,
+    href: "/dashboard/Reports",
+    type: "single"
+  },
+  {
     label: "API Keys",
     icon: Key,
     href: "/dashboard/apiKeys",
+    type: "single"
+  },
+  {
+    label: "API Usage",
+    icon: Key,
+    href: "/dashboard/APIUsage",
     type: "single"
   },
   {

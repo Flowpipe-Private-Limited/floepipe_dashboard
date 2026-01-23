@@ -1,0 +1,62 @@
+/* Container */
+.kyc-container {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    /* gray-200 */
+}
+
+/* Header */
+.kyc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.kyc-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Tabs */
+.kyc-tabs {
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+    /* gray-200 */
+}
+
+.kyc-tab-btn {
+    padding: 0.5rem 1rem;
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.kyc-tab-btn.active {
+    border-bottom-color: #9333ea;
+    /* purple-600 */
+    color: #7e22ce;
+    /* purple-700 */
+    background-color: #faf5ff;
+    /* purple-50 */
+}
+
+.kyc-tab-btn.inactive {
+    color: #6b7280;
+    /* gray-500 */
+}
+
+.kyc-tab-btn.inactive:hover {
+    color: #374151;
+    /* gray-700 */
+}

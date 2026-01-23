@@ -1,32 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import styles from './KycForm.module.css';
-import { FaUpload } from 'react-icons/fa';
-import { useUserStore } from '../../../Store/userStore';
+import React, { useState, useEffect } from "react";
+import styles from "./KycForm.module.css";
+import { FaUpload } from "react-icons/fa";
+import { useUserStore } from "../../../Store/userStore";
 import { Pencil } from "lucide-react";
 
 const CompanyKycForm = () => {
-
   const { users, updateUsers } = useUserStore();
 
   const initialKycData = users?.companyKYC || {
-    companyPan: '',
+    companyPan: "",
     companyPanFile: null,
-    companyPanFileName: '',
+    companyPanFileName: "",
 
-    companyCin: '',
+    companyCin: "",
     companyCinFile: null,
-    companyCinFileName: '',
+    companyCinFileName: "",
 
-    directorPan: '',
+    directorPan: "",
     directorPanFile: null,
-    directorPanFileName: '',
+    directorPanFileName: "",
 
-    directorAadhaar: '',
+    directorAadhaar: "",
     directorAadhaarFile: null,
-    directorAadhaarFileName: '',
+    directorAadhaarFileName: "",
 
-    useCase: '',
-    approvalStatus: 'Pending',
+    useCase: "",
+    approvalStatus: "Pending",
   };
 
   const [kycData, setKycData] = useState(initialKycData);
@@ -34,11 +33,10 @@ const CompanyKycForm = () => {
 
   useEffect(() => {
     setKycData(initialKycData);
-  }, [users]); // stay in sync when global store updates
-
+  }, [users]);
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setKycData(prev => ({ ...prev, [id]: value }));
+    setKycData((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleFileUpload = (field, e) => {
@@ -47,7 +45,7 @@ const CompanyKycForm = () => {
 
     const reader = new FileReader();
     reader.onload = (event) => {
-      setKycData(prev => ({
+      setKycData((prev) => ({
         ...prev,
         [field]: event.target.result,
         [`${field}Name`]: file.name,
@@ -57,7 +55,7 @@ const CompanyKycForm = () => {
     reader.readAsDataURL(file);
   };
 
-  const handleEdit = () => setIsEditing(prev => !prev);
+  const handleEdit = () => setIsEditing((prev) => !prev);
 
   const handleSubmit = () => {
     updateUsers({
@@ -81,14 +79,13 @@ const CompanyKycForm = () => {
 
         <button
           onClick={handleEdit}
-          className="flex items-center gap-1 text-purple-600 hover:text-purple-700 transition"
+          className={styles.editButton}
         >
           {isEditing ? "Cancel" : "Edit"} <Pencil size={16} />
         </button>
       </header>
 
       <div className={styles.formGrid}>
-
         {/* Company PAN */}
         <div className={styles.formGroup}>
           <label>Company PAN number</label>
@@ -230,7 +227,9 @@ const CompanyKycForm = () => {
           id="approvalStatus"
           value={kycData.approvalStatus}
           readOnly
-          className={kycData.approvalStatus === "Pending" ? styles.statusPending : ""}
+          className={
+            kycData.approvalStatus === "Pending" ? styles.statusPending : ""
+          }
         />
       </div>
 

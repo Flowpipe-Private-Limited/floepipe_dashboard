@@ -1,0 +1,248 @@
+/* Modal Overlay */
+.ipin-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(17, 24, 39, 0.7);
+    /* gray-900 opacity-70 */
+    backdrop-filter: blur(4px);
+}
+
+/* Modal Content */
+.ipin-modal {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    max-width: 24rem;
+    /* max-w-sm */
+    width: 100%;
+    position: relative;
+}
+
+/* Close Button */
+.ipin-close-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    color: #9ca3af;
+    /* gray-400 */
+    transition: color 0.15s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.ipin-close-btn:hover {
+    color: #4b5563;
+    /* gray-600 */
+}
+
+.icon-svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* Header Section */
+.ipin-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.ipin-logo-container {
+    width: 4rem;
+    height: 4rem;
+    background-color: #1f2937;
+    /* gray-800 */
+    border-radius: 0.5rem;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.ipin-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ipin-greeting {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    /* gray-800 */
+    margin-bottom: 0.25rem;
+    margin-top: 0;
+}
+
+.ipin-subtext {
+    font-size: 0.875rem;
+    color: #6b7280;
+    /* gray-500 */
+    margin: 0;
+    line-height: 1.25;
+}
+
+/* PIN Input Section */
+.ipin-input-section {
+    margin-bottom: 1rem;
+}
+
+.ipin-instruction {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #4b5563;
+    /* gray-600 */
+    margin-bottom: 0.75rem;
+}
+
+.ipin-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.ipin-digit-input {
+    width: 3rem;
+    height: 3.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border: 1px solid #d1d5db;
+    /* gray-300 */
+    border-radius: 0.5rem;
+    transition: all 0.15s;
+    background-color: white;
+    color: inherit;
+}
+
+.ipin-digit-input:focus {
+    outline: none;
+    border-color: #9333ea;
+    /* purple-600 */
+    box-shadow: 0 0 0 1px #9333ea;
+}
+
+.ipin-digit-input.error {
+    border-color: #ef4444;
+    /* red-500 */
+}
+
+/* Error Message */
+.ipin-error-msg {
+    color: #ef4444;
+    /* red-500 */
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Unlock Button */
+.ipin-unlock-btn {
+    width: 100%;
+    padding: 0.75rem 0;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.ipin-unlock-btn.active {
+    background-color: #9333ea;
+    /* purple-600 */
+}
+
+.ipin-unlock-btn.active:hover {
+    background-color: #7e22ce;
+    /* purple-700 */
+}
+
+.ipin-unlock-btn:disabled {
+    background-color: #c084fc;
+    /* purple-400 equivalentish */
+    cursor: not-allowed;
+}
+
+/* Spinner Animation */
+.spinner-svg {
+    animation: spin 1s linear infinite;
+    margin-right: 0.75rem;
+    margin-left: -0.25rem;
+    height: 1.25rem;
+    width: 1.25rem;
+    color: white;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner-circle {
+    opacity: 0.25;
+}
+
+.spinner-path {
+    opacity: 0.75;
+}
+
+/* Separator */
+.ipin-separator {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.separator-line {
+    flex-grow: 1;
+    border: 0;
+    border-top: 1px solid #d1d5db;
+    /* gray-300 */
+}
+
+.separator-text {
+    margin: 0 1rem;
+    font-size: 0.75rem;
+    color: #6b7280;
+    /* gray-500 */
+    font-weight: 500;
+}
+
+/* OTP Button */
+.ipin-otp-btn {
+    width: 100%;
+    padding: 0.75rem 0;
+    color: #374151;
+    /* gray-700 */
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.15s;
+}
+
+.ipin-otp-btn:hover {
+    color: #9333ea;
+    /* purple-600 */
+}
+
+.ipin-otp-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
