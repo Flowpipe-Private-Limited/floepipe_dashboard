@@ -27,6 +27,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "JetBrainsMono";
+  src: url("./assets/Fonts/JetBrainsMono-Regular.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
 /* ===== Apply globally ===== */
 body, #root {
   font-family: "Figtree";
@@ -35,6 +42,14 @@ body, #root {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* body, #root {
+  font-family: "JetBrainsMono";
+  margin: 0;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */
 
 /* Optional: font-weight helpers */
 .fw-400 { font-weight: 400; } /* Regular */

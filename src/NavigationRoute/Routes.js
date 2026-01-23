@@ -60,12 +60,10 @@ const AppRoute = () => {
       <Routes>
         {/* Landing Page */}
         <Route path="/" element={<MainDashboardPage />} />
-
         {/* Sign || login with OTP */}
         {/* <Route path="/login" element={<IsLoginUser><Login /></IsLoginUser>} />
         <Route path="/Register" element={<IsLoginUser><RegisterPage /></IsLoginUser>} />
         <Route path="/loginOtp" element={<IsLoginUser ><OtpLogin /></IsLoginUser>} /> */}
-
         <Route path="/login" element={<Login />} />
         <Route path="/register_form" element={<Register_Form />} />
         <Route path="/create_pin" element={<Create_Pin />} />
@@ -74,6 +72,8 @@ const AppRoute = () => {
         <Route path="/Forget_Password" element={<Forget_Password />} />
         <Route path="/Forget_Verification" element={<Forget_Verification />} />
         <Route path="/New_Password" element={<New_Password />} />
+        <Route path="/RegisterPage" element={<RegisterPage />} />
+
 
         {/* User DashBoard Routes */}
         <Route
