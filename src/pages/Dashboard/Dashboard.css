@@ -133,3 +133,98 @@
 .dashboard-wrapper {
   background-color: #f8f9fd;
 }
+
+/* Header container */
+.Dash-header {
+  height: 64px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+/* Left section */
+.Dash-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Menu button */
+.Dash-header-menu-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--black);
+}
+
+/* Title */
+.Dash-header-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Right section */
+.Dash-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Common buttons */
+.Dash-header-btn {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid #7c3aed;
+  background: transparent;
+  color: #7c3aed;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* Avatar button */
+.Dash-header-avatar-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+   border: 1px solid #7c3aed;
+  background: transparent;
+  color: #7c3aed;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Hover effects */
+.Dash-header-btn:hover,
+.Dash-header-menu-btn:hover,
+.Dash-header-avatar-btn:hover {
+  background: #f9fafb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .Dash-header-btn span {
+    display: none;
+  }
+
+  .Dash-header-title {
+    font-size: 16px;
+  }
+}

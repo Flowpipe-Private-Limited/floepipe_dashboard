@@ -17,7 +17,7 @@
 .help-modal-container {
   background: #ffffff;
   width: 100%;
-  max-width: 450px;
+  max-width: 600px;
   height: 100%;
   box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -40,19 +40,77 @@
   }
 }
 
-/* --- Header Section --- */
-.help-modal-header {
-  background: #7c3aed;
-  /* Purple color */
+/* --- Header Section - Base Styles --- */
+.help-modal-header-main,
+.help-modal-header-contact,
+.help-modal-header-faq,
+.help-modal-header-livechat,
+.help-modal-header-messages,
+.help-modal-header-chatting {
   padding: 30px 30px;
   position: relative;
   color: var(--white);
   text-align: left;
   flex-shrink: 0;
-  min-height: 100px;
   display: flex;
   align-items: center;
   border-radius: 0;
+}
+
+/* Main Help Screen Header */
+.help-modal-header-main {
+  background: var(--purple-main);
+  height: 180px;
+  display: flex;
+  align-items: flex-start;
+  position: absolute;
+  width: -webkit-fill-available;
+}
+
+.Content-inside-one {
+  background: white;
+  position: relative;
+  padding: 2rem;
+  margin-top: 4rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 6px #0e0e0e1a;
+}
+
+/* Contact Us Header */
+.help-modal-header-contact {
+  background: var(--purple-main);
+  height: 180px;
+  display: flex;
+  align-items: flex-start;
+  position: absolute;
+  width: -webkit-fill-available;
+}
+
+/* FAQ Detail Header */
+.help-modal-header-faq {
+  background: var(--purple-main);
+    height: 180px;
+  display: flex;
+  align-items: flex-start;
+  position: absolute;
+  width: -webkit-fill-available;
+}
+
+/* Live Chat Welcome Header */
+.help-modal-header-livechat {
+  background: var(--purple-main);
+}
+
+/* Messages Tab Header */
+.help-modal-header-messages {
+  background: var(--white);
+  border-bottom: 1px solid var(--black-600);
+}
+
+/* Active Chatting Header */
+.help-modal-header-chatting {
+  background: var(--purple-main);
+  min-height: 80px;
 }
 
 .help-modal-header-mess {
@@ -66,7 +124,6 @@
   display: flex;
   align-items: center;
   border-radius: 0;
-  border-bottom: 1px solid var(--black-600);
 }
 
 .help-modal-header-mess:has(.help-chat-title) {
@@ -82,7 +139,7 @@
 
 .help-modal-close-btn {
   position: absolute;
-  top: 25px;
+  top: 28px;
   right: 25px;
   background: transparent;
   border: none;
@@ -90,6 +147,12 @@
   cursor: pointer;
   padding: 5px;
   transition: transform 0.2s;
+  z-index: 10;
+}
+
+/* Close button color for white headers */
+.help-modal-header-messages .help-modal-close-btn {
+  color: var(--black);
 }
 
 .help-modal-close-btn:hover {
@@ -97,7 +160,7 @@
 }
 
 .help-modal-title {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 600;
   margin: 0;
 }
@@ -122,6 +185,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: auto;
+  color: var(--black);
 }
 
 .help-back-btn {
@@ -152,21 +216,21 @@
 /* Questions Section */
 .help-questions-section {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .help-questions-title {
   font-size: 18px;
   font-weight: 600;
   color: var(--black);
-  margin-bottom: 8px;
+  margin-bottom: 3px;
   font-family: "JetBrainsMono";
 }
 
 .help-questions-subtitle {
   color: var(--black-700);
   font-size: 14px;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
 }
 
 .help-action-buttons {
@@ -187,7 +251,7 @@
 }
 
 .help-btn-primary {
-  background-color: #7c3aed;
+  background-color: var(--purple-main);
   color: var(--white);
   box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);
 }
@@ -198,8 +262,8 @@
 
 .help-btn-outline {
   background-color: var(--white);
-  border-color: #7c3aed;
-  color: #7c3aed;
+  border-color: var(--purple-main);
+  color: var(--purple-main);
 }
 
 .help-btn-outline:hover {
@@ -208,7 +272,7 @@
 
 /* FAQs Section */
 .help-faqs-section {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .help-section-title {
@@ -217,12 +281,14 @@
   color: var(--black);
   margin-bottom: 15px;
   font-family: "JetBrainsMono";
+  text-align: left;
+  width: 100%;
 }
 
 .help-faq-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 3px;
 }
 
 .help-faq-item {
@@ -248,12 +314,16 @@
 }
 
 .help-faq-icon {
-  color: #7c3aed;
+  color: var(--purple-main);
 }
 
 /* Videos Section */
 .help-videos-section {
   padding-bottom: 20px;
+      display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .help-video-card {
@@ -264,6 +334,7 @@
   cursor: pointer;
   background: #f8f8f8;
   border: 1px solid #eaeaea;
+  width: 80%;
 }
 
 .help-video-thumbnail {
@@ -361,6 +432,7 @@
   flex-direction: column;
   height: 100%;
   animation: fadeIn 0.3s ease;
+  height: 80vh;
 }
 
 .help-detail-question {
@@ -394,9 +466,9 @@
   justify-content: center;
   gap: 10px;
   background: white;
-  border: 1px solid #7c3aed;
+  border: 1px solid var(--purple-main);
   border-radius: 8px;
-  color: #7c3aed;
+  color: var(--purple-main);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
@@ -426,7 +498,7 @@
 
 /* --- Live Chat Styles --- */
 .help-chat-title {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 600;
   margin: 0;
   color: var(--white);
@@ -591,14 +663,163 @@
 }
 
 .help-nav-tab:hover {
-  color: #7c3aed;
+  color: var(--purple-main);
 }
 
 .help-nav-tab.active {
-  color: #7c3aed;
+  color: var(--purple-main);
 }
 
 .help-nav-tab span {
   font-size: 12px;
   font-weight: 500;
+}
+
+/* --- Chat Conversation Styles --- */
+.help-chat-conversation {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+}
+
+.help-chat-messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.help-chat-message {
+  display: flex;
+  gap: 12px;
+  animation: fadeInMessage 0.3s ease;
+}
+
+@keyframes fadeInMessage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.help-chat-message.user {
+  justify-content: flex-end;
+}
+
+.help-chat-message.bot {
+  justify-content: flex-start;
+}
+
+.help-chat-avatar {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple-main) 0%, #a78bfa 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-chat-bubble {
+  max-width: 75%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  word-wrap: break-word;
+}
+
+.help-chat-message.user .help-chat-bubble {
+  background: var(--purple-main);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.help-chat-message.bot .help-chat-bubble {
+  background: #f3f4f6;
+  color: #333;
+  border-bottom-left-radius: 4px;
+}
+
+.help-chat-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.help-chat-input-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid #e5e5e5;
+  background: white;
+}
+
+.help-chat-footer-input {
+  flex: 1;
+  border: 1px solid #e5e5e5;
+  border-radius: 24px;
+  padding: 12px 20px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.help-chat-footer-input:focus {
+  border-color: var(--purple-main);
+}
+
+.help-chat-footer-input::placeholder {
+  color: #999;
+}
+
+.help-chat-footer-send {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #333;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.help-chat-footer-send:hover {
+  background: #000;
+  transform: scale(1.05);
+}
+
+.help-chat-messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.help-chat-messages-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.help-chat-messages-container::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.help-chat-messages-container::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, use } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   Bell,
   HelpCircle,
@@ -35,19 +36,19 @@ const sideDashboardConfig = [
     label: "My Account",
     icon: LayoutDashboard,
     href: "/dashboard/Profile",
-    type: "single"
+    type: "single",
   },
   {
     label: "Products",
     icon: LayoutDashboard,
     href: "/dashboard/Products",
-    type: "single"
+    type: "single",
   },
   {
     label: "Reports",
     icon: LayoutDashboard,
     href: "/dashboard/Reports",
-    type: "single"
+    type: "single",
   },
   {
     label: "API Keys",
@@ -59,7 +60,7 @@ const sideDashboardConfig = [
     label: "API Usage",
     icon: Key,
     href: "/dashboard/APIUsage",
-    type: "single"
+    type: "single",
   },
   {
     label: "Whitelist IP",
@@ -286,7 +287,7 @@ function Sidebar({ collapsed }) {
                 key={idx}
                 onClick={() => navigate(item.href)}
                 className={`sidebar-item ${collapsed ? "sidebar-collapsed" : "sidebar-expanded"}`}
-              // className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition justify-${collapsed ? "center" : "start"} text-gray-300 hover:bg-white/10`}
+                // className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition justify-${collapsed ? "center" : "start"} text-gray-300 hover:bg-white/10`}
               >
                 <Icon size={18} />
                 {!collapsed && <span>{item.label}</span>}
@@ -357,49 +358,89 @@ function Sidebar({ collapsed }) {
 }
 
 function Header({ onToggle, data, onNavigate, onHelpClick }) {
-  return (
-    <header className="h-16 bg-white border-b flex items-center justify-between px-6">
-      <div className="flex items-center gap-3">
-        <button
-          onClick={onToggle}
-          className="h-9 w-9 rounded-lg border flex items-center justify-center"
-        >
-          <Menu size={18} />
-        </button>
-        <h1 className="Page-name">
-          Welcome, {toTitleCase(data?.name)}!
-        </h1>
-      </div>
+  const location = useLocation();
 
-      <div className="flex items-center gap-3">
-        <button
-          className="purple-outline-btn"
-          onClick={() => onNavigate("Billing_plans")}
-        >
-          Balance
-        </button>
-        <button
-          className="purple-outline-btn"
-        // onClick={() => onNavigate("WalletToPop")}
-        >
-          Developers API
-        </button>
-        <button className="purple-outline-btn" onClick={onHelpClick}>
-          <HelpCircle size={16} /> Help
-        </button>
-        <button className="purple-outline-btn">
-          <Bell size={16} /> Updates
-        </button>
-        <button
-          className="purple-outline-btn"
-          onClick={() => onNavigate("Profile")}
-        >
-          <User size={18} />
-          {(!data?.IskycApproved || !data?.kycCompleted) && (
-            <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-red-600 rounded-full border-2 border-white" />
-          )}
-        </button>
-      </div>
-    </header>
+  const routeTitleMap = {};
+
+  sideDashboardConfig.forEach((item) => {
+    if (item.type === "single") {
+      routeTitleMap[item.href] = item.label;
+    }
+
+    if (item.type === "group") {
+      item.children.forEach((child) => {
+        routeTitleMap[child.href] = child.label;
+      });
+    }
+  });
+
+  const pageTitle = routeTitleMap[location.pathname] || "Dashboard";
+
+  return (
+    // <header className="h-16 bg-white border-b flex items-center justify-between px-6">
+    //   <div className="flex items-center gap-3">
+    //     <button
+    //       onClick={onToggle}
+    //       className="h-9 w-9 rounded-lg border flex items-center justify-center"
+    //     >
+    //       <Menu size={18} />
+    //     </button>
+    //     <h1 className="Page-name">{pageTitle}</h1>
+    //   </div>
+
+    //   <div className="flex items-center gap-3">
+    //     <button className="purple-outline-btn">Balance</button>
+    //     <button className="purple-outline-btn">Developers API</button>
+    //     <button className="purple-outline-btn" onClick={onHelpClick}>
+    //       <HelpCircle size={16} /> Help
+    //     </button>
+    //     <button className="purple-outline-btn">
+    //       <Bell size={16} /> Updates
+    //     </button>
+    //     <button className="purple-outline-btn">
+    //       <User size={18} />
+    //     </button>
+    //   </div>
+    // </header>
+    <header className="Dash-header">
+  <div className="Dash-header-left">
+    <button
+      onClick={onToggle}
+      className="Dash-header-menu-btn"
+    >
+      <Menu size={18} />
+    </button>
+
+    <h1 className="Dash-header-title">
+      {pageTitle}
+    </h1>
+  </div>
+
+  <div className="Dash-header-right">
+    <button className="Dash-header-btn">Balance</button>
+
+    <button className="Dash-header-btn">
+      Developers API
+    </button>
+
+    <button
+      className="Dash-header-btn Dash-header-help-btn"
+      onClick={onHelpClick}
+    >
+      <HelpCircle size={16} />
+      <span>Help</span>
+    </button>
+
+    <button className="Dash-header-btn">
+      <Bell size={16} />
+      <span>Updates</span>
+    </button>
+
+    <button className="Dash-header-avatar-btn">
+      <User style={{}} size={18} />
+    </button>
+  </div>
+</header>
+
   );
 }

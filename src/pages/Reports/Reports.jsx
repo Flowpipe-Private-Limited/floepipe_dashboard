@@ -213,7 +213,7 @@ const Reports = () => {
         <div className="filter-grid">
           {/* Products Dropdown */}
           <div className="form-group">
-            <label className="label">Products</label>
+            <p className="label">Products</p>
             <div className="custom-select-trigger" onClick={() => setProductsOpen(!productsOpen)}>
               {selectedProduct} <ChevronDown size={16} />
             </div>
@@ -233,7 +233,7 @@ const Reports = () => {
 
           {/* App Name Dropdown */}
           <div className="form-group">
-            <label className="label">APP Name</label>
+            <p className="label">APP Name</p>
             <div className="custom-select-trigger" onClick={() => setAppNameOpen(!appNameOpen)}>
               {selectedAppName} <ChevronDown size={16} />
             </div>
@@ -253,7 +253,7 @@ const Reports = () => {
 
           {/* Status Dropdown */}
           <div className="form-group">
-            <label className="label">Status</label>
+            <p className="label">Status</p>
             <div className="custom-select-trigger" onClick={() => setStatusOpen(!statusOpen)}>
               {selectedStatus} <ChevronDown size={16} />
             </div>
@@ -273,7 +273,7 @@ const Reports = () => {
 
           {/* Duration */}
           <div className="form-group">
-            <label className="label">Duration</label>
+            <p className="label">Duration</p>
             <div className="input-trigger" onClick={() => setIsDatePickerOpen(true)}>
               {duration}
             </div>
@@ -286,27 +286,27 @@ const Reports = () => {
 
           {/* Charge Type Radio */}
           <div className="form-group">
-            <label className="label">Charge Type</label>
+            <p className="label">Charge Type</p>
             <div className="radio-group">
-              <label className="radio-label">
+              <p className="radio-label">
                 <input type="radio" name="chargeType" /> Billing
-              </label>
-              <label className="radio-label">
+              </p>
+              <p className="radio-label">
                 <input type="radio" name="chargeType" /> Non Billing
-              </label>
+              </p>
             </div>
           </div>
 
           {/* Environment Radio */}
           <div className="form-group">
-            <label className="label">Environment</label>
+            <p className="label">Environment</p>
             <div className="radio-group">
-              <label className="radio-label">
+              <p className="radio-label">
                 <input type="radio" name="env" /> Test
-              </label>
-              <label className="radio-label">
+              </p>
+              <p className="radio-label">
                 <input type="radio" name="env" /> Production
-              </label>
+              </p>
             </div>
           </div>
 
