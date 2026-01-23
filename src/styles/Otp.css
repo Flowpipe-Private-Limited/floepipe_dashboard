@@ -135,8 +135,8 @@
 
 /* Typing/Active border color */
 .otp-input-box.typing-border {
-  border-color: #7c3aed !important;
-  box-shadow: 0 0 0 1px #7c3aed;
+  border-color: var(--purple-main) !important;
+  box-shadow: 0 0 0 1px var(--purple-main);
 }
 
 /* Override default focus styles when we have custom states */
@@ -145,7 +145,7 @@
 .otp-input-box.typing-border:focus {
   outline: none;
   box-shadow: 0 0 0 2px currentColor;
-  border-color: #7c3aed !important;
+  border-color: var(--purple-main) !important;
 }
 
 /* Make sure error text is visible */

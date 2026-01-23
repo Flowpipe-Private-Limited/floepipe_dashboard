@@ -115,6 +115,7 @@ const MainContent = () => {
       amount: "₹ 800",
       spent: "₹ 8000",
     },
+    
   ];
 
   const transactionStats = [
@@ -134,79 +135,144 @@ const MainContent = () => {
   return (
     <div className="dashboard-container">
       {/* ===== TOP SUMMARY ===== */}
+      <div className="hello-main-dashboard">
+        <p className="hello-main-text">
+          Welcome,<span>Name !</span>
+        </p>
+      </div>
+
       <div className="dashboard-top">
         {/* WALLET */}
         <div className="dash-secone">
-        <div className="wallet-card-main">
-          <div className="wallet-top-check">
-            <span className="wallet-label">PERSONALWALLET</span>
-            <img className="wallet-sun-icon" src={Images.FlowpipeLogo} />
-          </div>
-
-          <div className="wallet-middle">
-            <span className="wallet-dots">*******</span>
-            <span className="wallet-eye-icon">
-              <GoEyeClosed />
-            </span>
-          </div>
-
-          <div className="wallet-actions">
-            <div className="w-action">
-              <img className="statement-icon" src={Images.statement} /> View
-              Statement
-            </div>
-            <div className="w-action">
-              <BiRupee size={22} />
-              Add Money
-            </div>
-          </div>
-        </div>
-
-        {/* STATS */}
-        <div className="stats-grid">
-          <div className="stat-card">
-            <div className="star-card-boxes-maincon">
-              <p className="stat-title">Total Transactions</p>
-              <h3 className="stat-value">₹ 15,432</h3>
-              <span className="stat-sub">0.00% vs This Month</span>
-            </div>
-            <div className="quick-icon-grid-main">
-              <GoArrowUpRight size={20} color="white" />
-            </div>
-          </div>
-
-          <div className="stat-card">
-            <div className="star-card-boxes-maincon">
-              <p className="stat-title">Product Subscribed</p>
-              <h3 className="stat-value">15,432</h3>
-            </div>
-            <button className="outline-btn small">More Products</button>
-          </div>
-
-          <div className="stat-card">
-            <div className="star-card-boxes-maincon">
-              <p className="stat-title">Transaction Volume</p>
-              <h3 className="stat-value">₹ 15,432</h3>
-              <span className="stat-sub">0.00% vs This Month</span>
+          <div className="wallet-card-main">
+            <div className="wallet-top-check">
+              <span className="wallet-label">PERSONALWALLET</span>
+              <img className="wallet-sun-icon" src={Images.FlowpipeLogo} />
             </div>
 
-            <div>
-              <div className="quick-icon-grid-main">
-                <GoArrowDownLeft size={20} color="white" />
+            <div className="wallet-middle">
+              <span className="wallet-dots">*******</span>
+              <span className="wallet-eye-icon">
+                <GoEyeClosed />
+              </span>
+            </div>
+
+            <div className="wallet-actions">
+              <div className="w-action">
+                <img className="statement-icon" src={Images.statement} /> View
+                Statement
               </div>
-              <div className="right-arrow-logo"></div>
+              <div className="w-action">
+                <BiRupee size={22} />
+                Add Money
+              </div>
             </div>
           </div>
 
-          <div className="stat-card">
-            <div className="star-card-boxes-maincon">
-              <p className="stat-title">Product Requests</p>
-              <h3 className="stat-value">15,432</h3>
+          {/* STATS */}
+          {/* <div className="stats-grid">
+            <div className="stat-card">
+              <div className="star-card-boxes-maincon">
+                <p className="stat-title">Total Transactions</p>
+                <h3 className="stat-value">₹ 15,432</h3>
+                <span className="stat-sub">0.00% vs This Month</span>
+              </div>
+              <div className="quick-icon-grid-main">
+                <GoArrowUpRight size={20} color="white" />
+              </div>
             </div>
-            <button className="outline-btn small">View Requests</button>
+
+            <div className="stat-card">
+              <div className="star-card-boxes-maincon">
+                <p className="stat-title">Product Subscribed</p>
+                <h3 className="stat-value">15,432</h3>
+              </div>
+              <button className="outline-btn small">More Products</button>
+            </div>
+
+            <div className="stat-card">
+              <div className="star-card-boxes-maincon">
+                <p className="stat-title">Transaction Volume</p>
+                <h3 className="stat-value">₹ 15,432</h3>
+                <span className="stat-sub">0.00% vs This Month</span>
+              </div>
+
+              <div>
+                <div className="quick-icon-grid-main">
+                  <GoArrowDownLeft size={20} color="white" />
+                </div>
+                <div className="right-arrow-logo"></div>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="star-card-boxes-maincon">
+                <p className="stat-title">Product Requests</p>
+                <h3 className="stat-value">15,432</h3>
+              </div>
+              <button className="outline-btn small">View Requests</button>
+            </div>
+          </div> */}
+          <div className="stats-grid">
+            <div className="stat-card">
+              <div className="star-card-boxes-maincon">
+                <p className="stat-title">Total Transactions</p>
+                <h3 className="stat-value">₹ 15,432</h3>
+                <span className="stat-sub">0.00% vs This Month</span>
+              </div>
+              <div className="quick-icon-grid-main">
+                <GoArrowUpRight size={20} color="white" />
+              </div>
+              {/* Decorative circle */}
+              <div className="stat-card-decor">
+                <img src={Images.cardinsidelogo} />
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="star-card-boxes-maincon">
+                <p className="stat-title">Product Subscribed</p>
+                <h3 className="stat-value">15,432</h3>
+              </div>
+              <button className="outline-btn small">More Products</button>
+              {/* Decorative circle */}
+              <div className="stat-card-decor">
+                <img src={Images.cardinsidelogo} />
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="star-card-boxes-maincon">
+                <p className="stat-title">Transaction Volume</p>
+                <h3 className="stat-value">₹ 15,432</h3>
+                <span className="stat-sub">0.00% vs This Month</span>
+              </div>
+
+              <div>
+                <div className="quick-icon-grid-main">
+                  <GoArrowDownLeft size={20} color="white" />
+                </div>
+                <div className="right-arrow-logo"></div>
+              </div>
+              {/* Decorative circle */}
+              <div className="stat-card-decor">
+                <img src={Images.cardinsidelogo} />
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="star-card-boxes-maincon">
+                <p className="stat-title">Product Requests</p>
+                <h3 className="stat-value">15,432</h3>
+              </div>
+              <button className="outline-btn small">View Requests</button>
+              {/* Decorative circle */}
+              <div className="stat-card-decor">
+                <img src={Images.cardinsidelogo} />
+              </div>
+            </div>
           </div>
         </div>
-</div>
 
         {/* PROMO */}
         <div className="promo-card">
@@ -223,8 +289,9 @@ const MainContent = () => {
       </div>
 
       {/* ===== QUICK ACTIONS ===== */}
-      <h3 className="section-title">Quick Actions</h3>
+      <h3 className="section-title-mc">Quick Actions</h3>
       <div className="quick-action-main">
+
         <div className="quick-action-column">
           <div className="quick-actions">
             {quickActions.map((item, idx) => (
@@ -232,10 +299,11 @@ const MainContent = () => {
                 <div className="quick-icon">
                   <img src={item.icon} alt={item.title} />
                 </div>
-
                 <h4>{item.title}</h4>
                 <p>Lorem ipsum dolor sit amet</p>
                 <span className="quick-link">Get started →</span>
+                {/* Decorative circle */}
+                <div className="quick-card-decor"></div>
               </div>
             ))}
           </div>
@@ -359,7 +427,7 @@ const MainContent = () => {
               </div>
             </div>
 
-            <div style={{ width: "100%", height: 300 }}>
+            {/* <div style={{ width: "100%", height: 300 }}>
               <ResponsiveContainer>
                 <ComposedChart data={productUsageData}>
                   <defs>
@@ -375,7 +443,6 @@ const MainContent = () => {
                     tick={{ fontSize: 12, fill: "#9ca3af" }}
                     dy={10}
                   />
-                  {/* Remvoing YAxis labels to match clean look or keep minimal */}
                   <YAxis
                     hide={false}
                     axisLine={false}
@@ -398,7 +465,61 @@ const MainContent = () => {
                   />
                 </ComposedChart>
               </ResponsiveContainer>
-            </div>
+            </div> */}
+            <div style={{ width: "100%", height: 300 }}>
+  <ResponsiveContainer>
+    <ComposedChart data={productUsageData}>
+      <defs>
+        <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+          <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+      <XAxis
+        dataKey="name"
+        axisLine={false}
+        tickLine={false}
+        tick={{ fontSize: 12, fill: "#9ca3af" }}
+        dy={10}
+      />
+      <YAxis
+        hide={false}
+        axisLine={false}
+        tickLine={false}
+        tick={{ fontSize: 12, fill: "#9ca3af" }}
+      />
+      <Tooltip />
+      
+      {/* Area chart with gradient fill */}
+      <Area
+        type="monotone"
+        dataKey="amt"
+        stroke="#d8b4fe"
+        fillOpacity={1}
+        fill="url(#colorUv)"
+      />
+      
+      {/* Dotted line overlay */}
+      <Line
+        type="monotone"
+        dataKey="amt"
+        stroke="#a78bfa"
+        strokeWidth={2}
+        strokeDasharray="5 5"
+        dot={false}
+        activeDot={false}
+      />
+      
+      {/* Bar chart */}
+      <Bar
+        dataKey="usage"
+        barSize={6}
+        fill="#7c3aed"
+        radius={[10, 10, 0, 0]}
+      />
+    </ComposedChart>
+  </ResponsiveContainer>
+</div>
           </div>
 
           {/* CARDS LIST */}
@@ -406,13 +527,19 @@ const MainContent = () => {
             {panLiteData.map((item, index) => (
               <div className="pan-lite-card" key={index}>
                 <div className="pan-icon-box">
-                  <LuCodeXml className="code-box-border" size={20} color="#7c3aed" />
+                  <LuCodeXml
+                    className="code-box-border"
+                    size={20}
+                    color="#7c3aed"
+                  />
                 </div>
+
                 <div className="pan-card-content">
                   <div className="pan-card-header">
                     <h4>{item.title}</h4>
                     <span>{item.period}</span>
                   </div>
+
                   <div className="pan-card-stats">
                     <div className="stat-block">
                       <span className="stat-val">{item.amount}</span>
@@ -424,11 +551,9 @@ const MainContent = () => {
                     </div>
                   </div>
                 </div>
-                {
-                  index === 0 && (
-                    <div className="pan-card-decor"></div>
-                  ) /* approximate decor */
-                }
+
+                {/* Decorative shape – now on ALL cards */}
+                <div className="pan-card-decor"></div>
               </div>
             ))}
           </div>
@@ -464,7 +589,7 @@ const MainContent = () => {
               </div>
             </div>
 
-            <div className="table-wrapper">
+            <div className="table-wrapper-main">
               <table className="custom-table-main">
                 <thead>
                   <tr>
@@ -490,7 +615,7 @@ const MainContent = () => {
 
           <div className="apps-running-card">
             <h3>Apps Running</h3>
-            <div className="small-table-wrapper">
+            <div className="small-table-wrapper-main">
               <table className="custom-table-main small">
                 <thead>
                   <tr>

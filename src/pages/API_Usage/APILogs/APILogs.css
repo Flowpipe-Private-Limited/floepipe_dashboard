@@ -43,14 +43,14 @@
 }
 
 .log-btn.primary {
-    background-color: #7c3aed;
+    background-color: var(--purple-main);
     color: #ffffff;
-    border: 1px solid #7c3aed;
+    border: 1px solid var(--purple-main);
 }
 
 .log-btn.secondary {
     background-color: #ffffff;
-    color: #7c3aed;
+    color: var(--purple-main);
     border: 1px solid #c4b5fd;
 }
 

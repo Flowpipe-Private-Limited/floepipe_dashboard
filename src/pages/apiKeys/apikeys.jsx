@@ -110,12 +110,12 @@ const ApiKeys = () => {
       {/* Table */}
       <div className="table-wrapper">
         <table>
-          <thead>
+          <thead className="thead-header">
             <tr>
-              <th>Si.no</th>
-              <th>MerchantId</th>
-              <th>ClientId</th>
-              <th>SecretKey</th>
+              <th className="th-api">Si.no</th>
+              <th className="th-api">MerchantId</th>
+              <th className="th-api">ClientId</th>
+              <th className="th-api">SecretKey</th>
             </tr>
           </thead>
           <tbody>
@@ -128,10 +128,10 @@ const ApiKeys = () => {
   ) : (
     (activeTab === "Live" ? LiveKeys : TestKeys).map((keys, ind) => (
       <tr key={ind}>
-        <td>{ind + 1}</td>
-        <td>{keys?.MerchantId}</td>
-        <td>{keys?.client_id}</td>
-        <td>{keys?.secret_key}</td>
+        <td className="td-one">{ind + 1}</td>
+        <td className="td-one">{keys?.MerchantId}</td>
+        <td className="td-one">{keys?.client_id}</td>
+        <td className="td-one">{keys?.secret_key}</td>
       </tr>
     ))
   )}
