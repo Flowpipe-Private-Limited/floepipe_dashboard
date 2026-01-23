@@ -1,424 +1,402 @@
 /* Container */
 .profile-page-container {
-    width: 100%;
-    min-height: 100vh;
-    background-color: #f8f9fc;
-    /* Slightly lighter gray background to match image */
-    padding: 1.5rem;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8f9fc;
+  /* Slightly lighter gray background to match image */
+  /* padding: 1.5rem; */
 }
 
 /* Header */
 .profile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    background-color: white;
-    /* Header seems to be part of a white bar in image, but based on structure usually separate. */
-    /* If the header is just the text "Profile Details" and Logout button */
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background: white;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .profile-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #333;
-    margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
 }
 
 .logout-button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.5rem;
-    background-color: #7c3aed;
-    /* Sharper purple */
-    color: white;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s;
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  background-color: #7c3aed;
+  /* Sharper purple */
+  color: white;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s;
+  border: none;
+  cursor: pointer;
+  /* font-weight: 500; */
+  font-size: 0.7rem;
 }
 
 .logout-button:hover {
-    background-color: #6d28d9;
+  background-color: #6d28d9;
 }
 
 /* Profile Card */
 .profile-card {
-    background-color: white;
-    border-radius: 1rem;
-    /* More rounded */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    padding: 1.5rem 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* Align left */
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 @media (min-width: 768px) {
-    .profile-card {
-        flex-direction: row;
-        align-items: center;
-    }
+  .profile-card {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 .profile-image {
-    width: 5.5rem;
-    /* Slightly smaller than 6rem to match image scale */
-    height: 5.5rem;
-    border-radius: 50%;
-    border: 3px solid #e9d5ff;
-    /* purple-200 */
-    object-fit: cover;
-    padding: 2px;
-    /* White space between border and image if needed, or just border */
-    background: white;
+  width: 5.5rem;
+  /* Slightly smaller than 6rem to match image scale */
+  height: 5.5rem;
+  border-radius: 50%;
+  border: 3px solid #e9d5ff;
+  /* purple-200 */
+  object-fit: cover;
+  padding: 2px;
+  /* White space between border and image if needed, or just border */
+  background: white;
 }
 
 .profile-info {
-    text-align: left;
+  text-align: left;
 }
 
 .user-name {
-    font-size: 1.5rem;
-    /* Larger name */
-    font-weight: 600;
-    color: #7c3aed;
-    /* Purple name */
-    margin: 0 0 0.25rem 0;
+  font-size: 1.5rem;
+  /* Larger name */
+  font-weight: 600;
+  color: #7c3aed;
+  /* Purple name */
+  margin: 0 0 0.25rem 0;
 }
 
 .user-detail {
-    color: #6b7280;
-    font-size: 0.95rem;
-    margin: 0.1rem 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin: 0.1rem 0;
 }
 
 /* KYC Badge */
 .kyc-badge-container {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .kyc-badge {
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    display: inline-block;
-    text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  display: inline-block;
+  text-transform: uppercase;
 }
 
 .kyc-badge.approved {
-    background-color: #dcfce7;
-    color: #15803d;
+  background-color: #dcfce7;
+  color: #15803d;
 }
 
 .kyc-badge.pending {
-    background-color: #fef9c3;
-    color: #a16207;
+  background-color: #fef9c3;
+  color: #a16207;
 }
 
 .kyc-badge.incomplete {
-    background-color: #fee2e2;
-    color: #b91c1c;
+  background-color: #fee2e2;
+  color: #b91c1c;
 }
 
 /* Tabs */
-.tabs-container {
-    display: flex;
-    margin-bottom: 2rem;
-    gap: 1rem;
-    /* Remove card styling from container, styling individual buttons or group */
-    background: transparent;
-    box-shadow: none;
-    border-radius: 0;
+.tabs-container-userpro {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;  
+  max-width: 600px;
 }
 
-/* Segmented Control visual from image */
 .tabs-group {
-    display: flex;
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 0;
-    overflow: hidden;
-    /* box-shadow: 0 1px 2px rgba(0,0,0,0.05); */
-    /* Actually the image shows separate buttons or a joined group. Let's assume joined for "Basic Details" | "KYC" | "Settings" */
-    width: 100%;
-    max-width: 600px;
-    /* Limit width */
+  display: flex;
+  background-color: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: 100%;
+  max-width: 600px;
 }
 
 .tab-button {
-    flex: 1;
-    padding: 0.75rem 0;
-    text-align: center;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-    border: none;
-    cursor: pointer;
-    background: white;
-    color: #4b5563;
-    position: relative;
-    border-right: 1px solid #f3f4f6;
-    /* Separators */
+  flex: 1;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #111;
+  border-radius: 0.6rem;
+  transition: all 0.25s ease;
 }
 
 .tab-button:last-child {
-    border-right: none;
+  border-right: none;
 }
 
 .tab-button.active {
-    background-color: #7c3aed;
-    /* Purple active */
-    color: white;
-    font-weight: 600;
+  background-color: #7c3aed;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.35);
 }
 
 .tab-button.inactive:hover {
-    background-color: #f9fafb;
+  background-color: #e5e7eb;
 }
 
-/* Content Sections */
 .details-card {
-    background-color: white;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    border: none;
-    /* Removed border */
+  background-color: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  border: none;
+  /* Removed border */
 }
 
 .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid #f3f4f6;
-    /* Lighter border */
-    padding-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 0.75rem;
 }
 
 .section-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    /* Font weight looks slightly monospaced or just bold in image */
-    color: #111;
-    margin: 0;
-    font-family: monospace, sans-serif;
-    /* Trying to match "Basic Details" monospace look in image */
-    letter-spacing: -0.5px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+  font-family: monospace, sans-serif;
+  letter-spacing: -0.5px;
 }
 
 /* Edit button styling not prominent in image, but keeping logic. */
 .edit-action-button {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    color: #7c3aed;
-    transition: color 0.3s;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #7c3aed;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 /* Grid Layouts - Spanning logic needed in CSS or JSX */
 .details-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    column-gap: 2rem;
-    row-gap: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 2rem;
+  row-gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
-    .details-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Input Component */
 .input-group {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-label {
-    font-size: 0.9rem;
-    color: #374151;
-    /* Darker gray */
-    margin-bottom: 0.5rem;
-    font-weight: 400;
+  display: none;
 }
 
 .input-field {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    /* More padding */
-    border: none;
-    /* No border primarily */
-    border-radius: 0.5rem;
-    background-color: #f3f4f6;
-    /* Light gray background match */
-    font-size: 0.95rem;
-    color: #1f2937;
-    transition: all 0.2s;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #f3f4f6;
+  font-size: 0.8rem;
+  color: #1f2937;
+  transition: all 0.2s;
 }
 
 .input-field:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px #ddd6fe;
-    /* purple-200 ring */
-    background-color: white;
+  outline: none;
+  box-shadow: 0 0 0 2px #ddd6fe;
+  /* purple-200 ring */
+  background-color: white;
 }
 
 .input-field::placeholder {
-    color: #9ca3af;
+  color: #9ca3af;
 }
 
 .input-field.readonly {
-    background-color: #f3f4f6;
-    /* Gray background for readonly */
-    cursor: default;
-    color: #4b5563;
+  background-color: #f3f4f6;
+  /* Gray background for readonly */
+  cursor: default;
+  color: #4b5563;
 }
 
 /* Style for when editable but not focused */
 .input-field:not(.readonly) {
-    background-color: #f3f4f6;
-    /* Image shows gray bg even for inputs */
-    border: 1px solid transparent;
+  background-color: #f3f4f6;
+  /* Image shows gray bg even for inputs */
+  border: 1px solid transparent;
 }
 
 .input-field:not(.readonly):hover {
-    border-color: #e5e7eb;
+  border-color: #e5e7eb;
 }
 
 /* Links (Change Email / Phone) */
 .change-link-btn {
-    color: #a855f7;
-    /* Lighter purple/lilac */
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    text-decoration: underline;
-    width: fit-content;
-    padding: 0;
+  color: #a855f7;
+  /* Lighter purple/lilac */
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: underline;
+  width: fit-content;
+  padding: 0;
 }
 
 .change-link-btn:hover {
-    color: #7c3aed;
+  color: #7c3aed;
 }
 
 .info-icon {
-    margin-right: 4px;
-    font-size: 1rem;
+  margin-right: 4px;
+  font-size: 1rem;
 }
 
 /* Phone input container */
 .phone-input-wrapper {
-    display: flex;
-    background-color: #f3f4f6;
-    border-radius: 0.5rem;
-    overflow: hidden;
+  display: flex;
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 .phone-country {
-    padding: 0.8rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-right: 1px solid #e5e7eb;
-    color: #6b7280;
-    font-weight: 500;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-right: 1px solid #e5e7eb;
+  color: #6b7280;
+  font-weight: 500;
 }
 
 .phone-field {
-    border: none;
-    background: transparent;
-    padding: 0.8rem 1rem;
-    width: 100%;
-    font-size: 0.95rem;
-    outline: none;
+  border: none;
+  background: transparent;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  font-size: 0.95rem;
+  outline: none;
 }
 
 /* Divider */
 .divider {
-    border-top: none;
-    /* Image doesn't show strong dividers between sections if card is separated, or just white space */
-    margin: 2rem 0;
-    height: 1px;
-    background-color: #f3f4f6;
+  border-top: none;
+  /* Image doesn't show strong dividers between sections if card is separated, or just white space */
+  margin: 2rem 0;
+  height: 1px;
+  background-color: #f3f4f6;
 }
 
 /* Action Buttons */
 .action-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 2rem;
-    padding-top: 0;
-    border-top: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 0;
+  border-top: none;
 }
 
 .btn-cancel {
-    padding: 0.7rem 1.5rem;
-    color: #7c3aed;
-    background: transparent;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
+  padding: 0.7rem 1.5rem;
+  color: #7c3aed;
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .btn-cancel:hover {
-    background-color: #f5f3ff;
-    border-radius: 0.5rem;
+  background-color: #f5f3ff;
+  border-radius: 0.5rem;
 }
 
 .btn-save {
-    padding: 0.7rem 2.5rem;
-    background-color: #7c3aed;
-    color: white;
-    border-radius: 0.5rem;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 6px -1px rgba(124, 58, 237, 0.3);
+  padding: 0.7rem 2.5rem;
+  background-color: #7c3aed;
+  color: white;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(124, 58, 237, 0.3);
 }
 
 .btn-save:hover {
-    background-color: #6d28d9;
+  background-color: #6d28d9;
 }
 
 .btn-save:disabled {
-    background-color: #c4b5fd;
-    box-shadow: none;
-    cursor: not-allowed;
+  background-color: #c4b5fd;
+  box-shadow: none;
+  cursor: not-allowed;
 }
 
 /* Grid Spanning Classes */
 .col-span-2 {
-    grid-column: span 2;
+  grid-column: span 2;
 }
 
 @media (max-width: 768px) {
-    .col-span-2 {
-        grid-column: span 1;
-    }
+  .col-span-2 {
+    grid-column: span 1;
+  }
 }

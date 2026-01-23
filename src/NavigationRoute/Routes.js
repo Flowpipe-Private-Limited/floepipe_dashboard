@@ -53,6 +53,7 @@ import Reports from "../pages/Reports/Reports";
 import ApiKeys from "../pages/apiKeys/apikeys";
 import API_Usage from "../pages/API_Usage/API_Usage";
 import WhiteListIP from "../pages/whiteList/whiteList";
+import Billing_plans from "../pages/WalletToPop/Billing_plans";
 
 const AppRoute = () => {
   return (
@@ -89,6 +90,7 @@ const AppRoute = () => {
           <Route path="Profile" element={<ProfilePage />} />
           <Route path="Products" element={<Products/>} />
           <Route path="Reports" element={<Reports/>} />
+          <Route path="Billing_plans" element={<Billing_plans/>} />
           <Route path="apiKeys" element={<ApiKeys />} />
           <Route path="APIUsage" element={<API_Usage />} />
           <Route path="WhitelistIP" element={<WhiteListIP />} />

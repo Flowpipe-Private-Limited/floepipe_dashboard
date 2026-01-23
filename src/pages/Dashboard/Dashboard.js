@@ -374,7 +374,7 @@ function Header({ onToggle, data, onNavigate, onHelpClick }) {
       <div className="flex items-center gap-3">
         <button
           className="purple-outline-btn"
-          onClick={() => onNavigate("WalletToPop")}
+          onClick={() => onNavigate("Billing_plans")}
         >
           Balance
         </button>

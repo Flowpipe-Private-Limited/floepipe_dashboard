@@ -1,0 +1,695 @@
+/* Main Container */
+.BillingPlans_page {
+    /* padding: 32px; */
+    background-color: #f9faff;
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #111827;
+}
+
+.BillingPlans_wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    /* padding: 32px; */
+}
+
+/* Header */
+.BillingPlans_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.BillingPlans_header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
+}
+
+.BillingPlans_header p {
+    color: #6b7280;
+    margin: 0;
+    font-size: 14px;
+}
+
+.BillingPlans_header-right {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+/* Mode Toggle */
+.BillingPlans_mode-toggle {
+    background: #f3f4f6;
+    padding: 4px;
+    border-radius: 8px;
+    display: flex;
+    gap: 4px;
+}
+
+.BillingPlans_mode-btn {
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.BillingPlans_mode-btn.active {
+    background: #ffffff;
+    color: #111827;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.BillingPlans_add-balance-main-btn {
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.BillingPlans_add-balance-main-btn:hover {
+    background: #6d28d9;
+}
+
+/* Stats Row */
+.BillingPlans_stats-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.BillingPlans_stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid #f3f4f6;
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.BillingPlans_stat-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.BillingPlans_stat-icon {
+    font-size: 16px;
+    color: #7c3aed;
+    line-height: 1;
+}
+
+.BillingPlans_stat-label {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1;
+}
+
+.BillingPlans_stat-value-group {
+    margin-bottom: 4px;
+}
+
+.BillingPlans_stat-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #111827;
+}
+
+.BillingPlans_stat-sub {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.BillingPlans_badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.BillingPlans_badge.yellow {
+    background: #d9f99d;
+    /* lime-ish green to match image */
+    color: #1a2e05;
+}
+
+.BillingPlans_badge.green {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.BillingPlans_badge.purple-solid {
+    background: #7c3aed;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+}
+
+.BillingPlans_progress-bar {
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+.BillingPlans_progress-fill {
+    background: #7c3aed;
+    height: 100%;
+    border-radius: 3px;
+}
+
+.BillingPlans_threshold-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.BillingPlans_info-icon {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.BillingPlans_edit-link {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    text-decoration: none;
+    margin-top: 8px;
+}
+
+/* Layout Grid */
+.BillingPlans_content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+/* Transactions Table */
+.BillingPlans_transactions-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f3f4f6;
+}
+
+.BillingPlans_section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.BillingPlans_section-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Custom Dropdown */
+.BillingPlans_custom-dropdown-container {
+    position: relative;
+    min-width: 140px;
+}
+
+.BillingPlans_dropdown-trigger {
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 14px;
+    color: #111827;
+    font-weight: 500;
+}
+
+.BillingPlans_arrow {
+    font-size: 10px;
+    margin-left: 8px;
+}
+
+.BillingPlans_dropdown-menu {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f3f4f6;
+    width: 180px;
+    z-index: 10;
+    padding: 8px 0;
+}
+
+.BillingPlans_dropdown-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #4b5563;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.BillingPlans_dropdown-item:hover {
+    background: #f9fafb;
+    color: #111827;
+}
+
+
+/* Table */
+.BillingPlans_transactions-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+.BillingPlans_transactions-table th {
+    text-align: left;
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 13px;
+    padding-bottom: 8px;
+}
+
+.BillingPlans_transactions-table td {
+    font-size: 14px;
+    padding: 8px 0;
+    vertical-align: middle;
+}
+
+.BillingPlans_transactions-table tbody td {
+    text-align: center;
+    vertical-align: middle;
+    padding-right: 20px;
+}
+
+/* Center pills & buttons properly */
+.BillingPlans_tx-type,
+.BillingPlans_status-pill,
+.BillingPlans_download-btn {
+    margin: 0 auto;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.BillingPlans_tx-type {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid #e5e7eb;
+}
+
+.BillingPlans_status-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.BillingPlans_status-pill.completed {
+    background: white;
+    border: 1px solid #86efac;
+    color: #166534;
+}
+
+.BillingPlans_download-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+    font-size: 16px;
+}
+
+/* Sidebar */
+.BillingPlans_sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.BillingPlans_sidebar-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f3f4f6;
+}
+
+.BillingPlans_card-header-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.BillingPlans_card-header-toggle h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Timeline */
+.BillingPlans_plan-history h3 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 18px;
+}
+
+.BillingPlans_history-timeline {
+    display: flex;
+    flex-direction: column;
+}
+
+.BillingPlans_timeline-item {
+    display: flex;
+    position: relative;
+    padding-bottom: 32px;
+}
+
+.BillingPlans_timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.BillingPlans_timeline-dot {
+    width: 12px;
+    height: 12px;
+    background: #e9d5ff;
+    /* Light purple */
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+    z-index: 2;
+}
+
+.BillingPlans_timeline-line {
+    position: absolute;
+    left: 5px;
+    /* Center of dot (12/2 - 1) */
+    top: 18px;
+    /* Below dot */
+    bottom: 0;
+    width: 2px;
+    background: #f3f4f6;
+    z-index: 1;
+}
+
+.BillingPlans_timeline-item:last-child .BillingPlans_timeline-line {
+    display: none;
+}
+
+.BillingPlans_timeline-content {
+    margin-left: 16px;
+    flex-grow: 1;
+}
+
+.BillingPlans_timeline-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.BillingPlans_plan-name-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.BillingPlans_timeline-header-row h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: monospace;
+    /* To match the monospaced look of 'Mini' in screenshot if needed, or Inter */
+    font-family: inherit;
+}
+
+.BillingPlans_timeline-date {
+    margin: 0;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* Switches */
+.BillingPlans_switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.BillingPlans_switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.BillingPlans_slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: .4s;
+    pointer-events: none;
+    /* Let clicks pass to the container */
+}
+
+.BillingPlans_slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked+.BillingPlans_slider {
+    background-color: #7c3aed;
+}
+
+input:checked+.BillingPlans_slider:before {
+    transform: translateX(20px);
+}
+
+.BillingPlans_slider.round {
+    border-radius: 34px;
+}
+
+.BillingPlans_slider.round:before {
+    border-radius: 50%;
+}
+
+/* Recharge Input */
+.BillingPlans_recharge-input-group {
+    margin-bottom: 16px;
+}
+
+.BillingPlans_input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 6px 6px 6px 12px;
+}
+
+.BillingPlans_currency-symbol {
+    color: #6b7280;
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+.BillingPlans_currency-img {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.BillingPlans_input-wrapper input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+}
+
+.BillingPlans_pay-small-btn {
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.BillingPlans_quick-amounts {
+    display: flex;
+    gap: 8px;
+}
+
+.BillingPlans_quick-amounts button {
+    flex: 1;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* Alerts */
+.BillingPlans_alert-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.BillingPlans_checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.BillingPlans_checkbox-row input {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    accent-color: #7c3aed;
+}
+
+/* Warning Banner */
+.BillingPlans_warning-banner {
+    margin-top: 24px;
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    color: #92400e;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .BillingPlans_stats-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .BillingPlans_content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .BillingPlans_stats-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Side Slider */
+.BillingPlans_slider-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.BillingPlans_slider-container {
+    width: 480px;
+    height: 100%;
+    background: white;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.BillingPlans_slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #eee;
+    background: #fdfdfd;
+}
+
+.BillingPlans_slider-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.BillingPlans_close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.BillingPlans_slider-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* Override container styles for embedded wallet */
+.BillingPlans_slider-content .wallet-container {
+    min-height: auto;
+    padding: 24px;
+    background: transparent;
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/WalletToPop.css";
+import "./WalletToPop.css";
 import axios from "axios";
 
 const WalletToPop = () => {
@@ -78,22 +78,53 @@ const WalletToPop = () => {
       <div className="wallet-wrapper">
 
         <div className="wallet-card">
-          <p className="wallet-title">API WALLET</p>
+          <div className="wallet-card-header">
+            <p className="wallet-title">P E R S O N A L W A L L E T</p>
+            <div className="wallet-sun-icon">
+              {/* Simple CSS sunburst representation or SVG */}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d9f99d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </div>
+          </div>
 
           <div className="wallet-balance-row">
             <h2 className="wallet-balance">₹ {balance}</h2>
-            <div className="wallet-logo"></div>
+            <span className="wallet-eye-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </span>
           </div>
 
-          <div className="wallet-statement">
-            <span className="statement-icon">📄</span>
-            <span>View Statement</span>
+          <div className="wallet-card-footer">
+            <div className="wallet-action">
+              <span className="action-icon">📨</span> {/* Using emoji or generic icon for statement */}
+              <span>View Statement</span>
+            </div>
+            <div className="wallet-action">
+              <span className="action-icon">₹</span>
+              <span>Add Money</span>
+            </div>
           </div>
         </div>
+
         <div className="add-money-card">
           <h3>Add Money via UPI</h3>
 
           <div className="upi-input-row">
+            <div className="upi-icon-box">
+              <span className="upi-app-icon">▶️</span> {/* Placeholder for UPI app logo */}
+            </div>
             <span className="currency">₹</span>
             <input
               type="number"
@@ -102,7 +133,7 @@ const WalletToPop = () => {
               onChange={(e) => setAmount(e.target.value)}
             />
             <button className="pay-btn" onClick={handleTopUp}>
-              Pay
+              pay
             </button>
           </div>
 
@@ -113,6 +144,7 @@ const WalletToPop = () => {
             <button onClick={() => setAmount(3000)}>3000</button>
           </div>
         </div>
+
         <div className="other-ways">
           <h3>Other ways to add Money</h3>
 
