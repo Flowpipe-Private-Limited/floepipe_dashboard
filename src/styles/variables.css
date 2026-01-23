@@ -6,6 +6,8 @@
   --black-500:#0000001A;
   --black-600:#0000004D;
   --black-700:#000000CC;
+  --black-800:#0000000D;
+  --black-900:#00000099;
 
   /* white */
   --white:#ffffff;
@@ -17,6 +19,8 @@
   --purple-100:#282A2C;
   --purple-200:#7C3AED1A;
   --purple-400:#7E48FF33;
+  --purple-500:#7C3AED80;
+  --purple-600:#CEC6E0;
 
   /* gray */
   --gray-100:#6A7282;

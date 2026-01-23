@@ -403,44 +403,41 @@ function Header({ onToggle, data, onNavigate, onHelpClick }) {
     //   </div>
     // </header>
     <header className="Dash-header">
-  <div className="Dash-header-left">
-    <button
-      onClick={onToggle}
-      className="Dash-header-menu-btn"
-    >
-      <Menu size={18} />
-    </button>
+      <div className="Dash-header-left">
+        <button onClick={onToggle} className="Dash-header-menu-btn">
+          <Menu size={18} />
+        </button>
 
-    <h1 className="Dash-header-title">
-      {pageTitle}
-    </h1>
-  </div>
+        <h1 className="Dash-header-title">{pageTitle}</h1>
+      </div>
 
-  <div className="Dash-header-right">
-    <button className="Dash-header-btn">Balance</button>
+      <div className="Dash-header-right">
+        <button
+          onClick={() => onNavigate("Billing_plans")}
+          className="Dash-header-btn"
+        >
+          Balance
+        </button>
 
-    <button className="Dash-header-btn">
-      Developers API
-    </button>
+        <button className="Dash-header-btn">Developers API</button>
 
-    <button
-      className="Dash-header-btn Dash-header-help-btn"
-      onClick={onHelpClick}
-    >
-      <HelpCircle size={16} />
-      <span>Help</span>
-    </button>
+        <button
+          className="Dash-header-btn Dash-header-help-btn"
+          onClick={onHelpClick}
+        >
+          <HelpCircle size={16} />
+          <span>Help</span>
+        </button>
 
-    <button className="Dash-header-btn">
-      <Bell size={16} />
-      <span>Updates</span>
-    </button>
+        <button className="Dash-header-btn">
+          <Bell size={16} />
+          <span>Updates</span>
+        </button>
 
-    <button className="Dash-header-avatar-btn">
-      <User style={{}} size={18} />
-    </button>
-  </div>
-</header>
-
+        <button className="Dash-header-avatar-btn">
+          <User style={{}} size={18} />
+        </button>
+      </div>
+    </header>
   );
 }

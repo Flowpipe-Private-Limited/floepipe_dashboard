@@ -205,142 +205,143 @@ function BasicDetails() {
   }
 
   return (
-    <div className="details-card">
-      <div className="section-header">
-        <h3 className="section-title">Basic Details</h3>
-      </div>
+    <>
+      <div className="details-card">
+        <div className="section-header">
+          <h3 className="section-title">Basic Details</h3>
+        </div>
 
-      <div className="details-grid">
-        <Input
-          label="First Name"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleBasicChange}
-          readOnly={!isEditing}
-          placeholder="First Name"
-        />
-        <Input
-          label="Last Name"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleBasicChange}
-          readOnly={!isEditing}
-          placeholder="Last Name"
-        />
-        <div className="input-group col-span-2">
-          <label className="input-label">E-mail</label>
-          <input
-            name="email"
-            value={formData.email}
+        <div className="details-grid">
+          <Input
+            label="First Name"
+            name="firstName"
+            value={formData.firstName}
             onChange={handleBasicChange}
             readOnly={!isEditing}
-            className={`input-field ${!isEditing ? "readonly" : ""}`}
-            placeholder="E-mail"
+            placeholder="First Name"
           />
-          <button className="change-link-btn">
-            <Info size={14} className="info-icon" /> change E-mail
-          </button>
-        </div>
-
-        <div className="input-group col-span-2">
-          <label className="input-label">Phone Number</label>
-          <div className="phone-input-wrapper">
-            <span className="phone-country">
-              <img
-                src="https://flagcdn.com/w20/in.png"
-                alt="India"
-                style={{ width: 20, marginRight: 5 }}
-              />
-              +91
-            </span>
+          <Input
+            label="Last Name"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleBasicChange}
+            readOnly={!isEditing}
+            placeholder="Last Name"
+          />
+          <div className="input-group col-span-1">
+            <label className="input-label">E-mail</label>
             <input
-              name="mobileNumber"
-              value={formData.mobileNumber}
+              name="email"
+              value={formData.email}
               onChange={handleBasicChange}
               readOnly={!isEditing}
-              className="phone-field"
-              placeholder="9854641567"
+              className={`input-field ${!isEditing ? "readonly" : ""}`}
+              placeholder="E-mail"
             />
+            <button className="change-link-btn">
+              <Info size={14} className="info-icon" /> change E-mail
+            </button>
           </div>
-          <button className="change-link-btn">
-            <Info size={14} className="info-icon" /> Change Phone Number
-          </button>
+
+          <div className="input-group col-span-1">
+            <label className="input-label">Phone Number</label>
+            <div className="phone-input-wrapper">
+              <span className="phone-country">
+                <img
+                  src="https://flagcdn.com/w20/in.png"
+                  alt="India"
+                  style={{ width: 20, marginRight: 5 }}
+                />
+                +91
+              </span>
+              <input
+                name="mobileNumber"
+                value={formData.mobileNumber}
+                onChange={handleBasicChange}
+                readOnly={!isEditing}
+                className="phone-field"
+                placeholder="9854641567"
+              />
+            </div>
+            <button className="change-link-btn">
+              <Info size={14} className="info-icon" /> Change Phone Number
+            </button>
+          </div>
         </div>
       </div>
-
-      <hr className="divider" />
-
+<br/>
       {/* Company Details Section */}
-      <div className="section-header">
-        <h3 className="section-title">Company Details</h3>
-      </div>
+      <div className="details-card">
+        <div className="section-header">
+          <h3 className="section-title">Company Details</h3>
+        </div>
 
-      <div className="details-grid">
-        <Input
-          label="Business/Company Name"
-          name="businessName"
-          value={formData?.companyDetails?.businessName}
-          onChange={handleCompanyChange}
-          readOnly={!isEditing}
-          placeholder="Enter Business Name"
-          fullWidth={false} // Image shows separate fields? Assuming half width or full based on space. Let's stick to Grid.
-          // Actually image shows: Business name (Left), Landmark (Right)
-        />
-        <Input
-          label="Landmark"
-          name="landmark"
-          value={formData?.companyDetails?.landmark}
-          onChange={handleCompanyChange}
-          readOnly={!isEditing}
-          placeholder="Area colony,street ,sector"
-        />
-
-        <Input
-          label="Address, H-No, Apartment"
-          name="addressLine1"
-          value={formData?.companyDetails?.addressLine1}
-          onChange={handleCompanyChange}
-          readOnly={!isEditing}
-          placeholder="Enter Address"
-        />
-        <Input
-          label="City"
-          name="city"
-          value={formData?.companyDetails?.city}
-          onChange={handleCompanyChange}
-          readOnly={!isEditing}
-          placeholder="Enter City"
-        />
-        <Input
-          label="Pincode"
-          name="pincode"
-          value={formData?.companyDetails?.pincode}
-          onChange={handleCompanyChange}
-          readOnly={!isEditing}
-          placeholder="Enter Pincode"
-        />
-        <Input
-          label="State"
-          name="state"
-          value={formData?.companyDetails?.state}
-          onChange={handleCompanyChange}
-          readOnly={!isEditing}
-          placeholder="Enter State"
-        />
-        <div className="col-span-2">
+        <div className="details-grid">
           <Input
-            label="Location"
-            name="location"
-            value={formData?.companyDetails?.location}
+            label="Business/Company Name"
+            name="businessName"
+            value={formData?.companyDetails?.businessName}
             onChange={handleCompanyChange}
             readOnly={!isEditing}
-            placeholder="Area/region"
-            // This seems to be the last full width item if needed, or simply half width.
-            // Using a wrapper div to force full width if Input component param doesn't work well
+            placeholder="Enter Business Name"
+            fullWidth={false} // Image shows separate fields? Assuming half width or full based on space. Let's stick to Grid.
+            // Actually image shows: Business name (Left), Landmark (Right)
           />
+          <Input
+            label="Landmark"
+            name="landmark"
+            value={formData?.companyDetails?.landmark}
+            onChange={handleCompanyChange}
+            readOnly={!isEditing}
+            placeholder="Area colony,street ,sector"
+          />
+
+          <Input
+            label="Address, H-No, Apartment"
+            name="addressLine1"
+            value={formData?.companyDetails?.addressLine1}
+            onChange={handleCompanyChange}
+            readOnly={!isEditing}
+            placeholder="Enter Address"
+          />
+          <Input
+            label="City"
+            name="city"
+            value={formData?.companyDetails?.city}
+            onChange={handleCompanyChange}
+            readOnly={!isEditing}
+            placeholder="Enter City"
+          />
+          <Input
+            label="Pincode"
+            name="pincode"
+            value={formData?.companyDetails?.pincode}
+            onChange={handleCompanyChange}
+            readOnly={!isEditing}
+            placeholder="Enter Pincode"
+          />
+          <Input
+            label="State"
+            name="state"
+            value={formData?.companyDetails?.state}
+            onChange={handleCompanyChange}
+            readOnly={!isEditing}
+            placeholder="Enter State"
+          />
+          <div className="col-span-2">
+            <Input
+              label="Location"
+              name="location"
+              value={formData?.companyDetails?.location}
+              onChange={handleCompanyChange}
+              readOnly={!isEditing}
+              placeholder="Area/region"
+              // This seems to be the last full width item if needed, or simply half width.
+              // Using a wrapper div to force full width if Input component param doesn't work well
+            />
+          </div>
         </div>
       </div>
-
       {/* Action Buttons */}
       <div className="action-buttons">
         <button className="btn-cancel" onClick={handleEditToggle}>
@@ -369,6 +370,6 @@ function BasicDetails() {
           Save
         </button>
       </div>
-    </div>
+    </>
   );
 }
