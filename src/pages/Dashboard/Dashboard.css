@@ -1,0 +1,135 @@
+.nav-panel {
+  background-color: var(--black);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  transition: width 0.3s ease;
+  border-top-right-radius: 2rem;
+}
+
+.nav-panel--expanded {
+  width: 256px;
+}
+.nav-panel--collapsed {
+  width: 80px;
+}
+
+.section-title-flowpipe{
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: var(--white);
+}
+
+.sidebar-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  border-radius: 0.4rem;
+  transition: all 0.2s ease;
+  color: #d1d5db;
+  background: var(--purple-100);
+  font-family: "JetBrainsMono";
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.sidebar-item-kyc {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  border-radius: 0.4rem;
+  transition: all 0.2s ease;
+  color: #d1d5db;
+  background: var(--purple-100);
+  font-family: "JetBrainsMono";
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-expanded {
+  justify-content: flex-start;
+}
+
+.sidebar-collapsed {
+  justify-content: center;
+}
+
+.sidebar-search-wrapper {
+  padding: 8px;
+}
+
+.sidebar-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--purple-100);
+  border-radius: 0.4rem;
+  padding: 0.6rem;
+  transition: box-shadow 0.2s ease;
+  font-family: "JetBrainsMono";
+}
+
+.sidebar-search-icon {
+  color: var(--white);
+  font-size: 16px;
+}
+
+.sidebar-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: var(--white);
+  font-size: 12px;
+  padding: 0 8px;
+}
+
+.sidebar-search-input::placeholder {
+  color: var(--white);
+}
+.sidebar-search-box:focus-within {
+  box-shadow: 0 0 0 1px #a855f7;
+}
+
+.Page-name {
+  color: var(--black);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.purple-outline-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid #7e22ce;
+  color: #7e22ce;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "JetBrainsMono";
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.3rem;
+  justify-content: center;
+}
+
+.purple-outline-btn:hover {
+  background: rgba(126, 34, 206, 0.08);
+}
+
+.dashboard-wrapper {
+  background-color: #f8f9fd;
+}

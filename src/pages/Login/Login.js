@@ -64,14 +64,16 @@ const Login = () => {
     setLoading(true);
     setErrorMessage("");
     try {
+    // alert(formData?.mobileNumber)
+
       console.log("Login API called with mobile:", formData?.mobileNumber);
       const clientId = localStorage.getItem("clientId");
       console.log("clientId in handleLogin", clientId);
-      if (!clientId) {
-        setErrorMessage("Client ID not found. Please register first.");
-        setLoading(false);
-        return;
-      }
+      // if (!clientId) {
+      //   setErrorMessage("Client ID not found. Please register first.");
+      //   setLoading(false);
+      //   return;
+      // }
       const response = await axios.post(
         `${BASE_URL}/api/v1/client/login/send-otp`,
         {
