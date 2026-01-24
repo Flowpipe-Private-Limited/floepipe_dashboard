@@ -23,6 +23,9 @@ import flowpipeLogo from "../../assets/images/FlowpipeLogo.png";
 import { useUserStore } from "../../Store/userStore";
 import { toTitleCase } from "../../utils/simpleHellperFn";
 import Help from "../../components/Help/Help";
+import { RxPlusCircled } from "react-icons/rx";
+import { IoCodeSlashSharp } from "react-icons/io5";
+import { HiOutlineBell } from "react-icons/hi";
 import "./Dashboard.css";
 
 const sideDashboardConfig = [
@@ -416,21 +419,22 @@ function Header({ onToggle, data, onNavigate, onHelpClick }) {
           onClick={() => onNavigate("Billing_plans")}
           className="Dash-header-btn"
         >
+        <RxPlusCircled size={24}/>
           Balance
         </button>
 
-        <button className="Dash-header-btn">Developers API</button>
+        <button className="Dash-header-btn"><IoCodeSlashSharp size={20} />Developers API</button>
 
         <button
           className="Dash-header-btn Dash-header-help-btn"
           onClick={onHelpClick}
         >
-          <HelpCircle size={16} />
+          <HelpCircle size={20} />
           <span>Help</span>
         </button>
 
         <button className="Dash-header-btn">
-          <Bell size={16} />
+          <HiOutlineBell size={20} />
           <span>Updates</span>
         </button>
 

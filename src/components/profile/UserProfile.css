@@ -14,7 +14,7 @@
   justify-content: space-between;
   margin-bottom: 2rem;
   background-color: var(--white);
-  padding: 0.5rem;
+  padding: 0.6rem;
   border-radius: 0.5rem;
   background: var(--white);
   border: 1px solid var(--purple-500);
@@ -34,14 +34,13 @@
   gap: 0.5rem;
   padding: 0.5rem 1.5rem;
   background-color: var(--purple-main);
-  /* Sharper purple */
   color: var(--white);
   border-radius: 0.5rem;
   transition: background-color 0.3s;
   border: none;
   cursor: pointer;
-  /* font-weight: 500; */
-  font-size: 0.7rem;
+  font-size: 0.8rem;
+  font-family: "JetBrainsMono";
 }
 
 .logout-button:hover {

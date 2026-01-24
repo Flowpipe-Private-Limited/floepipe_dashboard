@@ -184,7 +184,7 @@
 .Dash-header-btn {
   height: 36px;
   padding: 0 14px;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid #7c3aed;
   background: transparent;
   color: #7c3aed;
@@ -200,7 +200,7 @@
 .Dash-header-avatar-btn {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 16%;
    border: 1px solid #7c3aed;
   background: transparent;
   color: #7c3aed;

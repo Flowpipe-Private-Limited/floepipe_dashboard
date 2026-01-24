@@ -80,7 +80,6 @@
   height: 100%;
 }
 
-
 .wallet-card-main {
   /* Premium Purple Gradient matching image */
   background: linear-gradient(
@@ -126,6 +125,8 @@
   display: flex;
   margin-top: 1rem;
   gap: 1rem;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .wallet-dots {
@@ -190,21 +191,20 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-   position: relative;
-  overflow: hidden; 
+  position: relative;
+  overflow: hidden;
 }
 
 .stat-card-decor {
-    position: absolute;
-    bottom: -30px;
-    right: -61px;
-    width: 140px;
-    height: 88px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
+  position: absolute;
+  bottom: -30px;
+  right: -61px;
+  width: 140px;
+  height: 88px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
 }
-
 
 .stat-card .outline-btn.small {
   padding: 4px 10px;
