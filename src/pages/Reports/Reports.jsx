@@ -1,15 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown, FileText, ChevronLeft, ChevronRight } from 'lucide-react';
-import moment from 'moment';
-import './Reports.css';
+import React, { useState, useRef, useEffect } from "react";
+import { ChevronDown, FileText, ChevronLeft, ChevronRight } from "lucide-react";
+import moment from "moment";
+import "./Reports.css";
 
 const DateRangePicker = ({ isOpen, onClose, onApply }) => {
-  const [startDate, setStartDate] = useState(moment().startOf('month'));
+  const [startDate, setStartDate] = useState(moment().startOf("month"));
   const [endDate, setEndDate] = useState(moment());
-  const [activePreset, setActivePreset] = useState('This Month');
+  const [activePreset, setActivePreset] = useState("This Month");
   // Calendars state, default to current month and next month
-  const [leftMonth, setLeftMonth] = useState(moment().startOf('month'));
-  const [rightMonth, setRightMonth] = useState(moment().add(1, 'month').startOf('month'));
+  const [leftMonth, setLeftMonth] = useState(moment().startOf("month"));
+  const [rightMonth, setRightMonth] = useState(
+    moment().add(1, "month").startOf("month"),
+  );
 
   // Day Selection helper
   const [selectingStart, setSelectingStart] = useState(true); // Toggle between start/end selection if custom
@@ -17,14 +19,60 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
   if (!isOpen) return null;
 
   const presets = [
-    { label: 'Today', action: () => { setRange(moment(), moment()); } },
-    { label: 'Yesterday', action: () => { setRange(moment().subtract(1, 'days'), moment().subtract(1, 'days')); } },
-    { label: 'Last 7 Days', action: () => { setRange(moment().subtract(6, 'days'), moment()); } },
-    { label: 'This Week', action: () => { setRange(moment().startOf('week'), moment().endOf('week')); } },
-    { label: 'Last Week', action: () => { setRange(moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')); } },
-    { label: 'Last 30 Days', action: () => { setRange(moment().subtract(29, 'days'), moment()); } },
-    { label: 'This Month', action: () => { setRange(moment().startOf('month'), moment().endOf('month')); } },
-    { label: 'Last Month', action: () => { setRange(moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')); } },
+    {
+      label: "Today",
+      action: () => {
+        setRange(moment(), moment());
+      },
+    },
+    {
+      label: "Yesterday",
+      action: () => {
+        setRange(moment().subtract(1, "days"), moment().subtract(1, "days"));
+      },
+    },
+    {
+      label: "Last 7 Days",
+      action: () => {
+        setRange(moment().subtract(6, "days"), moment());
+      },
+    },
+    {
+      label: "This Week",
+      action: () => {
+        setRange(moment().startOf("week"), moment().endOf("week"));
+      },
+    },
+    {
+      label: "Last Week",
+      action: () => {
+        setRange(
+          moment().subtract(1, "week").startOf("week"),
+          moment().subtract(1, "week").endOf("week"),
+        );
+      },
+    },
+    {
+      label: "Last 30 Days",
+      action: () => {
+        setRange(moment().subtract(29, "days"), moment());
+      },
+    },
+    {
+      label: "This Month",
+      action: () => {
+        setRange(moment().startOf("month"), moment().endOf("month"));
+      },
+    },
+    {
+      label: "Last Month",
+      action: () => {
+        setRange(
+          moment().subtract(1, "month").startOf("month"),
+          moment().subtract(1, "month").endOf("month"),
+        );
+      },
+    },
     // Input box for custom days not fully implemented logic wise, usually just text.
     // Keeping standard presets for now.
   ];
@@ -33,8 +81,8 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
     setStartDate(start);
     setEndDate(end);
     // Update calendar views to show selection
-    setLeftMonth(moment(start).startOf('month'));
-    setRightMonth(moment(start).add(1, 'month').startOf('month'));
+    setLeftMonth(moment(start).startOf("month"));
+    setRightMonth(moment(start).add(1, "month").startOf("month"));
   };
 
   const handlePresetClick = (preset) => {
@@ -46,7 +94,7 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
     // Simple logic: If we are 'Custom' mode or just clicking.
     // For this UI, let's assume if you click, you are starting a new range or modifying end.
     // But with presets dominating, we'll keep it simple: Click Start -> Click End.
-    if (activePreset !== 'Custom') setActivePreset('Custom');
+    if (activePreset !== "Custom") setActivePreset("Custom");
 
     if (selectingStart) {
       setStartDate(day);
@@ -64,7 +112,7 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
   };
 
   const renderCalendar = (monthMoment) => {
-    const startDay = moment(monthMoment).startOf('month').day(); // 0-6
+    const startDay = moment(monthMoment).startOf("month").day(); // 0-6
     const daysInMonth = monthMoment.daysInMonth();
     const days = [];
 
@@ -76,10 +124,14 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
     // Days
     for (let d = 1; d <= daysInMonth; d++) {
       const currentDay = moment(monthMoment).date(d);
-      const isSelected = currentDay.isSame(startDate, 'day') || currentDay.isSame(endDate, 'day');
-      const isInRange = currentDay.isAfter(startDate, 'day') && currentDay.isBefore(endDate, 'day');
-      const isStart = currentDay.isSame(startDate, 'day');
-      const isEnd = currentDay.isSame(endDate, 'day');
+      const isSelected =
+        currentDay.isSame(startDate, "day") ||
+        currentDay.isSame(endDate, "day");
+      const isInRange =
+        currentDay.isAfter(startDate, "day") &&
+        currentDay.isBefore(endDate, "day");
+      const isStart = currentDay.isSame(startDate, "day");
+      const isEnd = currentDay.isSame(endDate, "day");
 
       let classes = "day-cell";
       if (isInRange) classes += " in-range";
@@ -94,7 +146,7 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
           onClick={() => handleDayClick(currentDay)}
         >
           {d}
-        </div>
+        </div>,
       );
     }
     return days;
@@ -105,16 +157,23 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
       <div className="date-picker-modal">
         {/* Sidebar */}
         <div className="presets-sidebar">
-          {presets.map(p => (
+          {presets.map((p) => (
             <button
               key={p.label}
-              className={`preset-btn ${activePreset === p.label ? 'active' : ''}`}
+              className={`preset-btn ${activePreset === p.label ? "active" : ""}`}
               onClick={() => handlePresetClick(p)}
             >
               {p.label}
             </button>
           ))}
-          <div style={{ marginTop: 'auto', fontSize: '0.8rem', color: '#888', padding: '0.5rem' }}>
+          <div
+            style={{
+              marginTop: "auto",
+              fontSize: "0.8rem",
+              color: "#888",
+              padding: "0.5rem",
+            }}
+          >
             days up to today
           </div>
         </div>
@@ -122,23 +181,36 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
         {/* Main Content */}
         <div className="calendar-container">
           <div className="date-inputs-row">
-            <div className="date-display-box">{startDate.format('MMM D, YYYY')}</div>
-            <div className="date-display-box">{endDate.format('MMM D, YYYY')}</div>
+            <div className="date-display-box">
+              {startDate.format("MMM D, YYYY")}
+            </div>
+            <div className="date-display-box">
+              {endDate.format("MMM D, YYYY")}
+            </div>
           </div>
 
           <div className="calendars-wrapper">
             {/* Left Calendar */}
             <div className="single-calendar">
               <div className="calendar-header">
-                <button className="nav-btn" onClick={() => setLeftMonth(moment(leftMonth).subtract(1, 'month'))}>
+                <button
+                  className="nav-btn"
+                  onClick={() =>
+                    setLeftMonth(moment(leftMonth).subtract(1, "month"))
+                  }
+                >
                   <ChevronLeft size={20} />
                 </button>
-                <span className="month-label">{leftMonth.format('MMMM YYYY')}</span>
+                <span className="month-label">
+                  {leftMonth.format("MMMM YYYY")}
+                </span>
                 <div></div> {/* Spacer */}
               </div>
               <div className="calendar-grid">
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-                  <div key={d} className="day-label">{d}</div>
+                {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
+                  <div key={d} className="day-label">
+                    {d}
+                  </div>
                 ))}
                 {renderCalendar(leftMonth)}
               </div>
@@ -148,14 +220,23 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
             <div className="single-calendar">
               <div className="calendar-header">
                 <div></div>
-                <span className="month-label">{rightMonth.format('MMMM YYYY')}</span>
-                <button className="nav-btn" onClick={() => setRightMonth(moment(rightMonth).add(1, 'month'))}>
+                <span className="month-label">
+                  {rightMonth.format("MMMM YYYY")}
+                </span>
+                <button
+                  className="nav-btn"
+                  onClick={() =>
+                    setRightMonth(moment(rightMonth).add(1, "month"))
+                  }
+                >
                   <ChevronRight size={20} />
                 </button>
               </div>
               <div className="calendar-grid">
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-                  <div key={d} className="day-label">{d}</div>
+                {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
+                  <div key={d} className="day-label">
+                    {d}
+                  </div>
                 ))}
                 {renderCalendar(rightMonth)}
               </div>
@@ -163,15 +244,21 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
           </div>
 
           <div className="modal-footer">
-            <button className="modal-btn cancel" onClick={onClose}>Cancel</button>
-            <button className="modal-btn confirm" onClick={() => onApply(startDate, endDate)}>Confirm</button>
+            <button className="modal-btn cancel" onClick={onClose}>
+              Cancel
+            </button>
+            <button
+              className="modal-btn confirm"
+              onClick={() => onApply(startDate, endDate)}
+            >
+              Confirm
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 
 const Reports = () => {
   // Dropdown States
@@ -180,23 +267,31 @@ const Reports = () => {
   const [statusOpen, setStatusOpen] = useState(false);
 
   // Filter Values
-  const [selectedProduct, setSelectedProduct] = useState('Select option');
-  const [selectedAppName, setSelectedAppName] = useState('Select option');
-  const [selectedStatus, setSelectedStatus] = useState('Select option');
-  const [duration, setDuration] = useState('Select Duration');
+  const [selectedProduct, setSelectedProduct] = useState("Select option");
+  const [selectedAppName, setSelectedAppName] = useState("Select option");
+  const [selectedStatus, setSelectedStatus] = useState("Select option");
+  const [duration, setDuration] = useState("Select Duration");
 
   // Date Picker state
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   // Filter Options
-  const productsList = ['All Products', 'Pan Lite', 'Driving License Advance', 'GST Verification Lite', 'Aadhaar based e-sign', 'Pan Advance', 'Face Match'];
-  const appsList = ['Test app', 'Live app'];
-  const statusList = ['All', 'Success', 'Failure'];
+  const productsList = [
+    "All Products",
+    "Pan Lite",
+    "Driving License Advance",
+    "GST Verification Lite",
+    "Aadhaar based e-sign",
+    "Pan Advance",
+    "Face Match",
+  ];
+  const appsList = ["Test app", "Live app"];
+  const statusList = ["All", "Success", "Failure"];
 
   const handleDateApply = (start, end) => {
-    setDuration(`${start.format('DD/MM/YYYY')} - ${end.format('DD/MM/YYYY')}`);
+    setDuration(`${start.format("DD/MM/YYYY")} - ${end.format("DD/MM/YYYY")}`);
     setIsDatePickerOpen(false);
-  }
+  };
 
   return (
     <div className="reports-container">
@@ -211,19 +306,25 @@ const Reports = () => {
         </div>
 
         <div className="filter-grid">
-          {/* Products Dropdown */}
           <div className="form-group">
             <label className="label">Products</label>
-            <div className="custom-select-trigger" onClick={() => setProductsOpen(!productsOpen)}>
+            <div
+              className="custom-select-trigger"
+              onClick={() => setProductsOpen(!productsOpen)}
+            >
               {selectedProduct} <ChevronDown size={16} />
             </div>
             {productsOpen && (
               <div className="select-dropdown-menu">
-                {productsList.map(item => (
-                  <div key={item} className="select-option" onClick={() => {
-                    setSelectedProduct(item);
-                    setProductsOpen(false);
-                  }}>
+                {productsList.map((item) => (
+                  <div
+                    key={item}
+                    className="select-option"
+                    onClick={() => {
+                      setSelectedProduct(item);
+                      setProductsOpen(false);
+                    }}
+                  >
                     {item}
                   </div>
                 ))}
@@ -234,36 +335,48 @@ const Reports = () => {
           {/* App Name Dropdown */}
           <div className="form-group">
             <label className="label">APP Name</label>
-            <div className="custom-select-trigger" onClick={() => setAppNameOpen(!appNameOpen)}>
+            <div
+              className="custom-select-trigger"
+              onClick={() => setAppNameOpen(!appNameOpen)}
+            >
               {selectedAppName} <ChevronDown size={16} />
             </div>
             {appNameOpen && (
               <div className="select-dropdown-menu">
-                {appsList.map(item => (
-                  <div key={item} className="select-option" onClick={() => {
-                    setSelectedAppName(item);
-                    setAppNameOpen(false);
-                  }}>
+                {appsList.map((item) => (
+                  <div
+                    key={item}
+                    className="select-option"
+                    onClick={() => {
+                      setSelectedAppName(item);
+                      setAppNameOpen(false);
+                    }}
+                  >
                     {item}
                   </div>
                 ))}
               </div>
             )}
           </div>
-
-          {/* Status Dropdown */}
           <div className="form-group">
             <label className="label">Status</label>
-            <div className="custom-select-trigger" onClick={() => setStatusOpen(!statusOpen)}>
+            <div
+              className="custom-select-trigger"
+              onClick={() => setStatusOpen(!statusOpen)}
+            >
               {selectedStatus} <ChevronDown size={16} />
             </div>
             {statusOpen && (
               <div className="select-dropdown-menu">
-                {statusList.map(item => (
-                  <div key={item} className="select-option" onClick={() => {
-                    setSelectedStatus(item);
-                    setStatusOpen(false);
-                  }}>
+                {statusList.map((item) => (
+                  <div
+                    key={item}
+                    className="select-option"
+                    onClick={() => {
+                      setSelectedStatus(item);
+                      setStatusOpen(false);
+                    }}
+                  >
                     {item}
                   </div>
                 ))}
@@ -274,7 +387,10 @@ const Reports = () => {
           {/* Duration */}
           <div className="form-group">
             <label className="label">Duration</label>
-            <div className="input-trigger" onClick={() => setIsDatePickerOpen(true)}>
+            <div
+              className="input-trigger"
+              onClick={() => setIsDatePickerOpen(true)}
+            >
               {duration}
             </div>
             <DateRangePicker
@@ -309,7 +425,6 @@ const Reports = () => {
               </label>
             </div>
           </div>
-
         </div>
 
         <div className="run-report-container">
@@ -321,11 +436,13 @@ const Reports = () => {
         <h2 className="filter-title">Result Set</h2>
         <div className="result-placeholder">
           <FileText size={40} color="#c4b5fd" />
-          <div>Search/Filter parameters and "Run report" to generate the result set</div>
+          <div>
+            Search/Filter parameters and "Run report" to generate the result set
+          </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Reports
+export default Reports;

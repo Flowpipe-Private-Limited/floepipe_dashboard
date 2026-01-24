@@ -35,19 +35,19 @@ const sideDashboardConfig = [
     label: "My Account",
     icon: LayoutDashboard,
     href: "/dashboard/Profile",
-    type: "single"
+    type: "single",
   },
   {
     label: "Products",
     icon: LayoutDashboard,
     href: "/dashboard/Products",
-    type: "single"
+    type: "single",
   },
   {
     label: "Reports",
     icon: LayoutDashboard,
     href: "/dashboard/Reports",
-    type: "single"
+    type: "single",
   },
   {
     label: "API Keys",
@@ -59,7 +59,7 @@ const sideDashboardConfig = [
     label: "API Usage",
     icon: Key,
     href: "/dashboard/APIUsage",
-    type: "single"
+    type: "single",
   },
   {
     label: "Whitelist IP",
@@ -286,7 +286,7 @@ function Sidebar({ collapsed }) {
                 key={idx}
                 onClick={() => navigate(item.href)}
                 className={`sidebar-item ${collapsed ? "sidebar-collapsed" : "sidebar-expanded"}`}
-              // className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition justify-${collapsed ? "center" : "start"} text-gray-300 hover:bg-white/10`}
+                // className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition justify-${collapsed ? "center" : "start"} text-gray-300 hover:bg-white/10`}
               >
                 <Icon size={18} />
                 {!collapsed && <span>{item.label}</span>}
@@ -366,11 +366,8 @@ function Header({ onToggle, data, onNavigate, onHelpClick }) {
         >
           <Menu size={18} />
         </button>
-        <h1 className="Page-name">
-          Welcome, {toTitleCase(data?.name)}!
-        </h1>
+        <h1 className="Page-name">Welcome, {toTitleCase(data?.name)}!</h1>
       </div>
-
       <div className="flex items-center gap-3">
         <button
           className="purple-outline-btn"
@@ -378,12 +375,7 @@ function Header({ onToggle, data, onNavigate, onHelpClick }) {
         >
           Balance
         </button>
-        <button
-          className="purple-outline-btn"
-        // onClick={() => onNavigate("WalletToPop")}
-        >
-          Developers API
-        </button>
+        <button className="purple-outline-btn">Developers API</button>
         <button className="purple-outline-btn" onClick={onHelpClick}>
           <HelpCircle size={16} /> Help
         </button>
