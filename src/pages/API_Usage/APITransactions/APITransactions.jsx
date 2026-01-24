@@ -1,11 +1,13 @@
 import React from 'react';
-import '../APILogs/APILogs.css'; // Reusing styles for consistency
+import "../APILogs/APILogs.css"
+import Images from "../../../Images/Images"
 
 const APITransactions = () => {
     return (
         <div className="api-logs-container">
             <div className="logs-content">
-                <div style={{ color: '#888' }}>No API Transactions</div>
+                 <img className="reportsempty-img" src={Images.reportsempty}/>
+                {/* <div style={{ color: '#888' }}>No API Transactions</div> */}
             </div>
         </div>
     )

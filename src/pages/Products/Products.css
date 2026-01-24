@@ -13,14 +13,14 @@
 }
 
 .products-title-group .products-title-text {
-  font-size: 1.15rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--black);
   margin-bottom: 0.15rem;
 }
 
 .products-subtitle {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: #8b8b8b;
 }
 
@@ -70,8 +70,8 @@
 }
 
 .dot {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.8rem;
+  height: 0.8rem;
   border-radius: 50%;
 }
 

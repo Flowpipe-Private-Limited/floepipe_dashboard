@@ -7,7 +7,7 @@
 
 /* ================= Header ================= */
 .page-header-card {
-  background: #ffffff;
+  background: var(--white);
   padding: 0.8rem 1.5rem;
   border-radius: 0.6rem;
   margin-bottom: 1.2rem;
@@ -24,29 +24,42 @@
 /* ================= Tabs (Segmented Control) ================= */
 .tabs-wrapper {
   display: inline-flex;
-  background: #ffffff;
-  /* padding: 0.35rem; */
+  background: var(--white);
   border-radius: 0.6rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   margin-bottom: 1.5rem;
 }
 
-.tab-btn {
+.tab-btn, 
+.tab-btn-two{
   padding: 0.6rem 1.8rem;
   font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: 0.45rem;
   border: none;
   background: transparent;
-  color: #111;
+  color: var(--black);
   cursor: pointer;
   transition: all 0.25s ease;
+  font-family: "JetBrainsMonoSemiBold";
 }
 
 .tab-btn.active {
   background: var(--purple-main);
-  color: #ffffff;
+  color: var(--white);
   box-shadow: 0 4px 10px rgba(124, 58, 237, 0.4);
+  border-top-right-radius: 0rem;
+  border-bottom-right-radius: 0rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.tab-btn-two.active {
+  background: var(--purple-main);
+  color: var(--white);
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.4);
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  border-top-left-radius: 0rem;
+  border-bottom-left-radius: 0rem;
 }
 
 /* ================= Add Key Box ================= */
@@ -57,11 +70,12 @@
   padding: 1.5rem 1.5rem;
   text-align: center;
   margin-bottom: 1.8rem;
+  font-family: "JetBrainsMono";
 }
 
 .add-key-btn {
   background: var(--purple-main);
-  color: #ffffff;
+  color: var(--white);
   padding: 0.4rem 2rem;
   font-size: 0.8rem;
   border-radius: 0.5rem;
@@ -76,13 +90,13 @@
 
 .note-text {
   margin-top: 0.8rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--purple-main);
 }
 
 /* ================= Table ================= */
 .table-wrapper {
-  background: #ffffff;
+  background: var(--white);
   border-radius: 0.8rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
@@ -95,8 +109,9 @@ table {
 }
 
 .thead-header {
-  background: #ede9fe;
-  color: #111;
+  background: var(--purple-700);
+  color: var(--black);
+  font-family: "JetBrainsMono";
 }
 
 .th-api {
@@ -104,7 +119,7 @@ table {
   font-weight: 600;
 }
 
-.td-one{
+.td-one {
   padding: 1rem;
   border-bottom: 1px solid #f3f4f6;
 }
@@ -116,17 +131,18 @@ tbody tr:hover {
 /* ================= Empty Row (No Keys Found) ================= */
 tbody tr td[colspan] {
   text-align: center;
-  color: #6b7280;
+  color: var(--black);
   padding: 1.5rem;
+  font-family: "JetBrainsMonoSemiBold";
 }
 /* ================= Empty Table State ================= */
 .empty-table-text {
   text-align: center;
   padding: 1.5rem;
   font-size: 0.9rem;
-  color: #374151;
+  color: var(--black);
   font-family: monospace;
-  background: #ffffff;
+  background: var(--white);
 }
 
 /* ================= Responsive ================= */

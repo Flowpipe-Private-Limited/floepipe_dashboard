@@ -3,6 +3,7 @@ import './API_Usage.css';
 import APILogs from './APILogs/APILogs';
 import APITransactions from './APITransactions/APITransactions';
 import ProductTransaction from './ProductTransaction/ProductTransaction';
+import Eachpage_header from '../../components/ui/Eachpage_header/Eachpage_header';
 
 const API_Usage = () => {
   const [activeTab, setActiveTab] = useState('API Logs');
@@ -18,9 +19,7 @@ const API_Usage = () => {
 
   return (
     <div className="api-usage-container">
-      <div className="page-header-card">
-        <h1 className="page-title">API Usage</h1>
-      </div>
+    <Eachpage_header headertitle={"API Usage"}/>
       <div className="tabs-container">
         {['API Logs', 'API Transactions', 'Product Transaction'].map(tab => (
           <button

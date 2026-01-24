@@ -4,77 +4,78 @@ import {
   HandleCreateLiveKeys,
   HandleCreateTestKeys,
   HandleFetchLiveKeys,
-  HandleFetchTestKeys
+  HandleFetchTestKeys,
 } from "../../utils/Apis/api";
 import Loader from "../../components/common/Loader";
 import "./apikeys.css";
+import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
 
 const ApiKeys = () => {
-    const [activeTab, setActiveTab] = useState("Live");
-    const [LiveKeys, setLiveKeys] = useState([]);
-    const [TestKeys, setTestKeys] = useState([]);
-    const [apierrorMessage, setApiErrormessage] = useState('');
-    const [loading, setLoading] = useState(false)
-    const MerchatID = 'MERCHANT39309978';
+  const [activeTab, setActiveTab] = useState("Live");
+  const [LiveKeys, setLiveKeys] = useState([]);
+  const [TestKeys, setTestKeys] = useState([]);
+  const [apierrorMessage, setApiErrormessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const MerchatID = "MERCHANT39309978";
 
+  const CreateKeys = async () => {
+    setApiErrormessage("");
+    setLoading(true);
+    const ApiURL =
+      activeTab === "Live"
+        ? HandleCreateLiveKeys({ MerchatID: MerchatID })
+        : HandleCreateTestKeys({ MerchatID: MerchatID });
+    await ApirequestHandler(
+      async () => await ApiURL,
+      setLoading,
+      (res) => {
+        const { response } = res;
+        console.log(res);
+        activeTab === "Live"
+          ? setLiveKeys([...LiveKeys, response])
+          : setTestKeys([...TestKeys, response]);
+        setApiErrormessage("");
+        setLoading(false);
+      },
+      (errMessage) => {
+        console.log("Error:", errMessage);
+        setApiErrormessage(errMessage);
+        setLoading(false);
+      },
+    );
+  };
 
-    const CreateKeys = async () => {
-        setApiErrormessage('');
-        setLoading(true)
-        const ApiURL = activeTab === 'Live' ?
-            HandleCreateLiveKeys({ MerchatID: MerchatID })
-            : HandleCreateTestKeys({ MerchatID: MerchatID })
-        await ApirequestHandler(
-            async () => await ApiURL,
-            setLoading,
-            (res) => {
-                const { response } = res;
-                console.log(res)
-                activeTab === 'Live' ? setLiveKeys([...LiveKeys, response]) : setTestKeys([...TestKeys, response])
-                setApiErrormessage('');
-                setLoading(false)
-            },
-            (errMessage) => {
-                console.log('Error:', errMessage);
-                setApiErrormessage(errMessage);
-                setLoading(false)
-            }
-        )
-    }
-
-    const FetchKeys = async () => {
-        setApiErrormessage('');
-        setLoading(true)
-        const ApiURL = activeTab === 'Live' ?
-            HandleFetchLiveKeys({ MerchatID: MerchatID })
-            : HandleFetchTestKeys({ MerchatID: MerchatID })
-        await ApirequestHandler(
-            async () => ApiURL,
-            setLoading,
-            (res) => {
-                const { response } = res;
-                console.log(res);
-                activeTab === 'Live' ? setLiveKeys(response) : setTestKeys(response)
-                setApiErrormessage('');
-                setLoading(false)
-            },
-            (errMessage) => {
-                console.log("Error:", errMessage);
-                setApiErrormessage(errMessage);
-                setLoading(false)
-            }
-        )
-    }
-    useEffect(() => {
-        FetchKeys()
-    }, [activeTab])
+  const FetchKeys = async () => {
+    setApiErrormessage("");
+    setLoading(true);
+    const ApiURL =
+      activeTab === "Live"
+        ? HandleFetchLiveKeys({ MerchatID: MerchatID })
+        : HandleFetchTestKeys({ MerchatID: MerchatID });
+    await ApirequestHandler(
+      async () => ApiURL,
+      setLoading,
+      (res) => {
+        const { response } = res;
+        console.log(res);
+        activeTab === "Live" ? setLiveKeys(response) : setTestKeys(response);
+        setApiErrormessage("");
+        setLoading(false);
+      },
+      (errMessage) => {
+        console.log("Error:", errMessage);
+        setApiErrormessage(errMessage);
+        setLoading(false);
+      },
+    );
+  };
+  useEffect(() => {
+    FetchKeys();
+  }, [activeTab]);
 
   return (
     <div className="api-keys-container">
-      {/* Header */}
-      <div className="page-header-card">
-        <h2 className="page-title">API Keys</h2>
-      </div>
+      <Eachpage_header headertitle={"API Keys"} />
 
       {/* Tabs */}
       <div className="tabs-wrapper">
@@ -86,7 +87,7 @@ const ApiKeys = () => {
         </button>
 
         <button
-          className={`tab-btn ${activeTab === "Test" ? "active" : ""}`}
+          className={`tab-btn-two ${activeTab === "Test" ? "active" : ""}`}
           onClick={() => setActiveTab("Test")}
         >
           Test API Keys
@@ -112,31 +113,30 @@ const ApiKeys = () => {
         <table>
           <thead className="thead-header">
             <tr>
-              <th className="th-api">Si.no</th>
+              <th className="th-api">SI.no</th>
               <th className="th-api">MerchantId</th>
               <th className="th-api">ClientId</th>
               <th className="th-api">SecretKey</th>
             </tr>
           </thead>
           <tbody>
-  {(activeTab === "Live" ? LiveKeys : TestKeys)?.length === 0 ? (
-    <tr>
-      <td colSpan="4" className="empty-table-text">
-        No {activeTab} API Keys found
-      </td>
-    </tr>
-  ) : (
-    (activeTab === "Live" ? LiveKeys : TestKeys).map((keys, ind) => (
-      <tr key={ind}>
-        <td className="td-one">{ind + 1}</td>
-        <td className="td-one">{keys?.MerchantId}</td>
-        <td className="td-one">{keys?.client_id}</td>
-        <td className="td-one">{keys?.secret_key}</td>
-      </tr>
-    ))
-  )}
-</tbody>
-
+            {(activeTab === "Live" ? LiveKeys : TestKeys)?.length === 0 ? (
+              <tr>
+                <td colSpan="4" className="empty-table-text">
+                  No {activeTab} API Keys found
+                </td>
+              </tr>
+            ) : (
+              (activeTab === "Live" ? LiveKeys : TestKeys).map((keys, ind) => (
+                <tr key={ind}>
+                  <td className="td-one">{ind + 1}</td>
+                  <td className="td-one">{keys?.MerchantId}</td>
+                  <td className="td-one">{keys?.client_id}</td>
+                  <td className="td-one">{keys?.secret_key}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
         </table>
       </div>
     </div>

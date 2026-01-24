@@ -14,7 +14,9 @@ const images = {
   dashboardright: require("../assets/images/dashboardright.webp"),
   playstore: require("../assets/images/playstore.webp"),
   Appstore: require("../assets/images/Appstore.webp"),
+  reportsempty: require("../assets/images/reportsempty.webp"),
   cardinsidelogo: require("../assets/images/cardinsidelogo.webp"),
+
   msgicon: require("../assets/images/msgicon.png"),
 };
 export default images;

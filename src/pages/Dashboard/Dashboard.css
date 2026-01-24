@@ -194,6 +194,7 @@
   align-items: center;
   gap: 6px;
   cursor: pointer;
+  font-family: "JetBrainsMono";
 }
 
 /* Avatar button */

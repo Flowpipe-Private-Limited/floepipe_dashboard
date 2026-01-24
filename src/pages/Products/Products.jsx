@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Smartphone, FileCheck, Layers, ChevronDown, Lock } from 'lucide-react';
 import './Products.css';
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const Products = () => {
   const [filter, setFilter] = useState('All Products');
@@ -145,13 +146,13 @@ const Products = () => {
 
         <div className="filter-dropdown-container">
           <button className="filter-toggle-btn" onClick={toggleDropdown}>
-            {filter} <ChevronDown size={18} />
+            {filter} <IoMdArrowDropdown size={24} />
           </button>
 
           {isDropdownOpen && (
             <ul className="dropdown-menu">
               <li className="dropdown-item" onClick={() => handleFilterSelect('All Products')}>
-                <span className="dot all"></span> All Products
+                <span className="dot all"></span> All Products 
               </li>
               <li className="dropdown-item" onClick={() => handleFilterSelect('Subscribed')}>
                 <span className="dot subscribed"></span> Subscribed

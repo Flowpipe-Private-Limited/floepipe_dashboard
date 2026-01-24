@@ -1,77 +1,82 @@
 /* Container */
 .api-usage-container {
-    /* padding: 1.5rem; */
-    background-color: #fafbfc;
-    min-height: 100vh;
+  /* padding: 1.5rem; */
+  background-color: #fafbfc;
+  min-height: 100vh;
 }
 
 .page-header-card {
-    background: white;
-     padding: 0.5rem 1.5rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  background: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .page-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #111;
-    margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
 }
 
 /* Tabs */
 /* Tabs Wrapper */
 .tabs-container {
-    display: inline-flex;
-    gap: 0;
-    background: #ffffff;
-    /* padding: 0.3rem; */
-    border-radius: 0.6rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
+  display: inline-flex;
+  gap: 0;
+  background: #ffffff;
+  /* padding: 0.3rem; */
+  border-radius: 0.6rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 /* Tab Button */
 .tab-btn {
-    background: transparent;
-    border: none;
-    padding: 0.55rem 1.4rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #6b7280;
-    border-radius: 0.45rem;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    font-family: monospace;
-    white-space: nowrap;
+  background: transparent;
+  border: none;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--black);
+  border-radius: 0.45rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: monospace;
+  white-space: nowrap;
+  font-family: "JetBrainsMonoSemiBold";
 }
 
 /* Hover */
 .tab-btn:hover {
-    background-color: #f5f3ff;
-    color: #4c1d95;
+  background-color: #f5f3ff;
+  color: #4c1d95;
 }
 
 /* Active Tab */
 .tab-btn.active {
-    background-color: var(--purple-main);
-    color: #ffffff;
-    font-weight: 600;
-    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.35);
+  background-color: var(--purple-main);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.35);
+  border-top-right-radius: 0rem;
+  border-bottom-right-radius: 0rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 
 @media (max-width: 640px) {
-    .tabs-container {
-        width: 100%;
-        justify-content: space-between;
-    }
+  .tabs-container {
+    width: 100%;
+    justify-content: space-between;
+  }
 
-    .tab-btn {
-        flex: 1;
-        text-align: center;
-        padding: 0.55rem 0.5rem;
-        font-size: 0.8rem;
-    }
+  .tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.55rem 0.5rem;
+    font-size: 0.8rem;
+  }
 }

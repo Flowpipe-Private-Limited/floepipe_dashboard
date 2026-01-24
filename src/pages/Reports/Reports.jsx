@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, FileText, ChevronLeft, ChevronRight } from "lucide-react";
 import moment from "moment";
 import "./Reports.css";
+import { MdOutlineArrowDropDown } from "react-icons/md";
+import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
 
 const DateRangePicker = ({ isOpen, onClose, onApply }) => {
   const [startDate, setStartDate] = useState(moment().startOf("month"));
@@ -295,10 +297,7 @@ const Reports = () => {
 
   return (
     <div className="reports-container">
-      <div className="page-header-card">
-        <h1 className="page-title">Report</h1>
-      </div>
-
+      <Eachpage_header headertitle={"Reports"} />
       <div className="filter-card">
         <div className="filter-header">
           <h2 className="filter-title">Filter By</h2>
@@ -308,8 +307,11 @@ const Reports = () => {
         <div className="filter-grid">
           <div className="form-group">
             <p className="label">Products</p>
-            <div className="custom-select-trigger" onClick={() => setProductsOpen(!productsOpen)}>
-              {selectedProduct} <ChevronDown size={16} />
+            <div
+              className="custom-select-trigger"
+              onClick={() => setProductsOpen(!productsOpen)}
+            >
+              {selectedProduct} <MdOutlineArrowDropDown size={22} />
             </div>
             {productsOpen && (
               <div className="select-dropdown-menu">
@@ -332,8 +334,11 @@ const Reports = () => {
           {/* App Name Dropdown */}
           <div className="form-group">
             <p className="label">APP Name</p>
-            <div className="custom-select-trigger" onClick={() => setAppNameOpen(!appNameOpen)}>
-              {selectedAppName} <ChevronDown size={16} />
+            <div
+              className="custom-select-trigger"
+              onClick={() => setAppNameOpen(!appNameOpen)}
+            >
+              {selectedAppName} <MdOutlineArrowDropDown size={22} />
             </div>
             {appNameOpen && (
               <div className="select-dropdown-menu">
@@ -354,8 +359,11 @@ const Reports = () => {
           </div>
           <div className="form-group">
             <p className="label">Status</p>
-            <div className="custom-select-trigger" onClick={() => setStatusOpen(!statusOpen)}>
-              {selectedStatus} <ChevronDown size={16} />
+            <div
+              className="custom-select-trigger"
+              onClick={() => setStatusOpen(!statusOpen)}
+            >
+              {selectedStatus} <MdOutlineArrowDropDown size={22} />
             </div>
             {statusOpen && (
               <div className="select-dropdown-menu">
@@ -378,7 +386,10 @@ const Reports = () => {
           {/* Duration */}
           <div className="form-group">
             <p className="label">Duration</p>
-            <div className="input-trigger" onClick={() => setIsDatePickerOpen(true)}>
+            <div
+              className="input-trigger"
+              onClick={() => setIsDatePickerOpen(true)}
+            >
               {duration}
             </div>
             <DateRangePicker
@@ -423,8 +434,8 @@ const Reports = () => {
       <div className="page-header-card">
         <h2 className="filter-title">Result Set</h2>
         <div className="result-placeholder">
-          <FileText size={40} color="#c4b5fd" />
-          <div>
+          <FileText size={24} color="#00000099" />
+          <div className="report-set-placeholder">
             Search/Filter parameters and "Run report" to generate the result set
           </div>
         </div>

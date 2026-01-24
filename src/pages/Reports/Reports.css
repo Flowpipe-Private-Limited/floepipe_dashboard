@@ -1,32 +1,15 @@
 /* Container */
 .reports-container {
-  /* padding: 1.5rem; */
   background-color: #fafbfc;
   min-height: 100vh;
 }
 
-.page-header-card {
-  background: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.page-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #111;
-  margin: 0;
-}
-
-/* Filter Section */
 .filter-card {
   background: white;
   padding: 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 6px #8686861A;
 }
 
 .filter-header {
@@ -47,10 +30,11 @@
   background: none;
   border: none;
   color: var(--purple-main);
-  /* Purple */
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
+  font-family: "JetBrainsMono";
+
 }
 
 .filter-grid {
@@ -82,8 +66,8 @@
   border: 1px solid #e5e7eb;
   border-radius: 0.4rem;
   padding: 0.6rem 0.8rem;
-  font-size: 0.9rem;
-  color: #111;
+  font-size: 0.8rem;
+  color: var(--black);
   background: white;
   cursor: pointer;
   display: flex;
@@ -124,7 +108,7 @@
 }
 
 .select-option {
-  padding: 0.6rem 0.8rem;
+  padding: 0.3rem 0.8rem;
   font-size: 0.9rem;
   color: #4b5563;
   cursor: pointer;
@@ -196,12 +180,14 @@
 .run-report-btn {
   background-color: var(--purple-main);
   color: white;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 2rem;
   border-radius: 0.4rem;
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);
   transition: background 0.2s;
+  font-family: "JetBrainsMono";
+  font-size: 15px;
 }
 
 .run-report-btn:hover {
@@ -216,9 +202,13 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+.report-set-placeholder{
+  color: var(--black-100);
+  font-size: 14px;
+}
+
 .result-placeholder {
   background-color: #f3f0ff;
-  /* Light purple bg per image */
   border-radius: 0.5rem;
   padding: 1rem;
   display: flex;
@@ -226,7 +216,7 @@
   align-items: center;
   justify-content: center;
   color: #6b7280;
-  gap: 1rem;
+  gap: 0.5rem;
   text-align: center;
   margin-top: 1rem;
 }
@@ -266,6 +256,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  font-family: "JetBrainsMono";
 }
 
 .preset-btn {
@@ -348,8 +339,9 @@
 
 .month-label {
   font-weight: 600;
-  color: #374151;
+  color: var(--gray-100);
   font-size: 0.95rem;
+  font-family: "JetBrainsMono";
 }
 
 .calendar-grid {
@@ -361,13 +353,13 @@
 
 .day-label {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--gray-100);
   margin-bottom: 0.5rem;
 }
 
 .day-cell {
   font-size: 0.85rem;
-  color: #374151;
+  color: var(--gray-500);
   padding: 0.4rem;
   cursor: pointer;
   border-radius: 50%;
@@ -429,11 +421,13 @@
   font-weight: 600;
   cursor: pointer;
   font-size: 0.9rem;
+  font-family: "JetBrainsMono";
+
 }
 
 .modal-btn.cancel {
-  border: 1px solid #d1d5db;
-  background: white;
+  border: 1px solid var(--purple-main);
+  background: var(--white-300);
   color: var(--purple-main);
 }
 
@@ -486,7 +480,7 @@
     padding: 0.8rem;
   }
 
-  .page-header-card,
+  .page-header-card-reports,
   .filter-card {
     padding: 1rem;
   }

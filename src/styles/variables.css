@@ -13,6 +13,7 @@
   --white:#ffffff;
   --white-100:#F9FAFB;
   --white-200:#F6F6F6;
+  --white-300:#FAF5FF;
 
   /* purplish */
   --purple-main:#7C3AED;
@@ -21,12 +22,14 @@
   --purple-400:#7E48FF33;
   --purple-500:#7C3AED80;
   --purple-600:#CEC6E0;
+  --purple-700:#EFE7FE;
 
   /* gray */
   --gray-100:#6A7282;
   --gray-200:#717182;
   --gray-300:#E5E7EB;
   --gray-400:#4B5563;
+  --gray-500:#364153;
 
   /* Green */
   --green-100:#00C950;
