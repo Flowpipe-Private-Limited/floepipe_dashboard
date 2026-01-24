@@ -216,8 +216,6 @@
   font-size: 0.9rem;
   font-weight: 500;
 }
-
-/* Grid Layouts - Spanning logic needed in CSS or JSX */
 .details-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -230,17 +228,13 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
-/* Input Component */
 .input-group {
   display: flex;
   flex-direction: column;
 }
-
 .input-label {
   display: none;
 }
-
 .input-field {
   width: 100%;
   padding: 0.6rem 1rem;
@@ -252,37 +246,27 @@
   transition: all 0.2s;
   border: 1px solid var(--black-500);
 }
-
 .input-field:focus {
   outline: none;
   box-shadow: 0 0 0 2px #ddd6fe;
   /* purple-200 ring */
   background-color: var(--white);
 }
-
 .input-field::placeholder {
   color: var(--black-900);
 }
-
 .input-field.readonly {
   background-color: #f3f4f6;
-  /* Gray background for readonly */
   cursor: default;
   color: var(--black-900);
 }
-
-/* Style for when editable but not focused */
 .input-field:not(.readonly) {
   background-color: #f3f4f6;
-  /* Image shows gray bg even for inputs */
   border: 1px solid transparent;
 }
-
 .input-field:not(.readonly):hover {
   border-color: #e5e7eb;
 }
-
-/* Links (Change Email / Phone) */
 .change-link-btn {
   color: var(--purple-main);
   font-family: "JetBrainsMono";
@@ -299,24 +283,19 @@
   width: fit-content;
   padding: 0;
 }
-
 .change-link-btn:hover {
   color: var(--purple-main);
 }
-
 .info-icon {
   margin-right: 4px;
   font-size: 1rem;
 }
-
-/* Phone input container */
 .phone-input-wrapper {
   display: flex;
   background-color: #f3f4f6;
   border-radius: 0.5rem;
   overflow: hidden;
 }
-
 .phone-country {
   padding: 0.4rem 1rem;
   display: flex;
@@ -326,7 +305,6 @@
   color: #6b7280;
   font-weight: 500;
 }
-
 .phone-field {
   border: none;
   background: transparent;
@@ -336,8 +314,6 @@
   outline: none;
   border: 1px solid var(--black-500);
 }
-
-/* Divider */
 .divider {
   border-top: none;
   /* Image doesn't show strong dividers between sections if card is separated, or just var(--white) space */
@@ -345,8 +321,6 @@
   height: 1px;
   background-color: #f3f4f6;
 }
-
-/* Action Buttons */
 .action-buttons {
   display: flex;
   justify-content: flex-end;
@@ -355,7 +329,6 @@
   padding-top: 0;
   border-top: none;
 }
-
 .btn-cancel {
   padding: 0.7rem 1.5rem;
   color: var(--purple-main);
@@ -366,12 +339,10 @@
    font-family: "JetBrainsMono";
 
 }
-
 .btn-cancel:hover {
   background-color: #f5f3ff;
   border-radius: 0.5rem;
 }
-
 .btn-save {
   padding: 0.7rem 2.5rem;
   background-color: var(--purple-main);
@@ -384,11 +355,9 @@
   font-family: "JetBrainsMono";
 
 }
-
 .btn-save:hover {
   background-color: var(--purple-main);
 }
-
 .btn-save:disabled {
   background-color: #c4b5fd;
   box-shadow: none;
