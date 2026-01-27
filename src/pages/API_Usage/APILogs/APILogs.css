@@ -505,6 +505,10 @@
     width: 25%;
 }
 
+.reportsempty-img2{
+    width: 15%;
+}
+
 /* ================= Responsive ================= */
 @media (max-width: 768px) {
   .requested-modal {

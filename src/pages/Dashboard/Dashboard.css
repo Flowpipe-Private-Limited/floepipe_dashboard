@@ -218,6 +218,11 @@
 .Dash-header-avatar-btn:hover {
   background: #f9fafb;
 }
+.sidebar-icon-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
 
 /* Responsive */
 @media (max-width: 768px) {

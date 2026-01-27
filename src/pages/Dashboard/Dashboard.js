@@ -21,47 +21,49 @@ import {
 } from "lucide-react";
 import flowpipeLogo from "../../assets/images/FlowpipeLogo.png";
 import { useUserStore } from "../../Store/userStore";
-import { toTitleCase } from "../../utils/simpleHellperFn";
+import Images from "../../Images/Images"
 import Help from "../../components/Help/Help";
 import { RxPlusCircled } from "react-icons/rx";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import { HiOutlineBell } from "react-icons/hi";
+import { BiHomeAlt } from "react-icons/bi";
+import { RxPerson } from "react-icons/rx";
 import "./Dashboard.css";
 
 const sideDashboardConfig = [
   {
     label: "Dashboard",
-    icon: LayoutDashboard,
+    icon: Images.Dashboard,
     href: "/dashboard",
     type: "single",
   },
   {
     label: "My Account",
-    icon: LayoutDashboard,
+    icon: Images.Myaccount,
     href: "/dashboard/Profile",
     type: "single",
   },
   {
     label: "Products",
-    icon: LayoutDashboard,
+    icon: Images.product,
     href: "/dashboard/Products",
     type: "single",
   },
   {
     label: "Reports",
-    icon: LayoutDashboard,
+    icon: Images.reports,
     href: "/dashboard/Reports",
     type: "single",
   },
   {
     label: "API Keys",
-    icon: Key,
+    icon: Images.API,
     href: "/dashboard/apiKeys",
     type: "single",
   },
   {
     label: "API Usage",
-    icon: Key,
+    icon: Images.Apiusage,
     href: "/dashboard/APIUsage",
     type: "single",
   },
@@ -281,22 +283,29 @@ function Sidebar({ collapsed }) {
       )}
 
       <nav className="flex-1 p-2 space-y-2.5 text-sm overflow-y-auto">
-        {sideDashboardConfig
-          .filter((i) => i.type === "single")
-          .map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <button
-                key={idx}
-                onClick={() => navigate(item.href)}
-                className={`sidebar-item ${collapsed ? "sidebar-collapsed" : "sidebar-expanded"}`}
-                // className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition justify-${collapsed ? "center" : "start"} text-gray-300 hover:bg-white/10`}
-              >
-                <Icon size={18} />
-                {!collapsed && <span>{item.label}</span>}
-              </button>
-            );
-          })}
+  {sideDashboardConfig.map((item, idx) => (
+  <button
+    key={idx}
+    onClick={() => navigate(item.href)}
+    className={`sidebar-item ${
+      collapsed ? "sidebar-collapsed" : "sidebar-expanded"
+    }`}
+  >
+    {/* ICON */}
+    {item.iconType === "component" ? (
+      <item.icon size={18} />
+    ) : (
+      <img
+        src={item.icon}
+        alt={item.label}
+        className="sidebar-icon-img"
+      />
+    )}
+
+    {!collapsed && <span>{item.label}</span>}
+  </button>
+))}
+
 
         {(search
           ? filteredGroups
@@ -419,11 +428,14 @@ function Header({ onToggle, data, onNavigate, onHelpClick }) {
           onClick={() => onNavigate("Billing_plans")}
           className="Dash-header-btn"
         >
-        <RxPlusCircled size={24}/>
+          <RxPlusCircled size={24} />
           Balance
         </button>
 
-        <button className="Dash-header-btn"><IoCodeSlashSharp size={20} />Developers API</button>
+        <button className="Dash-header-btn">
+          <IoCodeSlashSharp size={20} />
+          Developers API
+        </button>
 
         <button
           className="Dash-header-btn Dash-header-help-btn"

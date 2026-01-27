@@ -16,7 +16,17 @@ const images = {
   Appstore: require("../assets/images/Appstore.webp"),
   reportsempty: require("../assets/images/reportsempty.webp"),
   cardinsidelogo: require("../assets/images/cardinsidelogo.webp"),
-
   msgicon: require("../assets/images/msgicon.png"),
+  Dashboard: require("../assets/images/Dashboard.png"),
+  Myaccount: require("../assets/images/Myaccount.png"),
+  Templates: require("../assets/images/Templates.png"),
+  product: require("../assets/images/product.png"),
+  reports: require("../assets/images/reports.png"),
+  Billingplan: require("../assets/images/Billingplan.png"),
+  bhim: require("../assets/images/bhim.webp"),
+  API: require("../assets/images/API.png"),
+  Apiusage: require("../assets/images/Apiusage.png"),
+
+
 };
 export default images;
