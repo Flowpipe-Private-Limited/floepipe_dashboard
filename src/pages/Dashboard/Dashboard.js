@@ -444,7 +444,7 @@ function Header({ onToggle, data, onNavigate, onHelpClick }) {
         >
           <User size={18} />
           {(!data?.IskycApproved || !data?.kycCompleted) && (
-            <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-red-600 rounded-full border-2 border-white" />
+            <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5  rounded-full border-2 border-white" />
           )}
         </button>
       </div>

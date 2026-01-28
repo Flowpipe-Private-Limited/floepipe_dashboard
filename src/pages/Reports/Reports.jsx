@@ -261,21 +261,17 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
 };
 
 const Reports = () => {
-  // Dropdown States
   const [productsOpen, setProductsOpen] = useState(false);
   const [appNameOpen, setAppNameOpen] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
 
-  // Filter Values
   const [selectedProduct, setSelectedProduct] = useState("Select option");
   const [selectedAppName, setSelectedAppName] = useState("Select option");
   const [selectedStatus, setSelectedStatus] = useState("Select option");
   const [duration, setDuration] = useState("Select Duration");
 
-  // Date Picker state
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
-  // Filter Options
   const productsList = [
     "All Products",
     "Pan Lite",
@@ -308,7 +304,10 @@ const Reports = () => {
         <div className="filter-grid">
           <div className="form-group">
             <p className="label">Products</p>
-            <div className="custom-select-trigger" onClick={() => setProductsOpen(!productsOpen)}>
+            <div
+              className="custom-select-trigger"
+              onClick={() => setProductsOpen(!productsOpen)}
+            >
               {selectedProduct} <ChevronDown size={16} />
             </div>
             {productsOpen && (
@@ -329,10 +328,12 @@ const Reports = () => {
             )}
           </div>
 
-          {/* App Name Dropdown */}
           <div className="form-group">
             <p className="label">APP Name</p>
-            <div className="custom-select-trigger" onClick={() => setAppNameOpen(!appNameOpen)}>
+            <div
+              className="custom-select-trigger"
+              onClick={() => setAppNameOpen(!appNameOpen)}
+            >
               {selectedAppName} <ChevronDown size={16} />
             </div>
             {appNameOpen && (
@@ -352,9 +353,13 @@ const Reports = () => {
               </div>
             )}
           </div>
+
           <div className="form-group">
             <p className="label">Status</p>
-            <div className="custom-select-trigger" onClick={() => setStatusOpen(!statusOpen)}>
+            <div
+              className="custom-select-trigger"
+              onClick={() => setStatusOpen(!statusOpen)}
+            >
               {selectedStatus} <ChevronDown size={16} />
             </div>
             {statusOpen && (
@@ -375,10 +380,12 @@ const Reports = () => {
             )}
           </div>
 
-          {/* Duration */}
           <div className="form-group">
             <p className="label">Duration</p>
-            <div className="input-trigger" onClick={() => setIsDatePickerOpen(true)}>
+            <div
+              className="input-trigger"
+              onClick={() => setIsDatePickerOpen(true)}
+            >
               {duration}
             </div>
             <DateRangePicker
@@ -388,7 +395,6 @@ const Reports = () => {
             />
           </div>
 
-          {/* Charge Type Radio */}
           <div className="form-group">
             <p className="label">Charge Type</p>
             <div className="radio-group">
@@ -401,7 +407,6 @@ const Reports = () => {
             </div>
           </div>
 
-          {/* Environment Radio */}
           <div className="form-group">
             <p className="label">Environment</p>
             <div className="radio-group">

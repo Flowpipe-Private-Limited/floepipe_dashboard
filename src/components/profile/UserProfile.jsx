@@ -5,6 +5,7 @@ import { useUserStore } from "../../Store/userStore";
 import { toTitleCase } from "../../utils/simpleHellperFn";
 import { HandleVerifyIPIN } from "../../common/apiCalls/CommonApiCall";
 import FlowpipeUnlockModal from "./PinVerify/IpinVerify";
+import { ChangeEmailModal, ChangePhoneModal } from "./ContactModals";
 import "./UserProfile.css";
 
 const Settings = () => (
@@ -25,7 +26,6 @@ export default function ProfilePage() {
 
   return (
     <div className="profile-page-container">
-      {/* Header */}
       <div className="profile-header">
         <h2 className="profile-title">Profile Details</h2>
         <button onClick={handleLogout} className="logout-button">
@@ -33,7 +33,6 @@ export default function ProfilePage() {
         </button>
       </div>
 
-      {/* Profile Card */}
       <div className="profile-card">
         <img
           src="https://randomuser.me/api/portraits/men/45.jpg"
@@ -50,7 +49,6 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* Tabs */}
       <div className="tabs-container-userpro">
         <div className="tabs-group">
           {["basic", "kyc", "settings"].map((tab) => (
@@ -121,6 +119,8 @@ function BasicDetails() {
     },
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+  const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -210,14 +210,12 @@ function BasicDetails() {
         <div className="section-header">
           <h3 className="section-title">Basic Details</h3>
         </div>
-
         <div className="details-grid">
           <Input
             label="First Name"
             name="firstName"
             value={formData.firstName}
             onChange={handleBasicChange}
-            readOnly={!isEditing}
             placeholder="First Name"
           />
           <Input
@@ -225,7 +223,7 @@ function BasicDetails() {
             name="lastName"
             value={formData.lastName}
             onChange={handleBasicChange}
-            readOnly={!isEditing}
+            // readOnly={!isEditing}
             placeholder="Last Name"
           />
           <div className="input-group col-span-1">
@@ -234,13 +232,20 @@ function BasicDetails() {
               name="email"
               value={formData.email}
               onChange={handleBasicChange}
-              readOnly={!isEditing}
+              // readOnly={!isEditing}
               className={`input-field ${!isEditing ? "readonly" : ""}`}
               placeholder="E-mail"
             />
-            <button className="change-link-btn">
+            <button
+              className="change-link-btn"
+              onClick={() => setIsEmailModalOpen(true)}
+            >
               <Info size={14} className="info-icon" /> change E-mail
             </button>
+            <ChangeEmailModal
+              isOpen={isEmailModalOpen}
+              onClose={() => setIsEmailModalOpen(false)}
+            />
           </div>
 
           <div className="input-group col-span-1">
@@ -258,19 +263,25 @@ function BasicDetails() {
                 name="mobileNumber"
                 value={formData.mobileNumber}
                 onChange={handleBasicChange}
-                readOnly={!isEditing}
+                // readOnly={!isEditing}
                 className="phone-field"
                 placeholder="9854641567"
               />
             </div>
-            <button className="change-link-btn">
+            <button
+              className="change-link-btn"
+              onClick={() => setIsPhoneModalOpen(true)}
+            >
               <Info size={14} className="info-icon" /> Change Phone Number
             </button>
+            <ChangePhoneModal
+              isOpen={isPhoneModalOpen}
+              onClose={() => setIsPhoneModalOpen(false)}
+            />
           </div>
         </div>
       </div>
-<br/>
-      {/* Company Details Section */}
+      <br />
       <div className="details-card">
         <div className="section-header">
           <h3 className="section-title">Company Details</h3>
@@ -282,26 +293,21 @@ function BasicDetails() {
             name="businessName"
             value={formData?.companyDetails?.businessName}
             onChange={handleCompanyChange}
-            readOnly={!isEditing}
             placeholder="Enter Business Name"
-            fullWidth={false} // Image shows separate fields? Assuming half width or full based on space. Let's stick to Grid.
-            // Actually image shows: Business name (Left), Landmark (Right)
+            fullWidth={false}
           />
           <Input
             label="Landmark"
             name="landmark"
             value={formData?.companyDetails?.landmark}
             onChange={handleCompanyChange}
-            readOnly={!isEditing}
             placeholder="Area colony,street ,sector"
           />
-
           <Input
             label="Address, H-No, Apartment"
             name="addressLine1"
             value={formData?.companyDetails?.addressLine1}
             onChange={handleCompanyChange}
-            readOnly={!isEditing}
             placeholder="Enter Address"
           />
           <Input
@@ -309,7 +315,6 @@ function BasicDetails() {
             name="city"
             value={formData?.companyDetails?.city}
             onChange={handleCompanyChange}
-            readOnly={!isEditing}
             placeholder="Enter City"
           />
           <Input
@@ -317,7 +322,6 @@ function BasicDetails() {
             name="pincode"
             value={formData?.companyDetails?.pincode}
             onChange={handleCompanyChange}
-            readOnly={!isEditing}
             placeholder="Enter Pincode"
           />
           <Input
@@ -325,7 +329,7 @@ function BasicDetails() {
             name="state"
             value={formData?.companyDetails?.state}
             onChange={handleCompanyChange}
-            readOnly={!isEditing}
+            // readOnly={!isEditing}
             placeholder="Enter State"
           />
           <div className="col-span-2">
@@ -334,10 +338,7 @@ function BasicDetails() {
               name="location"
               value={formData?.companyDetails?.location}
               onChange={handleCompanyChange}
-              readOnly={!isEditing}
               placeholder="Area/region"
-              // This seems to be the last full width item if needed, or simply half width.
-              // Using a wrapper div to force full width if Input component param doesn't work well
             />
           </div>
         </div>
@@ -346,25 +347,10 @@ function BasicDetails() {
       <div className="action-buttons">
         <button className="btn-cancel" onClick={handleEditToggle}>
           {isEditing ? "Cancel" : "Cancel"}
-          {/* Image shows "Cancel" even when not in edit mode? Usually "Edit" toggles. 
-                        But request said "no functionality remove". 
-                        The original code toggled Edit/Cancel. Current UI image shows "Cancel" and "Save". 
-                        I will keep original toggle logic but use "Cancel" text if editing to match UI. 
-                        Wait, original was: {isEditing ? "Cancel" : "Edit"}. 
-                        If the user wants me to match the image which shows "Cancel" and "Save" visible?
-                        Likely this is the "Edit Mode" view. 
-                        I will keeping the dynamic text to preserve functionality. 
-                     */}
         </button>
         <button
           className="btn-save"
-          onClick={isEditing ? handleSave : handleEditToggle} // If not editing, Save button acts as Edit trigger? No, that's confusing.
-          // Original logic: Edit button at top toggled mode. Save button at bottom saved.
-          // New UI image shows buttons at bottom.
-          // I'll make the "Cancel" button toggle edit mode (if not editing -> Edit?).
-          // Let's stick to the previous functional logic: One button to toggle Edit/Cancel, one to Save.
-          // But I need to make sure "Edit" is accessible.
-          // I'll leave the text as dynamic: Cancel / Edit.
+          onClick={isEditing ? handleSave : handleEditToggle}
           disabled={!isEditing}
         >
           Save
