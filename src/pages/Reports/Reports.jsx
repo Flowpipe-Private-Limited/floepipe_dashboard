@@ -263,21 +263,17 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
 };
 
 const Reports = () => {
-  // Dropdown States
   const [productsOpen, setProductsOpen] = useState(false);
   const [appNameOpen, setAppNameOpen] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
 
-  // Filter Values
   const [selectedProduct, setSelectedProduct] = useState("Select option");
   const [selectedAppName, setSelectedAppName] = useState("Select option");
   const [selectedStatus, setSelectedStatus] = useState("Select option");
   const [duration, setDuration] = useState("Select Duration");
 
-  // Date Picker state
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
-  // Filter Options
   const productsList = [
     "All Products",
     "Pan Lite",
@@ -331,7 +327,6 @@ const Reports = () => {
             )}
           </div>
 
-          {/* App Name Dropdown */}
           <div className="form-group">
             <p className="label">APP Name</p>
             <div
@@ -357,6 +352,7 @@ const Reports = () => {
               </div>
             )}
           </div>
+
           <div className="form-group">
             <p className="label">Status</p>
             <div
@@ -383,7 +379,6 @@ const Reports = () => {
             )}
           </div>
 
-          {/* Duration */}
           <div className="form-group">
             <p className="label">Duration</p>
             <div
@@ -399,7 +394,6 @@ const Reports = () => {
             />
           </div>
 
-          {/* Charge Type Radio */}
           <div className="form-group">
             <p className="label">Charge Type</p>
             <div className="radio-group">
@@ -412,7 +406,6 @@ const Reports = () => {
             </div>
           </div>
 
-          {/* Environment Radio */}
           <div className="form-group">
             <p className="label">Environment</p>
             <div className="radio-group">

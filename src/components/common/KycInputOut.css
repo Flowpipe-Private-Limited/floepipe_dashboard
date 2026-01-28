@@ -1,0 +1,266 @@
+.kyc-input-container {
+  width: 100%;
+  margin-bottom: 2.5rem;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  background-color: #f9fafb;
+}
+.kyc-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding-top: 1rem;
+}
+@media (min-width: 1024px) {
+  .kyc-grid-container {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+.kyc-title-card {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding: 0.7rem 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: 0.025em;
+}
+.kyc-api-error {
+  color: #dc2626;
+}
+.kyc-card {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+.kyc-mono-header {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
+}
+.kyc-section-header {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+.kyc-subheader {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 2rem;
+}
+.kyc-form-group {
+  margin-bottom: 1.5rem;
+}
+.kyc-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+.kyc-input-field {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: #111827;
+  transition: all 0.2s;
+  outline: none;
+}
+.kyc-input-field:focus {
+  background-color: white;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+.kyc-submit-button {
+  display: block;
+  width: auto;
+  min-width: 120px;
+  margin-top: 1.5rem;
+  background-color: #8b5cf6;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.kyc-submit-button:hover {
+  background-color: #7c3aed;
+}
+.kyc-error-msg {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+.kyc-alert-box {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 0.75rem;
+  color: #991b1b;
+  font-size: 0.875rem;
+  position: relative;
+}
+.kyc-alert-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ef4444;
+}
+.kyc-right-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.kyc-method-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+.kyc-method-label {
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+.kyc-method-label.post {
+  color: #ef4444;
+}
+.kyc-method-label.get {
+  color: #22c55e;
+}
+.kyc-url-select {
+  flex: 1;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  color: #374151;
+  background-color: white;
+  outline: none;
+  cursor: pointer;
+}
+.kyc-url-select:hover {
+  border-color: #d1d5db;
+}
+.kyc-card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.kyc-badge-pill {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  /* Pill shape */
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+.kyc-copy-btn-outline {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  background-color: white;
+  color: #374151;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.kyc-copy-btn-outline:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+.kyc-code-block {
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  font-size: 0.875rem;
+  border: 1px solid #f3f4f6;
+}
+.kyc-syntax-highlighter-wrapper {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  font-size: 0.8rem;
+  background-color: #f8f9fa !important;
+}
+.kyc-light-code-theme {
+  background-color: #f9fafb !important;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #374151;
+  overflow-x: auto;
+}
+.kyc-status-group {
+  display: flex;
+  gap: 0.5rem;
+}
+.kyc-status-pill {
+  padding: 0.25rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.kyc-status-pill.active {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+.kyc-status-200 {
+  color: #16a34a;
+}
+.kyc-status-400 {
+  color: #ea580c;
+}
+.kyc-status-503 {
+  color: #dc2626;
+}
+.kyc-status-504 {
+  color: #dc2626;
+}
