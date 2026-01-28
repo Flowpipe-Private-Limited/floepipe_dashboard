@@ -13,13 +13,7 @@ import AccountVerify from "../pages/Account/accountVerify";
 import CardValidationPage from "../pages/CardValidaton/CardValidate";
 import CinVerification from "../pages/CinVerification/CinVerify";
 import UdyamVerifyPage from "../pages/Udyam/UdamVerify";
-import RechargeVerify, {
-  RechargeOffersPage,
-  RechargeOldPlansPage,
-  RechargeOperatorsPage,
-  RechargePlansPage,
-  RechargeURLPage,
-} from "../pages/Recharge/Recharge";
+import { RechargeOffersPage, RechargeOldPlansPage, RechargeOperatorsPage, RechargePlansPage, RechargeURLPage } from "../pages/Recharge/Recharge";
 import NameMatchpage from "../pages/nameMatch/nameMatch";
 import AadhaarVerifyPage from "../pages/Aadhaar/AadhaarVerify";
 import {
@@ -127,10 +121,7 @@ const AppRoute = () => {
           <Route path="bbps/QuickPay" element={<BbpsBillQuickPay />} />
           <Route path="WalletToPop" element={<WalletToPop />} />
 
-          <Route
-            path="InstantPayVerification"
-            element={<InstantPayVerification />}
-          />
+          <Route path="InstantPayVerification" element={<InstantPayVerification />} />
         </Route>
       </Routes>
     </Router>

@@ -190,28 +190,10 @@ const sideDashboardConfig = [
       },
       { label: "Bill Fetch", href: "/dashboard/bbps/BillFetch", method: "GET" },
       { label: "Bill Pay", href: "/dashboard/bbps/BillPay", method: "POST" },
-      {
-        label: "Bill Validation",
-        href: "/dashboard/bbps/BillValidation",
-        method: "POST",
-      },
-      { label: "Quick Pay", href: "/dashboard/bbps/QuickPay", method: "POST" },
-    ],
-  },
-  {
-    label: "InstantPay",
-    icon: Briefcase,
-    iconType: "image",
-
-    type: "group",
-    children: [
-      {
-        label: "InstantBill Pay",
-        href: "/dashboard/InstantPayVerification",
-        method: "POST",
-      },
-    ],
-  },
+      { label: "Bill Validation", href: "/dashboard/bbps/BillValidation", method: "POST" },
+      { label: "Quick Pay", href: "/dashboard/bbps/QuickPay", method: "POST" }
+    ]
+  }
 ];
 
 export default function DashboardPage() {

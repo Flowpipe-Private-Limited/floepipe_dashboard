@@ -14,7 +14,7 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
