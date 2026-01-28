@@ -9,6 +9,10 @@ import {
 import Loader from "../../components/common/Loader";
 import "./apikeys.css";
 import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
+import { X, Calendar } from "lucide-react";
+import { LuTestTube } from "react-icons/lu";
+import { BsLightningCharge } from "react-icons/bs";
+import { IoIosInformationCircleOutline } from "react-icons/io";
 
 const ApiKeys = () => {
   const [activeTab, setActiveTab] = useState("Live");
@@ -17,6 +21,22 @@ const ApiKeys = () => {
   const [apierrorMessage, setApiErrormessage] = useState("");
   const [loading, setLoading] = useState(false);
   const MerchatID = "MERCHANT39309978";
+  const [showRequestModal, setShowRequestModal] = useState(false);
+  const [activeMode, setActiveMode] = useState("test");
+  const [keyName, setKeyName] = useState("");
+  const [ipWhitelist, setIpWhitelist] = useState("");
+  const [rateLimit, setRateLimit] = useState("");
+  const [permissions, setPermissions] = useState([]);
+
+  const togglePermission = (value) => {
+    setPermissions((prev) => {
+      if (prev.includes(value)) {
+        return prev.filter((p) => p !== value);
+      } else {
+        return [...prev, value];
+      }
+    });
+  };
 
   const CreateKeys = async () => {
     setApiErrormessage("");
@@ -73,6 +93,52 @@ const ApiKeys = () => {
     FetchKeys();
   }, [activeTab]);
 
+  const handleGenerateKey = async () => {
+    if (!keyName || !rateLimit) {
+      setApiErrormessage("Key name and rate limit are required");
+      return;
+    }
+
+    setLoading(true);
+
+    const payload = {
+      MerchantId: MerchatID,
+      key_name: keyName,
+      ip_whitelist: ipWhitelist.split(",").map((ip) => ip.trim()),
+      rate_limit: Number(rateLimit),
+      permissions,
+    };
+
+    const ApiURL =
+      activeMode === "live"
+        ? HandleCreateLiveKeys(payload)
+        : HandleCreateTestKeys(payload);
+
+    await ApirequestHandler(
+      async () => ApiURL,
+      setLoading,
+      (res) => {
+        const { response } = res;
+
+        activeMode === "live"
+          ? setLiveKeys((prev) => [...prev, response])
+          : setTestKeys((prev) => [...prev, response]);
+
+        // reset + close
+        setKeyName("");
+        setIpWhitelist("");
+        setRateLimit("");
+        setPermissions([]);
+        setShowRequestModal(false);
+        setLoading(false);
+      },
+      (err) => {
+        setApiErrormessage(err);
+        setLoading(false);
+      },
+    );
+  };
+
   return (
     <div className="api-keys-container">
       <Eachpage_header headertitle={"API Keys"} />
@@ -99,7 +165,10 @@ const ApiKeys = () => {
         {loading ? (
           <Loader />
         ) : (
-          <button className="add-key-btn" onClick={CreateKeys}>
+          <button
+            className="add-key-btn"
+            onClick={() => setShowRequestModal(true)}
+          >
             Add {activeTab} New
           </button>
         )}
@@ -139,6 +208,132 @@ const ApiKeys = () => {
           </tbody>
         </table>
       </div>
+
+      {showRequestModal && (
+        <div className="request-overlay">
+          <div className="request-modal">
+            {/* Header */}
+            <div className="requested-header">
+              <h3>Request logs</h3>
+              <button
+                className="requested-close"
+                onClick={() => setShowRequestModal(false)}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Mode Toggle */}
+            <div className="request-mode-toggle">
+              <button
+                className={`request-mode-btn ${activeMode === "test" ? "active" : ""}`}
+                onClick={() => setActiveMode("test")}
+              >
+                <span className="request-mode-icon">
+                  <LuTestTube size={16} />
+                </span>
+                Test
+              </button>
+
+              <button
+                className={`request-mode-btn ${activeMode === "live" ? "active" : ""}`}
+                onClick={() => setActiveMode("live")}
+              >
+                <span className="request-mode-icon">
+                  <BsLightningCharge size={16} />
+                </span>
+                Live
+              </button>
+            </div>
+
+            {/* ================= Date Fields ================= */}
+            <div className="request-form">
+              {/* Key Name */}
+              <div className="request-field">
+                <p className="request-label">Key Name</p>
+                <div className="request-date-input-wrapper">
+                  <input
+                    type="text"
+                    className="request-date-input"
+                    placeholder="e.g. Payments Service Key"
+                    value={keyName}
+                    onChange={(e) => setKeyName(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* IP Whitelist */}
+              <div className="request-field">
+                <p className="request-label">IP Whitelist</p>
+                <div className="request-date-input-wrapper">
+                  <input
+                    type="text"
+                    className="request-date-input"
+                    placeholder="e.g. 192.168.1.1, 10.0.0.1"
+                    value={ipWhitelist}
+                    onChange={(e) => setIpWhitelist(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Rate Limit */}
+              <div className="request-field">
+                <p className="request-label">
+                  Rate Limit (requests/minute) <IoIosInformationCircleOutline />
+                </p>
+                <div className="request-date-input-wrapper">
+                  <input
+                    type="text"
+                    className="request-date-input"
+                    placeholder="e.g., 1000"
+                    value={rateLimit}
+                    onChange={(e) => setRateLimit(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Permissions */}
+              <div className="request-field">
+                <p className="request-label">Permissions</p>
+                <div className="permission-group">
+                  {["read", "write", "delete"].map((p) => (
+                    <div key={p} className="permission-card">
+                      <input
+                        type="checkbox"
+                        name="permission"
+                        value={p}
+                        checked={permissions.includes(p)}
+                        onChange={() => togglePermission(p)}
+                      />
+                      <span className="custom-radio"></span>
+                      <span className="key-radio">
+                        {p.charAt(0).toUpperCase() + p.slice(1)} Access
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Submit */}
+            <div className="request-footer-api">
+              <button
+                className="request-cancel-btn"
+                onClick={() => setShowRequestModal(false)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="request-submit-btn"
+                onClick={handleGenerateKey}
+              >
+                Generate API Key
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

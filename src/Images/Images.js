@@ -26,7 +26,10 @@ const images = {
   bhim: require("../assets/images/bhim.webp"),
   API: require("../assets/images/API.png"),
   Apiusage: require("../assets/images/Apiusage.png"),
-
-
+  whitelist: require("../assets/images/whitelist.webp"),
+  Recharges: require("../assets/images/Recharges.webp"),
+  payouts: require("../assets/images/payouts.webp"),
+  kyc: require("../assets/images/kyc.webp"),
+  BBPS: require("../assets/images/BBPS.webp"),
 };
 export default images;

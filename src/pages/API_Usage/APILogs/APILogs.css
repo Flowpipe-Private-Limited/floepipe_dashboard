@@ -314,6 +314,10 @@
   font-size: 14px;
   color: var(--black);
   font-family: "JetBrainsMono";
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+  align-items: center;
 }
 
 .request-date-input-wrapper {
@@ -389,7 +393,7 @@
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
   font-weight: 200;
   transition: all 0.2s;

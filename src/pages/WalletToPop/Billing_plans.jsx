@@ -5,7 +5,13 @@ import "./Billing_plans.css";
 import { LuTestTube } from "react-icons/lu";
 import { BsLightningCharge } from "react-icons/bs";
 import { LuDownload } from "react-icons/lu";
-import Images from "../../Images/Images"
+import Images from "../../Images/Images";
+import { LuCircleAlert } from "react-icons/lu";
+import { FaArrowTrendUp } from "react-icons/fa6";
+import { HiOutlineBolt } from "react-icons/hi2";
+import { LuCreditCard } from "react-icons/lu";
+import { FiEdit } from "react-icons/fi";
+import { MdClose } from "react-icons/md";
 
 const BillingPlans = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
@@ -172,7 +178,7 @@ const BillingPlans = () => {
       <div className="BillingPlans_stats-row">
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
-            <div className="BillingPlans_stat-icon">💳</div>
+            <div className="BillingPlans_stat-icon"><LuCreditCard size={20} color="#155DFC"/></div>
             <p className="BillingPlans_stat-label">Current Plan</p>
           </div>
           <div className="BillingPlans_stat-value-group">
@@ -182,7 +188,7 @@ const BillingPlans = () => {
         </div>
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
-            <div className="BillingPlans_stat-icon">⚡</div>
+            <div className="BillingPlans_stat-icon"><HiOutlineBolt size={20} color="#00A63E" /></div>
             <p className="BillingPlans_stat-label">Plan Status</p>
           </div>
           <div className="BillingPlans_stat-value-group">
@@ -192,7 +198,7 @@ const BillingPlans = () => {
         </div>
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
-            <div className="BillingPlans_stat-icon">₹</div>
+            <div style={{color:"#00A63E"}} className="BillingPlans_stat-icon">₹ </div>
             <p className="BillingPlans_stat-label">Available Balance</p>
           </div>
           <h3>₹{balance}</h3>
@@ -200,7 +206,7 @@ const BillingPlans = () => {
         </div>
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
-            <div className="BillingPlans_stat-icon">📈</div>
+            <div className="BillingPlans_stat-icon"><FaArrowTrendUp size={20} color="#155DFC"/></div>
             <p className="BillingPlans_stat-label">API Usage</p>
           </div>
           <h3>245K / 500k</h3>
@@ -213,15 +219,15 @@ const BillingPlans = () => {
         </div>
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
-            <div className="BillingPlans_stat-icon">⚙️</div>
+            <div className="BillingPlans_stat-icon"><LuCircleAlert size={20} color="#E17100" /></div>
             <p className="BillingPlans_stat-label">Alert Threshold</p>
           </div>
           <div className="BillingPlans_threshold-row">
             <h3>₹5,000</h3>
-            <span className="BillingPlans_info-icon">ⓘ</span>
+            <span className="BillingPlans_info-icon"><LuCircleAlert size={20} color="#99A1AF" /></span>
           </div>
           <a href="#" className="BillingPlans_edit-link">
-            Edit threshold 📝
+            Edit threshold <FiEdit size={20} color="#00000099" />
           </a>
         </div>
       </div>
@@ -415,7 +421,7 @@ const BillingPlans = () => {
                 className="BillingPlans_close-btn"
                 onClick={() => setIsSliderOpen(false)}
               >
-                ×
+               <MdClose color="#7C3AED" size={28} />
               </button>
             </div>
             <div className="BillingPlans_slider-content">

@@ -12,17 +12,25 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import "./mainContent.css";
 import { GoArrowUpRight, GoArrowDownLeft } from "react-icons/go";
 import Images from "../../Images/Images";
-import { GoEyeClosed } from "react-icons/go";
+import { GoEye, GoEyeClosed } from "react-icons/go";
 import { BiRupee } from "react-icons/bi";
 import { FiAlertTriangle, FiCreditCard } from "react-icons/fi";
 import { LuKey } from "react-icons/lu";
 import { LuCodeXml } from "react-icons/lu";
+import WalletToPop from "../WalletToPop/WalletToPop";
 
 const MainContent = () => {
+  const [showBalance, setShowBalance] = useState(false);
+  const [isSliderOpen, setIsSliderOpen] = useState(false);
   const navigate = useNavigate();
+
+  const NavigateToBalance = () => {
+    navigate("/dashboard/Billing_Plans");
+  };
 
   const quickActions = [
     {
@@ -115,7 +123,6 @@ const MainContent = () => {
       amount: "₹ 800",
       spent: "₹ 8000",
     },
-    
   ];
 
   const transactionStats = [
@@ -151,68 +158,33 @@ const MainContent = () => {
             </div>
 
             <div className="wallet-middle">
-              <span className="wallet-dots">*******</span>
-              <span className="wallet-eye-icon">
-                <GoEyeClosed />
+              <span className="wallet-dots">
+                {showBalance ? "₹ 1,50,000" : "*******"}
+              </span>
+              <span
+                className="wallet-eye-icon"
+                onClick={() => setShowBalance(!showBalance)}
+                style={{ cursor: "pointer" }}
+              >
+                {showBalance ? <GoEye /> : <GoEyeClosed />}
               </span>
             </div>
 
             <div className="wallet-actions">
-              <div className="w-action">
-                <img className="statement-icon" src={Images.statement} /> View
-                Statement
+              <div className="w-action" onClick={NavigateToBalance}>
+                <img
+                  className="statement-icon"
+                  src={Images.statement}
+                  alt="View Statement"
+                />
+                <span>View Statement</span>
               </div>
-              <div className="w-action">
-                <BiRupee size={22} />
+              <div onClick={() => setIsSliderOpen(true)} className="w-action">
+                <BiRupee size={20} />
                 Add Money
               </div>
             </div>
           </div>
-
-          {/* STATS */}
-          {/* <div className="stats-grid">
-            <div className="stat-card">
-              <div className="star-card-boxes-maincon">
-                <p className="stat-title">Total Transactions</p>
-                <h3 className="stat-value">₹ 15,432</h3>
-                <span className="stat-sub">0.00% vs This Month</span>
-              </div>
-              <div className="quick-icon-grid-main">
-                <GoArrowUpRight size={20} color="white" />
-              </div>
-            </div>
-
-            <div className="stat-card">
-              <div className="star-card-boxes-maincon">
-                <p className="stat-title">Product Subscribed</p>
-                <h3 className="stat-value">15,432</h3>
-              </div>
-              <button className="outline-btn small">More Products</button>
-            </div>
-
-            <div className="stat-card">
-              <div className="star-card-boxes-maincon">
-                <p className="stat-title">Transaction Volume</p>
-                <h3 className="stat-value">₹ 15,432</h3>
-                <span className="stat-sub">0.00% vs This Month</span>
-              </div>
-
-              <div>
-                <div className="quick-icon-grid-main">
-                  <GoArrowDownLeft size={20} color="white" />
-                </div>
-                <div className="right-arrow-logo"></div>
-              </div>
-            </div>
-
-            <div className="stat-card">
-              <div className="star-card-boxes-maincon">
-                <p className="stat-title">Product Requests</p>
-                <h3 className="stat-value">15,432</h3>
-              </div>
-              <button className="outline-btn small">View Requests</button>
-            </div>
-          </div> */}
           <div className="stats-grid">
             <div className="stat-card">
               <div className="star-card-boxes-maincon">
@@ -291,7 +263,6 @@ const MainContent = () => {
       {/* ===== QUICK ACTIONS ===== */}
       <h3 className="section-title-mc">Quick Actions</h3>
       <div className="quick-action-main">
-
         <div className="quick-action-column">
           <div className="quick-actions">
             {quickActions.map((item, idx) => (
@@ -426,8 +397,7 @@ const MainContent = () => {
                 </div>
               </div>
             </div>
-
-            {/* <div style={{ width: "100%", height: 300 }}>
+            <div style={{ width: "100%", height: 300 }}>
               <ResponsiveContainer>
                 <ComposedChart data={productUsageData}>
                   <defs>
@@ -450,6 +420,8 @@ const MainContent = () => {
                     tick={{ fontSize: 12, fill: "#9ca3af" }}
                   />
                   <Tooltip />
+
+                  {/* Area chart with gradient fill */}
                   <Area
                     type="monotone"
                     dataKey="amt"
@@ -457,6 +429,19 @@ const MainContent = () => {
                     fillOpacity={1}
                     fill="url(#colorUv)"
                   />
+
+                  {/* Dotted line overlay */}
+                  <Line
+                    type="monotone"
+                    dataKey="amt"
+                    stroke="#a78bfa"
+                    strokeWidth={2}
+                    strokeDasharray="5 5"
+                    dot={false}
+                    activeDot={false}
+                  />
+
+                  {/* Bar chart */}
                   <Bar
                     dataKey="usage"
                     barSize={6}
@@ -465,61 +450,7 @@ const MainContent = () => {
                   />
                 </ComposedChart>
               </ResponsiveContainer>
-            </div> */}
-            <div style={{ width: "100%", height: 300 }}>
-  <ResponsiveContainer>
-    <ComposedChart data={productUsageData}>
-      <defs>
-        <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-          <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-        </linearGradient>
-      </defs>
-      <XAxis
-        dataKey="name"
-        axisLine={false}
-        tickLine={false}
-        tick={{ fontSize: 12, fill: "#9ca3af" }}
-        dy={10}
-      />
-      <YAxis
-        hide={false}
-        axisLine={false}
-        tickLine={false}
-        tick={{ fontSize: 12, fill: "#9ca3af" }}
-      />
-      <Tooltip />
-      
-      {/* Area chart with gradient fill */}
-      <Area
-        type="monotone"
-        dataKey="amt"
-        stroke="#d8b4fe"
-        fillOpacity={1}
-        fill="url(#colorUv)"
-      />
-      
-      {/* Dotted line overlay */}
-      <Line
-        type="monotone"
-        dataKey="amt"
-        stroke="#a78bfa"
-        strokeWidth={2}
-        strokeDasharray="5 5"
-        dot={false}
-        activeDot={false}
-      />
-      
-      {/* Bar chart */}
-      <Bar
-        dataKey="usage"
-        barSize={6}
-        fill="#7c3aed"
-        radius={[10, 10, 0, 0]}
-      />
-    </ComposedChart>
-  </ResponsiveContainer>
-</div>
+            </div>
           </div>
 
           {/* CARDS LIST */}
@@ -638,6 +569,27 @@ const MainContent = () => {
           </div>
         </div>
       </div>
+
+         {/* Side Slider Overlay */}
+      {isSliderOpen && (
+        <div className="BillingPlans_slider-overlay">
+          <div className="BillingPlans_slider-container">
+            <div className="BillingPlans_slider-header">
+              <h2>Add Money</h2>
+              <button
+                className="BillingPlans_close-btn"
+                onClick={() => setIsSliderOpen(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="BillingPlans_slider-content">
+              <WalletToPop />
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

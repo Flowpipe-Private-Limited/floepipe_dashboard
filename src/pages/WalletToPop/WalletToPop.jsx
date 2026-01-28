@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "./WalletToPop.css";
 import axios from "axios";
+import Images from "../../Images/Images";
+import { GoEye, GoEyeClosed } from "react-icons/go";
+import { BiRupee } from "react-icons/bi";
+import { AiOutlineBank } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const WalletToPop = () => {
   const CLIENT_ID = "CID_1766992391408";
-
+  const [showBalance, setShowBalance] = useState(false);
   const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const getWalletBalance = async () => {
     setLoading(true);
     setError("");
     try {
       const res = await axios.get(
-        `${BASE_URL}/api/v1/apimodule/get-wallte-balance?clientId=${CLIENT_ID}`
+        `${BASE_URL}/api/v1/apimodule/get-wallte-balance?clientId=${CLIENT_ID}`,
       );
       console.log("Wallet API Response:", res);
       console.log("Wallet API Response:", res.data);
@@ -48,22 +55,19 @@ const WalletToPop = () => {
     };
 
     try {
-      const res = await fetch(
-        `${BASE_URL}/api/v1/apimodule/wallet-topup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const res = await fetch(`${BASE_URL}/api/v1/apimodule/wallet-topup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
       const data = await res.json();
 
       if (data.success) {
         alert(
-          `Top-up successful!\nCredited: ₹${data.data.creditedAmount}\nGST: ₹${data.data.gstAmount}`
+          `Top-up successful!\nCredited: ₹${data.data.creditedAmount}\nGST: ₹${data.data.gstAmount}`,
         );
 
         setBalance(data?.data?.remainingBalance);
@@ -73,92 +77,99 @@ const WalletToPop = () => {
       console.error("Wallet top-up failed", error);
     }
   };
+
+  const NavigateToBalance = () => {
+    navigate("/dashboard/Billing_Plans");
+  };
+
   return (
-    <div className="wallet-container">
-      <div className="wallet-wrapper">
-
-        <div className="wallet-card">
-          <div className="wallet-card-header">
-            <p className="wallet-title">P E R S O N A L W A L L E T</p>
-            <div className="wallet-sun-icon">
-              {/* Simple CSS sunburst representation or SVG */}
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d9f99d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </svg>
+    <>
+      <div className="wallet-container">
+        <div className="wallet-wrapper">
+          <div className="wallet-card">
+            <div className="wallet-card-slide">
+              <div className="wallet-card-header">
+                <p className="wallet-title">PERSONAL WALLET</p>
+                <img className="wallet-sun-icon" src={Images.FlowpipeLogo} />
+              </div>
+              <div className="wallet-middle">
+                <span className="wallet-dots">
+                  {showBalance ? `₹ ${balance}` : "*******"}
+                </span>
+                <span
+                  className="wallet-eye-icon"
+                  onClick={() => setShowBalance(!showBalance)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {showBalance ? <GoEye /> : <GoEyeClosed />}
+                </span>
+              </div>
+            </div>
+            <div className="wallet-card-footer">
+              <div onClick={NavigateToBalance} className="wallet-action">
+                <img
+                  className="statement-icon"
+                  src={Images.statement}
+                  alt="View Statement"
+                />
+                <span onClick={NavigateToBalance}>View Statement</span>
+              </div>
+              <div className="wallet-action">
+                <BiRupee style={{ opacity: "0.5" }} size={20} />
+                <span style={{ opacity: "0.5" }}>Add Money</span>
+              </div>
             </div>
           </div>
 
-          <div className="wallet-balance-row">
-            <h2 className="wallet-balance">₹ {balance}</h2>
-            <span className="wallet-eye-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-            </span>
+          <div className="add-money-card">
+            <h3>Add Money via UPI</h3>
+
+            <div className="upi-input-row">
+              <div className="upi-icon-box">
+                <span className="upi-app-icon">
+                  <img className="bhim-img" src={Images.bhim} />
+                </span>{" "}
+                {/* Placeholder for UPI app logo */}
+              </div>
+              <span className="currency">₹</span>
+              <input
+                type="number"
+                placeholder="0.00"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+              <button className="pay-btn" onClick={handleTopUp}>
+                pay
+              </button>
+            </div>
+
+            <div className="amount-buttons">
+              <button onClick={() => setAmount(500)}>500</button>
+              <button onClick={() => setAmount(1000)}>1000</button>
+              <button onClick={() => setAmount(2000)}>2000</button>
+              <button onClick={() => setAmount(3000)}>3000</button>
+            </div>
           </div>
 
-          <div className="wallet-card-footer">
-            <div className="wallet-action">
-              <span className="action-icon">📨</span> {/* Using emoji or generic icon for statement */}
-              <span>View Statement</span>
+          <div className="other-ways">
+            <h3>Other ways to add Money</h3>
+
+            <div className="bank-transfer">
+              <div className="bank-left">
+                <div className="bank-icon">
+                  <AiOutlineBank size={22} />
+                </div>
+                <span>Bank Transfer</span>
+              </div>
+              <span className="arrow">›</span>
             </div>
-            <div className="wallet-action">
-              <span className="action-icon">₹</span>
-              <span>Add Money</span>
-            </div>
+          </div>
+          <div className="footer-contactHelpdesk">
+            <p className="ContactHelpdesk">Contact Helpdesk</p>
           </div>
         </div>
-
-        <div className="add-money-card">
-          <h3>Add Money via UPI</h3>
-
-          <div className="upi-input-row">
-            <div className="upi-icon-box">
-              <span className="upi-app-icon">▶️</span> {/* Placeholder for UPI app logo */}
-            </div>
-            <span className="currency">₹</span>
-            <input
-              type="number"
-              placeholder="0.00"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            <button className="pay-btn" onClick={handleTopUp}>
-              pay
-            </button>
-          </div>
-
-          <div className="amount-buttons">
-            <button onClick={() => setAmount(500)}>500</button>
-            <button onClick={() => setAmount(1000)}>1000</button>
-            <button onClick={() => setAmount(2000)}>2000</button>
-            <button onClick={() => setAmount(3000)}>3000</button>
-          </div>
-        </div>
-
-        <div className="other-ways">
-          <h3>Other ways to add Money</h3>
-
-          <div className="bank-transfer">
-            <div className="bank-left">
-              <div className="bank-icon">🏦</div>
-              <span>Bank Transfer</span>
-            </div>
-            <span className="arrow">›</span>
-          </div>
-        </div>
-
       </div>
-    </div>
+    </>
   );
 };
 export default WalletToPop;

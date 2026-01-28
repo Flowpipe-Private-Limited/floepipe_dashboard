@@ -23,6 +23,7 @@
   --purple-500:#7C3AED80;
   --purple-600:#CEC6E0;
   --purple-700:#EFE7FE;
+  --purple-800:#7C3AED33;
 
   /* gray */
   --gray-100:#6A7282;
@@ -34,6 +35,10 @@
   /* Green */
   --green-100:#00C950;
   --sweetyellow:#CCFF00;
+
+  /* orange */
+  --orange-100:#FBFBFB;
+  --orange-200:#E17100;
 
 
 }

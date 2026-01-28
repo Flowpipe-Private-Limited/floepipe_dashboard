@@ -2,7 +2,6 @@
 .api-keys-container {
   min-height: 100vh;
   background: #fafbfc;
-  /* padding: 1.5rem; */
 }
 
 /* ================= Header ================= */
@@ -30,8 +29,8 @@
   margin-bottom: 1.5rem;
 }
 
-.tab-btn, 
-.tab-btn-two{
+.tab-btn,
+.tab-btn-two {
   padding: 0.6rem 1.8rem;
   font-size: 0.85rem;
   border: none;
@@ -135,6 +134,7 @@ tbody tr td[colspan] {
   padding: 1.5rem;
   font-family: "JetBrainsMonoSemiBold";
 }
+
 /* ================= Empty Table State ================= */
 .empty-table-text {
   text-align: center;
@@ -143,6 +143,126 @@ tbody tr td[colspan] {
   color: var(--black);
   font-family: monospace;
   background: var(--white);
+}
+
+/* ================= Permission Group ================= */
+.permission-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+
+.permission-card {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.key-radio {
+  color: var(--black);
+  font-family: "JetBrainsMono";
+  font-size: 13px;
+}
+
+/* Hide default checkbox - keep it accessible for clicks */
+.permission-card input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  z-index: 1;
+}
+
+/* Custom radio circle */
+.custom-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #999;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+/* Inner dot */
+.custom-radio::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #7c3aed;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s ease;
+}
+
+/* Hover effect */
+.permission-card:hover .custom-radio {
+  border-color: #7c3aed;
+}
+
+/* Checked state */
+.permission-card input[type="checkbox"]:checked + .custom-radio {
+  border-color: #7c3aed;
+}
+
+.permission-card input[type="checkbox"]:checked + .custom-radio::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ================= Footer Buttons ================= */
+.request-footer-api {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.request-cancel-btn {
+  width: 55%;
+  padding: 6px;
+  border: 1px solid var(--purple-main);
+  color: var(--purple-main);
+  background: transparent;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 200;
+  transition: all 0.2s;
+}
+
+.request-cancel-btn:hover {
+  background: #f5f3ff;
+}
+
+.request-submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+.request-submit-btn:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
 }
 
 /* ================= Responsive ================= */
@@ -168,5 +288,11 @@ tbody tr td[colspan] {
   th,
   td {
     padding: 0.75rem;
+  }
+
+  .permission-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 }

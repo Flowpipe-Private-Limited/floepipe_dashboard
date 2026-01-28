@@ -6,12 +6,6 @@ import {
   HelpCircle,
   User,
   Search,
-  LayoutDashboard,
-  Key,
-  ShieldCheck,
-  CreditCard,
-  Building2,
-  Phone,
   FileText,
   Menu,
   ChevronDown,
@@ -21,13 +15,11 @@ import {
 } from "lucide-react";
 import flowpipeLogo from "../../assets/images/FlowpipeLogo.png";
 import { useUserStore } from "../../Store/userStore";
-import Images from "../../Images/Images"
+import Images from "../../Images/Images";
 import Help from "../../components/Help/Help";
 import { RxPlusCircled } from "react-icons/rx";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import { HiOutlineBell } from "react-icons/hi";
-import { BiHomeAlt } from "react-icons/bi";
-import { RxPerson } from "react-icons/rx";
 import "./Dashboard.css";
 
 const sideDashboardConfig = [
@@ -36,42 +28,56 @@ const sideDashboardConfig = [
     icon: Images.Dashboard,
     href: "/dashboard",
     type: "single",
+    iconType: "image",
   },
   {
     label: "My Account",
     icon: Images.Myaccount,
     href: "/dashboard/Profile",
     type: "single",
+    iconType: "image",
   },
   {
     label: "Products",
     icon: Images.product,
     href: "/dashboard/Products",
     type: "single",
+    iconType: "image",
   },
   {
     label: "Reports",
     icon: Images.reports,
     href: "/dashboard/Reports",
     type: "single",
+    iconType: "image",
+  },
+    {
+    label: "Billing & plan",
+    icon: Images.Billingplan,
+    href: "/dashboard/Billing_plans",
+    type: "single",
+    iconType: "image",
   },
   {
     label: "API Keys",
     icon: Images.API,
     href: "/dashboard/apiKeys",
     type: "single",
+    iconType: "image",
   },
   {
     label: "API Usage",
     icon: Images.Apiusage,
     href: "/dashboard/APIUsage",
     type: "single",
+    iconType: "image",
   },
   {
     label: "Whitelist IP",
-    icon: ShieldCheck,
+    icon: Images.whitelist,
     href: "/dashboard/WhitelistIP",
     type: "single",
+    iconType: "image",
   },
 
   // ✅ KYC
@@ -79,6 +85,8 @@ const sideDashboardConfig = [
     label: "KYC",
     icon: FileText,
     type: "group",
+    iconType: "image",
+
     children: [
       {
         label: "Aadhaar Verification",
@@ -132,6 +140,8 @@ const sideDashboardConfig = [
     label: "Recharge",
     icon: Smartphone,
     type: "group",
+    iconType: "image",
+
     children: [
       {
         label: "Fetch Operators",
@@ -165,6 +175,8 @@ const sideDashboardConfig = [
     label: "BBPS",
     icon: Briefcase,
     type: "group",
+    iconType: "image",
+
     children: [
       {
         label: "Fetch Category",
@@ -189,6 +201,8 @@ const sideDashboardConfig = [
   {
     label: "InstantPay",
     icon: Briefcase,
+    iconType: "image",
+
     type: "group",
     children: [
       {
@@ -283,29 +297,27 @@ function Sidebar({ collapsed }) {
       )}
 
       <nav className="flex-1 p-2 space-y-2.5 text-sm overflow-y-auto">
-  {sideDashboardConfig.map((item, idx) => (
-  <button
-    key={idx}
-    onClick={() => navigate(item.href)}
-    className={`sidebar-item ${
-      collapsed ? "sidebar-collapsed" : "sidebar-expanded"
-    }`}
-  >
-    {/* ICON */}
-    {item.iconType === "component" ? (
-      <item.icon size={18} />
-    ) : (
-      <img
-        src={item.icon}
-        alt={item.label}
-        className="sidebar-icon-img"
-      />
-    )}
+        {sideDashboardConfig
+          .filter((item) => item.type === "single")
+          .map((item, idx) => (
+            <button
+              key={idx}
+              onClick={() => navigate(item.href)}
+              className="sidebar-item"
+            >
+              {item.iconType === "image" ? (
+                <img
+                  src={item.icon}
+                  alt={item.label}
+                  className="sidebar-icon-img"
+                />
+              ) : (
+                <item.icon size={18} />
+              )}
 
-    {!collapsed && <span>{item.label}</span>}
-  </button>
-))}
-
+              {!collapsed && <span>{item.label}</span>}
+            </button>
+          ))}
 
         {(search
           ? filteredGroups
@@ -371,6 +383,22 @@ function Sidebar({ collapsed }) {
 
 function Header({ onToggle, data, onNavigate, onHelpClick }) {
   const location = useLocation();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const routeTitleMap = {};
 
@@ -389,31 +417,6 @@ function Header({ onToggle, data, onNavigate, onHelpClick }) {
   const pageTitle = routeTitleMap[location.pathname] || "Dashboard";
 
   return (
-    // <header className="h-16 bg-white border-b flex items-center justify-between px-6">
-    //   <div className="flex items-center gap-3">
-    //     <button
-    //       onClick={onToggle}
-    //       className="h-9 w-9 rounded-lg border flex items-center justify-center"
-    //     >
-    //       <Menu size={18} />
-    //     </button>
-    //     <h1 className="Page-name">{pageTitle}</h1>
-    //   </div>
-
-    //   <div className="flex items-center gap-3">
-    //     <button className="purple-outline-btn">Balance</button>
-    //     <button className="purple-outline-btn">Developers API</button>
-    //     <button className="purple-outline-btn" onClick={onHelpClick}>
-    //       <HelpCircle size={16} /> Help
-    //     </button>
-    //     <button className="purple-outline-btn">
-    //       <Bell size={16} /> Updates
-    //     </button>
-    //     <button className="purple-outline-btn">
-    //       <User size={18} />
-    //     </button>
-    //   </div>
-    // </header>
     <header className="Dash-header">
       <div className="Dash-header-left">
         <button onClick={onToggle} className="Dash-header-menu-btn">
@@ -452,13 +455,46 @@ function Header({ onToggle, data, onNavigate, onHelpClick }) {
 
         <button
           className="Dash-header-avatar-btn"
-          onClick={() => onNavigate("Profile")}
+          onClick={() => setIsProfileOpen(!isProfileOpen)}
         >
           <User size={18} />
-          {(!data?.IskycApproved || !data?.kycCompleted) && (
+          {/* {(!data?.IskycApproved || !data?.kycCompleted) && (
             <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-red-600 rounded-full border-2 border-white" />
-          )}
+          )} */}
         </button>
+
+        {isProfileOpen && (
+          <div className="profile-dropdown" ref={dropdownRef}>
+            <div className="profile-header-info">
+              <div className="profile-avatar-circle">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User" />
+              </div>
+              <div className="profile-user-details">
+                <h4 className="profile-name">Natashia khaleria</h4>
+                <p className="profile-email">chennurisrikanth@ntar.com</p>
+                <p className="profile-id">06ONQ14174</p>
+              </div>
+            </div>
+
+            <div className="profile-menu">
+              <div className="profile-menu-item" onClick={() => {
+                onNavigate("Profile");
+                setIsProfileOpen(false);
+              }}>
+                My Account
+              </div>
+              <div className="profile-divider"></div>
+
+              <div className="profile-menu-item">
+                Change Password
+              </div>
+              <div className="profile-divider"></div>
+              <div className="profile-menu-item logout">
+                Logout
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
