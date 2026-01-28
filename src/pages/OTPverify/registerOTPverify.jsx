@@ -19,7 +19,7 @@ export default function OtpLogin() {
 
   const token = location.state?.token;
   const mobileNumber = location.state?.mobileNumber;
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 
   const CORRECT_OTP = "123456";
 
@@ -65,8 +65,8 @@ export default function OtpLogin() {
       console.log("OTP verification response:", response?.data);
 
       if (response?.data?.success === true) {
-        Cookies.set('token',token);
-        
+        Cookies.set('token', token);
+
         navigate("/dashboard");
       } else {
         setErrorMessage(response.data?.message || "Invalid OTP");

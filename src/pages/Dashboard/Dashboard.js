@@ -90,14 +90,6 @@ const sideDashboardConfig = [
       { label: "Bill Validation", href: "/dashboard/bbps/BillValidation", method: "POST" },
       { label: "Quick Pay", href: "/dashboard/bbps/QuickPay", method: "POST" }
     ]
-  },
-  {
-    label: "InstantPay",
-    icon: Briefcase,
-    type: "group",
-    children: [
-      { label: "InstantBill Pay", href: "/dashboard/InstantPayVerification", method: "POST" },
-    ]
   }
 ];
 

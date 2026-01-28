@@ -20,7 +20,7 @@ const OtpScreen = ({ navigation }) => {
 
   const token = location.state?.token;
   const mobileNumber = location.state?.mobileNumber;
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 
   if (!token || !mobileNumber) {
     console.warn("Token or mobile number missing, redirecting to login");
@@ -204,7 +204,7 @@ const OtpScreen = ({ navigation }) => {
           </div>
         </div>
       </div>
-      <Background_Login/>
+      <Background_Login />
       <div className="Video-class">
         <video
           src={Images.loadernew2}

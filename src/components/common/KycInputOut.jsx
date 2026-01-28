@@ -11,7 +11,7 @@ import { useUserStore } from "../../Store/userStore";
 import { useNavigate } from "react-router-dom";
 
 const KycReuseComponet = ({ data }) => {
-    const {IskycApproved,kycCompleted} = useUserStore()
+    const { IskycApproved, kycCompleted } = useUserStore()
     const [formData, setFormData] = useState({});
     const [Publickey, setPublickey] = useState('')
     const [apiResponse, setApiResponse] = useState({});
@@ -20,8 +20,9 @@ const KycReuseComponet = ({ data }) => {
     const [errors, setErrors] = useState({}); // ONly for the regex 
     const [showAlert, setShowAlert] = useState(false);
     const [selectedExampleCode, setSelectedExampleCode] = useState(
-        data.exampleResponse
+        data?.exampleResponse || {}
     );
+
 
     const HandleChangeInput = (e) => {
         console.log('Handle input change is trigred')
@@ -52,6 +53,44 @@ const KycReuseComponet = ({ data }) => {
     };
 
     const HandleVerificaton = async () => {
+        let locationData = {};
+        setApiErrormessage('');
+
+        if (data?.isGeoLocation) {
+            try {
+                // Wrapping callback-based API in a Promise is the standard/best way in modern JS
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject, {
+                        enableHighAccuracy: true, // Request best possible results
+                        timeout: 10000,          // Wait max 10 seconds
+                        maximumAge: 0            // Force fresh location
+                    });
+                });
+
+                locationData = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+            } catch (error) {
+                console.error("Geolocation error:", error);
+
+                let errorMsg = "Location access failed.";
+                if (error.code === error.PERMISSION_DENIED) {
+                    errorMsg = "Location permission denied. Please allow location access to proceed.";
+                } else if (error.code === error.POSITION_UNAVAILABLE) {
+                    errorMsg = "Location information is unavailable.";
+                } else if (error.code === error.TIMEOUT) {
+                    errorMsg = "The request to get user location timed out.";
+                }
+
+                // You can choose to block or just warn. 
+                // Currently setting message and returning, effectively blocking.
+                setApiErrormessage(errorMsg);
+                return;
+            }
+        }
+        console.log(locationData)
+
         if (Object.keys(errors).length > 0) {
             setApiErrormessage("Please fix the validation errors before submitting.");
             return;
@@ -66,7 +105,11 @@ const KycReuseComponet = ({ data }) => {
 
         console.log('Handle Verification');
 
-        let finalPayload = await encryptPayload(formData, Publickey);
+        // Merge form data with location data
+        const payloadToEncrypt = { ...formData, ...locationData };
+        console.log(payloadToEncrypt);
+
+        let finalPayload = await encryptPayload(payloadToEncrypt, Publickey);
         console.log('is called', finalPayload);
         const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair()
         window.PRIVITEKEY = privateKeyPem;
@@ -76,7 +119,7 @@ const KycReuseComponet = ({ data }) => {
         //     setShowAlert(true);
         //     return;
         // };
-        setApiErrormessage('');
+
         setLoading(true);
 
         await ApirequestHandler(
@@ -112,7 +155,7 @@ const KycReuseComponet = ({ data }) => {
     };
 
     const GetPublickey = async () => {
-        console.log('is called');
+        console.log('is GetPublickey');
         await ApirequestHandler(
             async () => fetchPublickey(),
             null,
@@ -125,7 +168,7 @@ const KycReuseComponet = ({ data }) => {
                 console.log(errMessage)
             }
         )
-        // const response = await axios.get(`${process.env.REACT_APP_DASHBOARD_URL}ApiModuel/key/Publickey`);
+        // const response = await axios.get(`${import.meta.env.REACT_APP_DASHBOARD_URL}ApiModuel/key/Publickey`);
         // const { publicKey } = response.data;
         // console.log(response)
         // setPublickey(publicKey);

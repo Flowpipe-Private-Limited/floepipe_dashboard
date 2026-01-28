@@ -932,7 +932,7 @@ export const NameMatch = {
 export const RechargeOperators = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/Recharge/Operators",
+    URLS: "http://10.1.1.56:7006/api/Recharge/Operators",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -969,7 +969,7 @@ export const RechargeOperators = {
 export const RechargePlans = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/Recharge/Plans",
+    URLS: "http://localhost:7006/api/Recharge/Plans",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1005,7 +1005,7 @@ export const RechargePlans = {
 export const RechargeOldPlans = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/Recharge/OldPlans",
+    URLS: "http://localhost:7006/api/Recharge/OldPlans",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1041,7 +1041,7 @@ export const RechargeOldPlans = {
 export const RechargeOffersPlans = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/Recharge/OffersPlans",
+    URLS: "http://localhost:7006/api/Recharge/OffersPlans",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1074,7 +1074,7 @@ export const RechargeOffersPlans = {
 export const RechargeURL = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/Recharge/RechargeURL",
+    URLS: "http://localhost:7009/Recharge/RechargeURL",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1083,9 +1083,10 @@ export const RechargeURL = {
     headerTitle: "Recharge using NTAR service",
     submitButton: 'Recharge'
   },
-  inputParams: ["account", "actualAmount", "spKey", "transactionId", "geoCode", "customerNumber", "pincode"],
+  isGeoLocation:true,
+  inputParams: ["MobileNumber", "actualAmount", "spKey", "transactionId", "customerNumber",],
   isDisable: false,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'http://localhost:7009/shop/shopest' \\
     --header 'Content-Type: application/json' \\
     --header 'secretKey: {{secretKey}}' \\
     --header 'clientId: {{clientId}}' \\
@@ -1107,6 +1108,7 @@ export const RechargeURL = {
     "success": true
   }
 };
+
 // BBPS Responses
 // export const BBPSServices = {
 //   apiUrl: {

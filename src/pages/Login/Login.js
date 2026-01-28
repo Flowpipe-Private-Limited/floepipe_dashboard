@@ -14,7 +14,7 @@ const Login = () => {
   const [Loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({});
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
   const navigate = useNavigate();
 
   const HandleFromChange = (e) => {
@@ -86,7 +86,7 @@ const Login = () => {
 
         const token = response?.data?.token;
         console.log("Received token:", token);
-        navigate("/otpVerify", { state: { token, mobileNumber:formData?.mobileNumber } });
+        navigate("/otpVerify", { state: { token, mobileNumber: formData?.mobileNumber } });
       } else {
         setErrorMessage(response.data?.message || "Login failed");
       }
