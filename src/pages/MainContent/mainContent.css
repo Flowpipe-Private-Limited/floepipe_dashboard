@@ -4,9 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  /* increased gap for neatness */
-  padding: 0 4px;
-  /* Slight buffer */
+  padding: 0px;
 }
 
 .hello-main-dashboard {
@@ -149,6 +147,7 @@
   margin-top: auto;
   justify-content: space-between;
   align-items: center;
+  gap: 1.8rem;
 }
 
 .statement-icon {
@@ -162,6 +161,18 @@
   cursor: pointer;
   font-weight: 300;
   font-family: "JetBrainsMono";
+  width: 100%;
+}
+
+.w-action-rupee {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  font-weight: 300;
+  font-family: "JetBrainsMono";
+  width: 100%;
+  justify-content: flex-end;
 }
 
 .wallet-label {
@@ -262,14 +273,11 @@
 .promo-card {
   position: relative;
   overflow: hidden;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
 
 .dashboardright-img {
   width: 100%;
-  height: 267px;
+  height: 258px;
   position: absolute;
   object-fit: cover;
   padding: 0px;
@@ -280,15 +288,14 @@
 }
 
 .promo-content {
-  padding: 24px;
+  padding: 2rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 2;
   position: relative;
-  width: 65%;
-  /* Leave room for image on right */
+  width: 60%;
 }
 
 .promo-content h3 {
@@ -560,36 +567,6 @@
   white-space: nowrap;
 }
 
-/* ===================== */
-/* Responsive */
-/* ===================== */
-
-@media (max-width: 768px) {
-  .recent-activity-card {
-    padding: 16px;
-  }
-
-  .recent-activity-title {
-    font-size: 18px;
-  }
-
-  .activity-time {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .recent-activity-item {
-    align-items: flex-start;
-  }
-
-  .activity-time {
-    margin-top: 4px;
-  }
-}
-
-/* ================= DETAILED SECTION ================= */
-
 .dashboard-detailed-section {
   display: flex;
   flex-direction: column;
@@ -608,7 +585,7 @@
 .product-usage-chart-card {
   background: var(--white);
   border-radius: 8px;
-  padding: 24px;
+  padding: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
   border: 1px solid var(--black-500);
   min-height: 400px;
@@ -929,4 +906,381 @@
   .detailed-row-two {
     grid-template-columns: 1fr;
   }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Small Mobile (max-width: 575.98px) */
+@media (max-width: 575.98px) {
+  .dashboard-container {
+    padding: 0px;
+    gap: 16px;
+  }
+
+  .hello-main-dashboard {
+    height: 40px;
+    padding: 0.75rem;
+  }
+
+  .hello-main-text {
+    font-size: 1.25rem;
+  }
+
+  .dashboard-top {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dash-secone {
+    flex-direction: column;
+    padding: 0.75rem;
+    gap: 12px;
+  }
+
+  .wallet-card-main {
+    height: 180px;
+    padding: 16px;
+  }
+
+  .wallet-dots {
+    font-size: 24px;
+  }
+
+  .wallet-sun-icon {
+    width: 20%;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    height: 90px;
+    padding: 12px;
+  }
+
+  .stat-card-decor {
+    bottom: -25px;
+    right: -50px;
+    width: 120px;
+    height: 75px;
+  }
+
+  .promo-content {
+    width: 70%;
+    padding: 1.5rem;
+  }
+
+  .promo-content h3 {
+    font-size: 16px;
+  }
+
+  .section-title-mc {
+    font-size: 18px;
+  }
+
+  .quick-action-main {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .quick-actions {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .quick-card {
+    padding: 12px;
+  }
+
+  .quick-card-decor {
+    top: -20px;
+    right: -15px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .recent-activity-card {
+    padding: 12px;
+  }
+
+  .recent-activity-title {
+    font-size: 14px;
+  }
+
+  .activity-title {
+    font-size: 12px;
+  }
+
+  .activity-subtitle {
+    font-size: 10px;
+  }
+
+  .activity-time {
+    font-size: 11px;
+  }
+
+  .dashboard-detailed-section {
+    gap: 16px;
+  }
+
+  .detailed-row-one,
+  .detailed-row-two {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .product-usage-chart-card {
+    padding: 0.75rem;
+    min-height: 350px;
+  }
+
+  .chart-header {
+    margin-bottom: 2rem;
+  }
+
+  .chart-header h3 {
+    font-size: 18px;
+  }
+
+  .chart-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .control-group,
+  .toggle-group {
+    width: 100%;
+  }
+
+  .pan-lite-cards-container {
+    padding: 0.75rem;
+  }
+
+  .pan-lite-card {
+    padding: 8px;
+    gap: 12px;
+  }
+
+  .pan-card-stats {
+    gap: 16px;
+  }
+
+  .stat-block {
+    width: 80px;
+    padding: 0.4rem;
+  }
+
+  .transactions-table-card,
+  .apps-running-card {
+    padding: 16px;
+  }
+
+  .table-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .table-header-row h3,
+  .apps-running-card h3 {
+    font-size: 18px;
+  }
+
+  .table-controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .control-group-sm select {
+    width: 100%;
+  }
+
+  .custom-table-main th,
+  .custom-table-main td {
+    font-size: 12px;
+    padding: 0.75rem 0;
+  }
+
+  .duration-p {
+    font-size: 12px;
+    margin-bottom: 0.4rem;
+  }
+}
+
+/* Tablet (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .dashboard-container {
+    padding: 0px;
+    gap: 20px;
+  }
+
+  .hello-main-dashboard {
+    height: 45px;
+  }
+
+  .hello-main-text {
+    font-size: 1.4rem;
+  }
+
+  .dashboard-top {
+    grid-template-columns: 1.8fr 1fr;
+    gap: 16px;
+  }
+
+  .dash-secone {
+    flex-direction: row;
+    padding: 1rem;
+    gap: 16px;
+  }
+
+  .wallet-card-main {
+    height: 200px;
+    padding: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .stat-card {
+    height: 95px;
+    padding: 14px;
+  }
+
+  .promo-content {
+    width: 65%;
+  }
+
+  .promo-content h3 {
+    font-size: 18px;
+  }
+
+  .section-title-mc {
+    font-size: 20px;
+  }
+
+  .quick-action-main {
+    grid-template-columns: 1.8fr 1fr;
+    gap: 16px;
+  }
+
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .quick-card {
+    padding: 14px;
+  }
+
+  .recent-activity-card {
+    padding: 16px;
+  }
+
+  .detailed-row-one,
+  .detailed-row-two {
+    grid-template-columns: 1.8fr 1fr;
+    gap: 16px;
+  }
+
+  .product-usage-chart-card {
+    padding: 1rem;
+  }
+
+  .chart-header h3 {
+    font-size: 20px;
+  }
+
+  .chart-controls {
+    gap: 8px;
+  }
+
+  .control-group,
+  .toggle-group {
+    width: 48%;
+  }
+
+  .pan-lite-cards-container {
+    padding: 1rem;
+  }
+
+  .pan-lite-card {
+    padding: 12px;
+  }
+
+  .transactions-table-card,
+  .apps-running-card {
+    padding: 20px;
+  }
+
+  .table-header-row h3,
+  .apps-running-card h3 {
+    font-size: 20px;
+  }
+
+  .table-controls {
+    gap: 12px;
+  }
+
+  .control-group-sm select {
+    width: 130px;
+  }
+
+  .custom-table-main th,
+  .custom-table-main td {
+    font-size: 13px;
+  }
+}
+
+/* Desktop Small (992px - 1199.98px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .dashboard-container {
+    padding: 0px;
+  }
+
+  .dashboard-top {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .quick-action-main {
+    grid-template-columns: 2.2fr 1fr;
+  }
+
+  .quick-actions {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .detailed-row-one,
+  .detailed-row-two {
+    grid-template-columns: 2.2fr 1fr;
+  }
+
+  .chart-controls {
+    flex-wrap: nowrap;
+  }
+
+  .control-group,
+  .toggle-group {
+    width: 30%;
+  }
+
+  .pan-card-stats {
+    gap: 24px;
+  }
+
+  .stat-block {
+    width: 90px;
+  }
+}
+
+/* Desktop Large (min-width: 1200px) */
+@media (min-width: 1200px) {
+
 }

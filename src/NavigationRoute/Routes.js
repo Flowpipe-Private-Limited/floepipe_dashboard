@@ -48,6 +48,7 @@ import ApiKeys from "../pages/apiKeys/apikeys";
 import API_Usage from "../pages/API_Usage/API_Usage";
 import WhiteListIP from "../pages/whiteList/whiteList";
 import Billing_plans from "../pages/WalletToPop/Billing_plans";
+import ViewAnalytics from "../pages/ViewAnalytics/ViewAnalytics";
 
 const AppRoute = () => {
   return (
@@ -70,6 +71,7 @@ const AppRoute = () => {
         <Route path="/RegisterPage" element={<RegisterPage />} />
 
 
+
         {/* User DashBoard Routes */}
         <Route
           path="/dashboard"
@@ -85,6 +87,7 @@ const AppRoute = () => {
           <Route path="Products" element={<Products/>} />
           <Route path="Reports" element={<Reports/>} />
           <Route path="Billing_plans" element={<Billing_plans/>} />
+          <Route path="viewAnalytics" element={<ViewAnalytics/>} />
           <Route path="apiKeys" element={<ApiKeys />} />
           <Route path="APIUsage" element={<API_Usage />} />
           <Route path="WhitelistIP" element={<WhiteListIP />} />

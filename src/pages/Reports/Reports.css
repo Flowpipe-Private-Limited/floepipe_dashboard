@@ -477,7 +477,7 @@
 @media (max-width: 767px) {
   /* Page spacing */
   .reports-container {
-    padding: 0.8rem;
+    padding: 0rem;
   }
 
   .page-header-card-reports,
