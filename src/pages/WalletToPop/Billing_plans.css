@@ -656,6 +656,7 @@ input:checked + .BillingPlans_slider:before {
   justify-content: flex-end;
 }
 
+
 .BillingPlans_slider-container {
   width: 580px;
   height: 100%;
@@ -711,4 +712,448 @@ input:checked + .BillingPlans_slider:before {
   min-height: auto;
   padding: 24px;
   background: transparent;
+}
+
+@media (max-width: 575.98px) {
+  .BillingPlans_page {
+    padding: 0px;
+  }
+
+  .BillingPlans_header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .BillingPlans_header h1 {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .BillingPlans_header p {
+    font-size: 13px;
+  }
+
+  .BillingPlans_header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .BillingPlans_mode-toggle {
+    padding: 3px;
+  }
+
+  .BillingPlans_mode-btn {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+
+  .BillingPlans_add-balance-main-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .BillingPlans_stats-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .BillingPlans_stat-card {
+    padding: 16px;
+    min-height: 110px;
+  }
+
+  .BillingPlans_stat-label {
+    font-size: 13px;
+  }
+
+  .BillingPlans_stat-card h3 {
+    font-size: 16px;
+  }
+
+  .BillingPlans_stat-sub {
+    font-size: 11px;
+  }
+
+  .BillingPlans_content-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .BillingPlans_transactions-section {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .BillingPlans_section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .BillingPlans_section-header h2 {
+    font-size: 18px;
+  }
+
+  .BillingPlans_custom-dropdown-container {
+    width: 100%;
+  }
+
+  .BillingPlans_dropdown-trigger {
+    padding: 8px 12px;
+  }
+
+  .BillingPlans_transactions-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-spacing: 0 8px;
+  }
+
+  .BillingPlans_transactions-table th,
+  .BillingPlans_transactions-table td {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .BillingPlans_transactions-table th {
+    padding-bottom: 6px;
+  }
+
+  .BillingPlans_sidebar-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .BillingPlans_card-header-toggle h3 {
+    font-size: 18px;
+  }
+
+  .BillingPlans_plan-history h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .BillingPlans_timeline-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .BillingPlans_timeline-header-row h4 {
+    font-size: 14px;
+  }
+
+  .BillingPlans_timeline-date {
+    font-size: 12px;
+  }
+
+  .BillingPlans_input-wrapper {
+    padding: 5px 5px 5px 10px;
+  }
+
+  .BillingPlans_quick-amounts {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .BillingPlans_quick-amounts button {
+    flex: 1 0 calc(50% - 4px);
+    min-width: calc(50% - 4px);
+  }
+
+  .BillingPlans_warning-banner {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 13px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* Side Slider Mobile */
+  .BillingPlans_slider-overlay {
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .BillingPlans_slider-container {
+    width: 100%;
+    height: 90vh;
+    border-radius: 20px 20px 0 0;
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .BillingPlans_slider-header {
+    padding: 14px 20px;
+  }
+
+  .BillingPlans_slider-header h2 {
+    font-size: 20px;
+  }
+
+  .BillingPlans_slider-content .wallet-container {
+    padding: 20px;
+  }
+}
+
+/* Tablet (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .BillingPlans_page {
+    padding: 24px 20px;
+  }
+
+  .BillingPlans_header h1 {
+    font-size: 22px;
+  }
+
+  .BillingPlans_header p {
+    font-size: 13.5px;
+  }
+
+  .BillingPlans_stats-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .BillingPlans_stat-card {
+    padding: 18px;
+    min-height: 120px;
+  }
+
+  .BillingPlans_stat-label {
+    font-size: 13.5px;
+  }
+
+  .BillingPlans_stat-card h3 {
+    font-size: 17px;
+  }
+
+  .BillingPlans_content-grid {
+    grid-template-columns: 1.8fr 1fr;
+    gap: 20px;
+  }
+
+  .BillingPlans_transactions-section {
+    padding: 20px;
+  }
+
+  .BillingPlans_section-header h2 {
+    font-size: 20px;
+  }
+
+  .BillingPlans_sidebar-card {
+    padding: 20px;
+  }
+
+  .BillingPlans_card-header-toggle h3 {
+    font-size: 20px;
+  }
+
+  .BillingPlans_plan-history h3 {
+    font-size: 20px;
+  }
+
+  .BillingPlans_quick-amounts {
+    width: 85%;
+  }
+
+  /* Side Slider Tablet */
+  .BillingPlans_slider-container {
+    width: 500px;
+  }
+
+  .BillingPlans_slider-content .wallet-container {
+    padding: 20px;
+  }
+}
+
+/* Desktop Small (992px - 1199.98px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .BillingPlans_page {
+    padding: 0px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .BillingPlans_header h1 {
+    font-size: 23px;
+  }
+
+  .BillingPlans_stats-row {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .BillingPlans_stat-card {
+    min-height: 125px;
+  }
+
+  .BillingPlans_content-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .BillingPlans_transactions-table th,
+  .BillingPlans_transactions-table td {
+    font-size: 13.5px;
+  }
+
+  /* Side Slider Desktop Small */
+  .BillingPlans_slider-container {
+    width: 550px;
+  }
+}
+
+/* Desktop Large (min-width: 1200px) */
+@media (min-width: 1200px) {
+  .BillingPlans_page {
+    padding: 0px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .BillingPlans_wrapper {
+    max-width: 1400px;
+  }
+
+  .BillingPlans_header {
+    margin-bottom: 36px;
+  }
+
+  .BillingPlans_header h1 {
+    font-size: 24px;
+  }
+
+  .BillingPlans_header p {
+    font-size: 14px;
+  }
+
+  .BillingPlans_stats-row {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .BillingPlans_stat-card {
+    padding: 22px;
+    min-height: 135px;
+  }
+
+  .BillingPlans_content-grid {
+    grid-template-columns: 2fr 1fr;
+    gap: 28px;
+  }
+
+  .BillingPlans_transactions-section {
+    padding: 28px;
+  }
+
+  .BillingPlans_section-header h2 {
+    font-size: 22px;
+  }
+
+  .BillingPlans_sidebar-card {
+    padding: 24px;
+  }
+
+  .BillingPlans_card-header-toggle h3 {
+    font-size: 22px;
+  }
+
+  .BillingPlans_plan-history h3 {
+    font-size: 22px;
+    margin-bottom: 28px;
+  }
+
+  .BillingPlans_transactions-table th,
+  .BillingPlans_transactions-table td {
+    font-size: 14px;
+  }
+
+  .BillingPlans_quick-amounts {
+    width: 80%;
+  }
+
+  .BillingPlans_input-wrapper {
+    padding: 8px 8px 8px 14px;
+  }
+
+  .BillingPlans_input-wrapper input {
+    font-size: 14px;
+  }
+
+  /* Side Slider Desktop Large */
+  .BillingPlans_slider-container {
+    width: 580px;
+  }
+}
+
+/* Additional responsive improvements */
+@media (max-width: 400px) {
+  .BillingPlans_stat-card {
+    padding: 14px;
+    min-height: 100px;
+  }
+
+  .BillingPlans_stat-card h3 {
+    font-size: 15px;
+  }
+
+  .BillingPlans_mode-btn {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+
+  .BillingPlans_add-balance-main-btn {
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+
+  .BillingPlans_tx-type,
+  .BillingPlans_status-pill {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+}
+
+/* Landscape mode on mobile */
+@media (max-width: 991.98px) and (orientation: landscape) {
+  .BillingPlans_stats-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .BillingPlans_content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .BillingPlans_slider-container {
+    height: 100vh;
+    border-radius: 0;
+  }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .BillingPlans_stat-card,
+  .BillingPlans_transactions-section,
+  .BillingPlans_sidebar-card {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+  }
+
+  .BillingPlans_slider-container {
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.08);
+  }
 }

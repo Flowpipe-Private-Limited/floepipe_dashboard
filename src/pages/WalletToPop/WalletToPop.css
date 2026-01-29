@@ -279,8 +279,494 @@
   margin-top: 0.5rem;
 }
 
-@media (max-width: 480px) {
+/* ===== RESPONSIVE WALLET ===== */
+
+/* Mobile (max-width: 575.98px) */
+@media (max-width: 575.98px) {
   .wallet-container {
+    padding: 16px 12px;
+    min-height: auto;
+    justify-content: center;
+  }
+
+  .wallet-wrapper {
+    gap: 12px;
+  }
+
+  .wallet-card-slide {
+    width: 100%;
+  }
+
+  .wallet-card {
+    width: 100%;
+    height: 180px;
+    padding: 20px;
+  }
+
+  .wallet-title {
+    font-size: 11px;
+    letter-spacing: 0.3rem;
+  }
+
+  .wallet-sun-icon {
+    width: 15%;
+  }
+
+  .wallet-balance {
+    font-size: 22px;
+  }
+
+  .wallet-balance-row {
+    gap: 8px;
+  }
+
+  .wallet-card-footer {
+    margin-top: 16px;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .wallet-action {
+    font-size: 13px;
+    width: 100%;
+    justify-content: space-between;
+    padding: 8px 0;
+  }
+
+  .add-money-card {
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .add-money-card h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .upi-input-row {
+    padding: 5px 5px 5px 8px;
+    margin-bottom: 10px;
+  }
+
+  .upi-icon-box {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+  }
+
+  .upi-app-icon {
+    font-size: 9px;
+  }
+
+  .currency {
+    font-size: 13px;
+  }
+
+  .upi-input-row input {
+    font-size: 13px;
+  }
+
+  .pay-btn {
+    padding: 5px 14px;
+    font-size: 12px;
+  }
+
+  .amount-buttons {
+    gap: 6px;
+  }
+
+  .amount-buttons button {
+    flex: 1 0 calc(50% - 3px);
+    min-width: calc(50% - 3px);
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  .other-ways h3 {
+    font-size: 14px;
+    margin: 0 0 16px 0;
+  }
+
+  .bank-transfer {
+    padding: 0;
+  }
+
+  .bank-left {
+    gap: 8px;
+  }
+
+  .bank-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .bank-left span {
+    font-size: 13px;
+  }
+
+  .arrow {
+    font-size: 16px;
+  }
+
+  .footer-contactHelpdesk {
+    margin-top: 4rem;
+  }
+
+  .ContactHelpdesk {
+    font-size: 13px;
+  }
+}
+
+/* Tablet (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .wallet-container {
+    padding: 20px;
+  }
+
+  .wallet-wrapper {
+    gap: 20px;
+  }
+
+  .wallet-card {
+    width: 100%;
+    max-width: 400px;
+    height: 200px;
+    padding: 22px;
+  }
+
+  .wallet-title {
+    font-size: 11.5px;
+    letter-spacing: 0.4rem;
+  }
+
+  .wallet-sun-icon {
+    width: 14%;
+  }
+
+  .wallet-balance {
+    font-size: 24px;
+  }
+
+  .add-money-card {
+    padding: 18px;
+  }
+
+  .add-money-card h3 {
+    font-size: 14.5px;
+  }
+
+  .upi-input-row {
+    padding: 6px 6px 6px 10px;
+  }
+
+  .upi-input-row input {
+    font-size: 14px;
+  }
+
+  .pay-btn {
+    padding: 6px 15px;
+    font-size: 12.5px;
+  }
+
+  .amount-buttons button {
+    padding: 6px 14px;
+    font-size: 11px;
+  }
+
+  .other-ways h3 {
+    font-size: 15px;
+  }
+
+  .bank-left span {
+    font-size: 13.5px;
+  }
+
+  .footer-contactHelpdesk {
+    margin-top: 5rem;
+  }
+}
+
+/* Desktop Small (992px - 1199.98px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .wallet-container {
+    padding: 24px;
+    justify-content: center;
+  }
+
+  .wallet-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .wallet-card {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .wallet-title {
+    font-size: 11.8px;
+  }
+
+  .wallet-balance {
+    font-size: 26px;
+  }
+
+  .add-money-card {
+    padding: 20px;
+  }
+
+  .add-money-card h3 {
+    font-size: 15px;
+  }
+
+  .upi-input-row {
+    padding: 7px 7px 7px 12px;
+  }
+
+  .amount-buttons button {
+    padding: 6px 15px;
+  }
+
+  .other-ways h3 {
+    font-size: 15.5px;
+  }
+}
+
+/* Desktop Large (min-width: 1200px) */
+@media (min-width: 1200px) {
+  .wallet-container {
+    padding: 32px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .wallet-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 24px;
+  }
+
+  .wallet-card {
+    width: 100%;
+    max-width: 500px;
+    height: 230px;
+    padding: 28px;
+  }
+
+  .wallet-title {
+    font-size: 12px;
+    letter-spacing: 0.5rem;
+  }
+
+  .wallet-sun-icon {
+    width: 13%;
+  }
+
+  .wallet-balance {
+    font-size: 30px;
+  }
+
+  .wallet-card-footer {
+    margin-top: 28px;
+  }
+
+  .wallet-action {
+    font-size: 14px;
+  }
+
+  .add-money-card {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .add-money-card h3 {
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+
+  .upi-input-row {
+    padding: 8px 8px 8px 14px;
+    margin-bottom: 16px;
+  }
+
+  .upi-icon-box {
+    width: 22px;
+    height: 22px;
+  }
+
+  .upi-app-icon {
+    font-size: 11px;
+  }
+
+  .currency {
+    font-size: 15px;
+  }
+
+  .upi-input-row input {
+    font-size: 15px;
+  }
+
+  .pay-btn {
+    padding: 7px 18px;
+    font-size: 13.5px;
+  }
+
+  .amount-buttons {
+    gap: 10px;
+  }
+
+  .amount-buttons button {
+    padding: 7px 16px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+
+  .other-ways h3 {
+    font-size: 16px;
+    margin: 0 0 24px 0;
+  }
+
+  .bank-transfer {
+    padding: 0;
+  }
+
+  .bank-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .bank-left span {
+    font-size: 14.5px;
+  }
+
+  .arrow {
+    font-size: 20px;
+  }
+
+  .footer-contactHelpdesk {
+    margin-top: 6rem;
+  }
+
+  .ContactHelpdesk {
+    font-size: 14px;
+    margin-top: 0.6rem;
+  }
+}
+
+/* Additional responsive improvements */
+@media (max-width: 400px) {
+  .wallet-card {
+    height: 170px;
     padding: 16px;
+  }
+
+  .wallet-title {
+    font-size: 10px;
+    letter-spacing: 0.25rem;
+  }
+
+  .wallet-balance {
+    font-size: 20px;
+  }
+
+  .amount-buttons button {
+    flex: 1 0 100%;
+    min-width: 100%;
+  }
+
+  .wallet-card-footer {
+    flex-direction: row;
+    gap: 10px;
+  }
+}
+
+/* Landscape mode on mobile */
+@media (max-width: 991.98px) and (orientation: landscape) {
+  .wallet-container {
+    padding: 12px;
+    min-height: 100vh;
+  }
+
+  .wallet-card {
+    height: 160px;
+  }
+
+  .wallet-balance {
+    font-size: 20px;
+  }
+
+  .wallet-card-footer {
+    margin-top: 12px;
+  }
+
+  .footer-contactHelpdesk {
+    margin-top: 3rem;
+  }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .wallet-card {
+    background: linear-gradient(
+      105deg,
+      var(--purple-main) 0%,
+      #4c1d95 55%,
+      #5b21b6 100%
+    );
+  }
+
+  .add-money-card {
+    border: 1px solid var(--gray-300);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .wallet-action,
+  .pay-btn,
+  .amount-buttons button,
+  .bank-transfer {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .upi-input-row input {
+    font-size: 16px;
+  }
+
+  .amount-buttons button {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .wallet-container {
+    background: white;
+    padding: 0;
+  }
+
+  .wallet-card {
+    background: linear-gradient(
+      105deg,
+      #4c1d95 0%,
+      #5b21b6 60%,
+      #6d28d9 100%
+    );
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+
+  .wallet-action,
+  .pay-btn,
+  .amount-buttons button,
+  .bank-transfer {
+    border: 1px solid #000;
   }
 }
