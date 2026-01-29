@@ -9,14 +9,12 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
   const [startDate, setStartDate] = useState(moment().startOf("month"));
   const [endDate, setEndDate] = useState(moment());
   const [activePreset, setActivePreset] = useState("This Month");
-  // Calendars state, default to current month and next month
   const [leftMonth, setLeftMonth] = useState(moment().startOf("month"));
   const [rightMonth, setRightMonth] = useState(
     moment().add(1, "month").startOf("month"),
   );
 
-  // Day Selection helper
-  const [selectingStart, setSelectingStart] = useState(true); // Toggle between start/end selection if custom
+  const [selectingStart, setSelectingStart] = useState(true);
 
   if (!isOpen) return null;
 
@@ -75,14 +73,11 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
         );
       },
     },
-    // Input box for custom days not fully implemented logic wise, usually just text.
-    // Keeping standard presets for now.
   ];
 
   const setRange = (start, end) => {
     setStartDate(start);
     setEndDate(end);
-    // Update calendar views to show selection
     setLeftMonth(moment(start).startOf("month"));
     setRightMonth(moment(start).add(1, "month").startOf("month"));
   };
@@ -93,14 +88,11 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
   };
 
   const handleDayClick = (day) => {
-    // Simple logic: If we are 'Custom' mode or just clicking.
-    // For this UI, let's assume if you click, you are starting a new range or modifying end.
-    // But with presets dominating, we'll keep it simple: Click Start -> Click End.
     if (activePreset !== "Custom") setActivePreset("Custom");
 
     if (selectingStart) {
       setStartDate(day);
-      setEndDate(day); // Reset end to start
+      setEndDate(day);
       setSelectingStart(false);
     } else {
       if (day.isBefore(startDate)) {
@@ -108,22 +100,19 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
         setSelectingStart(false);
       } else {
         setEndDate(day);
-        setSelectingStart(true); // Reset for next interaction
+        setSelectingStart(true);
       }
     }
   };
-
   const renderCalendar = (monthMoment) => {
-    const startDay = moment(monthMoment).startOf("month").day(); // 0-6
+    const startDay = moment(monthMoment).startOf("month").day();
     const daysInMonth = monthMoment.daysInMonth();
     const days = [];
 
-    // Empty slots
     for (let i = 0; i < startDay; i++) {
       days.push(<div key={`empty-${i}`} className="day-cell empty"></div>);
     }
 
-    // Days
     for (let d = 1; d <= daysInMonth; d++) {
       const currentDay = moment(monthMoment).date(d);
       const isSelected =
@@ -157,7 +146,6 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
   return (
     <div className="modal-overlay">
       <div className="date-picker-modal">
-        {/* Sidebar */}
         <div className="presets-sidebar">
           {presets.map((p) => (
             <button
@@ -179,8 +167,6 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
             days up to today
           </div>
         </div>
-
-        {/* Main Content */}
         <div className="calendar-container">
           <div className="date-inputs-row">
             <div className="date-display-box">
@@ -188,11 +174,10 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
             </div>
             <div className="date-display-box">
               {endDate.format("MMM D, YYYY")}
+              {endDate.format("MMM D,YYY")}
             </div>
           </div>
-
           <div className="calendars-wrapper">
-            {/* Left Calendar */}
             <div className="single-calendar">
               <div className="calendar-header">
                 <button
@@ -206,7 +191,7 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
                 <span className="month-label">
                   {leftMonth.format("MMMM YYYY")}
                 </span>
-                <div></div> {/* Spacer */}
+                <div></div>
               </div>
               <div className="calendar-grid">
                 {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
@@ -217,8 +202,6 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
                 {renderCalendar(leftMonth)}
               </div>
             </div>
-
-            {/* Right Calendar */}
             <div className="single-calendar">
               <div className="calendar-header">
                 <div></div>
@@ -239,12 +222,11 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
                   <div key={d} className="day-label">
                     {d}
                   </div>
-                ))}
+                ))}  
                 {renderCalendar(rightMonth)}
               </div>
             </div>
           </div>
-
           <div className="modal-footer">
             <button className="modal-btn cancel" onClick={onClose}>
               Cancel
@@ -266,14 +248,11 @@ const Reports = () => {
   const [productsOpen, setProductsOpen] = useState(false);
   const [appNameOpen, setAppNameOpen] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
-
   const [selectedProduct, setSelectedProduct] = useState("Select option");
   const [selectedAppName, setSelectedAppName] = useState("Select option");
   const [selectedStatus, setSelectedStatus] = useState("Select option");
   const [duration, setDuration] = useState("Select Duration");
-
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-
   const productsList = [
     "All Products",
     "Pan Lite",
@@ -335,6 +314,7 @@ const Reports = () => {
             >
               {selectedAppName} <MdOutlineArrowDropDown size={22} />
             </div>
+
             {appNameOpen && (
               <div className="select-dropdown-menu">
                 {appsList.map((item) => (
