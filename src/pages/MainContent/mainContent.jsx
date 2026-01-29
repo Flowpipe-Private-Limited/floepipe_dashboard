@@ -32,10 +32,23 @@ const MainContent = () => {
     navigate("/dashboard/Billing_Plans");
   };
 
+  const NavigateToProducts = () =>{
+    navigate("/dashboard/Products");
+  }
+
+const NavigateToViewRequests = () => {
+  navigate("/dashboard/Products", { 
+    state: { defaultFilter: 'Pendding Approvals' } 
+  });
+}
+
   const quickActions = [
     {
       title: "View API Keys",
       icon: Images.Apikey,
+      href: "/dashboard/apiKeys",
+
+     
     },
     {
       title: "Integration Guide",
@@ -44,6 +57,7 @@ const MainContent = () => {
     {
       title: "View Analytics",
       icon: Images.viewanalytics,
+      href: "/dashboard/viewAnalytics",
     },
     {
       title: "Start Free Trial",
@@ -179,7 +193,7 @@ const MainContent = () => {
                 />
                 <span>View Statement</span>
               </div>
-              <div onClick={() => setIsSliderOpen(true)} className="w-action">
+              <div onClick={() => setIsSliderOpen(true)} className="w-action-rupee">
                 <BiRupee size={20} />
                 Add Money
               </div>
@@ -206,7 +220,7 @@ const MainContent = () => {
                 <p className="stat-title">Product Subscribed</p>
                 <h3 className="stat-value">15,432</h3>
               </div>
-              <button className="outline-btn small">More Products</button>
+              <button onClick={NavigateToProducts} className="outline-btn small">More Products</button>
               {/* Decorative circle */}
               <div className="stat-card-decor">
                 <img src={Images.cardinsidelogo} />
@@ -237,7 +251,7 @@ const MainContent = () => {
                 <p className="stat-title">Product Requests</p>
                 <h3 className="stat-value">15,432</h3>
               </div>
-              <button className="outline-btn small">View Requests</button>
+              <button onClick={NavigateToViewRequests} className="outline-btn small">View Requests</button>
               {/* Decorative circle */}
               <div className="stat-card-decor">
                 <img src={Images.cardinsidelogo} />
@@ -266,13 +280,13 @@ const MainContent = () => {
         <div className="quick-action-column">
           <div className="quick-actions">
             {quickActions.map((item, idx) => (
-              <div className="quick-card" key={idx}>
+              <div onClick={() => navigate(item.href)} className="quick-card" key={idx}>
                 <div className="quick-icon">
                   <img src={item.icon} alt={item.title} />
                 </div>
                 <h4>{item.title}</h4>
                 <p>Lorem ipsum dolor sit amet</p>
-                <span className="quick-link">Get started →</span>
+                <span onClick={() => navigate(item.href)} className="quick-link">Get started →</span>
                 {/* Decorative circle */}
                 <div className="quick-card-decor"></div>
               </div>

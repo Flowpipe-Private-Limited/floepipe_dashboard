@@ -77,7 +77,7 @@ const WhiteListIP = () => {
 
   return (
     <div className="whitelist-container-main">
-      <Eachpage_header headertitle={"Whitlist IPs"} />
+      <Eachpage_header headertitle={"Whitelist IPs"} />
       <div className="add-ip-section">
         <div className="input-grid">
           <input

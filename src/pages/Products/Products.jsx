@@ -1,18 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Mail, Smartphone, FileCheck, Layers, ChevronDown, Lock } from 'lucide-react';
 import './Products.css';
 import { IoMdArrowDropdown } from "react-icons/io";
+import { useLocation } from 'react-router-dom';
 
 const Products = () => {
   const [filter, setFilter] = useState('All Products');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-
-  const handleFilterSelect = (selectedFilter) => {
+  const location = useLocation();
+  // const handleFilterSelect = (selectedFilter) => {
+  //   setFilter(selectedFilter);
+  //   setIsDropdownOpen(false);
+  // };
+   const handleFilterSelect = (selectedFilter) => {
     setFilter(selectedFilter);
     setIsDropdownOpen(false);
   };
+
+  // Check URL for filter parameter on component mount
+  useEffect(() => {
+    if (location.state?.defaultFilter) {
+      setFilter(location.state.defaultFilter);
+      
+      // Clear the state to prevent issues on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
+
 
   // Dummy Data to match image
   const products = [
@@ -193,7 +208,7 @@ const Products = () => {
                   Available credits :{product.credits}
                 </div>
               ) : (
-                <div className="credits-info">
+                <div style={{color:'var(--orange-300)'}} className="credits-info">
                   Awaiting approval
                 </div>
               )}

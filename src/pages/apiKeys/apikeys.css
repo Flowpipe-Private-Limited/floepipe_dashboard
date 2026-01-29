@@ -268,7 +268,7 @@ tbody tr td[colspan] {
 /* ================= Responsive ================= */
 @media (max-width: 768px) {
   .api-keys-container {
-    padding: 1rem;
+    padding: 0rem;
   }
 
   .tabs-wrapper {
