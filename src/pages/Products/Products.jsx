@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { FileCheck, Layers } from 'lucide-react';
 import './Products.css';
 import { IoMdArrowDropdown } from "react-icons/io";
+import { ApirequestHandler } from '../../utils/Apis/apiRequestHandler';
+import { ClientService } from '../../utils/Apis/api';
 
 const Products = () => {
   const [filter, setFilter] = useState("All Products");
@@ -18,7 +20,7 @@ const Products = () => {
     try {
       console.log("Fetching dashboard products...");
       const response = await fetch(
-        "http://10.1.1.226:5001/api/v1/apimodule/dashboard-services"
+        "http://10.1.1.226:5000/api/v1/apimodule/dashboard-services"
       );
       const res = await response.json();
       console.log("Dashboard response:", JSON.stringify(res?.data));
@@ -40,38 +42,37 @@ const Products = () => {
     } catch (error) {
       console.error("Dashboard fetch error:", error);
     }
+
   };
 
   const fetchClientServices = async () => {
     const clientId = localStorage.getItem("clientId");
     if (!clientId) return;
 
-    try {
-      console.log("Fetching client subscriptions for:", clientId);
+    await ApirequestHandler(
+      () => ClientService(clientId),
+      null,
+      (res) => {
+        if (res.success && res.data && Array.isArray(res.data)) {
+          const clientServices = res.data;
 
-      const response = await fetch(
-        `http://10.1.1.226:5001/api/v1/apimodule/services?clientId=${clientId}`
-      );
-      const res = await response.json();
-      console.log("Client services response:", res?.data);
-
-      if (res.success && res.data && Array.isArray(res.data)) {
-        const clientServices = res.data;
-
-        setProducts(prevProducts =>
-          prevProducts.map(p => {
-            const clientService = clientServices.find(
-              s => s.serviceId === p.serviceId
-            );
-            return clientService
-              ? { ...p, status: clientService.status }
-              : p;
-          })
-        );
+          setProducts(prevProducts =>
+            prevProducts.map(p => {
+              const clientService = clientServices.find(
+                s => s.serviceId === p.serviceId
+              );
+              return clientService
+                ? { ...p, status: clientService.status }
+                : p;
+            })
+          );
+        }
+      },
+      (errMessage) => {
+        console.log("Server Error:", errMessage)
       }
-    } catch (error) {
-      console.error("Client services fetch error:", error);
-    }
+    )
+
   };
 
   const handleSubscribe = async (serviceId) => {
@@ -85,7 +86,7 @@ const Products = () => {
       console.log("Subscribing service:", serviceId);
 
       const response = await fetch(
-        "http://10.1.1.226:5001/api/v1/apimodule/subscribe-service",
+        "http://10.1.1.226:5000/api/v1/apimodule/subscribe-service",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -121,14 +122,26 @@ const Products = () => {
     };
     loadData();
   }, []);
-  const filteredProducts =
-    filter === "All Products"
-      ? products
-      : products.filter(p => {
-        console.log("p in loop ===>", p?.status)
-        if (filter === "Pendding Approvals") return p.status === "Pending";
-        return p.status === filter;
+const filteredProducts =
+  filter === "All Products"
+    ? products
+    : products.filter(p => {
+        if (filter === "Subscribed") {
+          return p.status === "Subscribed";
+        }
+
+        if (filter === "Pendding Approvals") {
+          return p.status === "Pending";
+        }
+
+        if (filter === "Subscribe") {
+          // products not yet subscribed
+          return !p.status || p.status === "Unsubscribed";
+        }
+
+        return true;
       });
+
   console.log("products in componnet==>", JSON.stringify(products))
   return (
     <div className="products-container">
@@ -146,6 +159,22 @@ const Products = () => {
           <button className="filter-toggle-btn" onClick={toggleDropdown}>
             {filter} <IoMdArrowDropdown size={22} />
           </button>
+          {/* {isDropdownOpen && (
+            <ul className="dropdown-menu">
+              <li onClick={() => handleFilterSelect('All Products')}>
+                All Products
+              </li>
+              <li onClick={() => handleFilterSelect('Subscribed')}>
+                Subscribed
+              </li>
+              <li onClick={() => handleFilterSelect('UnSubscribed')}>
+                UnSubscribed
+              </li>
+              <li onClick={() => handleFilterSelect('Pendding Approvals')}>
+                Pending Approvals
+              </li>
+            </ul>
+          )} */}
 
           {isDropdownOpen && (
             <ul className="dropdown-menu">
@@ -154,11 +183,15 @@ const Products = () => {
               </li>
               <li
                 className="dropdown-item"
-                onClick={() => handleFilterSelect("Subscribed")}
-              >
+                onClick={() => handleFilterSelect("Subscribed")}>
                 <span className="dot subscribed"></span> Subscribed
               </li>
-          
+
+              <li
+                className="dropdown-item"
+                onClick={() => handleFilterSelect("Subscribe")}>
+                <span className="dot unsubscribed"></span> Subscribe
+              </li>
               <li className="dropdown-item" onClick={() => handleFilterSelect('Pendding Approvals')}>
                 <span className="dot pending"></span> Pendding Approvals
               </li>
