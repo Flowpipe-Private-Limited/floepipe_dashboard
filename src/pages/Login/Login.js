@@ -79,7 +79,8 @@ const Login = () => {
         {
           identifier: formData?.mobileNumber,
           channel: "MOBILE",
-          clientId
+          // clientId
+          module:'API_MODULE'
         }
       );
       console.log("Login response:", response?.data);

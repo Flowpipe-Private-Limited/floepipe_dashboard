@@ -14,6 +14,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "./ViewAnalytics.css";
+import { LuTestTube } from "react-icons/lu";
+import { BsLightningCharge } from "react-icons/bs";
 
 const ViewAnalytics = () => {
   // API Calls Over Time Data
@@ -82,9 +84,15 @@ const ViewAnalytics = () => {
           <p>Track your performance and usage patterns</p>
         </div>
         <div className="header-actions">
+          {/* <div className="test-live">
           <button className="btn-text">Text</button>
           <button className="btn-link">Link</button>
-          <button className="btn-add">Add</button>
+          </div> */}
+             <div className="test-live">
+                  <button className="btn-text active"> <LuTestTube />Test</button>
+                  <button className="btn-link "><BsLightningCharge />Link</button>
+                </div>
+          <button className="btn-add"> + Add</button>
         </div>
       </div>
 

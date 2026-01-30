@@ -1,4 +1,4 @@
-/* for Card bg Color: #ffffff */
+/* for Card bg Color: var(--white) */
 /* for tile bg color: #8a3bcc */
 /* for borders bg color: ##863ec4 */
 
@@ -17,7 +17,7 @@
 }
 
 .inPutContainer, .outPutContainer{
-    background-color: #ffffff ;
+    background-color: var(--white) ;
     border: 1px solid rgb(211, 208, 208);
     border-radius:8px;
     box-shadow: 0px 0px 10px rgb(211, 208, 208);

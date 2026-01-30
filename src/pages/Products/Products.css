@@ -144,10 +144,9 @@
 }
 
 .icon-container.green {
-  background-color: var(--green-100);
+  background-color: var(--green-400);
 }
 
-/* ================= Text ================= */
 .product-title-text {
   font-size: 0.95rem;
   font-weight: 700;
@@ -167,7 +166,6 @@
   overflow: hidden;
 }
 
-/* ================= Footer ================= */
 .card-footer {
   display: flex;
   justify-content: space-between;

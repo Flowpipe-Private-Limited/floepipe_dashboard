@@ -4,7 +4,7 @@ import "./Eachpage_header.css"
 const Eachpage_header = ({headertitle}) => {
   return (
     <div>
-        <div className="page-header-card-reports">
+        <div className="page-header-card-reports-main">
         <h1 className="page-title-main">{headertitle}</h1>
       </div>
     </div>
