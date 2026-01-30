@@ -55,16 +55,17 @@ body, #root {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* body, #root {
-  font-family: "JetBrainsMono";
-  margin: 0;
-  color: #fff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-} */
-
 /* Optional: font-weight helpers */
 .fw-400 { font-weight: 400; } /* Regular */
 .fw-500 { font-weight: 500; } /* Medium */
 .fw-600 { font-weight: 600; } /* SemiBold */
 .fw-700 { font-weight: 700; } /* Bold */
+
+::-webkit-scrollbar {
+  -ms-overflow-style: none;   
+  scrollbar-width: none;      
+}
+
+::-webkit-scrollbar-thumb {
+  display: none;              
+}

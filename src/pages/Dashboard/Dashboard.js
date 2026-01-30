@@ -55,7 +55,7 @@ const sideDashboardConfig = [
   // ===== TEST API SECTION =====
   {
     label: "Test API",
-    icon: Images.TestAPI || FileText,
+    icon: Images.Apiusage || FileText,
     type: "group",
     iconType: "image",
     children: [
@@ -229,7 +229,7 @@ const sideDashboardConfig = [
   },
   {
     label: "API Usage",
-    icon: Images.Apiusage,
+    icon: Images.testapi,
     href: "/dashboard/APIUsage",
     type: "single",
     iconType: "image",
@@ -241,7 +241,6 @@ const sideDashboardConfig = [
     type: "single",
     iconType: "image",
   },
-
 ];
 
 export default function DashboardPage() {
@@ -270,7 +269,7 @@ export default function DashboardPage() {
     <div className="h-screen w-full flex bg-[#000] relative">
       {/* Mobile Overlay */}
       <div
-        className={`mobile-dashboard-overlay ${!collapsed ? 'active' : ''}`}
+        className={`mobile-dashboard-overlay ${!collapsed ? "active" : ""}`}
         onClick={() => setCollapsed(true)}
       />
 
@@ -329,38 +328,38 @@ function Sidebar({ collapsed, onHelpClick }) {
   // ✅ Filter groups based on search
   const filteredConfig = search
     ? sideDashboardConfig
-      .map((item) => {
-        if (item.type === "group") {
-          const filteredChildren = item.children
-            .filter(
-              (child) =>
-                child.label.toLowerCase().includes(search.toLowerCase()) ||
-                child.children?.some((subChild) =>
-                  subChild.label.toLowerCase().includes(search.toLowerCase()),
-                ),
-            )
-            .map((child) => ({
-              ...child,
-              children:
-                child.children?.filter((subChild) =>
-                  subChild.label.toLowerCase().includes(search.toLowerCase()),
-                ) || [],
-            }))
-            .filter(
-              (child) =>
-                child.children?.length > 0 ||
-                child.label.toLowerCase().includes(search.toLowerCase()),
-            );
+        .map((item) => {
+          if (item.type === "group") {
+            const filteredChildren = item.children
+              .filter(
+                (child) =>
+                  child.label.toLowerCase().includes(search.toLowerCase()) ||
+                  child.children?.some((subChild) =>
+                    subChild.label.toLowerCase().includes(search.toLowerCase()),
+                  ),
+              )
+              .map((child) => ({
+                ...child,
+                children:
+                  child.children?.filter((subChild) =>
+                    subChild.label.toLowerCase().includes(search.toLowerCase()),
+                  ) || [],
+              }))
+              .filter(
+                (child) =>
+                  child.children?.length > 0 ||
+                  child.label.toLowerCase().includes(search.toLowerCase()),
+              );
 
-          return filteredChildren.length > 0
-            ? { ...item, children: filteredChildren }
+            return filteredChildren.length > 0
+              ? { ...item, children: filteredChildren }
+              : null;
+          }
+          return item.label.toLowerCase().includes(search.toLowerCase())
+            ? item
             : null;
-        }
-        return item.label.toLowerCase().includes(search.toLowerCase())
-          ? item
-          : null;
-      })
-      .filter(Boolean)
+        })
+        .filter(Boolean)
     : sideDashboardConfig;
 
   return (
@@ -422,8 +421,8 @@ function Sidebar({ collapsed, onHelpClick }) {
             const isGroupOpen = openGroups[group.label] || search;
 
             // Check if any active child exists in this group
-            const isGroupActive = group.children?.some(subGroup =>
-              subGroup.children?.some(api => api.href === location.pathname)
+            const isGroupActive = group.children?.some((subGroup) =>
+              subGroup.children?.some((api) => api.href === location.pathname),
             );
 
             return (
@@ -464,7 +463,9 @@ function Sidebar({ collapsed, onHelpClick }) {
                       const isSubGroupOpen =
                         openSubGroups[subGroupKey] || search;
 
-                      const isSubGroupActive = subGroup.children?.some(api => api.href === location.pathname);
+                      const isSubGroupActive = subGroup.children?.some(
+                        (api) => api.href === location.pathname,
+                      );
 
                       return (
                         <div key={subIdx} className="subgroup">
@@ -485,7 +486,9 @@ function Sidebar({ collapsed, onHelpClick }) {
                               ) : (
                                 <SubIcon size={16} />
                               )}
-                              <span className={`subgroup-label ${isSubGroupActive ? "text-purple-400" : ""}`}>
+                              <span
+                                className={`subgroup-label ${isSubGroupActive ? "text-purple-400" : ""}`}
+                              >
                                 {subGroup.label}
                               </span>
                             </div>
@@ -502,7 +505,8 @@ function Sidebar({ collapsed, onHelpClick }) {
                           {(isSubGroupOpen || search) && subGroup.children && (
                             <ul className="api-endpoints">
                               {subGroup.children.map((api, apiIdx) => {
-                                const isApiActive = location.pathname === api.href;
+                                const isApiActive =
+                                  location.pathname === api.href;
                                 return (
                                   <li
                                     key={apiIdx}
@@ -521,7 +525,9 @@ function Sidebar({ collapsed, onHelpClick }) {
                                         {api.method}
                                       </span>
                                     </div>
-                                    <span className="api-label">{api.label}</span>
+                                    <span className="api-label">
+                                      {api.label}
+                                    </span>
                                   </li>
                                 );
                               })}
@@ -550,10 +556,7 @@ function Sidebar({ collapsed, onHelpClick }) {
               <IoCodeSlashSharp size={18} />
               <span>Developers API</span>
             </button>
-            <button
-              className="sidebar-item"
-              onClick={onHelpClick}
-            >
+            <button className="sidebar-item" onClick={onHelpClick}>
               <HelpCircle size={18} />
               <span>Help</span>
             </button>

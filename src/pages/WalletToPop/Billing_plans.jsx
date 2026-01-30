@@ -23,7 +23,7 @@ const BillingPlans = () => {
 
   // Wallet Logic State
   const CLIENT_ID = "CID_1766992391408";
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -162,8 +162,14 @@ const BillingPlans = () => {
           </div>
           <div className="BillingPlans_header-right">
             <div className="BillingPlans_mode-toggle">
-              <button className="BillingPlans_mode-btn"><LuTestTube/>Test</button>
-              <button className="BillingPlans_mode-btn active"><BsLightningCharge/>Live</button>
+              <button className="BillingPlans_mode-btn">
+                <LuTestTube />
+                Test
+              </button>
+              <button className="BillingPlans_mode-btn active">
+                <BsLightningCharge />
+                Live
+              </button>
             </div>
             <button
               className="BillingPlans_add-balance-main-btn"
@@ -178,7 +184,9 @@ const BillingPlans = () => {
       <div className="BillingPlans_stats-row">
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
-            <div className="BillingPlans_stat-icon"><LuCreditCard size={20} color="#155DFC"/></div>
+            <div className="BillingPlans_stat-icon">
+              <LuCreditCard size={20} color="#155DFC" />
+            </div>
             <p className="BillingPlans_stat-label">Current Plan</p>
           </div>
           <div className="BillingPlans_stat-value-group">
@@ -188,27 +196,39 @@ const BillingPlans = () => {
         </div>
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
-            <div className="BillingPlans_stat-icon"><HiOutlineBolt size={20} color="#00A63E" /></div>
+            <div className="BillingPlans_stat-icon">
+              <HiOutlineBolt size={20} color="#00A63E" />
+            </div>
             <p className="BillingPlans_stat-label">Plan Status</p>
           </div>
           <div className="BillingPlans_stat-value-group">
             <h3>On going</h3>
-            <span className="BillingPlans_badge green">Active</span>
+            <span className="BillingPlans_badge">Active</span>
           </div>
         </div>
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
-            <div style={{color:"#00A63E"}} className="BillingPlans_stat-icon">₹ </div>
+            <div
+              style={{ color: "#00A63E" }}
+              className="BillingPlans_stat-icon"
+            >
+              ₹{" "}
+            </div>
             <p className="BillingPlans_stat-label">Available Balance</p>
           </div>
-          <h3>₹{balance}</h3>
-          <p className="BillingPlans_stat-sub">Est. 18 days remaining</p>
+          <div>
+            <h3>₹{balance}</h3>
+            <p className="BillingPlans_stat-sub">Est. 18 days remaining</p>
+          </div>
         </div>
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
-            <div className="BillingPlans_stat-icon"><FaArrowTrendUp size={20} color="#155DFC"/></div>
+            <div className="BillingPlans_stat-icon">
+              <FaArrowTrendUp size={20} color="#155DFC" />
+            </div>
             <p className="BillingPlans_stat-label">API Usage</p>
           </div>
+          <div>
           <h3>245K / 500k</h3>
           <div className="BillingPlans_progress-bar">
             <div
@@ -216,15 +236,20 @@ const BillingPlans = () => {
               style={{ width: "49%" }}
             ></div>
           </div>
+          </div>
         </div>
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
-            <div className="BillingPlans_stat-icon"><LuCircleAlert size={20} color="#E17100" /></div>
+            <div className="BillingPlans_stat-icon">
+              <LuCircleAlert size={20} color="#E17100" />
+            </div>
             <p className="BillingPlans_stat-label">Alert Threshold</p>
           </div>
           <div className="BillingPlans_threshold-row">
             <h3>₹5,000</h3>
-            <span className="BillingPlans_info-icon"><LuCircleAlert size={20} color="#99A1AF" /></span>
+            <span className="BillingPlans_info-icon">
+              <LuCircleAlert size={20} color="#99A1AF" />
+            </span>
           </div>
           <a href="#" className="BillingPlans_edit-link">
             Edit threshold <FiEdit size={20} color="#00000099" />
@@ -293,7 +318,9 @@ const BillingPlans = () => {
                     </span>
                   </td>
                   <td>
-                    <button className="BillingPlans_download-btn"><LuDownload color="black" size={20}/></button>
+                    <button className="BillingPlans_download-btn">
+                      <LuDownload color="black" size={20} />
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -357,7 +384,9 @@ const BillingPlans = () => {
             <p className="BillingPlans_card-sub">Add Money via UPI</p>
             <div className="BillingPlans_recharge-input-group">
               <div className="BillingPlans_input-wrapper">
-                <span className="BillingPlans_currency-img"><img className="bhim-img" src={Images.bhim}/></span>
+                <span className="BillingPlans_currency-img">
+                  <img className="bhim-img" src={Images.bhim} />
+                </span>
                 <span className="BillingPlans_currency-symbol">₹</span>
                 <input
                   type="number"
@@ -379,29 +408,27 @@ const BillingPlans = () => {
               <button onClick={() => setRechargeAmount(2000)}>2000</button>
               <button onClick={() => setRechargeAmount(3000)}>3000</button>
             </div>
-              <div className="BillingPlans_usage-alerts">
-            <div className="BillingPlans_card-header-toggle">
-              <h4 style={{fontFamily:'JetBrainsMono'}}>Usage Alerts</h4>
-              <div
-                className="BillingPlans_switch"
-                onClick={() => setUsageAlerts(!usageAlerts)}
-              >
-                <input type="checkbox" checked={usageAlerts} readOnly />
-                <span className="BillingPlans_slider round"></span>
+            <div className="BillingPlans_usage-alerts">
+              <div className="BillingPlans_card-header-toggle">
+                <h4 style={{ fontFamily: "JetBrainsMono" }}>Usage Alerts</h4>
+                <div
+                  className="BillingPlans_switch"
+                  onClick={() => setUsageAlerts(!usageAlerts)}
+                >
+                  <input type="checkbox" checked={usageAlerts} readOnly />
+                  <span className="BillingPlans_slider round"></span>
+                </div>
               </div>
-            </div>
-            <div className="BillingPlans_alert-options">
-              <div className="BillingPlans_checkbox-row">
-                <input type="checkbox" /> E-mail
-              </div>
-              <div className="BillingPlans_checkbox-row">
-                <input type="checkbox" /> Whatsapp
+              <div className="BillingPlans_alert-options">
+                <div className="BillingPlans_checkbox-row">
+                  <input type="checkbox" /> E-mail
+                </div>
+                <div className="BillingPlans_checkbox-row">
+                  <input type="checkbox" /> Whatsapp
+                </div>
               </div>
             </div>
           </div>
-          </div>
-
-        
         </div>
       </div>
 
@@ -421,7 +448,7 @@ const BillingPlans = () => {
                 className="BillingPlans_close-btn"
                 onClick={() => setIsSliderOpen(false)}
               >
-               <MdClose color="#7C3AED" size={28} />
+                <MdClose color="#7C3AED" size={28} />
               </button>
             </div>
             <div className="BillingPlans_slider-content">
