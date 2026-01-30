@@ -6,7 +6,6 @@
   gap: 24px;
   padding: 0px;
 }
-
 .hello-main-dashboard {
   background: var(--white);
   border: 1px solid var(--purple-400);
@@ -18,14 +17,12 @@
   align-items: center;
   padding: 1rem;
 }
-
 .hello-main-text {
   color: var(--black);
   font-size: 1.5rem;
   text-align: left;
   font-weight: 600;
 }
-
 /* ===== TOP GRID ===== */
 .dashboard-top {
   display: grid;
@@ -37,27 +34,22 @@
   font-weight: 600;
   color: #111827;
   margin-bottom: -10px;
-  /* Pull closer to standard gap */
 }
-
 .quick-action-main {
   display: grid;
   grid-template-columns: 2.3fr 1fr;
   gap: 20px;
 }
-
 .quick-action-column {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
 }
-
 .quick-actions {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  /* Standardize gap */
 }
 .quick-card-decor {
   position: absolute;
@@ -70,16 +62,12 @@
   pointer-events: none;
   z-index: 0;
 }
-/* ... existing Quick Card styles ... */
-
 .quick-action-rightsection {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
-
 .wallet-card-main {
-  /* Premium Purple Gradient matching image */
   background: linear-gradient(
     105deg,
     var(--purple-main) 0%,
@@ -97,7 +85,6 @@
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
 }
-
 .dash-secone {
   display: flex;
   flex-direction: row;
@@ -107,17 +94,14 @@
   border-radius: 8px;
   border: 1px solid var(--black-500);
 }
-
 .wallet-top-check {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .wallet-sun-icon {
   width: 13%;
 }
-
 .wallet-middle {
   flex: 1;
   display: flex;
@@ -126,20 +110,17 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
-
 .wallet-dots {
   font-size: 30px;
   margin-top: -10px;
   color: var(--white);
   font-weight: 600;
 }
-
 .wallet-eye-icon {
   font-size: 18px;
   opacity: 0.6;
   cursor: pointer;
 }
-
 .wallet-actions {
   display: flex;
   font-size: 12px;
@@ -149,11 +130,9 @@
   align-items: center;
   gap: 1.8rem;
 }
-
 .statement-icon {
   width: 10%;
 }
-
 .w-action {
   display: flex;
   align-items: center;
@@ -163,7 +142,6 @@
   font-family: "JetBrainsMono";
   width: 100%;
 }
-
 .w-action-rupee {
   display: flex;
   align-items: center;
@@ -174,7 +152,6 @@
   width: 100%;
   justify-content: flex-end;
 }
-
 .wallet-label {
   font-size: 11px;
   text-transform: uppercase;
@@ -183,14 +160,12 @@
   font-weight: 200;
   letter-spacing: 0.5rem;
 }
-
 /* ===== STATS ===== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
-
 .stat-card {
   background: var(--white);
   border-radius: 8px;

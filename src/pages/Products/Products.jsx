@@ -4,12 +4,11 @@ import './Products.css';
 import { IoMdArrowDropdown } from "react-icons/io";
 
 const Products = () => {
-  const [filter, setFilter] = useState('All Products');
+  const [filter, setFilter] = useState("All Products");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [products, setProducts] = useState([]);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-
   const handleFilterSelect = (selectedFilter) => {
     setFilter(selectedFilter);
     setIsDropdownOpen(false);
@@ -153,7 +152,10 @@ const Products = () => {
               <li className="dropdown-item" onClick={() => handleFilterSelect('All Products')}>
                 <span className="dot all"></span> All Products
               </li>
-              <li className="dropdown-item" onClick={() => handleFilterSelect('Subscribed')}>
+              <li
+                className="dropdown-item"
+                onClick={() => handleFilterSelect("Subscribed")}
+              >
                 <span className="dot subscribed"></span> Subscribed
               </li>
           
