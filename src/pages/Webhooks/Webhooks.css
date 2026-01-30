@@ -1,0 +1,325 @@
+/* Main Container: Flex column to manage full height */
+.webhooks-page-container {
+  display: flex;
+  flex-direction: column;
+  height: 120vh; 
+  background-color: #ffffff;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif; /* Assuming Inter or similar font */
+}
+
+/* Scrollable Top Section */
+.webhooks-content-scrollable {
+  flex: 1; /* Takes all available space */
+  overflow-y: auto; /* Enables scrolling */
+  padding-bottom: 20px; /* Spacing from the bottom section */
+  /* Hide scrollbar for cleaner look if desired, or style it */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.webhooks-content-scrollable::-webkit-scrollbar {
+    display: none;
+}
+.webhooks-content-scrollable {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+/* Header Styles */
+.webhooks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.webhooks-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.webhooks-subtitle {
+  font-size: 14px;
+  color: #6B7280;
+  margin: 4px 0 0 0;
+}
+
+.webhooks-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Buttons */
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #F3F4F6;
+}
+
+.btn-primary {
+  background-color: #7C3AED; /* Purple-600 */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #6D28D9;
+}
+
+/* Webhook Cards */
+.webhooks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.webhook-card {
+  border: 2px solid #3B82F6; /* Active border color based on image */
+  border-radius: 8px;
+  padding: 24px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.webhook-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.webhook-info {
+  display: flex;
+  gap: 16px;
+}
+
+.webhook-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #F3E8FF;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.webhook-url {
+  font-family: monospace;
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.webhook-tags {
+  display: flex;
+  gap: 8px;
+}
+
+.status-badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.status-badge.disabled {
+  background-color: #F3F4F6;
+  color: #9CA3AF; /* Or purple if it matches the image 'Disabled' bubble */
+  /* Adjustment to match image exactly: Purple bubble */
+  background-color: #F3E8FF;
+  color: #7C3AED;
+}
+
+.events-badge {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+    color: #6B7280;
+}
+
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #7C3AED;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #7C3AED;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/* Subscribed Events */
+.webhook-subscribed-events p {
+    font-size: 14px;
+    color: #6B7280;
+    margin-bottom: 8px;
+}
+
+.subscribed-events-list {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.event-tag {
+  background-color: #F3F4F6;
+  color: #111827;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.webhook-card-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-test-block {
+    flex: 1;
+    background-color: #EDE9FE;
+    color: #7C3AED;
+    border: none;
+    border-radius: 6px;
+    padding: 7px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+}
+
+.btn-delete-icon {
+    width: 44px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+/* Fixed Bottom Section */
+.webhooks-events-section {
+  flex-shrink: 0; /* Prevents shrinking */
+  background-color: #FFFFFF;
+  border-top: 1px solid #E5E7EB; 
+  padding-top: 20px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 20px;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
+}
+
+.events-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-family: monospace;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 7px;
+}
+
+.event-type-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #F3F4F6; 
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 14px;
+  color: #111827;
+}
+
+.radio-circle {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #9CA3AF;
+    border-radius: 50%;
+    display: block;
+}

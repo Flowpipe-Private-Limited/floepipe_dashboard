@@ -241,6 +241,13 @@ const sideDashboardConfig = [
     type: "single",
     iconType: "image",
   },
+  {
+    label: "Webhooks",
+    icon: Images.whitelist,
+    href: "/dashboard/Webhooks",
+    type: "single",
+    iconType: "image",
+  },
 
 ];
 

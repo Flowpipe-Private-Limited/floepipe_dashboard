@@ -7,11 +7,11 @@ import {
   ChevronDown,
   Lock,
 } from "lucide-react";
-import "./Products.css";
+import "./Trial_Center.css";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useLocation } from "react-router-dom";
 
-const Products = () => {
+const Trial_Center = () => {
   const [filter, setFilter] = useState("All Products");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -33,7 +33,7 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: 13,
-      status: "Subscribed",
+      status: "Run Trial",
       icon: <Mail size={24} />,
       iconColor: "purple",
     },
@@ -43,7 +43,7 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: 13,
-      status: "UnSubscribed",
+      status: "Run Trial",
       icon: <Smartphone size={24} />,
       iconColor: "green",
     },
@@ -53,7 +53,7 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: 13,
-      status: "Subscribed",
+      status: "Run Trial",
       icon: <Mail size={24} />,
       iconColor: "purple",
     },
@@ -63,7 +63,7 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: 13,
-      status: "Subscribed",
+      status: "Run Trial",
       icon: <Mail size={24} />,
       iconColor: "purple",
     },
@@ -73,7 +73,7 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: 13,
-      status: "Subscribed",
+      status: "Run Trial",
       icon: <Mail size={24} />,
       iconColor: "purple",
     },
@@ -83,8 +83,8 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: null,
-      status: "Pending",
-      buttonText: "Un Subscribed",
+      status: "Run Trial",
+      buttonText: "Run Trial",
       icon: <FileCheck size={24} />,
       iconColor: "purple",
     },
@@ -94,7 +94,7 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: 13,
-      status: "Subscribed",
+      status: "Run Trial",
       icon: <Smartphone size={24} />,
       iconColor: "green",
     },
@@ -104,7 +104,7 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: 13,
-      status: "Subscribed",
+      status: "Run Trial",
       icon: <Mail size={24} />,
       iconColor: "purple",
     },
@@ -114,7 +114,7 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: 13,
-      status: "Subscribed",
+      status: "Run Trial",
       icon: <Mail size={24} />,
       iconColor: "purple",
     },
@@ -124,7 +124,7 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: 13,
-      status: "Subscribed",
+      status: "Run Trial",
       icon: <Smartphone size={24} />,
       iconColor: "green",
     },
@@ -134,8 +134,8 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: null,
-      status: "Pending",
-      buttonText: "Subscribed",
+      status: "Run Trial",
+      buttonText: "Run Trial",
       icon: <FileCheck size={24} />,
       iconColor: "purple",
     },
@@ -145,12 +145,11 @@ const Products = () => {
       description:
         "Validate email addresses in real-time with syntax, verification.",
       credits: 13,
-      status: "Subscribed",
+      status: "Run Trial",
       icon: <Mail size={24} />,
       iconColor: "purple",
     },
   ];
-
   const filteredProducts =
     filter === "All Products"
       ? products
@@ -164,48 +163,35 @@ const Products = () => {
       {/* Header */}
       <div className="products-header">
         <div className="products-title-group">
-          <div className="products-title-text">Products</div>
-          <p className="products-subtitle">
-            Products are available for Subscription
-          </p>
+          <div className="products-title-text">Trial Center</div>
+          <p className="products-subtitle">Products are available for Trial</p>
         </div>
 
-        <div className="filter-dropdown-container">
+        {/* <div className="filter-dropdown-container">
           <button className="filter-toggle-btn" onClick={toggleDropdown}>
             {filter} <IoMdArrowDropdown size={24} />
           </button>
 
           {isDropdownOpen && (
             <ul className="dropdown-menu">
-              <li
-                className="dropdown-item"
-                onClick={() => handleFilterSelect("All Products")}
-              >
-                <span className="dot all"></span> All Products
+              <li className="dropdown-item" onClick={() => handleFilterSelect('All Products')}>
+                <span className="dot all"></span> All Products 
               </li>
-              <li
-                className="dropdown-item"
-                onClick={() => handleFilterSelect("Subscribed")}
-              >
+              <li className="dropdown-item" onClick={() => handleFilterSelect('Subscribed')}>
                 <span className="dot subscribed"></span> Subscribed
               </li>
-              <li
-                className="dropdown-item"
-                onClick={() => handleFilterSelect("UnSubscribed")}
-              >
+              <li className="dropdown-item" onClick={() => handleFilterSelect('UnSubscribed')}>
                 <span className="dot unsubscribed"></span> UnSubscribed
               </li>
-              <li
-                className="dropdown-item"
-                onClick={() => handleFilterSelect("Pendding Approvals")}
-              >
+              <li className="dropdown-item" onClick={() => handleFilterSelect('Pendding Approvals')}>
                 <span className="dot pending"></span> Pendding Approvals
               </li>
             </ul>
           )}
-        </div>
+        </div> */}
       </div>
 
+      {/* Grid */}
       <div className="products-grid">
         {filteredProducts.map((product) => (
           <div key={product.id} className="product-card">
@@ -218,7 +204,6 @@ const Products = () => {
             <div>
               <div className={`icon-container ${product.iconColor}`}>
                 {React.cloneElement(product.icon, { size: 20 })}{" "}
-                {/* Resize icon */}
               </div>
               <div className="product-info">
                 <div className="product-title-text">{product.title}</div>
@@ -254,4 +239,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Trial_Center;

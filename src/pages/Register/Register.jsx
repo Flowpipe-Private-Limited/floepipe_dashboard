@@ -28,10 +28,8 @@ const RegisterPage = () => {
       setErrorMessage("Please fill all fields");
       return;
     }
-
     setLoading(true);
     setErrorMessage("");
-
     try {
       console.log("Register API called with:", formData);
       const response = await axios.post(`${BASE_URL}/api/v1/client/register`, {
@@ -41,13 +39,11 @@ const RegisterPage = () => {
         module: "API_MODULE",
       });
       console.log("Register response:", response?.data);
-
       if (response.data?.success) {
         const clientId = response?.data?.clientId;
         console.log("clientId in handleregister", clientId);
         if (clientId) {
           localStorage.setItem("clientId", clientId);
-
           console.log("Client ID stored in localStorage:", clientId);
         }
         navigate("/login");
