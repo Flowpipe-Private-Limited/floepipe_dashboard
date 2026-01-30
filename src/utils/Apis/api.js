@@ -1,13 +1,31 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const apiClient = axios.create({
-  baseURL: import.meta.env.REACT_APP_DASHBOARD_URL,
+//  SUPPER ADMIN BASE URL
+const supperApiClient = axios.create({
+  baseURL: import.meta.env.REACT_APP_SUPPERADMIN_URL,
   //   withCredentials: true,
   //   timeout: 120000,
 });
+supperApiClient.interceptors.request.use(
+  function (config) {
+    //  const clientId = localStorage.getItem("clientId");
+    const token = Cookies.get('token')
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
-apiClient.interceptors.request.use(
+// KYC MICROSERVICE BASE URL
+const kycApiClient = axios.create({
+  baseURL: import.meta.env.REACT_APP_KYC_URL,
+  //   withCredentials: true,
+  //   timeout: 120000,
+});
+kycApiClient.interceptors.request.use(
   function (config) {
     // const token = localStorage.getItem('token')
     const token = Cookies.get('token')
@@ -19,41 +37,91 @@ apiClient.interceptors.request.use(
   }
 );
 
+// BBPS MICROSERVICE BASE URL
+const bbpsApiClient = axios.create({
+  baseURL: import.meta.env.REACT_APP_BBPS_URL,
+  //   withCredentials: true,
+  //   timeout: 120000,
+});
+bbpsApiClient.interceptors.request.use(
+  function (config) {
+    // const token = localStorage.getItem('token')
+    const token = Cookies.get('token')
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
-// Api Routes function
-const ApiVerification = (URLS, data) => apiClient.post(URLS, data);
-const fetchPublickey = () => apiClient.get(`inhouse/ApiModuel/key/Publickey`);
+// RECHARGE MICROSERVICE BASE URL
+const RechargeApiClient = axios.create({
+  baseURL: import.meta.env.REACT_APP_RECHARGE_URL,
+  //   withCredentials: true,
+  //   timeout: 120000,
+});
+RechargeApiClient.interceptors.request.use(
+  function (config) {
+    // const token = localStorage.getItem('token')
+    const token = Cookies.get('token')
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
-const SignIn = (data) => apiClient.post('registeration/registerationCredentials', data);
-const loginwithNumber = (data) => apiClient.post('login/loginVerify', data);
-const VerifyOTP = (data) => apiClient.post('login/otpVerify', data);
+// Supper Admin Routes
+const Register = (data) => supperApiClient.post('client/register', data)
+const SendOTP = (data) => supperApiClient.post('client/login/send-otp', data);
+const VerifyOTP = (data) => supperApiClient.post('client/login/verify-otp', data);
+const HandleGetUser = () => supperApiClient.get('/client/get-user-details');
+const UpdatedUserDetails = (data) => supperApiClient.post('merchant/update/merchantdetails', data);
+
+// KYC BBPS RECHARGE ROUTES
+const ApiVerification = (isMicro, URLS, data) => {
+  console.log(isMicro, URLS, data)
+  switch (isMicro) {
+    case 'KYC':
+      kycApiClient.post(URLS, data)
+      return;
+    case 'RECHARGE':
+      RechargeApiClient.post(URLS, data)
+      return;
+    case 'BBPS':
+      bbpsApiClient.post(URLS, data)
+      return;
+  }
+};
+const fetchPublickey = () => kycApiClient.get(`ApiModuels/key/Publickey`);
+
 
 // Fetch User Details
-const HandleGetUser = () => apiClient.get('merchant/get/tokenbased/merchantdetails');
-const UpdatedUserDetails = (data) => apiClient.post('merchant/update/merchantdetails', data);
 
-const VerifyIPIN = (data) => apiClient.post('merchant/Verify/ipin', data);
+const VerifyIPIN = (data) => kycApiClient.post('merchant/Verify/ipin', data);
 
-const HandleGetOtp = (data) => apiClient.post('mobileNumber/mobileOtp', data);
-const HandleVerifyOtp = (data) => apiClient.post('mobileNumber/mobileotpVerify', data);
-const HandleCreateLiveKeys = (data) => apiClient.post("livekey/generateLiveCredentials", data);
-const HandleCreateTestKeys = (data) => apiClient.post("testkey/generateTestCredentials", data);
-const HandleFetchLiveKeys = (data) => apiClient.get(`livekey/getLiveKeys/${data?.MerchatID}`);
-const HandleFetchTestKeys = (data) => apiClient.get(`testkey/getKeys/${data?.MerchatID}`);
-const HandleFetchIP = (data) => apiClient.get(`IP/Getipwhitelist/${data?.MerchatID}`);
-const HandleCreateIP = (data) => apiClient.post(`IP/WhiteListIP`, data);
+const HandleGetOtp = (data) => kycApiClient.post('mobileNumber/mobileOtp', data);
+const HandleVerifyOtp = (data) => kycApiClient.post('mobileNumber/mobileotpVerify', data);
+const HandleCreateLiveKeys = (data) => kycApiClient.post("livekey/generateLiveCredentials", data);
+const HandleCreateTestKeys = (data) => kycApiClient.post("testkey/generateTestCredentials", data);
+const HandleFetchLiveKeys = (data) => kycApiClient.get(`livekey/getLiveKeys/${data?.MerchatID}`);
+const HandleFetchTestKeys = (data) => kycApiClient.get(`testkey/getKeys/${data?.MerchatID}`);
+const HandleFetchIP = (data) => kycApiClient.get(`IP/Getipwhitelist/${data?.MerchatID}`);
+const HandleCreateIP = (data) => kycApiClient.post(`IP/WhiteListIP`, data);
 
 export {
-  SignIn,
-  loginwithNumber,
-  VerifyOTP,
+
+  Register, SendOTP, VerifyOTP,
+
+  fetchPublickey,
 
   HandleGetUser,
   UpdatedUserDetails,
 
   VerifyIPIN,
 
-  fetchPublickey,
   HandleGetOtp,
   HandleVerifyOtp,
   ApiVerification,

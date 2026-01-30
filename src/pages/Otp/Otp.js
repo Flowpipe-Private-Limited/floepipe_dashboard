@@ -7,6 +7,8 @@ import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Butt
 import axios from "axios";
 import Cookies from 'js-cookie'
 import Background_Login from "../../components/ui/Background_Folder/Background_Login";
+import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import { VerifyOTP } from "../../utils/Apis/api";
 
 const OtpScreen = ({ navigation }) => {
   const [otp, setOtp] = useState(["", "", "", ""]); // Changed to 4 elements for 4-digit OTP
@@ -18,12 +20,10 @@ const OtpScreen = ({ navigation }) => {
   const [Loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const token = location.state?.token;
-  const mobileNumber = location.state?.mobileNumber;
-  const BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
+  const {token,mobileNumber} = location.state;
 
   if (!token || !mobileNumber) {
-    console.warn("Token or mobile number missing, redirecting to login");
+    console.log("Token or mobile number missing, redirecting to login");
     navigate("/login");
   }
 
@@ -72,38 +72,6 @@ const OtpScreen = ({ navigation }) => {
     }
   };
 
-  // const handleSubmit = async () => {
-  //   const finalOtp = otp.join("");
-
-  //   if (finalOtp.length !== 4) {
-  //     // Changed to 4
-  //     setOtpError("Sorry! OTP is invalid, Please try again.");
-  //     // Set all inputs to error state
-  //     const newStates = ["error", "error", "error", "error"]; // 4 elements
-  //     setInputStates(newStates);
-  //     return;
-  //   }
-
-  //   // 🔴 Example incorrect OTP check (replace with API)
-  //   if (finalOtp !== "1234") {
-  //     // Changed to 4-digit check
-  //     setOtpError("Sorry! OTP is invalid, Please try again.");
-  //     // Set all inputs to error state
-  //     const newStates = ["error", "error", "error", "error"]; // 4 elements
-  //     setInputStates(newStates);
-  //     return;
-  //   }
-
-  //   // If OTP is correct
-  //   setOtpError("");
-  //   const newStates = ["correct", "correct", "correct", "correct"]; // 4 elements
-  //   setInputStates(newStates);
-
-  //   console.log("Submitted OTP:", finalOtp);
-  //   // navigation.navigate("Maindashboard");
-  // };
-
-  // Reset input states when OTP error is cleared
   const handleSubmit = async () => {
     const finalOtp = otp.join("");
     if (!finalOtp || finalOtp.length < 4) {
@@ -112,27 +80,28 @@ const OtpScreen = ({ navigation }) => {
     }
     setLoading(true);
     setErrorMessage("");
-    try {
-      console.log("Verifying OTP in registerotp:", finalOtp, "with token:", token);
-      const response = await axios.post(
-        `${BASE_URL}/api/v1/client/login/verify-otp`,
-        { token, otp: finalOtp, "channel": "MOBILE" }
-      );
-      console.log("OTP verification response:", response?.data);
 
-      if (response?.data?.success === true) {
-        Cookies.set('token', token);
-
-        navigate("/dashboard");
-      } else {
-        setErrorMessage(response.data?.message || "Invalid OTP");
+    const dataToSend = { token, otp: finalOtp, "channel": "MOBILE" }
+    
+    await ApirequestHandler(
+      async()=> await VerifyOTP(dataToSend),
+      setLoading,
+      (resData)=>{
+        const {success,message} = resData;
+        if(success){
+          Cookies.set("token",resData.token);
+          navigate("/dashboard")
+        }else{
+          setErrorMessage(message || "Invalid OTP");
+        }
+        setLoading(false)
+      },
+      (errMessage)=>{
+        console.log('OTPVerify ERROR:',errMessage);
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("OTP verify API error:", error.response || error);
-      setErrorMessage(error.response?.data?.message || "Something went wrong");
-    } finally {
-      setLoading(false);
-    }
+    )
+
   };
 
   useEffect(() => {

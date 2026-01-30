@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../../styles/Login.css";
 import Images from "../../Images/Images";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
-import { HandleGetOtp } from "../../utils/Apis/api";
+import { HandleGetOtp, Register } from "../../utils/Apis/api";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
@@ -14,7 +14,6 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 
   const [formData, setFormData] = useState({
     mobileNumber: "",
@@ -22,17 +21,6 @@ const Login = () => {
     // pan: "",
     name: ""
   });
-
-  // const HandleFromChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   setFormData({
-  //     ...formData,
-  //     [name]: name === "pan" ? value.toUpperCase() : value,
-  //   });
-
-  //   setErrors({ ...errors, [name]: "" });
-  // };
 
   const HandleFromChange = (e) => {
     const { name, value } = e.target;
@@ -84,67 +72,44 @@ const Login = () => {
       newErrors.panName = "Name is required";
     }
 
-    setErrors(newErrors);
+    setErrorMessage(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
-  // const GetOtp = async () => {
-  //   if (!validateForm()) return;
-
-  //   setErrorMessage("");
-  //   setLoading(true);
-
-  //   await ApirequestHandler(
-  //     async () => HandleGetOtp(formData),
-  //     setLoading,
-  //     (res) => {
-  //       console.log("OTP Response:", res);
-  //     },
-  //     (errMessage) => {
-  //       setErrorMessage(errMessage);
-  //     },
-  //   );
-  // };
 
   const handleRegister = async () => {
     const { mobileNumber, email, name } = formData;
 
-    // if (!validateForm()) return;
-    // if (!name || !email || !mobileNumber) {
-    //   setErrorMessage("Please fill all fields");
-    //   return;
-    // }
+    if (!validateForm()) return;
+
     setLoading(true);
     setErrorMessage("");
 
-    try {
-      console.log("Register API called with:", formData);
-      const response = await axios.post(`${BASE_URL}/api/v1/client/register`, {
-        fullName: name,
-        email: email,
-        mobile: mobileNumber,
-        module: "API_MODULE",
-      });
-      console.log("Register response:", response?.data);
+    const dataToSend = {
+      fullName: name,
+      email: email,
+      mobile: mobileNumber,
+      module: "API_MODULE",
+    };
 
-      if (response.data?.success) {
-        const clientId = response?.data?.clientId;
-        console.log("clientId in handleregister", clientId);
-        if (clientId) {
+    await ApirequestHandler(
+      async () => Register(dataToSend),
+      setLoading,
+      (resData) => {
+        const { success, clientId, message } = resData;
+        if (success || clientId) {
           localStorage.setItem("clientId", clientId);
-
-          console.log("Client ID stored in localStorage:", clientId);
+          navigate("/login");
+        } else {
+          setErrorMessage(message || "Registration failed");
         }
-        navigate("/login");
-      } else {
-        setErrorMessage(response.data?.message || "Registration failed");
+        setLoading(false)
+      },
+      (errMessage) => {
+        console.log('REGISTER ERROR:', errMessage);
+        setLoading(false)
       }
-    } catch (error) {
-      console.error("Register API error:", error.response || error);
-      setErrorMessage(error.response?.data?.message || "Something went wrong");
-    } finally {
-      setLoading(false);
-    }
+    )
+
   };
 
   return (

@@ -10,12 +10,14 @@ import {
 } from "../../utils/Apis/apiRequestHandler";
 import { ApiVerification, fetchPublickey } from "../../utils/Apis/api";
 import { encryptPayload, generateFrontendKeyPair } from "../../utils/helper";
-import { useUserStore } from "../../Store/userStore";
+// import { useUserStore } from "../../Store/userStore";
 import { useNavigate } from "react-router-dom";
 import "./KycInputOut.css";
 
 const KycReuseComponet = ({ data }) => {
-    const { IskycApproved, kycCompleted } = useUserStore()
+    // const { IskycApproved, kycCompleted } = useUserStore()
+    const IskycApproved = true;
+    const kycCompleted = true;
     const [formData, setFormData] = useState({});
     const [Publickey, setPublickey] = useState('')
     const [apiResponse, setApiResponse] = useState({});
@@ -26,7 +28,6 @@ const KycReuseComponet = ({ data }) => {
     const [selectedExampleCode, setSelectedExampleCode] = useState(
         data?.exampleResponse || {}
     );
-
 
     const HandleChangeInput = (e) => {
         console.log('Handle input change is trigred')
@@ -55,24 +56,6 @@ const KycReuseComponet = ({ data }) => {
             }
         }
     };
-
-    //     if (pattern) {
-    //         const regex = new RegExp(pattern);
-    //         if (!regex?.test(value)) {
-    //             setErrors((prev) => ({
-    //                 ...prev,
-    //                 [name]: "Invalid Input format",
-    //             }));
-    //         } else {
-    //             setErrors((prev) => {
-    //                 const updated = { ...prev };
-    //                 delete updated[name];
-    //                 console.log(updated)
-    //                 return updated;
-    //             });
-    //         }
-    //     }
-    // };
 
     const HandleVerificaton = async () => {
         let locationData = {};
@@ -145,11 +128,11 @@ const KycReuseComponet = ({ data }) => {
         setLoading(true);
 
         await ApirequestHandler(
-            async () => await ApiVerification(data?.apiUrl?.URLS, { ...finalPayload, publicKeyPem }),
+            async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...finalPayload, publicKeyPem }),
             setLoading,
             (res) => {
                 const { data } = res;
-                console.log(data)
+                console.log(res)
                 setApiResponse(res);
                 setApiErrormessage('');
                 setLoading(false)
@@ -195,80 +178,6 @@ const KycReuseComponet = ({ data }) => {
         // console.log(response)
         // setPublickey(publicKey);
     }
-
-
-
-    /// Merge Commit 
-    // console.log("Handle Verification");
-
-    // let finalPayload = await encryptPayload(formData, Publickey);
-    // console.log("is called", finalPayload);
-    // const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
-    // window.PRIVITEKEY = privateKeyPem;
-    // console.log(finalPayload, publicKeyPem, privateKeyPem);
-    // // if (!IskycApproved || !kycCompleted) {
-    // //     console.log('is trigred')
-    // //     setShowAlert(true);
-    // //     return;
-    // // };
-    // setApiErrormessage("");
-    // setLoading(true);
-
-    // await ApirequestHandler(
-    //     async () =>
-    //         await ApiVerification(data?.apiUrl?.URLS, {
-    //             ...finalPayload,
-    //             publicKeyPem,
-    //         }),
-    //     setLoading,
-    //     (res) => {
-    //         const { data } = res;
-    //         console.log(data);
-    //         setApiResponse(res);
-    //         setApiErrormessage("");
-    //         setLoading(false);
-    //     },
-    //     (errorMessage) => {
-    //         console.log("Error:", errorMessage);
-    //         setApiErrormessage(errorMessage);
-    //         setLoading(false);
-    //     },
-    // );
-// };
-
-// const handleCopy = async (text) => {
-//     try {
-//         await navigator.clipboard.writeText(text);
-//     } catch (err) {
-//         console.log("Clipboard blocked, using fallback");
-//         const textarea = document.createElement("textarea");
-//         textarea.value = text;
-//         document.body.appendChild(textarea);
-//         textarea.select();
-//         document.execCommand("copy");
-//         textarea.remove();
-//     }
-// };
-
-// const GetPublickey = async () => {
-//     console.log("is called");
-//     await ApirequestHandler(
-//         async () => fetchPublickey(),
-//         null,
-//         (res) => {
-//             const { publicKey } = res;
-//             console.log(publicKey);
-//             setPublickey(publicKey);
-//         },
-//         (errMessage) => {
-//             console.log(errMessage);
-//         },
-//     );
-//     // const response = await axios.get(`${process.env.REACT_APP_DASHBOARD_URL}ApiModuel/key/Publickey`);
-//     // const { publicKey } = response.data;
-//     // console.log(response)
-//     // setPublickey(publicKey);
-// };
 
 useEffect(() => {
     GetPublickey();

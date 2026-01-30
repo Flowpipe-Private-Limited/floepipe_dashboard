@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import logo from "../../assets/images/Asset 41@300x-8.png"
-import { VerifyOTP } from "../../utils/Apis/api";
+// import { VerifyOTP } from "../../utils/Apis/api";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";

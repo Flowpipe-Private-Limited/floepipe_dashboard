@@ -65,10 +65,12 @@ const validationPatterns = [
     message: "Enter a valid 6-digit pincode"
   }
 ];
+
+// KYC Services
 export const Aadhaar = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/aadhaar/Aadhaarmaskedverify",
+    URLS: "aadhaar/Aadhaarmaskedverify",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -78,6 +80,7 @@ export const Aadhaar = {
     submitButton: 'Verify AadhaarNumber'
   },
   inputParams: ["aadharNumber"],
+  isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[2-9][0-9]{11}$"],
   exampleCurl: `curl --location 'http://localhost:7006/business/Gstinverify' \\
@@ -141,7 +144,7 @@ export const Aadhaar = {
 export const GstIN = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/business/Gstinverify",
+    URLS: "business/Gstinverify",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -151,6 +154,7 @@ export const GstIN = {
     submitButton: 'Verify GSTIN'
   },
   inputParams: ["gstinNumber"],
+  isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}[A-Z\\d]{1}Z[A-Z\\d]{1}$"],
   exampleCurl: `curl --location 'http://localhost:7006/business/Gstinverify' \\
@@ -214,7 +218,7 @@ export const GstIN = {
 export const SHOP = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/shop/shopest",
+    URLS: "shop/shopest",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -224,6 +228,7 @@ export const SHOP = {
     submitButton: 'Verify Shop'
   },
   inputParams: ['registrationNumber', 'state'],
+  isMicro: 'KYC',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
@@ -283,7 +288,7 @@ export const SHOP = {
 export const SendOTP = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/mobileNumber/mobileOtp",
+    URLS: "mobileNumber/mobileOtp",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -293,6 +298,7 @@ export const SendOTP = {
     submitButton: 'Send OTP to Number'
   },
   inputParams: ['mobileNumber'],
+  isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[6-9]\\d{9}$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -353,7 +359,7 @@ export const SendOTP = {
 export const VerifyOTP = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/mobileNumber/mobileotpVerify",
+    URLS: "mobileNumber/mobileotpVerify",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -363,6 +369,7 @@ export const VerifyOTP = {
     submitButton: 'Verify OTP'
   },
   inputParams: ["submittedOtp", "mobile"],
+  isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{4}$", "^[6-9]\\d{9}$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -423,7 +430,7 @@ export const VerifyOTP = {
 export const panVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/pan/verify",
+    URLS: "pan/verify",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -433,6 +440,7 @@ export const panVerify = {
     submitButton: 'Verify Pan'
   },
   inputParams: ["panNumber"],
+  isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{5}[0-9]{4}[A-Z]{1}$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -493,7 +501,7 @@ export const panVerify = {
 export const panAadhaarVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/pan/verify_to_aadhaar",
+    URLS: "pan/verify_to_aadhaar",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -503,6 +511,7 @@ export const panAadhaarVerify = {
     submitButton: 'Verify PantoAadhaar'
   },
   inputParams: ["panNumber"],
+  isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{5}[0-9]{4}[A-Z]{1}$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -563,7 +572,7 @@ export const panAadhaarVerify = {
 export const accountVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/accounts/verify/penny-drop",
+    URLS: "accounts/verify/penny-drop",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -573,6 +582,7 @@ export const accountVerify = {
     submitButton: 'Verify Account'
   },
   inputParams: ["account_no", "ifsc"],
+  isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{9,18}$", "^[A-Z]{4}0[A-Z0-9]{6}$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -633,7 +643,7 @@ export const accountVerify = {
 export const CINVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/business/CinNumberverify",
+    URLS: "business/CinNumberverify",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -643,6 +653,7 @@ export const CINVerify = {
     submitButton: 'Verify CIN'
   },
   inputParams: ["CIN"],
+  isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^([LU])\\d{5}[A-Z]{2}\\d{4}[A-Z]{3}\\d{6}$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -807,7 +818,7 @@ export const CINVerify = {
 export const UdamVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/udyam/verify",
+    URLS: "udyam/verify",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -817,6 +828,7 @@ export const UdamVerify = {
     submitButton: 'Verify Udyam number'
   },
   inputParams: ["udyamNumber"],
+  isMicro: 'KYC',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/udyam/verify' \\
     --header 'Content-Type: application/json' \\
@@ -848,7 +860,7 @@ export const UdamVerify = {
 export const cardVerify = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/card/cardVerify",
+    URLS: "card/cardVerify",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -858,6 +870,7 @@ export const cardVerify = {
     submitButton: 'Verify CreditCard'
   },
   inputParams: ["creditCardNumber"],
+  isMicro: 'KYC',
   isDisable: false,
 
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -890,7 +903,7 @@ export const cardVerify = {
 export const NameMatch = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/name/compareNames",
+    URLS: "name/compareNames",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -900,6 +913,7 @@ export const NameMatch = {
     submitButton: 'Verify Name'
   },
   inputParams: ["firstName", "secondName"],
+  isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Za-z\\s]+$", "^[A-Za-z\\s]+$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -929,10 +943,12 @@ export const NameMatch = {
     }
   }
 };
+
+// Recharge Services
 export const RechargeOperators = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://10.1.1.56:7006/api/Recharge/Operators",
+    URLS: "/Operators",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -942,6 +958,7 @@ export const RechargeOperators = {
     submitButton: 'Operators Fetch'
   },
   inputParams: ["mobileNumber"],
+  isMicro: 'RECHARGE',
   isDisable: false,
   regexValues: ["^[6-9]\\d{9}$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -969,7 +986,7 @@ export const RechargeOperators = {
 export const RechargePlans = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/api/Recharge/Plans",
+    URLS: "/Plans",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -979,6 +996,7 @@ export const RechargePlans = {
     submitButton: 'Fetch Plans'
   },
   inputParams: ["operatorcode", "cricle"],
+  isMicro: 'RECHARGE',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
@@ -1005,7 +1023,7 @@ export const RechargePlans = {
 export const RechargeOldPlans = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/api/Recharge/OldPlans",
+    URLS: "/OldPlans",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1015,6 +1033,7 @@ export const RechargeOldPlans = {
     submitButton: 'Fetch oldPlans'
   },
   inputParams: ["operatorcode", "cricle"],
+  isMicro: 'RECHARGE',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
@@ -1041,7 +1060,7 @@ export const RechargeOldPlans = {
 export const RechargeOffersPlans = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7006/api/Recharge/OffersPlans",
+    URLS: "/OffersPlans",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1051,6 +1070,7 @@ export const RechargeOffersPlans = {
     submitButton: 'Fetch Offers'
   },
   inputParams: ["operator_code", "mobile_no"],
+  isMicro: 'RECHARGE',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
@@ -1074,7 +1094,7 @@ export const RechargeOffersPlans = {
 export const RechargeURL = {
   apiUrl: {
     Method: 'Post',
-    URLS: "http://localhost:7009/Recharge/RechargeURL",
+    URLS: "/RechargeURL",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1083,8 +1103,9 @@ export const RechargeURL = {
     headerTitle: "Recharge using NTAR service",
     submitButton: 'Recharge'
   },
-  isGeoLocation:true,
+  isGeoLocation: true,
   inputParams: ["MobileNumber", "actualAmount", "spKey", "transactionId", "customerNumber",],
+  isMicro: 'RECHARGE',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7009/shop/shopest' \\
     --header 'Content-Type: application/json' \\
@@ -1109,7 +1130,7 @@ export const RechargeURL = {
   }
 };
 
-// BBPS Responses
+// BBPS Services
 // export const BBPSServices = {
 //   apiUrl: {
 //     URLS: "http://localhost:7006/BBPS/bbps/services",
@@ -1147,7 +1168,7 @@ export const RechargeURL = {
 export const BBPSCategory = {
   apiUrl: {
     Method: 'Get',
-    URLS: "http://localhost:7006/BBPS/bbps/billerInfo/:category",
+    URLS: "/billerInfo/:category",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1157,6 +1178,7 @@ export const BBPSCategory = {
     submitButton: 'Get Category'
   },
   inputParams: ["category"],
+  isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["Credit Card"],
   isDisable: true,
@@ -1176,7 +1198,7 @@ export const BBPSCategory = {
 export const BBPSBillerInfo = {
   apiUrl: {
     Method: 'Get',
-    URLS: "http://localhost:7006/BBPS/bbps/billerInfo/:category",
+    URLS: "/billerInfo/:category",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1186,6 +1208,7 @@ export const BBPSBillerInfo = {
     submitButton: 'Get Biller Info'
   },
   inputParams: ["billerId"],
+  isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["SBIC00000NATDN"],
   isDisable: true,
@@ -1205,7 +1228,7 @@ export const BBPSBillerInfo = {
 export const BBPSBillFetch = {
   apiUrl: {
     Method: 'Get',
-    URLS: "http://localhost:7006/BBPS/bbps/billerInfo/:category",
+    URLS: "/billerInfo/:category",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1215,6 +1238,7 @@ export const BBPSBillFetch = {
     submitButton: 'Get Bill Fetch'
   },
   inputParams: ["accessCode", "ver", "instituteId", "secretKey"],
+  isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg"],
   isDisable: true,
@@ -1234,7 +1258,7 @@ export const BBPSBillFetch = {
 export const BBPSBillPay = {
   apiUrl: {
     Method: 'POST',
-    URLS: "http://localhost:7006/BBPS/bbps/billPayRequest",
+    URLS: "/billPayRequest",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1244,6 +1268,7 @@ export const BBPSBillPay = {
     submitButton: 'Get Bill Fetch'
   },
   inputParams: ["accessCode", "ver", "instituteId", "secretKey", "requestId"],
+  isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg", "8d57XXX99ac4dXXXXX09011XXXXX"],
   isDisable: true,
@@ -1263,7 +1288,7 @@ export const BBPSBillPay = {
 export const BBPSBillValidation = {
   apiUrl: {
     Method: 'POST',
-    URLS: "http://localhost:7006/BBPS/bbps/billValidation",
+    URLS: "/billValidation",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1273,6 +1298,7 @@ export const BBPSBillValidation = {
     submitButton: 'Bill Validate'
   },
   inputParams: ["accessCode", "ver", "instituteId", "secretKey"],
+  isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg"],
   isDisable: true,
@@ -1292,7 +1318,7 @@ export const BBPSBillValidation = {
 export const BBPSBillQuickPay = {
   apiUrl: {
     Method: 'POST',
-    URLS: "http://localhost:7006/BBPS/bbps/billQuickPay",
+    URLS: "/billQuickPay",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1302,6 +1328,7 @@ export const BBPSBillQuickPay = {
     submitButton: 'Quick pay'
   },
   inputParams: ["accessCode", "ver", "instituteId", "secretKey", "requestId"],
+  isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg", "8d57XXX99ac4dXXXXX09011XXXXX"],
   isDisable: true,
@@ -1330,7 +1357,7 @@ export const BBPSBillQuickPay = {
 export const InstantBillPay = {
   apiUrl: {
     Method: 'POST',
-    URLS: "http://localhost:7006/BBPS/instantpay/billPay",
+    URLS: "/instantpay/billPay",
     testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
     liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
@@ -1340,6 +1367,7 @@ export const InstantBillPay = {
     submitButton: 'InatantBill Pay'
   },
   inputParams: ["cardNumber"],
+  isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["****************"],
   // isDisable: true,
@@ -1376,37 +1404,37 @@ export const InstantBillPay = {
     "remarks": "",
     "alertEmail": ""
 }'`,
-  exampleResponse:  {
-       statusCode: "TXN",
-       actcode: null,
-      status: "Transaction Successful",
-      data: {
-        externalRef: "XXXXXXXXXXXX",
-        poolReferenceId: "XXXXXXXXXXXX",
-        txnValue: "4.00",
-        txnReferenceId: "XXXXXXXX",
-        pool: {
-          account: "7428XXXXXX42",
-          openingBal: "3697.27",
-          mode: "DR",
-          amount: "9.90",
-          closingBal: "3687.37"
-        },
-        payer: {
-          account: "7428XXXXXX42",
-          name: "Sample Store"
-        },
-        payee: {
-          account: "3798XXXXXXXX2004",
-          name: "Instantpay India Ltd"
-        }
+  exampleResponse: {
+    statusCode: "TXN",
+    actcode: null,
+    status: "Transaction Successful",
+    data: {
+      externalRef: "XXXXXXXXXXXX",
+      poolReferenceId: "XXXXXXXXXXXX",
+      txnValue: "4.00",
+      txnReferenceId: "XXXXXXXX",
+      pool: {
+        account: "7428XXXXXX42",
+        openingBal: "3697.27",
+        mode: "DR",
+        amount: "9.90",
+        closingBal: "3687.37"
       },
-      timestamp: "2022-03-15 18:08:13",
-      ipay_uuid: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-      orderid: "XXXXXXXXXXXX",
-      environment: "LIVE",
-      internalCode: null
-    }
+      payer: {
+        account: "7428XXXXXX42",
+        name: "Sample Store"
+      },
+      payee: {
+        account: "3798XXXXXXXX2004",
+        name: "Instantpay India Ltd"
+      }
+    },
+    timestamp: "2022-03-15 18:08:13",
+    ipay_uuid: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    orderid: "XXXXXXXXXXXX",
+    environment: "LIVE",
+    internalCode: null
+  }
 };
 
 

@@ -24,6 +24,7 @@ export const useUserStore = create((set, get) => ({
             async () => HandleGetUser(),
             null,
             (res) => {
+                console.log(res)
                 set({
                     users: res?.data,
                     IskycApproved:res?.data?.IskycApproved,
