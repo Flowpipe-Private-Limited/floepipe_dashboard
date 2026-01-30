@@ -15,7 +15,7 @@
 }
 
 .help-modal-container {
-  background: #ffffff;
+  background: var(--white);
   width: 100%;
   max-width: 600px;
   height: 100%;

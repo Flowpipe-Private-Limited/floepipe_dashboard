@@ -30,6 +30,11 @@ import Recharges from '../assets/images/Recharges.webp';
 import payouts from '../assets/images/payouts.webp';
 import kyc from '../assets/images/kyc.webp';
 import BBPS from '../assets/images/BBPS.webp';
+import TESTAnimation from "../assets/images/TESTAnimation.json";
+import testapi from '../assets/images/testapi.png';
+import copyicon from '../assets/images/copyicon.png';
+
+
 
 const images = {
   FlowLoginImage,
@@ -64,6 +69,9 @@ const images = {
   payouts,
   kyc,
   BBPS,
+  TESTAnimation,
+  testapi,
+  copyicon,
 };
 
 export default images;

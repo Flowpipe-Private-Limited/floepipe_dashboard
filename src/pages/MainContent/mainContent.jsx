@@ -32,23 +32,21 @@ const MainContent = () => {
     navigate("/dashboard/Billing_Plans");
   };
 
-  const NavigateToProducts = () =>{
+  const NavigateToProducts = () => {
     navigate("/dashboard/Products");
-  }
+  };
 
-const NavigateToViewRequests = () => {
-  navigate("/dashboard/Products", { 
-    state: { defaultFilter: 'Pendding Approvals' } 
-  });
-}
+  const NavigateToViewRequests = () => {
+    navigate("/dashboard/Products", {
+      state: { defaultFilter: "Pendding Approvals" },
+    });
+  };
 
   const quickActions = [
     {
       title: "View API Keys",
       icon: Images.Apikey,
       href: "/dashboard/apiKeys",
-
-     
     },
     {
       title: "Integration Guide",
@@ -62,6 +60,7 @@ const NavigateToViewRequests = () => {
     {
       title: "Start Free Trial",
       icon: Images.startfree,
+      href: "/dashboard/Trial_Center",
     },
   ];
 
@@ -70,13 +69,13 @@ const NavigateToViewRequests = () => {
       type: "stat",
       title: "Total API Calls",
       value: "1.2M",
-      icon: Images.graphicon, // Placeholder, will style as sparkline
+      icon: Images.graphicon,
       extra: "sparkline",
     },
     {
       type: "stat",
       title: "Active APIs",
-      value: "40.72 x 40.72", // Just mocking the text from image
+      value: "40.72 x 40.72", 
       icon: Images.graphicon,
       extra: "badge",
     },
@@ -96,7 +95,6 @@ const NavigateToViewRequests = () => {
     },
   ];
 
-  /* ===== MOCK DATA FOR CHARTS & TABLES ===== */
   const productUsageData = [
     { name: "Jan", usage: 4000, amt: 2400 },
     { name: "Feb", usage: 3000, amt: 1398 },
@@ -155,7 +153,6 @@ const NavigateToViewRequests = () => {
 
   return (
     <div className="dashboard-container">
-      {/* ===== TOP SUMMARY ===== */}
       <div className="hello-main-dashboard">
         <p className="hello-main-text">
           Welcome,<span>Name !</span>
@@ -163,7 +160,6 @@ const NavigateToViewRequests = () => {
       </div>
 
       <div className="dashboard-top">
-        {/* WALLET */}
         <div className="dash-secone">
           <div className="wallet-card-main">
             <div className="wallet-top-check">
@@ -193,7 +189,10 @@ const NavigateToViewRequests = () => {
                 />
                 <span>View Statement</span>
               </div>
-              <div onClick={() => setIsSliderOpen(true)} className="w-action-rupee">
+              <div
+                onClick={() => setIsSliderOpen(true)}
+                className="w-action-rupee"
+              >
                 <BiRupee size={20} />
                 Add Money
               </div>
@@ -209,7 +208,6 @@ const NavigateToViewRequests = () => {
               <div className="quick-icon-grid-main">
                 <GoArrowUpRight size={20} color="white" />
               </div>
-              {/* Decorative circle */}
               <div className="stat-card-decor">
                 <img src={Images.cardinsidelogo} />
               </div>
@@ -220,7 +218,12 @@ const NavigateToViewRequests = () => {
                 <p className="stat-title">Product Subscribed</p>
                 <h3 className="stat-value">15,432</h3>
               </div>
-              <button onClick={NavigateToProducts} className="outline-btn small">More Products</button>
+              <button
+                onClick={NavigateToProducts}
+                className="outline-btn small"
+              >
+                More Products
+              </button>
               {/* Decorative circle */}
               <div className="stat-card-decor">
                 <img src={Images.cardinsidelogo} />
@@ -251,7 +254,12 @@ const NavigateToViewRequests = () => {
                 <p className="stat-title">Product Requests</p>
                 <h3 className="stat-value">15,432</h3>
               </div>
-              <button onClick={NavigateToViewRequests} className="outline-btn small">View Requests</button>
+              <button
+                onClick={NavigateToViewRequests}
+                className="outline-btn small"
+              >
+                View Requests
+              </button>
               {/* Decorative circle */}
               <div className="stat-card-decor">
                 <img src={Images.cardinsidelogo} />
@@ -280,13 +288,22 @@ const NavigateToViewRequests = () => {
         <div className="quick-action-column">
           <div className="quick-actions">
             {quickActions.map((item, idx) => (
-              <div onClick={() => navigate(item.href)} className="quick-card" key={idx}>
+              <div
+                onClick={() => navigate(item.href)}
+                className="quick-card"
+                key={idx}
+              >
                 <div className="quick-icon">
                   <img src={item.icon} alt={item.title} />
                 </div>
                 <h4>{item.title}</h4>
                 <p>Lorem ipsum dolor sit amet</p>
-                <span onClick={() => navigate(item.href)} className="quick-link">Get started →</span>
+                <span
+                  onClick={() => navigate(item.href)}
+                  className="quick-link"
+                >
+                  Get started →
+                </span>
                 {/* Decorative circle */}
                 <div className="quick-card-decor"></div>
               </div>
@@ -329,10 +346,7 @@ const NavigateToViewRequests = () => {
                 alt="notifications"
               />
             </div>
-
-            {/* Items Wrapper for spacing */}
             <div className="recent-activity-list">
-              {/* Item 1 */}
               <div className="recent-activity-item">
                 <div className="activity-icon warning">
                   <FiAlertTriangle />
@@ -344,11 +358,8 @@ const NavigateToViewRequests = () => {
                     Weather API exceeded 80% of quota
                   </p>
                 </div>
-
                 <span className="activity-time">8h ago</span>
               </div>
-
-              {/* Item 2 */}
               <div className="recent-activity-item">
                 <div className="activity-icon success">
                   <LuKey />
@@ -383,11 +394,8 @@ const NavigateToViewRequests = () => {
           </div>
         </div>
       </div>
-      {/* ===== DETAILED SECTION ===== */}
       <div className="dashboard-detailed-section">
-        {/* ROW 1: Chart + Cards */}
         <div className="detailed-row-one">
-          {/* CHART */}
           <div className="product-usage-chart-card">
             <div className="chart-header">
               <h3>Product Usage</h3>
@@ -434,8 +442,6 @@ const NavigateToViewRequests = () => {
                     tick={{ fontSize: 12, fill: "#9ca3af" }}
                   />
                   <Tooltip />
-
-                  {/* Area chart with gradient fill */}
                   <Area
                     type="monotone"
                     dataKey="amt"
@@ -443,8 +449,6 @@ const NavigateToViewRequests = () => {
                     fillOpacity={1}
                     fill="url(#colorUv)"
                   />
-
-                  {/* Dotted line overlay */}
                   <Line
                     type="monotone"
                     dataKey="amt"
@@ -454,8 +458,6 @@ const NavigateToViewRequests = () => {
                     dot={false}
                     activeDot={false}
                   />
-
-                  {/* Bar chart */}
                   <Bar
                     dataKey="usage"
                     barSize={6}
@@ -584,7 +586,7 @@ const NavigateToViewRequests = () => {
         </div>
       </div>
 
-         {/* Side Slider Overlay */}
+      {/* Side Slider Overlay */}
       {isSliderOpen && (
         <div className="BillingPlans_slider-overlay">
           <div className="BillingPlans_slider-container">
@@ -603,7 +605,6 @@ const NavigateToViewRequests = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };

@@ -6,7 +6,6 @@
   gap: 24px;
   padding: 0px;
 }
-
 .hello-main-dashboard {
   background: var(--white);
   border: 1px solid var(--purple-400);
@@ -18,14 +17,12 @@
   align-items: center;
   padding: 1rem;
 }
-
 .hello-main-text {
   color: var(--black);
   font-size: 1.5rem;
   text-align: left;
   font-weight: 600;
 }
-
 /* ===== TOP GRID ===== */
 .dashboard-top {
   display: grid;
@@ -37,27 +34,22 @@
   font-weight: 600;
   color: #111827;
   margin-bottom: -10px;
-  /* Pull closer to standard gap */
 }
-
 .quick-action-main {
   display: grid;
   grid-template-columns: 2.3fr 1fr;
   gap: 20px;
 }
-
 .quick-action-column {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
 }
-
 .quick-actions {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  /* Standardize gap */
 }
 .quick-card-decor {
   position: absolute;
@@ -70,16 +62,12 @@
   pointer-events: none;
   z-index: 0;
 }
-/* ... existing Quick Card styles ... */
-
 .quick-action-rightsection {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
-
 .wallet-card-main {
-  /* Premium Purple Gradient matching image */
   background: linear-gradient(
     105deg,
     var(--purple-main) 0%,
@@ -88,7 +76,7 @@
   );
   border-radius: 16px;
   padding: 24px;
-  color: #ffffff;
+  color: var(--white);
   height: 215px;
   display: flex;
   flex-direction: column;
@@ -97,7 +85,6 @@
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
 }
-
 .dash-secone {
   display: flex;
   flex-direction: row;
@@ -107,17 +94,14 @@
   border-radius: 8px;
   border: 1px solid var(--black-500);
 }
-
 .wallet-top-check {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .wallet-sun-icon {
   width: 13%;
 }
-
 .wallet-middle {
   flex: 1;
   display: flex;
@@ -126,20 +110,17 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
-
 .wallet-dots {
   font-size: 30px;
   margin-top: -10px;
   color: var(--white);
   font-weight: 600;
 }
-
 .wallet-eye-icon {
   font-size: 18px;
   opacity: 0.6;
   cursor: pointer;
 }
-
 .wallet-actions {
   display: flex;
   font-size: 12px;
@@ -149,11 +130,9 @@
   align-items: center;
   gap: 1.8rem;
 }
-
 .statement-icon {
   width: 10%;
 }
-
 .w-action {
   display: flex;
   align-items: center;
@@ -163,7 +142,6 @@
   font-family: "JetBrainsMono";
   width: 100%;
 }
-
 .w-action-rupee {
   display: flex;
   align-items: center;
@@ -174,7 +152,6 @@
   width: 100%;
   justify-content: flex-end;
 }
-
 .wallet-label {
   font-size: 11px;
   text-transform: uppercase;
@@ -183,16 +160,14 @@
   font-weight: 200;
   letter-spacing: 0.5rem;
 }
-
 /* ===== STATS ===== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
-
 .stat-card {
-  background: #ffffff;
+  background: var(--white);
   border-radius: 8px;
   padding: 15px;
   height: 100px;
@@ -341,7 +316,7 @@
 }
 
 .quick-card {
-  background: #ffffff;
+  background: var(--white);
   border-radius: 8px;
   padding: 16px;
   border: 1px solid var(--black-500);
@@ -452,7 +427,7 @@
 
 /* Card */
 .recent-activity-card {
-  background: #ffffff;
+  background: var(--white);
   border-radius: 8px;
   padding: 16px;
   /* Reduced from 20px */
@@ -637,7 +612,7 @@
   font-size: 12px;
   color: #374151;
   outline: none;
-  background-color: white;
+  background-color: var(--white);
   min-width: 120px;
 }
 
@@ -662,7 +637,7 @@
 }
 
 .toggle-btn.active {
-  background: white;
+  background: var(--white);
   color: var(--purple-main);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -774,7 +749,7 @@
 /* --- TABLES --- */
 .transactions-table-card,
 .apps-running-card {
-  background: #ffffff;
+  background: var(--white);
   border-radius: 8px;
   padding: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
@@ -829,10 +804,9 @@
 .switch-thumb {
   width: 16px;
   height: 16px;
-  background: white;
+  background: var(--white);
   border-radius: 50%;
   transform: translateX(100%);
-  /* Active state mock */
 }
 
 .control-group-sm {
@@ -840,22 +814,20 @@
   flex-direction: column;
 }
 
-.control-group-sm label {
-  font-size: 10px;
-  color: #9ca3af;
-  font-weight: 600;
-  font-family: "JetBrainsMono";
-}
-
 .control-group-sm select {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--black-1100);
   border-radius: 6px;
   padding: 0.5rem;
   font-size: 12px;
   color: var(--black);
   width: 150px;
 }
-
+.control-group p {
+  color: var(--black);
+  font-family: "JetBrainsMono";
+  font-size: 14px;
+  margin-bottom: 0.5rem;
+}
 .duration-p {
   font-size: 14px;
   color: var(--black);
@@ -899,18 +871,12 @@
 .custom-table-main.small td {
   padding: 1rem 0rem;
 }
-
-/* RESPONSIVE ADDITION */
 @media (max-width: 1024px) {
   .detailed-row-one,
   .detailed-row-two {
     grid-template-columns: 1fr;
   }
 }
-
-/* ===== RESPONSIVE DESIGN ===== */
-
-/* Small Mobile (max-width: 575.98px) */
 @media (max-width: 575.98px) {
   .dashboard-container {
     padding: 0px;
@@ -1113,7 +1079,6 @@
   }
 }
 
-/* Tablet (768px - 991.98px) */
 @media (min-width: 768px) and (max-width: 991.98px) {
   .dashboard-container {
     padding: 0px;
@@ -1239,7 +1204,6 @@
   }
 }
 
-/* Desktop Small (992px - 1199.98px) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .dashboard-container {
     padding: 0px;
@@ -1279,8 +1243,5 @@
     width: 90px;
   }
 }
-
-/* Desktop Large (min-width: 1200px) */
 @media (min-width: 1200px) {
-
 }

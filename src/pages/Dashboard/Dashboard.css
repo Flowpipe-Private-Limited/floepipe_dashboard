@@ -31,7 +31,7 @@
   padding: 0.6rem;
   border-radius: 0.4rem;
   transition: all 0.2s ease;
-  color: #d1d5db;
+  color: var(--white);
   background: var(--purple-100);
   font-family: "JetBrainsMono";
   font-size: 13px;
@@ -48,7 +48,7 @@
   padding: 0.6rem;
   border-radius: 0.4rem;
   transition: all 0.2s ease;
-  color: #d1d5db;
+  color: var(--white);
   background: var(--purple-100);
   font-family: "JetBrainsMono";
   font-size: 13px;
@@ -102,7 +102,7 @@
 }
 
 .sidebar-search-box:focus-within {
-  box-shadow: 0 0 0 1px #a855f7;
+  box-shadow: 0 0 0 1px var(--purple-main);
 }
 
 .Page-name {
@@ -111,39 +111,14 @@
   font-size: 1.5rem;
 }
 
-.purple-outline-btn {
-  padding: 6px 12px;
-  font-size: 14px;
-  border: 1px solid #7e22ce;
-  color: #7e22ce;
-  border-radius: 8px;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: "JetBrainsMono";
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.3rem;
-  justify-content: center;
-}
-
-.purple-outline-btn:hover {
-  background: rgba(126, 34, 206, 0.08);
-}
-
-.dashboard-wrapper {
-  background-color: #f8f9fd;
-}
-
 .Dash-header {
   height: 64px;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--white);
+  border-bottom: 1px solid var(--purple-400);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 1rem;
 }
 
 .Dash-header-left {
@@ -156,8 +131,8 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
+  border: 1px solid var(--black-500);
+  background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,7 +143,7 @@
 .Dash-header-title {
   font-size: 18px;
   font-weight: 600;
-  color: #111827;
+  color: var(--black);
 }
 
 .Dash-header-right {
@@ -181,9 +156,9 @@
   height: 36px;
   padding: 0 14px;
   border-radius: 6px;
-  border: 1px solid #7c3aed;
+  border: 1px solid var(--purple-main);
   background: transparent;
-  color: #7c3aed;
+  color: var(--purple-main);
   font-size: 14px;
   font-weight: 500;
   display: flex;
@@ -197,20 +172,13 @@
   width: 36px;
   height: 36px;
   border-radius: 16%;
-  border: 1px solid #7c3aed;
+  border: 1px solid var(--purple-main);
   background: transparent;
-  color: #7c3aed;
-
+  color: var(--purple-main);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-}
-
-.Dash-header-btn:hover,
-.Dash-header-menu-btn:hover,
-.Dash-header-avatar-btn:hover {
-  background: #f9fafb;
 }
 
 .sidebar-icon-img {
@@ -218,26 +186,15 @@
   height: 20px;
   object-fit: contain;
 }
-
-@media (max-width: 768px) {
-  .Dash-header-btn span {
-    display: none;
-  }
-
-  .Dash-header-title {
-    font-size: 16px;
-  }
-}
-
 .profile-dropdown {
   position: absolute;
   top: 4rem;
   right: 1rem;
   width: 300px;
-  background: #ffffff;
+  background: var(--white);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--black-1000);;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -263,7 +220,7 @@
   align-items: center;
   gap: 16px;
   padding: 24px 24px 16px 24px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--black-1000);
   font-family: "Figtree";
 }
 
@@ -273,7 +230,7 @@
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  border: 2px solid #e0e7ff;
+  border: 2px solid var(--purple-600);
   font-family: "Figtree";
 }
 
@@ -291,7 +248,7 @@
 .profile-name {
   font-size: 16px;
   font-weight: 600;
-  color: #7c3aed;
+  color: var(--purple-main);
   font-family: "Figtree";
   margin: 0;
   margin-bottom: 2px;
@@ -310,7 +267,6 @@
   display: flex;
   flex-direction: column;
   background-color: var(--orange-100);
-
 }
 
 .profile-menu-item {
@@ -323,7 +279,6 @@
   display: flex;
   align-items: center;
   font-family: "Figtree";
-
 }
 
 .profile-menu-item:hover {
@@ -337,26 +292,19 @@
   margin: 4px 12px;
 }
 
-.profile-menu-item.logout {
-  color: #4b5563;
-}
-
-.profile-menu-item.logout:hover {
-  color: #ef4444;
-  background-color: #fef2f2;
-}
-
 .sidebar-group {
   margin-top: 8px;
 }
 
 .group-header {
   background: var(--purple-100);
+  display: flex;
+  justify-content: space-between;
 }
 
 .group-label {
   font-weight: 600;
-  color: #fff;
+  color: var(--white);
 }
 
 .subgroup-container {
@@ -385,7 +333,7 @@
 
 .subgroup-button:hover {
   background: rgba(255, 255, 255, 0.05);
-  color: #fff;
+  color: var(--white);
 }
 
 .subgroup-icon {
@@ -411,7 +359,7 @@
 
 .api-endpoint-item:hover {
   background: rgba(124, 58, 237, 0.2);
-  color: #fff;
+  color: var(--white);
 }
 
 .api-method-badge {
@@ -455,47 +403,38 @@
   transform: rotate(180deg);
 }
 
-/* ================================= */
-/*          Active States            */
-/* ================================= */
-
 .sidebar-item.active {
   background: rgba(124, 58, 237, 0.2);
-  /* Highlight color */
-  color: #fff;
-  border-left: 3px solid #7c3aed;
-  /* Accent border */
+  color: var(--white);
+  border-left: 3px solid var(--purple-main);
   padding-left: calc(0.6rem - 3px);
-  /* Adjust padding to keep alignment */
 }
 
 .api-endpoint-item.active {
   background: rgba(124, 58, 237, 0.3) !important;
-  color: #fff !important;
-  border-left: 2px solid #7c3aed !important;
+  color: var(--white) !important;
+  border-left: 2px solid var(--purple-main) !important;
 }
 
-/* ================================= */
-/*       Mobile Sidebar Tools        */
-/* ================================= */
-
-/* Hidden on desktop by default */
 .mobile-sidebar-tools {
   display: none;
 }
 
-/* ================================= */
-/*       Mobile Responsiveness       */
-/* ================================= */
-
-/* Overlay Backend - Default Hidden (Desktop) */
 .mobile-dashboard-overlay {
   display: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
+  .Dash-header-btn span {
+    display: none;
+  }
 
-  /* Overlay - Visible on Mobile/Tablet when active */
+  .Dash-header-title {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1024px) {
   .mobile-dashboard-overlay {
     display: block;
     position: fixed;
@@ -505,10 +444,11 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 40;
-    /* Below sidebar (50) but above content */
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
     backdrop-filter: blur(3px);
   }
 
@@ -516,8 +456,6 @@
     opacity: 1;
     visibility: visible;
   }
-
-  /* Sidebar Logic for Mobile/Tablet */
   .nav-panel {
     position: fixed;
     top: 0;
@@ -529,25 +467,18 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-
-  /* Hidden State (Collapsed) */
   .nav-panel--collapsed {
     width: 280px;
     transform: translateX(-100%);
   }
-
-  /* Open State (Expanded) */
   .nav-panel--expanded {
     width: 280px;
     transform: translateX(0);
   }
-
-  /* Show mobile tools inside sidebar */
   .mobile-sidebar-tools {
     display: block;
   }
 
-  /* Adjust Header */
   .Dash-header {
     padding: 0 16px;
     height: 60px;
@@ -560,23 +491,15 @@
     text-overflow: ellipsis;
     max-width: 200px;
   }
-
-  /* Hide header right items on mobile/tablet */
   .Dash-header-right {
     display: none;
-    /* Hide all buttons */
   }
-
-  /* If you still want the toggle button visible, it's in Dash-header-left, so it stays. */
 }
 
 @media (max-width: 640px) {
-
-  /* Further adjustments for phones */
   .nav-panel--expanded,
   .nav-panel--collapsed {
     width: 85%;
-    /* Take up most of the screen width on phone */
     max-width: 320px;
   }
 }
