@@ -1,0 +1,46 @@
+.env-switch {
+  position: relative;
+  display: flex;
+  background: var(--white-200);
+  border-radius: 0.8rem;
+  padding: 6px;
+}
+
+.env-switch-slider {
+
+}
+
+.env-switch-slider.left {
+  transform: translateX(0%);
+}
+
+.env-switch-slider.right {
+  transform: translateX(100%);
+}
+
+.env-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.env-btn.active {
+  color: var(--purple-main);
+}
+
+@media (max-width: 480px) {
+  .env-switch {
+    height: 56px;
+  }
+  .env-btn {
+    font-size: 16px;
+  }
+}

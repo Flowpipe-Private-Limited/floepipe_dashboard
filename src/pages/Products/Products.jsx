@@ -18,7 +18,7 @@ const Products = () => {
     try {
       console.log("Fetching dashboard products...");
       const response = await fetch(
-        "http://10.1.1.226:5001/api/v1/apimodule/dashboard-services"
+        "http://10.1.1.226:5000/api/v1/apimodule/dashboard-services"
       );
       const res = await response.json();
       console.log("Dashboard response:", JSON.stringify(res?.data));
@@ -50,7 +50,7 @@ const Products = () => {
       console.log("Fetching client subscriptions for:", clientId);
 
       const response = await fetch(
-        `http://10.1.1.226:5001/api/v1/apimodule/services?clientId=${clientId}`
+        `http://10.1.1.226:5000/api/v1/apimodule/services?clientId=${clientId}`
       );
       const res = await response.json();
       console.log("Client services response:", res?.data);
@@ -85,7 +85,7 @@ const Products = () => {
       console.log("Subscribing service:", serviceId);
 
       const response = await fetch(
-        "http://10.1.1.226:5001/api/v1/apimodule/subscribe-service",
+        "http://10.1.1.226:5000/api/v1/apimodule/subscribe-service",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

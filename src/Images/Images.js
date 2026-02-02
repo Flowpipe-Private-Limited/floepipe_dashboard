@@ -11,6 +11,8 @@ import bellicon from '../assets/images/bellicon.webp';
 import FlowpipeLogo from '../assets/images/FlowpipeLogo.png';
 import statement from '../assets/images/statement.webp';
 import dashboardright from '../assets/images/dashboardright.webp';
+import dashboardrightnew from '../assets/images/dashboardright.png';
+
 import playstore from '../assets/images/playstore.webp';
 import Appstore from '../assets/images/Appstore.webp';
 import reportsempty from '../assets/images/reportsempty.webp';
@@ -50,6 +52,7 @@ const images = {
   FlowpipeLogo,
   statement,
   dashboardright,
+   dashboardrightnew,
   playstore,
   Appstore,
   reportsempty,

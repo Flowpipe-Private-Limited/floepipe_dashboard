@@ -500,10 +500,31 @@
   }
   .hrlines-img3 {
     right: 6%;
-    top: 36.8rem;
+    top: 37.5rem;
   }
   .hrlines-img4 {
     right: 87%;
-    top: 39.8rem;
+    top: 40.5rem;
+  }
+}
+
+@media (min-width: 1541px) {
+  .hrlines-img {
+    left: 4%;
+    /* top: 16.5rem; */
+    top: 20.5rem;
+
+  }
+  .hrlines-img2 {
+    top: 12rem;
+    right: 10%;
+  }
+  .hrlines-img3 {
+    right: 6%;
+    top: 46.8rem;
+  }
+  .hrlines-img4 {
+    right: 87%;
+    top: 50.8rem;
   }
 }

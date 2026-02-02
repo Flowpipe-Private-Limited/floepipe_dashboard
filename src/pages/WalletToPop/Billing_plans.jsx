@@ -12,6 +12,8 @@ import { HiOutlineBolt } from "react-icons/hi2";
 import { LuCreditCard } from "react-icons/lu";
 import { FiEdit } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
+import EnvironmentSwitch from "../../components/ui/EnvironmentSwitch/EnvironmentSwitch";
+import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebutton";
 
 const BillingPlans = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
@@ -20,6 +22,7 @@ const BillingPlans = () => {
   const [rechargeAmount, setRechargeAmount] = useState("");
   const [dateDropdownOpen, setDateDropdownOpen] = useState(false);
   const [selectedDateRange, setSelectedDateRange] = useState("Last 30 days");
+  const [environment, setEnvironment] = useState("test");
 
   // Wallet Logic State
   const CLIENT_ID = "CID_1766992391408";
@@ -161,22 +164,13 @@ const BillingPlans = () => {
             <p>Manage balance, plans, and payment history</p>
           </div>
           <div className="BillingPlans_header-right">
-            <div className="BillingPlans_mode-toggle">
-              <button className="BillingPlans_mode-btn">
-                <LuTestTube />
-                Test
-              </button>
-              <button className="BillingPlans_mode-btn active">
-                <BsLightningCharge />
-                Live
-              </button>
-            </div>
-            <button
-              className="BillingPlans_add-balance-main-btn"
-              onClick={() => setIsSliderOpen(true)}
-            >
-              + Add Balance
-            </button>
+             <EnvironmentSwitch
+              value={environment}
+              onChange={setEnvironment}
+              left={{ label: "Test", value: "sandbox", icon: <LuTestTube /> }}
+              right={{ label: "Live", value: "prod", icon: <BsLightningCharge /> }}
+            />
+            <Right_sidebutton onClick={() => setIsSliderOpen(true)} TextonButton={'Add Balance'}/>
           </div>
         </div>
       </div>
@@ -229,13 +223,13 @@ const BillingPlans = () => {
             <p className="BillingPlans_stat-label">API Usage</p>
           </div>
           <div>
-          <h3>245K / 500k</h3>
-          <div className="BillingPlans_progress-bar">
-            <div
-              className="BillingPlans_progress-fill"
-              style={{ width: "49%" }}
-            ></div>
-          </div>
+            <h3>245K / 500k</h3>
+            <div className="BillingPlans_progress-bar">
+              <div
+                className="BillingPlans_progress-fill"
+                style={{ width: "49%" }}
+              ></div>
+            </div>
           </div>
         </div>
         <div className="BillingPlans_stat-card">

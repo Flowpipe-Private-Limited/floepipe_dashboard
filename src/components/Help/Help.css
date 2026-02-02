@@ -89,7 +89,7 @@
 /* FAQ Detail Header */
 .help-modal-header-faq {
   background: var(--purple-main);
-    height: 180px;
+  height: 180px;
   display: flex;
   align-items: flex-start;
   position: absolute;
@@ -320,10 +320,10 @@
 /* Videos Section */
 .help-videos-section {
   padding-bottom: 20px;
-      display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .help-video-card {
@@ -822,4 +822,13 @@
 
 .help-chat-messages-container::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
+}
+
+@media (max-width: 768px) {
+  .Content-row-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
