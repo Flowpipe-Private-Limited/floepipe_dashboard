@@ -4,7 +4,8 @@ import './Products.css';
 import { IoMdArrowDropdown } from "react-icons/io";
 import { ApirequestHandler } from '../../utils/Apis/apiRequestHandler';
 import { ClientService } from '../../utils/Apis/api';
-
+import{SubscribeService} from '../../utils/Apis/api'
+import { DashboardServices} from '../../utils/Apis/api'
 const Products = () => {
   const [filter, setFilter] = useState("All Products");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -16,34 +17,52 @@ const Products = () => {
     setIsDropdownOpen(false);
   };
 
-  const fetchDashboardProducts = async () => {
-    try {
-      console.log("Fetching dashboard products...");
-      const response = await fetch(
-        "http://10.1.1.226:5000/api/v1/apimodule/dashboard-services"
-      );
-      const res = await response.json();
-      console.log("Dashboard response:", JSON.stringify(res?.data));
+const fetchDashboardProducts = async () => {
+  console.group("📊 fetchDashboardProducts");
 
-      if (res.success && Array.isArray(res.data)) {
-        const mappedProducts = res.data.map((item, index) => ({
-          id: index + 1,
-          serviceId: item.serviceId,
-          title: item.serviceName,
-          description: "Validate details in real-time with high accuracy.",
-          credits: item.testLimit,
-          status: item?.status,
-          icon: <FileCheck size={24} />,
-          iconColor: "purple",
-        }));
+  await ApirequestHandler(
+    () => DashboardServices(),
+    null,
+    (res) => {
+      console.log("Dashboard API Success Response:", res);
 
+      if (res?.success && Array.isArray(res?.data)) {
+        console.table(res.data);
+
+        const mappedProducts = res.data.map((item, index) => {
+          console.log(
+            `Mapping serviceId: ${item.serviceId}, status: ${item.status}`
+          );
+
+          return {
+            id: index + 1,
+            serviceId: item.serviceId,
+            title: item.serviceName,
+            description: "Validate details in real-time with high accuracy.",
+            credits: item.testLimit,
+            status: item?.status ?? "Not Subscribed",
+            icon: <FileCheck size={24} />,
+            iconColor: "purple",
+          };
+        });
+
+        console.log("Dashboard mapped products:", mappedProducts);
         setProducts(mappedProducts);
+      } else {
+        console.warn(
+          "Dashboard API returned invalid data structure",
+          res
+        );
       }
-    } catch (error) {
-      console.error("Dashboard fetch error:", error);
+    },
+    (errMessage) => {
+      console.error(" Dashboard API Error:", errMessage);
     }
+  );
 
-  };
+  console.groupEnd();
+};
+
 
   const fetchClientServices = async () => {
     const clientId = localStorage.getItem("clientId");
@@ -75,46 +94,39 @@ const Products = () => {
 
   };
 
-  const handleSubscribe = async (serviceId) => {
-    try {
-      const clientId = localStorage.getItem("clientId");
-      if (!clientId) {
-        console.error("clientId missing");
-        return;
-      }
-
-      console.log("Subscribing service:", serviceId);
-
-      const response = await fetch(
-        "http://10.1.1.226:5000/api/v1/apimodule/subscribe-service",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            clientId,
-            serviceId,
-            status: "Pending",
-          }),
-        }
-      );
-      const res = await response.json();
-      console.log("Subscribe response:", res);
-
-      if (res.success) {
-        // Immediate UI update
-        setProducts(prev =>
-          prev.map(p =>
-            p.serviceId === serviceId
-              ? { ...p, status: "Pending" }
-              : p
-          )
-        );
-        fetchClientServices();
-      }
-    } catch (error) {
-      console.error("Subscribe error:", error);
+const handleSubscribe = async (serviceId) => {
+  try {
+    const clientId = localStorage.getItem("clientId");
+    if (!clientId) {
+      console.error("clientId missing");
+      return;
     }
-  };
+
+    const payload = {
+      clientId,
+      serviceId,
+      status: "Pending",
+    };
+
+    const res = await SubscribeService(payload);
+    console.log("Subscribe response:", res.data);
+
+    if (res.data.success) {
+      // optional instant UI update
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.serviceId === serviceId
+            ? { ...p, status: "Pending" }
+            : p
+        )
+      );
+      fetchClientServices();
+    }
+  } catch (error) {
+    console.error("Subscribe error:", error);
+  }
+};
+
   useEffect(() => {
     const loadData = async () => {
       await fetchDashboardProducts();

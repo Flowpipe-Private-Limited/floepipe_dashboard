@@ -80,8 +80,10 @@ const VerifyOTP = (data) => supperApiClient.post('client/login/verify-otp', data
 const HandleGetUser = () => supperApiClient.get('/client/get-user-details');
 const UpdatedUserDetails = (data) => supperApiClient.post('merchant/update/merchantdetails', data);
 const ClientService = (ClientId)=> supperApiClient.get(`/apimodule/services?clientId=${ClientId}`)
+const SubscribeService = (payload) =>supperApiClient.post('/apimodule/subscribe-service', payload);
+const DashboardServices = () => supperApiClient.get("/apimodule/dashboard-services");
 
-// KYC BBPS RECHARGE ROUTES
+
 const ApiVerification = (isMicro, URLS, data) => {
   console.log(isMicro, URLS, data)
   switch (isMicro) {
@@ -114,7 +116,7 @@ const HandleCreateIP = (data) => kycApiClient.post(`IP/WhiteListIP`, data);
 
 export {
 
-  Register, SendOTP, VerifyOTP,ClientService,
+  Register, SendOTP, VerifyOTP,ClientService,SubscribeService,DashboardServices,
 
   fetchPublickey,
 
