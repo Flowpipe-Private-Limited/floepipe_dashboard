@@ -394,194 +394,182 @@ function Sidebar({ collapsed, onHelpClick }) {
         </div>
       )}
 
-      <nav className="flex-1 p-2 space-y-2.5 text-sm overflow-y-auto">
-        {/* Single Items */}
-        {filteredConfig
-          .filter((item) => item.type === "single")
-          .map((item, idx) => {
-            const isActive = location.pathname === item.href;
-            return (
-              <button
-                key={idx}
-                onClick={() => navigate(item.href)}
-                className={`sidebar-item ${isActive ? "active" : ""}`}
-              >
-                {item.iconType === "image" ? (
-                  <img
-                    src={item.icon}
-                    alt={item.label}
-                    className="sidebar-icon-img"
-                  />
-                ) : (
-                  <item.icon size={18} />
-                )}
+    <nav className="flex-1 p-2 space-y-2.5 text-sm overflow-y-auto">
+  {filteredConfig.map((item, idx) => {
+    /* ================= SINGLE ITEMS ================= */
+    if (item.type === "single") {
+      const isActive = location.pathname === item.href;
 
-                {!collapsed && <span>{item.label}</span>}
-              </button>
-            );
-          })}
+      return (
+        <button
+          key={idx}
+          onClick={() => navigate(item.href)}
+          className={`sidebar-item ${isActive ? "active" : ""}`}
+        >
+          {item.iconType === "image" ? (
+            <img
+              src={item.icon}
+              alt={item.label}
+              className="sidebar-icon-img"
+            />
+          ) : (
+            <item.icon size={18} />
+          )}
 
-        {/* Group Items (Test API) */}
-        {filteredConfig
-          .filter((item) => item.type === "group")
-          .map((group, groupIdx) => {
-            const Icon = group.icon;
-            const isGroupOpen = openGroups[group.label] || search;
+          {!collapsed && <span>{item.label}</span>}
+        </button>
+      );
+    }
 
-            // Check if any active child exists in this group
-            const isGroupActive = group.children?.some((subGroup) =>
-              subGroup.children?.some((api) => api.href === location.pathname),
-            );
+    /* ================= GROUP ITEMS (TEST API) ================= */
+    if (item.type === "group") {
+      const Icon = item.icon;
+      const isGroupOpen = openGroups[item.label] || search;
 
-            return (
-              <div key={groupIdx} className="sidebar-group">
-                {/* Main Group Button (Test API) */}
-                <button
-                  onClick={() => toggleGroup(group.label)}
-                  className={`sidebar-item group-header ${collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"} ${isGroupActive ? "active" : ""}`}
-                >
-                  <div className="flex items-center gap-3">
-                    {group.iconType === "image" ? (
-                      <img
-                        src={group.icon}
-                        alt={group.label}
-                        className="sidebar-icon-img"
-                      />
-                    ) : (
-                      <Icon size={18} />
-                    )}
-                    {!collapsed && (
-                      <span className="group-label">{group.label}</span>
-                    )}
-                  </div>
-                  {!collapsed &&
-                    (isGroupOpen ? (
-                      <ChevronUp size={14} />
-                    ) : (
-                      <ChevronDown size={14} />
-                    ))}
-                </button>
+      const isGroupActive = item.children?.some((subGroup) =>
+        subGroup.children?.some(
+          (api) => api.href === location.pathname
+        )
+      );
 
-                {/* Sub-Groups (KYC, Recharge, BBPS, InstantPay) */}
-                {(isGroupOpen || search) && !collapsed && group.children && (
-                  <div className="subgroup-container">
-                    {group.children.map((subGroup, subIdx) => {
-                      const SubIcon = subGroup.icon;
-                      const subGroupKey = `${group.label}-${subGroup.label}`;
-                      const isSubGroupOpen =
-                        openSubGroups[subGroupKey] || search;
+      return (
+        <div key={idx} className="sidebar-group">
+          {/* Group Header */}
+          <button
+            onClick={() => toggleGroup(item.label)}
+            className={`sidebar-item group-header ${
+              collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"
+            } ${isGroupActive ? "active" : ""}`}
+          >
+            <div className="flex items-center gap-3">
+              {item.iconType === "image" ? (
+                <img
+                  src={item.icon}
+                  alt={item.label}
+                  className="sidebar-icon-img"
+                />
+              ) : (
+                <Icon size={18} />
+              )}
 
-                      const isSubGroupActive = subGroup.children?.some(
-                        (api) => api.href === location.pathname,
-                      );
+              {!collapsed && (
+                <span className="group-label">{item.label}</span>
+              )}
+            </div>
 
-                      return (
-                        <div key={subIdx} className="subgroup">
-                          {/* Sub-Group Button */}
-                          <button
-                            onClick={() =>
-                              toggleSubGroup(group.label, subGroup.label)
-                            }
-                            className={`subgroup-button ${isSubGroupActive ? "text-purple-400" : ""}`}
-                          >
-                            <div className="flex items-center gap-2">
-                              {subGroup.iconType === "image" ? (
-                                <img
-                                  src={subGroup.icon}
-                                  alt={subGroup.label}
-                                  className="subgroup-icon"
-                                />
-                              ) : (
-                                <SubIcon size={16} />
-                              )}
-                              <span
-                                className={`subgroup-label ${isSubGroupActive ? "text-purple-400" : ""}`}
+            {!collapsed &&
+              (isGroupOpen ? (
+                <ChevronUp size={14} />
+              ) : (
+                <ChevronDown size={14} />
+              ))}
+          </button>
+
+          {/* ================= SUBGROUPS ================= */}
+          {(isGroupOpen || search) && !collapsed && item.children && (
+            <div className="subgroup-container">
+              {item.children.map((subGroup, subIdx) => {
+                const SubIcon = subGroup.icon;
+                const subGroupKey = `${item.label}-${subGroup.label}`;
+                const isSubGroupOpen =
+                  openSubGroups[subGroupKey] || search;
+
+                const isSubGroupActive = subGroup.children?.some(
+                  (api) => api.href === location.pathname
+                );
+
+                return (
+                  <div key={subIdx} className="subgroup">
+                    {/* Subgroup Button */}
+                    <button
+                      onClick={() =>
+                        toggleSubGroup(item.label, subGroup.label)
+                      }
+                      className={`subgroup-button ${
+                        isSubGroupActive ? "text-purple-400" : ""
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        {subGroup.iconType === "image" ? (
+                          <img
+                            src={subGroup.icon}
+                            alt={subGroup.label}
+                            className="subgroup-icon"
+                          />
+                        ) : (
+                          <SubIcon size={16} />
+                        )}
+
+                        <span
+                          className={`subgroup-label ${
+                            isSubGroupActive ? "text-purple-400" : ""
+                          }`}
+                        >
+                          {subGroup.label}
+                        </span>
+                      </div>
+
+                      {subGroup.children?.length > 0 && (
+                        <ChevronDown
+                          size={12}
+                          className={`transition-transform ${
+                            isSubGroupOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      )}
+                    </button>
+
+                    {/* ================= API ENDPOINTS ================= */}
+                    {(isSubGroupOpen || search) &&
+                      subGroup.children && (
+                        <ul className="api-endpoints">
+                          {subGroup.children.map((api, apiIdx) => {
+                            const isApiActive =
+                              location.pathname === api.href;
+
+                            return (
+                              <li
+                                key={apiIdx}
+                                onClick={() => navigate(api.href)}
+                                className={`cursor-pointer border-l border-gray-300 py-1.5 hover:bg-white/10 hover:text-white api-endpoint-item ${
+                                  isApiActive ? "active" : ""
+                                }`}
                               >
-                                {subGroup.label}
-                              </span>
-                            </div>
-                            {subGroup.children &&
-                              subGroup.children.length > 0 && (
-                                <ChevronDown
-                                  size={12}
-                                  className={`transition-transform ${isSubGroupOpen ? "rotate-180" : ""}`}
-                                />
-                              )}
-                          </button>
+                                <span className="text-gray-300 bi bi-dash-lg"></span>
 
-                          {/* API Endpoints */}
-                          {(isSubGroupOpen || search) && subGroup.children && (
-                            <ul className="api-endpoints">
-                              {subGroup.children.map((api, apiIdx) => {
-                                const isApiActive =
-                                  location.pathname === api.href;
-                                return (
-                                  <li
-                                    key={apiIdx}
-                                    onClick={() => navigate(api.href)}
-                                    className={`cursor-pointer border-l border-gray-300 py-1.5 hover:bg-white/10 hover:text-white api-endpoint-item ${isApiActive ? "active" : ""}`}
+                                <div className="api-method-badge">
+                                  <span
+                                    className={
+                                      api.method === "GET"
+                                        ? "method-get"
+                                        : "method-post"
+                                    }
                                   >
-                                    <span className="text-gray-300 bi bi-dash-lg"></span>
-                                    <div className="api-method-badge">
-                                      <span
-                                        className={
-                                          api.method === "GET"
-                                            ? "method-get"
-                                            : "method-post"
-                                        }
-                                      >
-                                        {api.method}
-                                      </span>
-                                    </div>
-                                    <span className="api-label">
-                                      {api.label}
-                                    </span>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                                    {api.method}
+                                  </span>
+                                </div>
 
-        {/* Mobile-Only Header Items (Visible only on mobile via CSS) */}
-        {!collapsed && (
-          <div className="mobile-sidebar-tools space-y-2 mt-4 pt-4 border-t border-white/10">
-            <button
-              onClick={() => navigate("Billing_plans")}
-              className="sidebar-item"
-            >
-              <RxPlusCircled size={18} />
-              <span>Balance</span>
-            </button>
-            <button className="sidebar-item">
-              <IoCodeSlashSharp size={18} />
-              <span>Developers API</span>
-            </button>
-            <button className="sidebar-item" onClick={onHelpClick}>
-              <HelpCircle size={18} />
-              <span>Help</span>
-            </button>
-            <button className="sidebar-item">
-              <HiOutlineBell size={18} />
-              <span>Updates</span>
-            </button>
-            <button
-              className="sidebar-item"
-              onClick={() => navigate("Profile")}
-            >
-              <User size={18} />
-              <span>My Account</span>
-            </button>
-          </div>
-        )}
-      </nav>
+                                <span className="api-label">
+                                  {api.label}
+                                </span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    return null;
+  })}
+</nav>
+
     </aside>
   );
 }

@@ -35,6 +35,8 @@ import BBPS from '../assets/images/BBPS.webp';
 import TESTAnimation from "../assets/images/TESTAnimation.json";
 import testapi from '../assets/images/testapi.png';
 import copyicon from '../assets/images/copyicon.png';
+import trailimg from '../assets/images/trailimg.webp';
+import LIVEAnimation from "../assets/images/LIVEAnimation.json";
 
 
 
@@ -75,6 +77,8 @@ const images = {
   TESTAnimation,
   testapi,
   copyicon,
+  trailimg,
+  LIVEAnimation,
 };
 
 export default images;

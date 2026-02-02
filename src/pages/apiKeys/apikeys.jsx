@@ -182,7 +182,7 @@ const ApiKeys = () => {
         <table>
           <thead className="thead-header">
             <tr>
-              <th className="th-api">SI.no</th>
+              <th className="th-api">SI.No</th>
               <th className="th-api">MerchantId</th>
               <th className="th-api">ClientId</th>
               <th className="th-api">SecretKey</th>

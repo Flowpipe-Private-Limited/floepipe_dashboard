@@ -30,6 +30,8 @@ const KycReuseComponet = ({ data }) => {
   const [selectedExampleCode, setSelectedExampleCode] = useState(
     data?.exampleResponse || {},
   );
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedUrl, setSelectedUrl] = useState(data?.apiUrl?.liveUrl);
 
   const HandleChangeInput = (e) => {
     console.log("Handle input change is trigred");
@@ -99,76 +101,76 @@ const KycReuseComponet = ({ data }) => {
     }
     console.log(locationData);
 
-        // Merge form data with location data
-        const payloadToEncrypt = { ...formData, ...locationData };
-        console.log(payloadToEncrypt);
+    // Merge form data with location data
+    const payloadToEncrypt = { ...formData, ...locationData };
+    console.log(payloadToEncrypt);
 
-        let finalPayload = await encryptPayload(payloadToEncrypt, Publickey);
-        console.log('is called', finalPayload);
-        const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair()
-        window.PRIVITEKEY = privateKeyPem;
-        console.log(finalPayload, publicKeyPem, privateKeyPem);
-        // if (!IskycApproved || !kycCompleted) {
-        //     console.log('is trigred')
-        //     setShowAlert(true);
-        //     return;
-        // };
+    let finalPayload = await encryptPayload(payloadToEncrypt, Publickey);
+    console.log('is called', finalPayload);
+    const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair()
+    window.PRIVITEKEY = privateKeyPem;
+    console.log(finalPayload, publicKeyPem, privateKeyPem);
+    // if (!IskycApproved || !kycCompleted) {
+    //     console.log('is trigred')
+    //     setShowAlert(true);
+    //     return;
+    // };
 
-        setLoading(true);
+    setLoading(true);
 
-        await ApirequestHandler(
-            async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...finalPayload, publicKeyPem }),
-            setLoading,
-            (res) => {
-                const { data } = res;
-                console.log(res)
-                setApiResponse(res);
-                setApiErrormessage('');
-                setLoading(false)
-            },
-            (errorMessage) => {
-                console.log('Error:', errorMessage);
-                setApiErrormessage(errorMessage);
-                setLoading(false);
-            }
-        )
-    };
+    await ApirequestHandler(
+      async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...finalPayload, publicKeyPem }),
+      setLoading,
+      (res) => {
+        const { data } = res;
+        console.log(res)
+        setApiResponse(res);
+        setApiErrormessage('');
+        setLoading(false)
+      },
+      (errorMessage) => {
+        console.log('Error:', errorMessage);
+        setApiErrormessage(errorMessage);
+        setLoading(false);
+      }
+    )
+  };
 
-    const handleCopy = async (text) => {
-        try {
-            await navigator.clipboard.writeText(text);
-        } catch (err) {
-            console.log("Clipboard blocked, using fallback");
-            const textarea = document.createElement("textarea");
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand("copy");
-            textarea.remove();
-        }
-    };
-
-    const GetPublickey = async () => {
-        console.log('is GetPublickey');
-        await ApirequestHandler(
-            async () => fetchPublickey(),
-            null,
-            (res) => {
-                const { publicKey } = res;
-                console.log(publicKey)
-                setPublickey(publicKey);
-            },
-            (errMessage) => {
-                console.log(errMessage)
-            }
-        )
-        // const response = await axios.get(`${import.meta.env.REACT_APP_DASHBOARD_URL}ApiModuel/key/Publickey`);
-        // const { publicKey } = response.data;
-        // console.log(response)
-        // setPublickey(publicKey);
+  const handleCopy = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (err) {
+      console.log("Clipboard blocked, using fallback");
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
     }
+  };
 
-useEffect(() => {
+  const GetPublickey = async () => {
+    console.log('is GetPublickey');
+    await ApirequestHandler(
+      async () => fetchPublickey(),
+      null,
+      (res) => {
+        const { publicKey } = res;
+        console.log(publicKey)
+        setPublickey(publicKey);
+      },
+      (errMessage) => {
+        console.log(errMessage)
+      }
+    )
+    // const response = await axios.get(`${import.meta.env.REACT_APP_DASHBOARD_URL}ApiModuel/key/Publickey`);
+    // const { publicKey } = response.data;
+    // console.log(response)
+    // setPublickey(publicKey);
+  }
+
+  useEffect(() => {
     GetPublickey();
   }, []);
 
@@ -200,13 +202,12 @@ useEffect(() => {
                   }
                   disabled={data?.isDisable}
                   className={`kyc-input-field
-                                            ${
-                                              errors?.[input]
-                                                ? "error"
-                                                : formData?.[input]
-                                                  ? "success"
-                                                  : ""
-                                            }`}
+                                            ${errors?.[input]
+                      ? "error"
+                      : formData?.[input]
+                        ? "success"
+                        : ""
+                    }`}
                   onChange={HandleChangeInput}
                 />
                 {errors?.[input] && (
@@ -262,23 +263,60 @@ useEffect(() => {
             >
               {data?.apiUrl?.Method}:
             </span>
-            <select className="kyc-url-select">
-              <option> {data?.apiUrl?.liveUrl}</option>
-              <option> {data?.apiUrl?.testUrl}</option>
-            </select>
-            {/* <div className="kyc-url-wrapper">
-              <Lottie
-                animationData={Images.TESTAnimation}
-                loop
-                autoplay
-                className="kyc-lottie"
-              />
+            {/* Custom Dropdown */}
+            <div className="kyc-custom-select-container">
+              <div
+                className="kyc-custom-select-trigger"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <span className="selected-value">
+                  {selectedUrl || data?.apiUrl?.liveUrl}
+                </span>
+                <span className={`arrow ${isDropdownOpen ? "open" : ""}`}>
+                  ▼
+                </span>
+              </div>
+              {isDropdownOpen && (
+                <div className="kyc-custom-options">
+                  <div
+                    className="kyc-option"
+                    onClick={() => {
+                      setSelectedUrl(data?.apiUrl?.liveUrl);
+                      setIsDropdownOpen(false);
+                    }}
+                  >
 
-              <select className="kyc-url-select">
-                <option>{data?.apiUrl?.liveUrl}</option>
-                <option>{data?.apiUrl?.testUrl}</option>
-              </select>
-            </div> */}
+                         <div className="kyc-lottie-icon-wrapper">
+                      <Lottie
+                        animationData={Images.LIVEAnimation}
+                        loop
+                        autoplay
+                        className="kyc-lottie-small"
+                      />
+                    </div>
+                    <span>{data?.apiUrl?.liveUrl}</span>
+                  </div>
+                  <div
+                    className="kyc-option"
+                    onClick={() => {
+                      setSelectedUrl(data?.apiUrl?.testUrl);
+                      setIsDropdownOpen(false);
+                    }}
+                  >
+                    <div className="kyc-lottie-icon-wrapper">
+                      <Lottie
+                        animationData={Images.TESTAnimation}
+                        loop
+                        autoplay
+                        className="kyc-lottie-small"
+                      />
+                    </div>
+
+                    <span>{data?.apiUrl?.testUrl}</span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
           <div className="kyc-card">
             <div className="kyc-card-header-row">

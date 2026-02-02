@@ -152,7 +152,7 @@ const ViewAnalytics = () => {
               <span className="trend-text">+5.2% vs last week</span>
             </div>
           </div>
-          <ResponsiveContainer width="100%" height={200}>
+          <ResponsiveContainer width="100%" height={200} style={{fontSize:'14px'}}>
             <LineChart data={apiCallsData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis dataKey="name" stroke="#999" />
@@ -188,7 +188,7 @@ const ViewAnalytics = () => {
               <span className="trend-text">+5.2% vs last week</span>
             </div>
           </div>
-          <ResponsiveContainer width="100%" height={200}>
+          <ResponsiveContainer width="100%" height={200} style={{fontSize:'14px'}}>
             <BarChart data={costBreakdownData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis dataKey="name" stroke="#999" />
@@ -211,7 +211,7 @@ const ViewAnalytics = () => {
               <span className="trend-text">+15.8% vs last week</span>
             </div>
           </div>
-          <ResponsiveContainer width="100%" height={180}>
+          <ResponsiveContainer width="100%" height={180} style={{fontSize:'14px'}}>
             <LineChart data={paymentVolumeData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis dataKey="name" stroke="#999" />

@@ -25,7 +25,7 @@ const ErrorCode = ({ open, onClose }) => {
             aria-describedby="modal-description"
         >
             <Box sx={style}>
-                <div className="card" style={{fontFamily:'monospace'}}>
+                <div className="card" style={{fontFamily: "JetBrainsMono"}}>
                     <div className="card-header">
                         <div className="d-flex justify-content-between align-items-center px-3 ">
                             <div className="fs-3">Error Code</div> <button className="btn btn-close " onClick={onClose}></button>

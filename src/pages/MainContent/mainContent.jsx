@@ -26,6 +26,7 @@ import WalletToPop from "../WalletToPop/WalletToPop";
 const MainContent = () => {
   const [showBalance, setShowBalance] = useState(false);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
+  const [isProduction, setIsProduction] = useState(false);
   const navigate = useNavigate();
 
   const NavigateToBalance = () => {
@@ -75,7 +76,7 @@ const MainContent = () => {
     {
       type: "stat",
       title: "Active APIs",
-      value: "40.72 x 40.72", 
+      value: "40.72 x 40.72",
       icon: Images.graphicon,
       extra: "badge",
     },
@@ -404,13 +405,24 @@ const MainContent = () => {
                   <p>Duration</p>
                   <select defaultValue="Last 30 days">
                     <option>Last 30 days</option>
+                    <option>Last 60 days</option>
+                    <option>Last 120 days</option>
                     <option>Last 7 days</option>
+                    <option>Last Custom</option>
                   </select>
                 </div>
                 <div className="control-group">
                   <p>All Products</p>
                   <select defaultValue="All Products">
-                    <option>All Products</option>
+                    <option>Pan Lite</option>
+                    <option>Driving License Advance</option>
+                    <option>GST Verification Lite</option>
+                    <option>Aadhaar Based e-sign</option>
+                    <option>Pan Advance</option>
+                    <option>Face match</option>
+                    <option>Aadhaar Pro</option>
+                    <option>IFSC Verification Lite</option>
+                    <option>Bank Account Verification Advance</option>
                   </select>
                 </div>
                 <div className="toggle-group">
@@ -513,12 +525,33 @@ const MainContent = () => {
             <div className="table-header-row">
               <h3>Transactions stats</h3>
               <div className="table-controls">
-                <div className="toggle-switch">
-                  <span className="trail-color">Trial</span>
-                  <div className="switch-track">
+                <div
+                  className="toggle-switch"
+                  onClick={() => setIsProduction(!isProduction)}
+                >
+                  <span
+                    className={`trail-color ${!isProduction ? "active-text" : ""}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsProduction(false);
+                    }}
+                  >
+                    Trial
+                  </span>
+                  <div
+                    className={`switch-track ${isProduction ? "active" : ""}`}
+                  >
                     <div className="switch-thumb"></div>
                   </div>
-                  <span className="trail-color">Production</span>
+                  <span
+                    className={`trail-color ${isProduction ? "active-text" : ""}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsProduction(true);
+                    }}
+                  >
+                    Production
+                  </span>
                 </div>
 
                 <div className="control-group-sm">
@@ -536,28 +569,40 @@ const MainContent = () => {
               </div>
             </div>
 
-            <div className="table-wrapper-main">
-              <table className="custom-table-main">
-                <thead>
-                  <tr>
-                    <th>Product Name</th>
-                    <th>Billable transactions</th>
-                    <th>success</th>
-                    <th>Failed</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {transactionStats.map((row, idx) => (
-                    <tr key={idx}>
-                      <td>{row.name}</td>
-                      <td>{row.billable}</td>
-                      <td>{row.success}</td>
-                      <td>{row.failed}</td>
+            {isProduction ? (
+              <div className="table-wrapper-main">
+                <table className="custom-table-main">
+                  <thead>
+                    <tr>
+                      <th>Product Name</th>
+                      <th>Billable transactions</th>
+                      <th>success</th>
+                      <th>Failed</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {transactionStats.map((row, idx) => (
+                      <tr key={idx}>
+                        <td>{row.name}</td>
+                        <td>{row.billable}</td>
+                        <td>{row.success}</td>
+                        <td>{row.failed}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="empty-state-container">
+                <img
+                  src={Images.trailimg}
+                  alt="No records found"
+                  className="empty-state-img"
+                />
+                <h4>No records found!</h4>
+                <p>Looks like you have no records yet in this category.</p>
+              </div>
+            )}
           </div>
 
           <div className="apps-running-card">

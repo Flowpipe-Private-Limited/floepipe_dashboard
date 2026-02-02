@@ -164,13 +164,20 @@ const BillingPlans = () => {
             <p>Manage balance, plans, and payment history</p>
           </div>
           <div className="BillingPlans_header-right">
-             <EnvironmentSwitch
+            <EnvironmentSwitch
               value={environment}
               onChange={setEnvironment}
               left={{ label: "Test", value: "sandbox", icon: <LuTestTube /> }}
-              right={{ label: "Live", value: "prod", icon: <BsLightningCharge /> }}
+              right={{
+                label: "Live",
+                value: "prod",
+                icon: <BsLightningCharge />,
+              }}
             />
-            <Right_sidebutton onClick={() => setIsSliderOpen(true)} TextonButton={'Add Balance'}/>
+            <Right_sidebutton
+              onClick={() => setIsSliderOpen(true)}
+              TextonButton={"Add Balance"}
+            />
           </div>
         </div>
       </div>
@@ -240,14 +247,16 @@ const BillingPlans = () => {
             <p className="BillingPlans_stat-label">Alert Threshold</p>
           </div>
           <div className="BillingPlans_threshold-row">
-            <h3>₹5,000</h3>
-            <span className="BillingPlans_info-icon">
-              <LuCircleAlert size={20} color="#99A1AF" />
-            </span>
+            <div className="money-info">
+              <h3>₹5,000</h3>
+              <span className="BillingPlans_info-icon">
+                <LuCircleAlert size={20} color="#99A1AF" />
+              </span>
+            </div>
+            <a href="#" className="BillingPlans_edit-link">
+              Edit threshold <FiEdit size={20} color="#00000099" />
+            </a>
           </div>
-          <a href="#" className="BillingPlans_edit-link">
-            Edit threshold <FiEdit size={20} color="#00000099" />
-          </a>
         </div>
       </div>
 

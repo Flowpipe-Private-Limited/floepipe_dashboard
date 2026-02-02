@@ -159,7 +159,7 @@
   font-weight: 600;
   color: #111;
   margin: 0;
-  font-family: monospace, sans-serif;
+    font-family: "JetBrainsMono";
   letter-spacing: -0.5px;
 }
 .edit-action-button {
@@ -364,7 +364,8 @@
   font-weight: bold;
   color: #111;
   margin: 0;
-  font-family: monospace;
+    font-family: "JetBrainsMono";
+
 }
 .close-btn {
   background: none;
@@ -391,7 +392,8 @@
   font-size: 0.9rem;
   color: #374151;
   margin-bottom: -0.5rem;
-  font-family: monospace;
+    font-family: "JetBrainsMono";
+
 }
 .modal-input {
   width: 100%;

@@ -23,34 +23,51 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
+  border: 1px solid var(--purple-200);
 }
 .tab-btn {
-  background: transparent;
-  border: none;
+  border-right: 1px solid var(--purple-200);
   padding: 0.55rem 1.4rem;
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--black);
-  border-radius: 0.45rem;
   cursor: pointer;
   transition: all 0.25s ease;
-  font-family: monospace;
   white-space: nowrap;
   font-family: "JetBrainsMonoSemiBold";
 }
-.tab-btn:hover {
-  background-color: #f5f3ff;
-  color: #4c1d95;
-}
-.tab-btn.active {
+
+.tab-active {
   background-color: var(--purple-main);
   color: var(--white);
   font-weight: 600;
   box-shadow: 0 2px 6px rgba(124, 58, 237, 0.35);
-  border-top-right-radius: 0rem;
-  border-bottom-right-radius: 0rem;
+}
+
+/* Individual active styles */
+.active-logs {
+  background-color: var(--purple-main);
+  color: var(--white);
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+}
+
+.active-transactions {
+  background-color: var(--purple-main);
+  color: var(--white);
+  border-top-left-radius: 0rem;
+  border-bottom-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+  border-bottom-right-radius: 0rem;
+}
+
+.active-product {
+  background-color: var(--purple-main);
+  color: var(--white);
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  border-top-left-radius: 0rem;
+  border-bottom-left-radius: 0rem;
 }
 
 @media (max-width: 640px) {

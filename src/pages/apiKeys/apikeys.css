@@ -27,6 +27,8 @@
   border-radius: 0.6rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   margin-bottom: 1.5rem;
+  border: 1px solid var(--purple-200);
+
 }
 
 .tab-btn,
@@ -116,6 +118,8 @@ table {
 .th-api {
   padding: 1rem;
   font-weight: 600;
+  font-family: "JetBrainsMono";
+
 }
 
 .td-one {
@@ -141,7 +145,7 @@ tbody tr td[colspan] {
   padding: 1.5rem;
   font-size: 0.9rem;
   color: var(--black);
-  font-family: monospace;
+   font-family: "JetBrainsMono";
   background: var(--white);
 }
 

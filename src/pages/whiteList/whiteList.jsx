@@ -115,7 +115,7 @@ const WhiteListIP = () => {
         <table className="whitelist-table">
           <thead>
             <tr>
-              <th>SI.No</th>
+              <th>SI.NO</th>
               <th>IP Address</th>
               <th>ActiveStatus</th>
             </tr>
