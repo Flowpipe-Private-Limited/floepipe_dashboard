@@ -122,8 +122,8 @@
 
 .BillingPlans_badge {
   display: inline-block;
-  padding: 2px 8px;
-  border-radius: 12px;
+  padding: 3px 10px;
+  border-radius: 8px;
   font-size: 11px;
   font-weight: 600;
   background: var(--green-200);
@@ -296,6 +296,7 @@
   text-align: left;
   vertical-align: middle;
   padding-right: 20px;
+  border-bottom: 1px solid var(--black-500);
 }
 
 /* Center pills & buttons properly */
@@ -315,20 +316,21 @@
   font-size: 13px;
   font-weight: 500;
   border: 1px solid #e5e7eb;
+  color: var(--black);
 }
 
 .BillingPlans_status-pill {
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: 10px;
   font-size: 12px;
   font-weight: 500;
 }
 
 .BillingPlans_status-pill.completed {
   background: white;
-  border: 1px solid #86efac;
-  color: #166534;
+  border: 1px solid var(--green-500);
+  color: var(--green-500);
 }
 
 .BillingPlans_download-btn {
@@ -571,10 +573,10 @@ input:checked + .BillingPlans_slider:before {
   font-family: "JetBrainsMono";
 }
 
-.bhim-img{
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
+.bhim-img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
 
 .BillingPlans_checkbox-row {
@@ -639,7 +641,6 @@ input:checked + .BillingPlans_slider:before {
   display: flex;
   justify-content: flex-end;
 }
-
 
 .BillingPlans_slider-container {
   width: 580px;
@@ -1002,7 +1003,6 @@ input:checked + .BillingPlans_slider:before {
 
 /* Desktop Large (min-width: 1200px) */
 @media (min-width: 1200px) {
- 
 }
 
 /* Additional responsive improvements */
@@ -1055,7 +1055,7 @@ input:checked + .BillingPlans_slider:before {
   .BillingPlans_transactions-section,
   .BillingPlans_sidebar-card {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-            overflow-x: auto;
+    overflow-x: auto;
   }
 
   .BillingPlans_slider-container {
