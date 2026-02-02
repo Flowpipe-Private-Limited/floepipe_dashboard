@@ -270,7 +270,7 @@ const MainContent = () => {
 
         {/* PROMO */}
         <div className="promo-card">
-          <img className="dashboardright-img" src={Images.dashboardright} />
+          <img className="dashboardright-img" src={Images.dashboardrightnew} />
           <div className="promo-content">
             <h3>Manage your finance at your fingertips</h3>
             <p className="promo-sub">Download App Now</p>

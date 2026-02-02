@@ -5,7 +5,6 @@
 }
 
 .BillingPlans_wrapper {
-  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -63,22 +62,6 @@
   background: var(--white);
   color: #111827;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.BillingPlans_add-balance-main-btn {
-  background: #7c3aed;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.BillingPlans_add-balance-main-btn:hover {
-  background: #6d28d9;
 }
 
 /* Stats Row */
@@ -1019,86 +1002,7 @@ input:checked + .BillingPlans_slider:before {
 
 /* Desktop Large (min-width: 1200px) */
 @media (min-width: 1200px) {
-  .BillingPlans_page {
-    padding: 0px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .BillingPlans_wrapper {
-    max-width: 1400px;
-  }
-
-  .BillingPlans_header {
-    margin-bottom: 36px;
-  }
-
-  .BillingPlans_header h1 {
-    font-size: 24px;
-  }
-
-  .BillingPlans_header p {
-    font-size: 14px;
-  }
-
-  .BillingPlans_stats-row {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    margin-bottom: 28px;
-  }
-
-  .BillingPlans_stat-card {
-    padding: 22px;
-    min-height: 135px;
-  }
-
-  .BillingPlans_content-grid {
-    grid-template-columns: 2fr 1fr;
-    gap: 28px;
-  }
-
-  .BillingPlans_transactions-section {
-    padding: 28px;
-  }
-
-  .BillingPlans_section-header h2 {
-    font-size: 22px;
-  }
-
-  .BillingPlans_sidebar-card {
-    padding: 24px;
-  }
-
-  .BillingPlans_card-header-toggle h3 {
-    font-size: 22px;
-  }
-
-  .BillingPlans_plan-history h3 {
-    font-size: 22px;
-    margin-bottom: 28px;
-  }
-
-  .BillingPlans_transactions-table th,
-  .BillingPlans_transactions-table td {
-    font-size: 14px;
-  }
-
-  .BillingPlans_quick-amounts {
-    width: 80%;
-  }
-
-  .BillingPlans_input-wrapper {
-    padding: 8px 8px 8px 14px;
-  }
-
-  .BillingPlans_input-wrapper input {
-    font-size: 14px;
-  }
-
-  /* Side Slider Desktop Large */
-  .BillingPlans_slider-container {
-    width: 580px;
-  }
+ 
 }
 
 /* Additional responsive improvements */

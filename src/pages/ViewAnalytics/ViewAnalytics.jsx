@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -16,8 +16,12 @@ import {
 import "./ViewAnalytics.css";
 import { LuTestTube } from "react-icons/lu";
 import { BsLightningCharge } from "react-icons/bs";
+import EnvironmentSwitch from "../../components/ui/EnvironmentSwitch/EnvironmentSwitch";
+import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebutton";
 
 const ViewAnalytics = () => {
+    const [environment, setEnvironment] = useState("test");
+  
   // API Calls Over Time Data
   const apiCallsData = [
     { name: "Sun", value: 25000 },
@@ -84,15 +88,31 @@ const ViewAnalytics = () => {
           <p>Track your performance and usage patterns</p>
         </div>
         <div className="header-actions">
-          {/* <div className="test-live">
-          <button className="btn-text">Text</button>
-          <button className="btn-link">Link</button>
-          </div> */}
-             <div className="test-live">
-                  <button className="btn-text active"> <LuTestTube />Test</button>
-                  <button className="btn-link "><BsLightningCharge />Link</button>
-                </div>
-          <button className="btn-add"> + Add</button>
+          <div className="test-live">
+            {/* <button className="btn-text active">
+              {" "}
+              <LuTestTube />
+              Test
+            </button>
+            <button className="btn-link ">
+              <BsLightningCharge />
+              Link
+            </button> */}
+            <EnvironmentSwitch
+              value={environment}
+              onChange={setEnvironment}
+              left={{ label: "Test", value: "sandbox", icon: <LuTestTube /> }}
+              right={{
+                label: "Link",
+                value: "prod",
+                icon: <BsLightningCharge />,
+              }}
+            />
+          </div>
+          <Right_sidebutton
+            onClick={() => setIsModalOpen(true)}
+            TextonButton={"Add"}
+          />
         </div>
       </div>
 
@@ -104,7 +124,9 @@ const ViewAnalytics = () => {
         </div>
         <div className="metric-card">
           <div className="metric-label">Avg Success Rate</div>
-          <div className="metric-value">97%</div>
+          <div style={{ color: "#00A63E" }} className="metric-value">
+            97%
+          </div>
         </div>
         <div className="metric-card">
           <div className="metric-label">Avg Latency</div>
@@ -208,14 +230,16 @@ const ViewAnalytics = () => {
 
         {/* Error Tracking */}
         <div className="chart-card">
-         <div className="chart-header-analytics">
+          <div className="chart-header-analytics">
             <div>
               <h3>Error Tracking</h3>
               <h2 className="lasthours">Last 30 days</h2>
             </div>
             <div>
               <p className="chart-subtitle">₹12.4L</p>
-              <span style={{color:'red'}} className="trend-text">+15.8% vs last week</span>
+              <span style={{ color: "red" }} className="trend-text">
+                +15.8% vs last week
+              </span>
             </div>
           </div>
           <div className="error-chart-container">
@@ -253,7 +277,7 @@ const ViewAnalytics = () => {
 
         {/* Usage by Endpoint */}
         <div className="chart-card">
-         <div className="chart-header-analytics">
+          <div className="chart-header-analytics">
             <h3>Usage by Endpoint</h3>
           </div>
           <div className="endpoint-chart-container">
@@ -292,7 +316,7 @@ const ViewAnalytics = () => {
 
         {/* Top Endpoints */}
         <div className="chart-card">
-           <div className="chart-header-analytics">
+          <div className="chart-header-analytics">
             <h3>Top Endpoints</h3>
           </div>
           <div className="top-endpoints">

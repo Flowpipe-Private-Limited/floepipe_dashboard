@@ -1,0 +1,137 @@
+/* Backdrop */
+.Trail-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Modal */
+.Trail-modal {
+  background: #ffffff;
+  width: 95%;
+  max-width: 520px;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: scaleIn 0.2s ease;
+}
+
+/* Header */
+.Trail-modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Trail-modal-subtitle {
+  font-size: 0.75rem;
+  color: var(--purple-main);
+  font-weight: 600;
+}
+
+.Trail-modal-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 2px;
+  color: var(--black);
+  font-family: "JetBrainsMono";
+}
+
+.Trail-modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #7c3aed;
+}
+
+/* Body */
+.Trail-modal-body {
+  padding: 24px;
+}
+
+.Trail-modal-desc {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.Trail-modal-label {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  display: block;
+  color: var(--black);
+}
+
+.Trail-modal-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  color: var(--black-100);
+}
+
+.Trail-modal-input:focus {
+  outline: none;
+  border-color: #7c3aed;
+}
+
+/* Checkbox */
+.Trail-modal-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: #374151;
+  margin-bottom: 20px;
+}
+
+.Trail-modal-checkbox input {
+  margin-top: 3px;
+}
+
+/* Button */
+.Trail-modal-submit {
+  width: 100%;
+  padding: 12px;
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.Trail-modal-submit:hover {
+  background: #6d28d9;
+}
+
+/* Animation */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .Trail-modal {
+    border-radius: 12px;
+  }
+
+  .Trail-modal-title {
+    font-size: 1.2rem;
+  }
+}

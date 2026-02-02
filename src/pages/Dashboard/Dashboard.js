@@ -289,7 +289,7 @@ export default function DashboardPage() {
           data={users}
           onHelpClick={() => setShowHelp(true)}
         />
-        <main className="flex-1 overflow-y-auto p-4 bg-[#f8f9fd]">
+        <main className="flex-1 overflow-y-auto p-6 bg-[#f8f9fd]">
           <Outlet />
         </main>
         {showHelp && <Help onClose={() => setShowHelp(false)} />}

@@ -222,7 +222,7 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
                   <div key={d} className="day-label">
                     {d}
                   </div>
-                ))}  
+                ))}
                 {renderCalendar(rightMonth)}
               </div>
             </div>

@@ -21,7 +21,8 @@
 
 .products-subtitle {
   font-size: 0.9rem;
-  color: #8b8b8b;
+  color: var(--gray-200);
+  font-family: "JetBrainsMono";
 }
 
 /* ================= Dropdown ================= */
@@ -93,7 +94,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.85rem;
-  font-family: "JetBrains Mono", monospace;
+  font-family: "JetBrainsMono";
 }
 
 /* ================= Product Card ================= */
@@ -190,12 +191,9 @@
   cursor: pointer;
   background: transparent;
   transition: all 0.2s;
-}
+  font-family: "JetBrainsMono";
 
-/* .action-btn.subscribed {
-  border: 1px solid var(--purple-main);
-  color: var(--purple-main);
-} */
+}
 .action-btn.subscribed {
    font-size: 13px;      /* increase text size */
   font-weight: 600;

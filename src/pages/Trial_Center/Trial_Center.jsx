@@ -10,11 +10,14 @@ import {
 import "./Trial_Center.css";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useLocation } from "react-router-dom";
+import RunTrialModal from "./RunTrialModal";
 
 const Trial_Center = () => {
   const [filter, setFilter] = useState("All Products");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+const [selectedProduct, setSelectedProduct] = useState(null);
   const location = useLocation();
   const handleFilterSelect = (selectedFilter) => {
     setFilter(selectedFilter);
@@ -159,83 +162,81 @@ const Trial_Center = () => {
         });
 
   return (
-    <div className="products-container">
-      {/* Header */}
-      <div className="products-header">
-        <div className="products-title-group">
-          <div className="products-title-text">Trial Center</div>
-          <p className="products-subtitle">Products are available for Trial</p>
+<div className="Trail-products-container">
+  {/* Header */}
+  <div className="Trail-products-header">
+    <div className="Trail-products-title-group">
+      <div className="Trail-products-title-text">Trial Center</div>
+      <p className="Trail-products-subtitle">
+        Products are available for Trial
+      </p>
+    </div>
+  </div>
+
+  {/* Grid */}
+  <div className="Trail-products-grid">
+    {filteredProducts.map((product) => (
+      <div key={product.id} className="Trail-product-card">
+        {product.status === "Pending" && (
+          <div className="Trail-pending-label">
+            <Lock size={10} /> Pending
+          </div>
+        )}
+
+        <div>
+          <div className={`Trail-icon-container ${product.iconColor}`}>
+            {React.cloneElement(product.icon, { size: 20 })}
+          </div>
+
+          <div className="Trail-product-info">
+            <div className="Trail-product-title-text">
+              {product.title}
+            </div>
+            <p className="Trail-product-desc">{product.description}</p>
+          </div>
         </div>
 
-        {/* <div className="filter-dropdown-container">
-          <button className="filter-toggle-btn" onClick={toggleDropdown}>
-            {filter} <IoMdArrowDropdown size={24} />
-          </button>
-
-          {isDropdownOpen && (
-            <ul className="dropdown-menu">
-              <li className="dropdown-item" onClick={() => handleFilterSelect('All Products')}>
-                <span className="dot all"></span> All Products 
-              </li>
-              <li className="dropdown-item" onClick={() => handleFilterSelect('Subscribed')}>
-                <span className="dot subscribed"></span> Subscribed
-              </li>
-              <li className="dropdown-item" onClick={() => handleFilterSelect('UnSubscribed')}>
-                <span className="dot unsubscribed"></span> UnSubscribed
-              </li>
-              <li className="dropdown-item" onClick={() => handleFilterSelect('Pendding Approvals')}>
-                <span className="dot pending"></span> Pendding Approvals
-              </li>
-            </ul>
+        <div className="Trail-card-footer">
+          {product.credits !== null ? (
+            <div className="Trail-credits-info">
+              <Layers size={14} color="#8b5cf6" />
+              Available credits : {product.credits}
+            </div>
+          ) : (
+            <div
+              style={{ color: "var(--orange-300)" }}
+              className="Trail-credits-info"
+            >
+              Awaiting approval
+            </div>
           )}
-        </div> */}
+
+      <button
+  className={`Trail-action-btn ${
+    product.status === "UnSubscribed" ? "unsubscribed" : "subscribed"
+  }`}
+  onClick={() => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  }}
+>
+  {product.buttonText || product.status}
+</button>
+
+        </div>
       </div>
+    ))}
+  </div>
 
-      {/* Grid */}
-      <div className="products-grid">
-        {filteredProducts.map((product) => (
-          <div key={product.id} className="product-card">
-            {product.status === "Pending" && (
-              <div className="pending-label">
-                <Lock size={10} /> Pending
-              </div>
-            )}
+  {isModalOpen && (
+  <RunTrialModal
+    product={selectedProduct}
+    onClose={() => setIsModalOpen(false)}
+  />
+)}
 
-            <div>
-              <div className={`icon-container ${product.iconColor}`}>
-                {React.cloneElement(product.icon, { size: 20 })}{" "}
-              </div>
-              <div className="product-info">
-                <div className="product-title-text">{product.title}</div>
-                <p className="product-desc">{product.description}</p>
-              </div>
-            </div>
+</div>
 
-            <div className="card-footer">
-              {product.credits !== null ? (
-                <div className="credits-info">
-                  <Layers size={14} color="#8b5cf6" />
-                  Available credits :{product.credits}
-                </div>
-              ) : (
-                <div
-                  style={{ color: "var(--orange-300)" }}
-                  className="credits-info"
-                >
-                  Awaiting approval
-                </div>
-              )}
-
-              <button
-                className={`action-btn ${product.status === "UnSubscribed" ? "unsubscribed" : "subscribed"}`}
-              >
-                {product.buttonText || product.status}
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
   );
 };
 
