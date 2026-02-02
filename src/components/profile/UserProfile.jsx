@@ -7,13 +7,8 @@ import { HandleVerifyIPIN } from "../../common/apiCalls/CommonApiCall";
 import FlowpipeUnlockModal from "./PinVerify/IpinVerify";
 import { ChangeEmailModal, ChangePhoneModal } from "./ContactModals";
 import "./UserProfile.css";
+import Setting from "./Setting";
 
-const Settings = () => (
-  <div className="details-card">
-    <h3 className="section-title mb-4">Settings</h3>
-    <p className="user-detail">Settings options go here…</p>
-  </div>
-);
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("basic");
@@ -65,10 +60,16 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="content-section">
+      <div className="content-section-1">
         {activeTab === "basic" && <BasicDetails />}
+      </div>
+
+      <div className="content-section-2">
         {activeTab === "kyc" && <KycDetails />}
-        {activeTab === "settings" && <Settings />}
+      </div>
+
+      <div className="content-section-3">
+        {activeTab === "settings" && <Setting />}
       </div>
     </div>
   );
