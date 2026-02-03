@@ -73,7 +73,7 @@ export default function ProfilePage() {
   );
 }
 
-function Input({
+const Input = ({
   label,
   placeholder,
   value,
@@ -81,7 +81,8 @@ function Input({
   readOnly = false,
   name,
   fullWidth = false,
-}) {
+  customClass = "",
+}) => {
   return (
     <div className={`input-group ${fullWidth ? "col-span-2" : ""}`}>
       <label className="input-label">{label}</label>
@@ -91,11 +92,11 @@ function Input({
         onChange={onChange}
         placeholder={placeholder}
         readOnly={readOnly}
-        className={`input-field ${readOnly ? "readonly" : ""}`}
+        className={`input-field ${readOnly ? "readonly" : ""} ${customClass}`}
       />
     </div>
   );
-}
+};
 
 function BasicDetails() {
   const [isEditing, setIsEditing] = useState(false);
@@ -110,9 +111,9 @@ function BasicDetails() {
       addressLine1: "",
       addressLine2: "",
       cityState: "",
-      pincode: "", // Added for completeness if needed based on image
-      landmark: "", // Added for completeness
-      location: "", // Added for completeness
+      pincode: "",
+      landmark: "",
+      location: "",
       city: "",
       state: "",
     },
@@ -210,30 +211,38 @@ function BasicDetails() {
           <h3 className="section-title">Basic Details</h3>
         </div>
         <div className="details-grid">
-          <Input
-            label="First Name"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleBasicChange}
-            placeholder="First Name"
-          />
-          <Input
-            label="Last Name"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleBasicChange}
-            // readOnly={!isEditing}
-            placeholder="Last Name"
-          />
           <div className="input-group col-span-1">
-            <label className="input-label">E-mail</label>
+            <p className="input-label">First Name</p>
+            <Input
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleBasicChange}
+              placeholder="First Name"
+              readOnly={true}
+              customClass="basic-details-input"
+            />
+          </div>
+
+          <div className="input-group col-span-1">
+            <p className="input-label">Last Name</p>
+            <Input
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleBasicChange}
+              placeholder="Last Name"
+              readOnly={true}
+              customClass="basic-details-input"
+            />
+          </div>
+          <div className="input-group col-span-1">
+            <p className="input-label">E-mail</p>
             <input
               name="email"
               value={formData.email}
               onChange={handleBasicChange}
-              // readOnly={!isEditing}
-              className={`input-field ${!isEditing ? "readonly" : ""}`}
+              className={`input-field readonly basic-details-input`}
               placeholder="E-mail"
+              readOnly={true}
             />
             <button
               className="change-link-btn"
@@ -248,7 +257,7 @@ function BasicDetails() {
           </div>
 
           <div className="input-group col-span-1">
-            <label className="input-label">Phone Number</label>
+            <p className="input-label">Phone Number</p>
             <div className="phone-input-wrapper">
               <span className="phone-country">
                 <img
@@ -262,9 +271,9 @@ function BasicDetails() {
                 name="mobileNumber"
                 value={formData.mobileNumber}
                 onChange={handleBasicChange}
-                // readOnly={!isEditing}
-                className="phone-field"
+                className="phone-field basic-details-input"
                 placeholder="9854641567"
+                readOnly={true}
               />
             </div>
             <button
@@ -287,64 +296,87 @@ function BasicDetails() {
         </div>
 
         <div className="details-grid">
-          <Input
-            label="Business/Company Name"
-            name="businessName"
-            value={formData?.companyDetails?.businessName}
-            onChange={handleCompanyChange}
-            placeholder="Enter Business Name"
-            fullWidth={false}
-          />
-          <Input
-            label="Landmark"
-            name="landmark"
-            value={formData?.companyDetails?.landmark}
-            onChange={handleCompanyChange}
-            placeholder="Area colony,street ,sector"
-          />
-          <Input
-            label="Address, H-No, Apartment"
-            name="addressLine1"
-            value={formData?.companyDetails?.addressLine1}
-            onChange={handleCompanyChange}
-            placeholder="Enter Address"
-          />
-          <Input
-            label="City"
-            name="city"
-            value={formData?.companyDetails?.city}
-            onChange={handleCompanyChange}
-            placeholder="Enter City"
-          />
-          <Input
-            label="Pincode"
-            name="pincode"
-            value={formData?.companyDetails?.pincode}
-            onChange={handleCompanyChange}
-            placeholder="Enter Pincode"
-          />
-          <Input
-            label="State"
-            name="state"
-            value={formData?.companyDetails?.state}
-            onChange={handleCompanyChange}
-            // readOnly={!isEditing}
-            placeholder="Enter State"
-          />
-          <div className="col-span-2">
+          <div className="input-group col-span-1">
+            <p className="input-label">Business/Company Name</p>
             <Input
-              label="Location"
+              name="businessName"
+              value={formData?.companyDetails?.businessName}
+              onChange={handleCompanyChange}
+              placeholder="Enter Business Name"
+              fullWidth={false}
+              customClass="company-details-input"
+            />
+          </div>
+
+          <div className="input-group col-span-1">
+            <p className="input-label">Landmark</p>
+            <Input
+              name="landmark"
+              value={formData?.companyDetails?.landmark}
+              onChange={handleCompanyChange}
+              placeholder="Area colony,street ,sector"
+              customClass="company-details-input"
+            />
+          </div>
+
+          <div className="input-group col-span-1">
+            <p className="input-label">Address, H-No, Apartment</p>
+            <Input
+              name="addressLine1"
+              value={formData?.companyDetails?.addressLine1}
+              onChange={handleCompanyChange}
+              placeholder="Enter Address"
+              customClass="company-details-input"
+            />
+          </div>
+
+          <div className="input-group col-span-1">
+            <p className="input-label">City</p>
+            <Input
+              name="city"
+              value={formData?.companyDetails?.city}
+              onChange={handleCompanyChange}
+              placeholder="Enter City"
+              customClass="company-details-input"
+            />
+          </div>
+
+          <div className="input-group col-span-1">
+            <p className="input-label">Pincode</p>
+            <Input
+              name="pincode"
+              value={formData?.companyDetails?.pincode}
+              onChange={handleCompanyChange}
+              placeholder="Enter Pincode"
+              customClass="company-details-input"
+            />
+          </div>
+          <div className="input-group col-span-1">
+            <p className="input-label">State</p>
+            <Input
+              name="state"
+              value={formData?.companyDetails?.state}
+              onChange={handleCompanyChange}
+              placeholder="Enter State"
+              customClass="company-details-input"
+            />
+          </div>
+
+          <div className="col-span-1">
+            <p className="input-label">Location</p>
+            <Input
               name="location"
               value={formData?.companyDetails?.location}
               onChange={handleCompanyChange}
               placeholder="Area/region"
+              customClass="company-details-input"
             />
           </div>
         </div>
       </div>
       {/* Action Buttons */}
       <div className="action-buttons">
-        <button className="btn-cancel" onClick={handleEditToggle}>
+        <button className="btn-cancel-basic" onClick={handleEditToggle}>
           {isEditing ? "Cancel" : "Cancel"}
         </button>
         <button
