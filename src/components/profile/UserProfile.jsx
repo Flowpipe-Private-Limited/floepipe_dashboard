@@ -9,7 +9,6 @@ import { ChangeEmailModal, ChangePhoneModal } from "./ContactModals";
 import "./UserProfile.css";
 import Setting from "./Setting";
 
-
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("basic");
   const { users, IskycApproved, kycCompleted, updateUsers } = useUserStore();
@@ -34,7 +33,6 @@ export default function ProfilePage() {
           alt="User Profile"
           className="profile-image"
         />
-
         <div className="profile-info">
           <h3 className="user-name">
             {toTitleCase(users?.name || "Guest User")}{" "}
