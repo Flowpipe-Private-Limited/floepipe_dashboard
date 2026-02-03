@@ -11,7 +11,7 @@
 
 /* Modal */
 .Trail-modal {
-  background: #ffffff;
+  background:var(--white);
   width: 95%;
   max-width: 520px;
   border-radius: 14px;
@@ -47,7 +47,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #7c3aed;
+  color: var(--purple-main);
 }
 
 /* Body */
@@ -57,7 +57,7 @@
 
 .Trail-modal-desc {
   font-size: 0.9rem;
-  color: #6b7280;
+  color: var(--black-100);
   margin-bottom: 16px;
 }
 
@@ -72,7 +72,7 @@
   width: 100%;
   padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-300);
   margin-bottom: 16px;
   font-size: 0.9rem;
   color: var(--black-100);
@@ -80,7 +80,7 @@
 
 .Trail-modal-input:focus {
   outline: none;
-  border-color: #7c3aed;
+  border-color: var(--purple-main);
 }
 
 /* Checkbox */
@@ -101,8 +101,8 @@
 .Trail-modal-submit {
   width: 100%;
   padding: 12px;
-  background: #7c3aed;
-  color: #fff;
+  background: var(--purple-main);
+  color: var(--white);
   border: none;
   border-radius: 10px;
   font-size: 0.95rem;

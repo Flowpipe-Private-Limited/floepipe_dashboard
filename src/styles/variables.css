@@ -7,9 +7,9 @@
   --black-600:#0000004D;
   --black-700:#000000CC;
   --black-800:#0000000D;
-  --black-900:#00000099;
   --black-1000:#5C5C5C1A;
   --black-1100:#00000033;
+  --black-1200:#6B7280;
 
   /* white */
   --white:#ffffff;
@@ -28,6 +28,9 @@
   --purple-700:#EFE7FE;
   --purple-800:#7C3AED33;
   --purple-900:#DDD8E8;
+  --purple-1000:#F2ECFE;
+  --purple-1100:#7E48FF1A;
+  --purple-1200:#7C3AED99;
 
   /* gray */
   --gray-100:#6A7282;
@@ -38,6 +41,7 @@
   --gray-600:#ECECF0;
   --gray-700:#E2E8F0;
   --gray-800:#CAD5E2;
+  --gray-900:#AAAAAA;
 
   /* Green */
   --green-100:#00C950;
@@ -52,6 +56,7 @@
   --orange-200:#E17100;
   --orange-300:#A16207;
   --orange-400:#FDB988;
+  --orange-500:#E28725;
 
   /* red */
   --red-100:#FC413D;

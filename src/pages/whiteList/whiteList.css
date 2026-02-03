@@ -27,7 +27,7 @@
 .ip-input {
   width: 100%;
   border-radius: 0.375rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-300);
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   outline: none;
@@ -98,7 +98,7 @@
 
 .whitelist-table td {
   padding: 1rem 1rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--gray-300);
   color: #374151;
 }
 
@@ -113,7 +113,7 @@
 
 .status-btn.active {
   background-color: #dcfce7;
-  color: #15803d;
+  color: var(--green-400);
   border: 1px solid #86efac;
 }
 
@@ -134,7 +134,7 @@
 .empty-message {
   padding: 1.5rem 0;
   text-align: center;
-  color: #6b7280;
+  color: var(--black-100);
 }
 
 @media (min-width: 768px) {

@@ -162,7 +162,7 @@
 .chart-subtitle {
   font-size: 24px;
   font-weight: 600;
-  color: var(--black-900);
+  color: var(--black-100);
   text-align: end;
   font-family: "JetBrainsMono";
 }

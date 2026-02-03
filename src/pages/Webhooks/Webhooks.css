@@ -423,7 +423,7 @@ input:checked + .slider:before {
   border: none;
 }
 
-.btn-cancel {
+.btn-cancel-webhook {
   padding: 10px 22px;
   border-radius: 10px;
   border: 1px solid var(--purple-main);

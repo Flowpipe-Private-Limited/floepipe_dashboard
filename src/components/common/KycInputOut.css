@@ -1,7 +1,7 @@
 .kyc-input-container {
   width: 100%;
   margin-bottom: 2.5rem;
-  background-color: #f9fafb;
+  background-color: var(--white-100);
 }
 
 .kyc-grid-container {
@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #fff;
+  background:var(--white);
   padding: 8px 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -53,7 +53,7 @@
 
 .kyc-title-card {
   background-color: var(--white);
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-300);
   border-radius: 0.75rem;
   box-shadow:
     0 1px 3px 0 rgba(0, 0, 0, 0.1),
@@ -61,7 +61,7 @@
   padding: 0.7rem 1.5rem;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--black);
   letter-spacing: 0.025em;
 }
 
@@ -89,7 +89,7 @@
   font-family: "JetBrainsMono";
   font-weight: 600;
   font-size: 1.125rem;
-  color: #111827;
+  color: var(--black);
   margin-bottom: 1rem;
 }
 
@@ -116,11 +116,11 @@
 .kyc-input-field {
   width: 100%;
   padding: 0.5rem;
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background-color: var(--white-100);
+  border: 1px solid var(--gray-300);
   border-radius: 0.5rem;
   font-size: 0.875rem;
-  color: #111827;
+  color: var(--black);
   transition: all 0.2s;
   outline: none;
 }
@@ -148,11 +148,11 @@
 }
 
 .kyc-submit-button:hover {
-  background-color: #7c3aed;
+  background-color: var(--purple-main);
 }
 
 .kyc-error-msg {
-  color: #ef4444;
+  color: var(--red-200);
   font-size: 0.75rem;
   margin-top: 0.25rem;
 }
@@ -160,7 +160,7 @@
 .kyc-alert-box {
   margin-top: 1.5rem;
   padding: 1rem;
-  background-color: #fef2f2;
+  background-color: var(--red-300);
   border: 1px solid #fee2e2;
   border-radius: 0.5rem;
   display: flex;
@@ -177,7 +177,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #ef4444;
+  color: var(--red-200);
 }
 
 .kyc-right-section {
@@ -200,16 +200,16 @@
 }
 
 .kyc-method-label.post {
-  color: #ef4444;
+  color: var(--red-200);
 }
 
 .kyc-method-label.get {
-  color: #22c55e;
+  color: var(--green-400);
 }
 
 .kyc-url-select {
   flex: 1;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-300);
   border-radius: 0.375rem;
   padding: 0.375rem 0.75rem;
   font-size: 0.8rem;
@@ -270,12 +270,12 @@
 }
 
 .kyc-copy-btn-outline:hover {
-  background-color: #f9fafb;
+  background-color: var(--white-100);
   border-color: #d1d5db;
 }
 
 .kyc-code-block {
-  background-color: #f9fafb;
+  background-color: var(--white-100);
   border-radius: 0.5rem;
   overflow: hidden;
   font-size: 0.875rem;
@@ -290,7 +290,7 @@
 }
 
 .kyc-light-code-theme {
-  background-color: #f9fafb !important;
+  background-color: var(--white-100) !important;
   padding: 1rem;
   border-radius: 0.5rem;
   color: #374151;
@@ -703,7 +703,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-300);
   border-radius: 0.375rem;
   padding: 0.375rem 0.75rem;
   font-size: 0.8rem;
@@ -733,7 +733,7 @@
   left: 0;
   right: 0;
   background: var(--white);
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-300);
   border-radius: 0.5rem;
   margin-top: 4px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -758,7 +758,7 @@
 }
 
 .kyc-option:hover {
-  background-color: #f9fafb;
+  background-color: var(--white-100);
 }
 
 /* Icons for Options */
@@ -766,7 +766,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: white;
+  background: var(--white);
   border: 1px solid #22c55e;
   padding: 2px;
   display: flex;
@@ -779,7 +779,7 @@
   height: 100%;
   background: #22c55e;
   border-radius: 50%;
-  color: white;
+  color: var(--white);
   font-size: 5px;
   display: flex;
   justify-content: center;
@@ -792,7 +792,7 @@
   width: 50px;
   height: 28px;
   border-radius: 50%;
-  background: white;
+  background: var(--white);
   padding: 2px;
   display: flex;
   justify-content: center;

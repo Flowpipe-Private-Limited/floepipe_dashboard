@@ -4,7 +4,7 @@
   border-radius: 7px;
   background: var(--purple-main);
   border: none;
-  color: #fff;
+  color: var(--white);
   font-size: 0.95rem;
   cursor: pointer;
 }

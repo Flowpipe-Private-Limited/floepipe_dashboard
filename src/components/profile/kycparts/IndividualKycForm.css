@@ -26,7 +26,7 @@
 
 .kyc-subtitle {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--black-100);
   margin-bottom: 16px;
 }
 
@@ -80,7 +80,7 @@
 .step-line {
   flex: 1;
   height: 2px;
-  background: #e5e7eb;
+  background: var(--gray-300);
   margin: 0 8px;
 }
 
@@ -99,7 +99,7 @@
   width: 100%;
   padding: 10px 12px;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-300);
   margin-bottom: 14px;
   font-size: 14px;
 }
@@ -133,11 +133,3 @@
   cursor: pointer;
 }
 
-.btn-primary {
-  padding: 10px 26px;
-  border-radius: 10px;
-  border: none;
-  background: #7c4ce4;
-  color: white;
-  cursor: pointer;
-}

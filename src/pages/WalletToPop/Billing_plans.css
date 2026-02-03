@@ -1,7 +1,7 @@
 .BillingPlans_page {
   background-color: #f9faff;
   min-height: 100vh;
-  color: #111827;
+  color: var(--black);
 }
 
 .BillingPlans_wrapper {
@@ -50,7 +50,7 @@
   padding: 6px 15px;
   font-size: 13px;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--black-100);
   cursor: pointer;
   border-radius: 6px;
   display: flex;
@@ -60,7 +60,7 @@
 
 .BillingPlans_mode-btn.active {
   background: var(--white);
-  color: #111827;
+  color: var(--black);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
@@ -73,7 +73,7 @@
 }
 
 .BillingPlans_stat-card {
-  background: white;
+  background: var(--white);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -94,7 +94,7 @@
 
 .BillingPlans_stat-icon {
   font-size: 16px;
-  color: #7c3aed;
+  color: var(--purple-main);
   line-height: 1;
 }
 
@@ -146,7 +146,7 @@
 
 .BillingPlans_badge.purple-solid {
   background: var(--purple-main);
-  color: white;
+  color: var(--white);
   padding: 4px 12px;
   border-radius: 6px;
   font-family: "Figtree-Light";
@@ -154,14 +154,14 @@
 
 .BillingPlans_progress-bar {
   height: 6px;
-  background: #e5e7eb;
+  background: var(--gray-300);
   border-radius: 3px;
   margin-top: 12px;
   overflow: hidden;
 }
 
 .BillingPlans_progress-fill {
-  background: #7c3aed;
+  background: var(--purple-main);
   height: 100%;
   border-radius: 3px;
 }
@@ -206,7 +206,7 @@
 
 /* Transactions Table */
 .BillingPlans_transactions-section {
-  background: white;
+  background: var(--white);
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -233,8 +233,8 @@
 }
 
 .BillingPlans_dropdown-trigger {
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--white);
+  border: 1px solid var(--gray-300);
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
@@ -243,7 +243,7 @@
   align-items: center;
   width: 100%;
   font-size: 14px;
-  color: #111827;
+  color: var(--black);
   font-weight: 500;
 }
 
@@ -256,7 +256,7 @@
   position: absolute;
   top: 110%;
   right: 0;
-  background: white;
+  background: var(--white);
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 1px solid #f3f4f6;
@@ -268,14 +268,14 @@
 .BillingPlans_dropdown-item {
   padding: 10px 16px;
   font-size: 14px;
-  color: #4b5563;
+  color: var(--gray-400);
   cursor: pointer;
   transition: background 0.1s;
 }
 
 .BillingPlans_dropdown-item:hover {
-  background: #f9fafb;
-  color: #111827;
+  background: var(--white-100);
+  color: var(--black);
 }
 
 /* Table */
@@ -323,7 +323,7 @@
   border-radius: 20px;
   font-size: 13px;
   font-weight: 500;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-300);
   color: var(--black);
 }
 
@@ -336,7 +336,7 @@
 }
 
 .BillingPlans_status-pill.completed {
-  background: white;
+  background: var(--white);
   border: 1px solid var(--green-500);
   color: var(--green-500);
 }
@@ -345,7 +345,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #6b7280;
+  color: var(--black-100);
   font-size: 16px;
 }
 
@@ -357,7 +357,7 @@
 }
 
 .BillingPlans_sidebar-card {
-  background: white;
+  background: var(--white);
   border-radius: 16px;
   padding: 10px 24px 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -456,7 +456,7 @@
 .BillingPlans_timeline-date {
   margin: 0;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--black-100);
 }
 
 /* Switches */
@@ -499,7 +499,7 @@
 }
 
 input:checked + .BillingPlans_slider {
-  background-color: #7c3aed;
+  background-color:var(--purple-main);
 }
 
 input:checked + .BillingPlans_slider:before {
@@ -523,13 +523,13 @@ input:checked + .BillingPlans_slider:before {
 .BillingPlans_input-wrapper {
   display: flex;
   align-items: center;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-300);
   border-radius: 8px;
   padding: 6px 6px 6px 12px;
 }
 
 .BillingPlans_currency-symbol {
-  color: #6b7280;
+  color: var(--black-100);
   font-size: 14px;
   margin-right: 8px;
 }
@@ -547,8 +547,8 @@ input:checked + .BillingPlans_slider:before {
 }
 
 .BillingPlans_pay-small-btn {
-  background: #7c3aed;
-  color: white;
+  background: var(--purple-main);
+  color: var(--white);
   border: none;
   padding: 6px 16px;
   border-radius: 6px;
@@ -564,8 +564,8 @@ input:checked + .BillingPlans_slider:before {
 
 .BillingPlans_quick-amounts button {
   flex: 1;
-  background: #7c3aed;
-  color: white;
+  background: var(--purple-main);
+  color: var(--white);
   border: none;
   padding: 6px;
   border-radius: 6px;
@@ -603,7 +603,7 @@ input:checked + .BillingPlans_slider:before {
   width: 16px;
   height: 16px;
   border-radius: 4px;
-  accent-color: #7c3aed;
+  accent-color: var(--purple-main);
 }
 
 /* Warning Banner */
@@ -653,7 +653,7 @@ input:checked + .BillingPlans_slider:before {
 .BillingPlans_slider-container {
   width: 580px;
   height: 100%;
-  background: white;
+  background: var(--white);
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
   animation: slideIn 0.3s ease-out;
   display: flex;

@@ -3,7 +3,7 @@
   min-height: 100vh;
 }
 .filter-card {
-  background: white;
+  background: var(--white);
   padding: 1.5rem;
   border-radius: 0.8rem;
   margin-bottom: 1.5rem;
@@ -51,12 +51,12 @@
 }
 .custom-select-trigger,
 .input-trigger {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--gray-300);
   border-radius: 0.4rem;
   padding: 0.6rem 0.8rem;
   font-size: 0.8rem;
   color: var(--black);
-  background: white;
+  background: var(--white);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -64,7 +64,7 @@
   width: 100%;
 }
 .input-trigger {
-  color: #6b7280;
+  color: var(--black-100);
 }
 .input-trigger.has-value {
   color: #111;
@@ -79,8 +79,8 @@
   top: 100%;
   left: 0;
   width: 100%;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--white);
+  border: 1px solid var(--gray-300);
   border-radius: 0.4rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   z-index: 20;
@@ -91,7 +91,7 @@
 .select-option {
   padding: 0.3rem 0.8rem;
   font-size: 0.9rem;
-  color: #4b5563;
+  color: var(--gray-400);
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -150,7 +150,7 @@
 
 .run-report-btn {
   background-color: var(--purple-main);
-  color: white;
+  color: var(--white);
   padding: 0.5rem 2rem;
   border-radius: 0.4rem;
   border: none;
@@ -166,7 +166,7 @@
 }
 
 .result-section {
-  background: white;
+  background: var(--white);
   padding: 1.5rem;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -185,7 +185,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  color: #6b7280;
+  color: var(--black-100);
   gap: 0.5rem;
   text-align: center;
   margin-top: 1rem;
@@ -205,7 +205,7 @@
 }
 
 .date-picker-modal {
-  background: white;
+  background: var(--white);
   border-radius: 0.75rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -233,7 +233,7 @@
   border: none;
   cursor: pointer;
   font-size: 0.9rem;
-  color: #4b5563;
+  color: var(--gray-400);
   border-radius: 0.4rem;
 }
 
@@ -301,7 +301,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #6b7280;
+  color: var(--black-100);
   padding: 0.2rem;
 }
 
@@ -349,7 +349,7 @@
 
 .day-cell.selected {
   background-color: var(--purple-main);
-  color: white;
+  color: var(--white);
 }
 
 .day-cell.in-range {
@@ -363,14 +363,14 @@
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
   background-color: var(--purple-main);
-  color: white;
+  color: var(--white);
 }
 
 .day-cell.range-end {
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
   background-color: var(--purple-main);
-  color: white;
+  color: var(--white);
 }
 
 /* Modal Footer */
@@ -400,7 +400,7 @@
 
 .modal-btn.confirm {
   background: var(--purple-main);
-  color: white;
+  color: var(--white);
   border: none;
 }
 @media (max-width: 1023px) {

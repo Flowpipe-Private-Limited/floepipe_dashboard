@@ -259,7 +259,7 @@ const Webhooks = () => {
 
             <div className="modal-footer">
               <button
-                className="btn-cancel"
+                className="btn-cancel-webhook"
                 onClick={() => setIsModalOpen(false)}
               >
                 Cancel

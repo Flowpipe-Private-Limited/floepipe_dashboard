@@ -136,6 +136,24 @@ const MainContent = () => {
       amount: "₹ 800",
       spent: "₹ 8000",
     },
+      {
+      title: "Pan Lite",
+      period: "Last 7 days",
+      amount: "₹ 800",
+      spent: "₹ 8000",
+    },
+      {
+      title: "Pan Lite",
+      period: "Last 7 days",
+      amount: "₹ 800",
+      spent: "₹ 8000",
+    },
+      {
+      title: "Pan Lite",
+      period: "Last 7 days",
+      amount: "₹ 800",
+      spent: "₹ 8000",
+    },
   ];
 
   const transactionStats = [
@@ -337,8 +355,7 @@ const MainContent = () => {
         </div>
 
         <div className="quick-action-rightsection">
-          <div className="recent-activity-card">
-            {/* Header */}
+          {/* <div className="recent-activity-card">
             <div className="recent-activity-header">
               <h3 className="recent-activity-title">Recent Activity</h3>
               <img
@@ -376,7 +393,6 @@ const MainContent = () => {
                 <span className="activity-time">5h ago</span>
               </div>
 
-              {/* Item 3 */}
               <div className="recent-activity-item">
                 <div className="activity-icon info">
                   <FiCreditCard />
@@ -392,7 +408,100 @@ const MainContent = () => {
                 <span className="activity-time">1d ago</span>
               </div>
             </div>
-          </div>
+          </div> */}
+          <div className="quick-action-rightsection">
+  <div className="recent-activity-card">
+    {/* Header */}
+    <div className="recent-activity-header">
+      <h3 className="recent-activity-title">Recent Activity</h3>
+      <img
+        className="recent-activity-bell"
+        src={Images.bellicon}
+        alt="notifications"
+      />
+    </div>
+    <div className="recent-activity-list">
+      <div className="recent-activity-item">
+        <div className="activity-icon warning">
+          <FiAlertTriangle />
+        </div>
+        <div className="activity-content">
+          <p className="activity-title">API call spike detected</p>
+          <p className="activity-subtitle">
+            Weather API exceeded 80% of quota
+          </p>
+        </div>
+        <span className="activity-time">8h ago</span>
+      </div>
+      
+      <div className="recent-activity-item">
+        <div className="activity-icon success">
+          <LuKey />
+        </div>
+        <div className="activity-content">
+          <p className="activity-title">New API key created</p>
+          <p className="activity-subtitle">
+            Production key for Payment API
+          </p>
+        </div>
+        <span className="activity-time">5h ago</span>
+      </div>
+
+      <div className="recent-activity-item">
+        <div className="activity-icon info">
+          <FiCreditCard />
+        </div>
+        <div className="activity-content">
+          <p className="activity-title">Invoice generated</p>
+          <p className="activity-subtitle">
+            December billing cycle: $127.50
+          </p>
+        </div>
+        <span className="activity-time">1d ago</span>
+      </div>
+      
+      {/* Add more items to test scroll */}
+      <div className="recent-activity-item">
+        <div className="activity-icon warning">
+          <FiAlertTriangle />
+        </div>
+        <div className="activity-content">
+          <p className="activity-title">Service maintenance</p>
+          <p className="activity-subtitle">
+            Scheduled maintenance for Database API
+          </p>
+        </div>
+        <span className="activity-time">2d ago</span>
+      </div>
+      
+      <div className="recent-activity-item">
+        <div className="activity-icon success">
+          <LuKey />
+        </div>
+        <div className="activity-content">
+          <p className="activity-title">New subscription</p>
+          <p className="activity-subtitle">
+            User subscribed to Email Verification API
+          </p>
+        </div>
+        <span className="activity-time">3d ago</span>
+      </div>
+      
+      <div className="recent-activity-item">
+        <div className="activity-icon info">
+          <FiCreditCard />
+        </div>
+        <div className="activity-content">
+          <p className="activity-title">Payment received</p>
+          <p className="activity-subtitle">
+            Payment of $49.99 received from user #12345
+          </p>
+        </div>
+        <span className="activity-time">4d ago</span>
+      </div>
+    </div>
+  </div>
+</div>
         </div>
       </div>
       <div className="dashboard-detailed-section">

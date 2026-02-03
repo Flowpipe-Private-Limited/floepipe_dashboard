@@ -37,8 +37,7 @@ import testapi from '../assets/images/testapi.png';
 import copyicon from '../assets/images/copyicon.png';
 import trailimg from '../assets/images/trailimg.webp';
 import LIVEAnimation from "../assets/images/LIVEAnimation.json";
-
-
+import kyccomplete from '../assets/images/kyccomplete.webp';
 
 const images = {
   FlowLoginImage,
@@ -79,6 +78,7 @@ const images = {
   copyicon,
   trailimg,
   LIVEAnimation,
+  kyccomplete
 };
 
 export default images;

@@ -96,7 +96,7 @@
 
 /* ✅ Correct OTP border (Green glow + blur) */
 .otp-input-box.correct-border {
-  border-color: #ccff00 !important;
+  border-color: var(--sweetyellow) !important;
 
   box-shadow:
     0 0 8px rgba(204, 255, 0, 0.2),
