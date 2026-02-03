@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { X } from "lucide-react";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 export const ChangeEmailModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
@@ -9,14 +9,14 @@ export const ChangeEmailModal = ({ isOpen, onClose }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-container">
-        <div className="modal-header">
+        <div className="modal-header-change-email">
           <h2 className="modal-title">Email</h2>
           <button className="close-btn" onClick={onClose}>
-            <X size={20} />
+            <IoCloseCircleOutline size={24} />
           </button>
         </div>
-        <div className="modal-body">
-          <label className="modal-label">E-mail</label>
+        <div className="modal-body-change-email">
+          <p className="modal-label">E-mail</p>
           <input
             type="email"
             className="modal-input"
@@ -39,14 +39,14 @@ export const ChangePhoneModal = ({ isOpen, onClose }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-container">
-        <div className="modal-header">
+        <div className="modal-header-change-email">
           <h2 className="modal-title">Add PHONE NUMBER</h2>
           <button className="close-btn" onClick={onClose}>
-            <X size={20} />
+            <IoCloseCircleOutline size={24} />
           </button>
         </div>
-        <div className="modal-body">
-          <label className="modal-label">Phone Number</label>
+        <div className="modal-body-change-email">
+          <p className="modal-label">Phone Number</p>
           <div className="phone-input-group">
             <div className="country-code">
               <img
@@ -54,14 +54,21 @@ export const ChangePhoneModal = ({ isOpen, onClose }) => {
                 alt="India"
                 className="flag-icon"
               />
-              <span>+91</span>
+              <span style={{ color: "black" }}>+91</span>
             </div>
             <input
               type="text"
-              className="modal-input phone-input"
+              className="modal-input-phone-input"
               placeholder="Enter New Number"
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              maxLength={10}
+              onChange={(e) => {
+                const value = e.target.value;
+                // Only set state if it's a number or empty
+                if (/^\d*$/.test(value)) {
+                  setPhoneNumber(value);
+                }
+              }}
             />
           </div>
           <button className="send-otp-btn">Send OTP</button>

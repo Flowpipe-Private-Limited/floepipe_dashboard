@@ -75,7 +75,7 @@ const CompanyKycForm = () => {
     <div>
       {/* Header */}
       <header className={styles.formHeader}>
-        <h2>Company KYC</h2>
+        <h2 className="company-kyc">Company KYC</h2>
         <button
           onClick={() => setIsEditing((p) => !p)}
           className={styles.editButton}
