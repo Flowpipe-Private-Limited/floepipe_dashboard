@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { LogOut, Info } from "lucide-react";
 import KycDetails from "./kycSection";
 import { useUserStore } from "../../Store/userStore";
@@ -8,14 +9,24 @@ import FlowpipeUnlockModal from "./PinVerify/IpinVerify";
 import { ChangeEmailModal, ChangePhoneModal } from "./ContactModals";
 import "./UserProfile.css";
 import Setting from "./Setting";
+import Logout from "../Logout/Logout";
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("basic");
   const { users, IskycApproved, kycCompleted, updateUsers } = useUserStore();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [showLogout, setShowLogout] = useState(false);
+
+  useEffect(() => {
+    if (location.state?.activeTab) {
+      setActiveTab(location.state.activeTab);
+    }
+  }, [location.state]);
   console.log("user Data", users);
 
   const handleLogout = () => {
-    console.log("User logged out");
+    setShowLogout(true);
   };
 
   return (
@@ -69,6 +80,15 @@ export default function ProfilePage() {
       <div className="content-section-3">
         {activeTab === "settings" && <Setting />}
       </div>
+      <Logout
+        isOpen={showLogout}
+        onClose={() => setShowLogout(false)}
+        onConfirm={() => {
+          setShowLogout(false);
+          // Add any additional logout logic here (clearing tokens etc)
+          navigate("/login");
+        }}
+      />
     </div>
   );
 }

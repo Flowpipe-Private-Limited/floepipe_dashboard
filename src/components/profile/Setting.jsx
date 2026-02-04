@@ -1,18 +1,17 @@
-
 import { useState } from "react";
 import "./Setting.css";
 
 export default function Setting() {
   const [formData, setFormData] = useState({
     newPassword: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
