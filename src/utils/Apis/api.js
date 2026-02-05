@@ -77,7 +77,9 @@ RechargeApiClient.interceptors.request.use(
 const Register = (data) => supperApiClient.post('client/register', data)
 const SendOTP = (data) => supperApiClient.post('client/login/send-otp', data);
 const VerifyOTP = (data) => supperApiClient.post('client/login/verify-otp', data);
-const HandleGetUser = () => supperApiClient.get('/client/get-user-details');
+const HandleGetUser = (clientId) => supperApiClient.get('/client/get-user-details',{
+  params:{clientId}
+});
 const UpdatedUserDetails = (data) => supperApiClient.post('merchant/update/merchantdetails', data);
 const ClientService = (ClientId)=> supperApiClient.get(`/apimodule/services?clientId=${ClientId}`)
 const SubscribeService = (payload) =>supperApiClient.post('/apimodule/subscribe-service', payload);
@@ -88,14 +90,11 @@ const ApiVerification = (isMicro, URLS, data) => {
   console.log(isMicro, URLS, data)
   switch (isMicro) {
     case 'KYC':
-      kycApiClient.post(URLS, data)
-      return;
+      return kycApiClient.post(URLS, data);
     case 'RECHARGE':
-      RechargeApiClient.post(URLS, data)
-      return;
+      return RechargeApiClient.post(URLS, data);
     case 'BBPS':
-      bbpsApiClient.post(URLS, data)
-      return;
+      return bbpsApiClient.post(URLS, data);
   }
 };
 const fetchPublickey = () => kycApiClient.get(`ApiModuels/key/Publickey`);

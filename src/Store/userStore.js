@@ -15,13 +15,15 @@ export const useUserStore = create((set, get) => ({
     error: null,
     fetchUsers: async (force = false) => {
         const { users } = get();
+        const clientId = localStorage.getItem('clientId')
+        console.log(clientId)
 
         if (!force && users.length > 0) return;
 
         set({ loading: true, error: null });
 
         await ApirequestHandler(
-            async () => HandleGetUser(),
+            async () => HandleGetUser(clientId),
             null,
             (res) => {
                 console.log(res)

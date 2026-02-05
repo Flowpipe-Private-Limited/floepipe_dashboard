@@ -405,6 +405,8 @@ const KycReuseComponet = ({ data }) => {
                 padding: "1rem",
                 borderRadius: "0.5rem",
                 fontSize: "0.875rem",
+                wordBreak: 'break-all',
+                whiteSpace: 'pre-wrap'
               }}
               wrapLongLines={true}
             >
