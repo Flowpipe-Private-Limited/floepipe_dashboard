@@ -29,7 +29,7 @@ const API_Usage = () => {
 
   return (
     <div className="api-usage-container">
-      <Eachpage_header headertitle={"API Usage"} />
+      <Eachpage_header headertitle={"API Summary"} />
       {/* <div className="tabs-container">
         {['API Logs', 'API Transactions', 'Product Transaction'].map(tab => (
           <button
@@ -42,7 +42,7 @@ const API_Usage = () => {
         ))}
       </div> */}
 
-      <div className="tabs-container">
+      {/* <div className="tabs-container">
         {["API Logs", "API Transactions", "Product Transaction"].map((tab) => {
           const isActive = activeTab === tab;
 
@@ -58,7 +58,7 @@ const API_Usage = () => {
             </button>
           );
         })}
-      </div>
+      </div> */}
 
       <div className="tab-content-area">{renderContent()}</div>
     </div>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./APILogs.css";
-import { X, Calendar } from "lucide-react";
+import { X, Calendar, ChevronDown, ChevronUp } from "lucide-react";
 import DateRangePicker from "../../../components/ui/Calender/DateRangePicker";
 import { LuTestTube } from "react-icons/lu";
 import { BsLightningCharge } from "react-icons/bs";
-import Images from "../../../Images/Images"
+import Images from "../../../Images/Images";
 
 const APILogs = () => {
   const [showRequestModal, setShowRequestModal] = useState(false);
@@ -13,47 +13,161 @@ const APILogs = () => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-  const [selectedDuration, setSelectedDuration] = useState("Select Duration");
   const [activeDateField, setActiveDateField] = useState(null);
+  const [expandedRows, setExpandedRows] = useState({});
 
-  const handleDateApply = (startDate, endDate) => {
-    // Format the dates as needed
-    const formattedRange = `${startDate.format("DD/MM/YYYY")} - ${endDate.format("DD/MM/YYYY")}`;
-    setSelectedDuration(formattedRange);
-    setIsDatePickerOpen(false);
+  // Sample API logs data - set to empty array [] to show empty state
+  const [apiLogsData] = useState([
+    {
+      id: 1,
+      clientId: "Rakesh Pamula",
+      serviceId: "id : 23456789",
+      serviceName: "Aadhaar Card",
+      count: 10,
+      chargedAmount: "₹5,000",
+      records: [
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 10, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 9, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 8, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 7, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 6, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 5, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 4, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 3, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 2, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 1, chargedAmount: "₹5,000" },
 
-    // You can also access the moment objects directly
-    console.log("Start Date:", startDate.format("YYYY-MM-DD"));
-    console.log("End Date:", endDate.format("YYYY-MM-DD"));
+
+      ]
+    },
+    {
+      id: 2,
+      clientId: "Rakesh Pamula",
+      serviceId: "id : 23456789",
+      serviceName: "Aadhaar Card",
+      count: 10,
+      chargedAmount: "₹5,000",
+      records: [
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 10, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 9, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 8, chargedAmount: "₹5,000" },
+      ]
+    },
+    {
+      id: 3,
+      clientId: "Rakesh Pamula",
+      serviceId: "id : 23456789",
+      serviceName: "Aadhaar Card",
+      count: 9,
+      chargedAmount: "₹5,000",
+      records: [
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 9, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 8, chargedAmount: "₹5,000" },
+      ]
+    },
+    {
+      id: 4,
+      clientId: "Rakesh Pamula",
+      serviceId: "id : 23456789",
+      serviceName: "Aadhaar Card",
+      count: 8,
+      chargedAmount: "₹5,000",
+      records: [
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 8, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 7, chargedAmount: "₹5,000" },
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 6, chargedAmount: "₹5,000" },
+      ]
+    },
+    {
+      id: 5,
+      clientId: "Rakesh Pamula",
+      serviceId: "id : 23456789",
+      serviceName: "Aadhaar Card",
+      count: 7,
+      chargedAmount: "₹5,000",
+      records: [
+        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 7, chargedAmount: "₹5,000" },
+      ]
+    },
+  ]);
+
+  const toggleRow = (rowId) => {
+    setExpandedRows((prev) => ({
+      ...prev,
+      [rowId]: !prev[rowId],
+    }));
   };
 
   return (
     <>
       <div className="api-logs-container">
-        <div className="logs-header">
-          <h2 className="secondary-title">API Logs</h2>
-          <div className="logs-actions">
-            <button
-              className="log-btn primary"
-              onClick={() => setShowRequestModal(true)}
-            >
-              Request Logs
-            </button>
-
-            <button
-              className="log-btn secondary"
-              onClick={() => setShowRequestedModal(true)}
-            >
-              Requested Logs
-            </button>
-          </div>
-        </div>
-
         <div className="logs-content">
-          <div className="empty-state-illustration">
-            {/* existing empty illustration */}
-            <img className="reportsempty-img" src={Images.reportsempty}/>
-          </div>
+          {apiLogsData.length === 0 ? (
+            <div className="empty-state-illustration">
+              <img className="reportsempty-img" src={Images.reportsempty} alt="No data" />
+            </div>
+          ) : (
+            <div className="api-logs-table-wrapper">
+              <table className="api-logs-table">
+                <thead colSpan="6">
+                  <tr colSpan="6">
+                    <th>Client ID</th>
+                    <th>Service ID</th>
+                    <th>Service Name</th>
+                    <th>Count</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {apiLogsData.map((log) => (
+                    <React.Fragment key={log.id}>
+                      <tr colSpan="6"
+                        className={
+                          expandedRows[log.id] ? "expanded-row" : ""
+                        }
+                      >
+                        <td>{log.clientId}</td>
+                        <td>{log.serviceId}</td>
+                        <td>{log.serviceName}</td>
+                        <td>{log.count}</td>
+                        <td>
+                          <button
+                            className="expand-btn"
+                            onClick={() => toggleRow(log.id)}
+                            aria-label={
+                              expandedRows[log.id] ? "Collapse" : "Expand"
+                            }
+                          >
+                            {expandedRows[log.id] ? (
+                              <ChevronUp size={18} />
+                            ) : (
+                              <ChevronDown size={18} />
+                            )}
+                          </button>
+                        </td>
+                      </tr>
+                      {expandedRows[log.id] && (
+                        <tr className="expanded-content-row">
+                          <td colSpan="6">
+                            <div className="expanded-details">
+                              {log.records && log.records.map((record, index) => (
+                                <div key={index} className="api-record-item">
+                                  <div>{record.clientId}</div>
+                                  <div>{record.serviceId}</div>
+                                  <div>{record.serviceName}</div>
+                                  <div>{record.count}</div>
+                                </div>
+                              ))}
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
 
@@ -79,7 +193,9 @@ const APILogs = () => {
                 }`}
                 onClick={() => setActiveMode("test")}
               >
-                <span className="request-mode-icon"><LuTestTube size={16}/></span>
+                <span className="request-mode-icon">
+                  <LuTestTube size={16} />
+                </span>
                 Test
               </button>
 
@@ -89,12 +205,14 @@ const APILogs = () => {
                 }`}
                 onClick={() => setActiveMode("live")}
               >
-                <span className="request-mode-icon"><BsLightningCharge size={16} /></span>
+                <span className="request-mode-icon">
+                  <BsLightningCharge size={16} />
+                </span>
                 Live
               </button>
             </div>
 
-            {/* ================= Date Fields ================= */}
+            {/* Date Fields */}
             <div className="request-form">
               {/* From Date */}
               <div className="request-field">
@@ -135,7 +253,7 @@ const APILogs = () => {
               </div>
             </div>
 
-            {/* ================= Single Date Picker ================= */}
+            {/* Date Picker */}
             {isDatePickerOpen && (
               <div className="request-calendar-dropdown">
                 <DateRangePicker
@@ -168,7 +286,7 @@ const APILogs = () => {
         </div>
       )}
 
-      {/* ================= Requested Logs Modal ================= */}
+      {/* Requested Logs Modal */}
       {showRequestedModal && (
         <div className="requested-overlay">
           <div className="requested-modal">
