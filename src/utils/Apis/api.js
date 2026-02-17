@@ -77,15 +77,25 @@ RechargeApiClient.interceptors.request.use(
 const Register = (data) => supperApiClient.post('client/register', data)
 const SendOTP = (data) => supperApiClient.post('client/login/send-otp', data);
 const VerifyOTP = (data) => supperApiClient.post('client/login/verify-otp', data);
-const HandleGetUser = (clientId) => supperApiClient.get('/client/get-user-details',{
-  params:{clientId}
+const HandleGetUser = (clientId) => supperApiClient.get('/client/get-user-details', {
+  params: { clientId }
 });
 const UpdatedUserDetails = (data) => supperApiClient.post('merchant/update/merchantdetails', data);
-const ClientService = (ClientId)=> supperApiClient.get(`/apimodule/services?clientId=${ClientId}`)
-const SubscribeService = (payload) =>supperApiClient.post('/apimodule/subscribe-service', payload);
-const DashboardServices = () => supperApiClient.get("/apimodule/dashboard-services");
 
+const ClientService = (clientId, categoryId) =>
+  supperApiClient.get("/apimodule/services", {
+    params: {
+      clientId,
+      categoryId,
+    },
+  });
 
+const SubscribeService = (payload) => supperApiClient.post("/apimodule/subscribe-service", payload);
+const getAllCategoriesService = () => supperApiClient.get("/apimodule/get-all-category")
+const getServicesByCategoryService = (categoryId) =>
+  supperApiClient.get("/apimodule/service-config", {
+    params: { categoryId },
+  });
 const ApiVerification = (isMicro, URLS, data) => {
   console.log(isMicro, URLS, data)
   switch (isMicro) {
@@ -115,7 +125,7 @@ const HandleCreateIP = (data) => kycApiClient.post(`IP/WhiteListIP`, data);
 
 export {
 
-  Register, SendOTP, VerifyOTP,ClientService,SubscribeService,DashboardServices,
+  Register, SendOTP, VerifyOTP, ClientService, SubscribeService, getAllCategoriesService, getServicesByCategoryService,
 
   fetchPublickey,
 

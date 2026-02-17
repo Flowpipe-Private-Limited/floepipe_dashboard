@@ -3,207 +3,204 @@ import { FileCheck, Layers, ChevronRight } from "lucide-react";
 import "./Products.css";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
-import { ClientService } from "../../utils/Apis/api";
-import { SubscribeService } from "../../utils/Apis/api";
-import { DashboardServices } from "../../utils/Apis/api";
+import {
+  getAllCategoriesService,
+  getServicesByCategoryService,
+  ClientService,
+  SubscribeService,
+} from "../../utils/Apis/api";
 
 const Products = () => {
   const [filter, setFilter] = useState("All Products");
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const scrollContainerRef = useRef(null);
 
-  // Dummy categories
-  const categories = [
-    "Active",
-    "PAN Services",
-    "GST Services",
-    "Aadhaar & DigiLocker",
-    "Banking & Financial",
-    "Business & Company",
-    "Employment & Income",
-    "Vehicle & Transport",
-    "Face & AI Verification",
-    "OCR & Document AI",
-    "Government ID Services",
-    "Contact & Communication",
-    "Geo & Location",
-    "Risk & Due Diligence",
-    "Other Services",
-  ];
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 200, behavior: "smooth" });
-    }
-  };
-
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [products, setProducts] = useState([]);
-
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-  const handleFilterSelect = (selectedFilter) => {
-    setFilter(selectedFilter);
-    setIsDropdownOpen(false);
-  };
-
-  const fetchDashboardProducts = async () => {
-    console.group("📊 fetchDashboardProducts");
+  const fetchCategories = async () => {
+    console.group("FETCH CATEGORIES");
 
     await ApirequestHandler(
-      () => DashboardServices(),
+      () => getAllCategoriesService(),
       null,
       (res) => {
-        console.log("Dashboard API Success Response:", res);
+        if (res?.success && Array.isArray(res.data)) {
+          const mapped = res.data.map((cat) => ({
+            categoryId: cat.categoryId,
+            categoryName: cat.categoryName,
+          }));
 
-        if (res?.success && Array.isArray(res?.data)) {
-          console.table(res.data);
-
-          const mappedProducts = res.data.map((item, index) => {
-            console.log(
-              `Mapping serviceId: ${item.serviceId}, status: ${item.status}`,
-            );
-
-            return {
-              id: index + 1,
-              serviceId: item.serviceId,
-              title: item.serviceName,
-              description: "Validate details in real-time with high accuracy.",
-              credits: item.testLimit,
-              status: item?.status ?? "Not Subscribed",
-              icon: <FileCheck size={24} />,
-              iconColor: "purple",
-            };
-          });
-
-          console.log("Dashboard mapped products:", mappedProducts);
-          setProducts(mappedProducts);
+          setCategories(mapped);
+          if (mapped.length > 0) {
+            const firstCategory = mapped[0].categoryId;
+            setSelectedCategory(firstCategory);
+            fetchServicesByCategory(firstCategory);
+          }
         } else {
-          console.warn("Dashboard API returned invalid data structure", res);
+          setCategories([]);
         }
       },
-      (errMessage) => {
-        console.error(" Dashboard API Error:", errMessage);
-      },
+      (err) => console.error("Category Error:", err)
     );
 
     console.groupEnd();
   };
 
-  const fetchClientServices = async () => {
-    const clientId = localStorage.getItem("clientId");
-    if (!clientId) return;
+  const fetchServicesByCategory = async (categoryId) => {
+    console.group("FETCH SERVICES BY CATEGORY");
 
     await ApirequestHandler(
-      () => ClientService(clientId),
+      () => getServicesByCategoryService(categoryId),
       null,
       (res) => {
-        if (res.success && res.data && Array.isArray(res.data)) {
-          const clientServices = res.data;
+        if (res?.success && Array.isArray(res.data)) {
+          const mappedProducts = res.data.map((item) => ({
+            id: item._id,
+            serviceId: item.serviceId,
+            categoryId: item.categoryId,
+            title: item.serviceName,
+            description: `${item.serviceName} verification service`,
+            credits: item.rateLimit || 0,
+            status: "Not Subscribed",
+            icon: <FileCheck size={22} />,
+            iconColor: "purple",
+          }));
 
-          setProducts((prevProducts) =>
-            prevProducts.map((p) => {
-              const clientService = clientServices.find(
-                (s) => s.serviceId === p.serviceId,
-              );
-              return clientService ? { ...p, status: clientService.status } : p;
-            }),
-          );
+          setProducts(mappedProducts);
+          fetchClientServices(mappedProducts, categoryId);
+
+        } else {
+          setProducts([]); // Show No Products UI
         }
       },
-      (errMessage) => {
-        console.log("Server Error:", errMessage);
+      (err) => {
+        console.error("Service Config Error:", err);
+        setProducts([]);
+      }
+    );
+
+    console.groupEnd();
+  };
+  const fetchClientServices = async (currentProducts, categoryId) => {
+    const clientId = localStorage.getItem("clientId");
+    console.log("clientId in fetchclientservice", clientId)
+    if (!clientId || !categoryId) return;
+
+    await ApirequestHandler(
+      () => ClientService(clientId, categoryId),
+
+      null,
+      (res) => {
+        console.log("res in fetchclientservices", res)
+        if (res?.success && Array.isArray(res.data)) {
+          const clientServices = res.data;
+
+          const updated = currentProducts.map((p) => {
+            const found = clientServices.find(
+              (s) => s.serviceId === p.serviceId
+            );
+            return found ? { ...p, status: found.status } : p;
+          });
+
+          setProducts(updated);
+        }
       },
+      (err) => console.error("Client Service Error:", err)
     );
   };
-
   const handleSubscribe = async (serviceId) => {
+    const clientId = localStorage.getItem("clientId");
+    console.log("clientId in handlesubscribe", clientId)
+    if (!clientId || !selectedCategory) return;
+
+    const payload = {
+      clientId,
+      categoryId: selectedCategory,
+      serviceId,
+      status: "Pending",
+    };
+    console.log("payload  in handlesubscribe", payload)
     try {
-      const clientId = localStorage.getItem("clientId");
-      if (!clientId) {
-        console.error("clientId missing");
-        return;
-      }
-
-      const payload = {
-        clientId,
-        serviceId,
-        status: "Pending",
-      };
-
       const res = await SubscribeService(payload);
-      console.log("Subscribe response:", res.data);
+      console.log("res in handlesubscribe", res)
+      console.log("res in handlesubscribe1", res?.data?.success)
+      if (res?.data?.success) {
+        const updatedServices = res.data.data.services;
 
-      if (res.data.success) {
-        // Update the product status in state immediately
-        setProducts((prev) =>
-          prev.map((p) =>
-            p.serviceId === serviceId ? { ...p, status: "Pending" } : p,
-          ),
+        setProducts((prevProducts) =>
+          prevProducts.map((product) => {
+            const matchedService = updatedServices.find(
+              (s) => s.serviceId === product.serviceId
+            );
+
+            return matchedService
+              ? { ...product, status: matchedService.status }
+              : product;
+          })
         );
 
-        setFilter("Pendding Approvals");
+        // Optional: Remove this if you don't want filtering change
+        // setFilter("Pending Approvals");
       }
     } catch (error) {
-      console.error("Subscribe error:", error);
+      console.error("Subscribe Error:", error);
     }
   };
   useEffect(() => {
-    const loadData = async () => {
-      await fetchDashboardProducts();
-      await fetchClientServices();
-    };
-    loadData();
+    fetchCategories();
   }, []);
-
-  const filteredProducts =
-    filter === "All Products"
-      ? products
-      : products.filter((p) => {
-        if (filter === "Subscribed") {
-          return p.status === "Subscribed";
-        }
-
-        if (filter === "Pendding Approvals") {
-          return p.status === "Pending";
-        }
-
-        if (filter === "Subscribe") {
-          // Show products that are NOT subscribed and NOT pending
-          return (
-            !p.status ||
-            p.status === "Unsubscribed" ||
-            p.status === "Not Subscribed" ||
-            p.status === "Subscribe"
-          );
-        }
-
-        return true;
-      });
+  const filteredProducts = products.filter((p) => {
+    if (filter === "All Products") return true;
+    if (filter === "Subscribed") return p.status === "Subscribed";
+    if (filter === "Pending Approvals") return p.status === "Pending";
+    if (filter === "Subscribe")
+      return (
+        !p.status ||
+        p.status === "Unsubscribed" ||
+        p.status === "Not Subscribed"
+      );
+    return true;
+  });
+  const handleFilterSelect = (selectedFilter) => {
+    setFilter(selectedFilter);
+    setIsDropdownOpen(false);
+  };
 
   return (
     <div className="products-container">
-      {/* CATEGORY SLIDER */}
       <div className="category-slider-section">
         <div className="category-scroll-wrapper" ref={scrollContainerRef}>
-          {categories.map((cat, index) => (
+          {categories.map((cat) => (
             <div
-              key={index}
-              className={`category-item ${selectedCategory === cat ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(cat)}
+              key={cat.categoryId}
+              className={`category-item ${selectedCategory === cat.categoryId ? "active" : ""
+                }`}
+              onClick={() => {
+                setSelectedCategory(cat.categoryId);
+                fetchServicesByCategory(cat.categoryId);
+              }}
             >
-              <span style={{fontFamily:'JetBrainsMono'}}>{cat}</span>
+              {cat.categoryName}
             </div>
           ))}
         </div>
-        <button className="scroll-arrow-btn" onClick={scrollRight}>
+
+        <button
+          className="scroll-arrow-btn"
+          onClick={() =>
+            scrollContainerRef.current.scrollBy({
+              left: 200,
+              behavior: "smooth",
+            })
+          }
+        >
           <ChevronRight size={20} />
         </button>
       </div>
-
-      {/* HEADER */}
       <div className="products-header">
-        <div className="products-title-group">
+        <div>
           <div className="products-title-text">Products</div>
           <p className="products-subtitle">
             Products are available for Subscription
@@ -211,43 +208,35 @@ const Products = () => {
         </div>
 
         <div className="filter-dropdown-container">
-          <button className="filter-toggle-btn" onClick={toggleDropdown}>
+          <button
+            className="filter-toggle-btn"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
             {filter} <IoMdArrowDropdown size={22} />
           </button>
 
           {isDropdownOpen && (
             <ul className="dropdown-menu">
-              <li
-                className="dropdown-item"
-                onClick={() => handleFilterSelect("All Products")}
-              >
+              <li className="dropdown-item" onClick={() => handleFilterSelect("All Products")}>
                 <span className="dot all"></span> All Products
               </li>
-              <li
-                className="dropdown-item"
-                onClick={() => handleFilterSelect("Subscribed")}
-              >
+
+              <li className="dropdown-item" onClick={() => handleFilterSelect("Subscribed")}>
                 <span className="dot subscribed"></span> Subscribed
               </li>
 
-              <li
-                className="dropdown-item"
-                onClick={() => handleFilterSelect("Subscribe")}
-              >
+              <li className="dropdown-item" onClick={() => handleFilterSelect("Subscribe")}>
                 <span className="dot unsubscribed"></span> Subscribe
               </li>
-              <li
-                className="dropdown-item"
-                onClick={() => handleFilterSelect("Pendding Approvals")}
-              >
-                <span className="dot pending"></span> Pendding Approvals
+
+              <li className="dropdown-item" onClick={() => handleFilterSelect("Pending Approvals")}>
+                <span className="dot pending"></span> Pending Approvals
               </li>
             </ul>
+
           )}
         </div>
       </div>
-
-      {/* GRID */}
       {filteredProducts.length === 0 ? (
         <div className="no-products-container">
           <div className="no-products-content">
@@ -262,50 +251,58 @@ const Products = () => {
         </div>
       ) : (
         <div className="products-grid">
-          {filteredProducts.map((product) => {
-            return (
-              <div key={product.id} className="product-card">
-                <div>
-                  <div className={`icon-container ${product.iconColor}`}>
-                    {product.icon}
-                  </div>
+          {filteredProducts.map((product) => (
+            <div key={product.id} className="product-card">
 
-                  <div className="product-info">
-                    <div className="product-title-text">{product.title}</div>
-                    <p className="product-desc">{product.description}</p>
-                  </div>
+              <div>
+                <div className={`icon-container ${product.iconColor}`}>
+                  {product.icon}
                 </div>
 
-                <div className="card-footer">
-                  <div className="credits-info">
-                    <Layers size={14} color="#8b5cf6" />
-                    Available credits : {product.credits}
+                <div className="product-info">
+                  <div className="product-title-text">
+                    {product.title}
                   </div>
-
-                  <button
-                    className={`action-btn ${product.status === "Pending"
-                      ? "pending"
-                      : product.status === "Subscribed" ||
-                        product.status === "approved"
-                        ? "subscribed"
-                        : "unsubscribed"
-                      }`}
-                    disabled={
-                      product.status === "Pending" ||
-                      product.status === "Subscribed"
-                    }
-                    onClick={() => handleSubscribe(product.serviceId)}
-                  >
-                    {product.status?.toUpperCase() === "PENDING"
-                      ? "Pending"
-                      : product.status === "Subscribed"
-                        ? "Subscribed"
-                        : "Subscribe"}
-                  </button>
+                  <p className="product-desc">
+                    {product.description}
+                  </p>
                 </div>
               </div>
-            );
-          })}
+
+              <div className="card-footer">
+
+                <div className="credits-info">
+                  <Layers size={14} />
+
+                  {product.status === "Subscribed"
+                    ? `Available credits : ${product.credits}`
+                    : ""}
+                </div>
+
+
+                <button
+                  className={`action-btn ${product.status === "Pending"
+                    ? "pending"
+                    : product.status === "Subscribed"
+                      ? "subscribed"
+                      : "unsubscribed"
+                    }`}
+                  disabled={
+                    product.status === "Pending" ||
+                    product.status === "Subscribed"
+                  }
+                  onClick={() => handleSubscribe(product.serviceId, product.categoryId)}
+                >
+                  {product.status === "Pending"
+                    ? "Pending"
+                    : product.status === "Subscribed"
+                      ? "Subscribed"
+                      : "Subscribe"}
+                </button>
+              </div>
+
+            </div>
+          ))}
         </div>
       )}
     </div>
