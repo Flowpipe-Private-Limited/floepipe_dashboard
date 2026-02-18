@@ -5,17 +5,74 @@ import IndividualKycForm from "./kycparts/Individual";
 import BusinessKycForm from "./kycparts/Business";
 import Images from "../../Images/Images";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { useUserStore } from "../../Store/userStore";
 
 
 export default function KycDetails() {
   // view: 'incomplete' | 'selection' | 'form'
-  const [view, setView] = useState("incomplete");
+  // view: 'incomplete' | 'selection' | 'form'
+  const { users, IskycApproved, kycCompleted, updateUsers, isIndividual, isCompany, loading, error } = useUserStore();
+
+
+  // view: 'incomplete' | 'selection' | 'form' | 'tabs'
+  const [view, setView] = useState(
+    isIndividual && isCompany ? "tabs" : "incomplete"
+  );
   const [kycType, setKycType] = useState("individual"); // 'individual' | 'company'
+  const [activeTab, setActiveTab] = useState("individual");
+
+  if (loading) {
+    return (
+      <div className="kyc-container-no" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <p>Loading KYC details...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="kyc-container-no" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'red' }}>
+        <p>Error: {error}</p>
+      </div>
+    );
+  }
 
   // Handlers
   const handleStartKyc = () => setView("selection");
   const handleCloseSelection = () => setView("incomplete");
   const handleNext = () => setView("form");
+
+  // --- Render View: Tabs (Both Completed) ---
+  if (view === "tabs") {
+    return (
+      <div style={{ width: '100%' }}>
+        <div className="kyc-tabs-wrapper">
+          <div className="kyc-tabs-header">
+            <button
+              className={`kyc-tab-btn ${activeTab === 'individual' ? 'active' : ''}`}
+              onClick={() => setActiveTab('individual')}
+            >
+              Individual KYC
+            </button>
+            <button
+              className={`kyc-tab-btn ${activeTab === 'company' ? 'active' : ''}`}
+              onClick={() => setActiveTab('company')}
+            >
+              Business KYC
+            </button>
+          </div>
+
+          <div className="kyc-tab-content">
+            {activeTab === 'individual' ? (
+              <IndividualKycForm />
+            ) : (
+              <BusinessKycForm />
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // --- Render View 1: Incomplete ---
   if (view === "incomplete") {
@@ -77,7 +134,14 @@ export default function KycDetails() {
                 )}
               </div>
               <div className="option-text">
-                <h4>Individual KYC</h4>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <h4>Individual KYC</h4>
+                  {isIndividual && (
+                    <div style={{ width: '25px', height: '25px', backgroundColor: '#dcfce7', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Check size={14} color="#16a34a" strokeWidth={4} />
+                    </div>
+                  )}
+                </div>
                 <p>Enter PAN and aadhar details</p>
               </div>
             </div>
@@ -91,7 +155,14 @@ export default function KycDetails() {
                 {kycType === "company" && <Check size={14} strokeWidth={4} />}
               </div>
               <div className="option-text">
-                <h4>Business KYC</h4>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <h4>Business KYC</h4>
+                  {isCompany && (
+                    <div style={{ width: '25px', height: '25px', backgroundColor: '#dcfce7', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Check size={14} color="#16a34a" strokeWidth={4} />
+                    </div>
+                  )}
+                </div>
                 <p>Enter company PAN and CIN number</p>
               </div>
             </div>

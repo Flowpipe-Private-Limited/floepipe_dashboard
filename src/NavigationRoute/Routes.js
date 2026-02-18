@@ -67,23 +67,16 @@ const AppRoute = () => {
         <Route path="/New_Password" element={<New_Password />} />
 
         {/* User DashBoard Routes */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectionRoute>
-              <Dashboard />
-            </ProtectionRoute>
-          }
-        >
+        <Route path="/dashboard"  element={<ProtectionRoute><Dashboard/></ProtectionRoute>}>
           {/* <Route path="/dashboard" element={<Dashboard />}> */}
           <Route index element={<MainContent />} />
           <Route path="Profile" element={<ProfilePage />} />
-          <Route path="Products" element={<Products/>} />
-          <Route path="Reports" element={<Reports/>} />
-          <Route path="Trial_Center" element={<Trial_Center/>} />
-          <Route path="Webhooks" element={<Webhooks/>} />
-          <Route path="Billing_plans" element={<Billing_plans/>} />
-          <Route path="viewAnalytics" element={<ViewAnalytics/>} />
+          <Route path="Products" element={<Products />} />
+          <Route path="Reports" element={<Reports />} />
+          <Route path="Trial_Center" element={<Trial_Center />} />
+          <Route path="Webhooks" element={<Webhooks />} />
+          <Route path="Billing_plans" element={<Billing_plans />} />
+          <Route path="viewAnalytics" element={<ViewAnalytics />} />
           <Route path="apiKeys" element={<ApiKeys />} />
           <Route path="APIUsage" element={<API_Usage />} />
           <Route path="WhitelistIP" element={<WhiteListIP />} />

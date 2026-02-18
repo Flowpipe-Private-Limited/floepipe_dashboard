@@ -1,21 +1,29 @@
 import { useState, useRef } from "react";
 import { Paperclip } from "lucide-react";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { useUserStore } from "../../../Store/userStore";
 
 export default function BusinessKycForm({ onBack }) {
   // Steps: 1. Company PAN, 2. Company CIN, 3. Director PAN, 4. Director Aadhaar, 5. GST Number, 6. Review
-  const [step, setStep] = useState(1);
+  const { users, IskycApproved, kycCompleted, updateUsers, isCompany, businessKycData, setBusinessKycData } = useUserStore();
+  // Steps: 1. Company PAN, 2. Company CIN, 3. Director PAN, 4. Director Aadhaar, 5. GST Number, 6. Review
+  const [step, setStep] = useState(isCompany ? 6 : 1);
   const fileInputRef = useRef(null);
 
+
   // Form state
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState(businessKycData || {
     companyPan: "",
+    companyPanFile: null,
     companyCin: "",
+    companyCinFile: null,
     directorPan: "",
+    directorPanFile: null,
     directorAadhaar: "",
+    directorAadhaarFile: null,
     gstNumber: "",
+    gstNumberFile: null,
     useCase: "",
-    file: null,
   });
 
   const handleNext = () => {
@@ -36,7 +44,12 @@ export default function BusinessKycForm({ onBack }) {
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setFormData({ ...formData, file: e.target.files[0] });
+      const file = e.target.files[0];
+      if (step === 1) setFormData({ ...formData, companyPanFile: file });
+      if (step === 2) setFormData({ ...formData, companyCinFile: file });
+      if (step === 3) setFormData({ ...formData, directorPanFile: file });
+      if (step === 4) setFormData({ ...formData, directorAadhaarFile: file });
+      if (step === 5) setFormData({ ...formData, gstNumberFile: file });
     }
   };
 
@@ -132,7 +145,10 @@ export default function BusinessKycForm({ onBack }) {
             </button>
             <button
               className="btn-verify"
-              onClick={() => console.log("Final Business Submit")}
+              onClick={() => {
+                console.log("Final Business Submit", formData);
+                setBusinessKycData(formData);
+              }}
             >
               Submit
             </button>
@@ -229,17 +245,16 @@ export default function BusinessKycForm({ onBack }) {
               style={{ width: "80%" }}
               type="text"
               className="custom-input"
-              placeholder={`Enter ${
-                step === 1
-                  ? "Company PAN"
-                  : step === 2
-                    ? "Company CIN"
-                    : step === 3
-                      ? "Director PAN"
-                      : step === 4
-                        ? "Director Aadhaar"
-                        : "GST Number"
-              }`}
+              placeholder={`Enter ${step === 1
+                ? "Company PAN"
+                : step === 2
+                  ? "Company CIN"
+                  : step === 3
+                    ? "Director PAN"
+                    : step === 4
+                      ? "Director Aadhaar"
+                      : "GST Number"
+                }`}
               value={
                 step === 1
                   ? formData.companyPan
@@ -281,7 +296,26 @@ export default function BusinessKycForm({ onBack }) {
               </svg>
 
               <span className="upload-place">
-                {formData.file ? formData.file.name : "Upload your files here"}
+                {step === 1 &&
+                  (formData.companyPanFile
+                    ? formData.companyPanFile.name
+                    : "Upload Company PAN")}
+                {step === 2 &&
+                  (formData.companyCinFile
+                    ? formData.companyCinFile.name
+                    : "Upload Company CIN")}
+                {step === 3 &&
+                  (formData.directorPanFile
+                    ? formData.directorPanFile.name
+                    : "Upload Director PAN")}
+                {step === 4 &&
+                  (formData.directorAadhaarFile
+                    ? formData.directorAadhaarFile.name
+                    : "Upload Director Aadhaar")}
+                {step === 5 &&
+                  (formData.gstNumberFile
+                    ? formData.gstNumberFile.name
+                    : "Upload GST Certificate")}
               </span>
             </div>
           </div>
@@ -292,7 +326,17 @@ export default function BusinessKycForm({ onBack }) {
         <button className="btn-back" onClick={handleBack}>
           Back
         </button>
-        <button className="btn-verify" onClick={handleNext}>
+        <button
+          className="btn-verify"
+          onClick={handleNext}
+          disabled={
+            (step === 1 && (!formData.companyPan || !formData.companyPanFile)) ||
+            (step === 2 && (!formData.companyCin || !formData.companyCinFile)) ||
+            (step === 3 && (!formData.directorPan || !formData.directorPanFile)) ||
+            (step === 4 && (!formData.directorAadhaar || !formData.directorAadhaarFile)) ||
+            (step === 5 && (!formData.gstNumber || !formData.gstNumberFile))
+          }
+        >
           {step === 5 ? "Verify" : "Next"}
         </button>
       </div>

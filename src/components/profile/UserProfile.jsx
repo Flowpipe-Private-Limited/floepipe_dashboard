@@ -121,6 +121,7 @@ const Input = ({
 function BasicDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const { users, updateUsers } = useUserStore();
+  console.log(users)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -152,7 +153,7 @@ function BasicDetails() {
 
   useEffect(() => {
     if (users) {
-      const [first = "", last = ""] = users?.name?.split(" ") || ["", ""];
+      const [first = "", last = ""] = users?.fullName?.split(" ") || ["", ""];
 
       setFormData({
         firstName: first,

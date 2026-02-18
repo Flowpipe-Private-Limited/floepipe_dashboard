@@ -6,7 +6,7 @@ const ProtectionRoute = ({children})=>{
     const isToken = Cookies.get('token');
     console.log('token is', isToken);
     
-    if(!isToken || isToken === undefined){
+    if(!isToken || isToken === undefined || isToken === 'undefined'){
          return <Navigate to="/login" replace />;
     }
     return children;
