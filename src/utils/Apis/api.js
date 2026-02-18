@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useUserkey } from "../../Store/userKeyStore";
 
 //  SUPPER ADMIN BASE URL
 const supperApiClient = axios.create({
@@ -24,12 +25,20 @@ const kycApiClient = axios.create({
   baseURL: import.meta.env.REACT_APP_KYC_URL,
   //   withCredentials: true,
   //   timeout: 120000,
+  //   timeout: 120000,
 });
 kycApiClient.interceptors.request.use(
-  function (config) {
-    // const token = localStorage.getItem('token')
-    const token = Cookies.get('token')
-    config.headers.Authorization = `Bearer ${token}`;
+  async function (config) {
+    const currentState = useUserkey.getState();
+    const token = currentState.LiveAccessToken;
+    const SecretKey = currentState.LiveSecretKey;
+
+    if (token) {
+      const clientId = localStorage.getItem('clientId');
+      config.headers['secret_token'] = token;
+      config.headers['secret_key'] = SecretKey;
+      config.headers['client_id'] = clientId;
+    }
     return config;
   },
   function (error) {
@@ -44,10 +53,17 @@ const bbpsApiClient = axios.create({
   //   timeout: 120000,
 });
 bbpsApiClient.interceptors.request.use(
-  function (config) {
-    // const token = localStorage.getItem('token')
-    const token = Cookies.get('token')
-    config.headers.Authorization = `Bearer ${token}`;
+  async function (config) {
+    const currentState = useUserkey.getState();
+    const token = currentState.LiveAccessToken;
+    const SecretKey = currentState.LiveSecretKey;
+
+    if (token) {
+      const clientId = localStorage.getItem('clientId');
+      config.headers['secret_token'] = token;
+      config.headers['secret_key'] = SecretKey;
+      config.headers['client_id'] = clientId;
+    }
     return config;
   },
   function (error) {
@@ -62,10 +78,17 @@ const RechargeApiClient = axios.create({
   //   timeout: 120000,
 });
 RechargeApiClient.interceptors.request.use(
-  function (config) {
-    // const token = localStorage.getItem('token')
-    const token = Cookies.get('token')
-    config.headers.Authorization = `Bearer ${token}`;
+  async function (config) {
+    const currentState = useUserkey.getState();
+    const token = currentState.LiveAccessToken;
+    const SecretKey = currentState.LiveSecretKey;
+
+    if (token) {
+      const clientId = localStorage.getItem('clientId');
+      config.headers['secret_token'] = token;
+      config.headers['secret_key'] = SecretKey;
+      config.headers['client_id'] = clientId;
+    }
     return config;
   },
   function (error) {
@@ -77,13 +100,17 @@ RechargeApiClient.interceptors.request.use(
 const Register = (data) => supperApiClient.post('client/register', data)
 const SendOTP = (data) => supperApiClient.post('client/login/send-otp', data);
 const VerifyOTP = (data) => supperApiClient.post('client/login/verify-otp', data);
-const HandleGetUser = (clientId) => supperApiClient.get('/client/get-user-details',{
-  params:{clientId}
+const HandleGetUser = (clientId) => supperApiClient.get('/client/get-user-details', {
+  params: { clientId }
 });
 const UpdatedUserDetails = (data) => supperApiClient.post('merchant/update/merchantdetails', data);
-const ClientService = (ClientId)=> supperApiClient.get(`/apimodule/services?clientId=${ClientId}`)
-const SubscribeService = (payload) =>supperApiClient.post('/apimodule/subscribe-service', payload);
+const ClientService = (ClientId) => supperApiClient.get(`/apimodule/services?clientId=${ClientId}`)
+const SubscribeService = (payload) => supperApiClient.post('/apimodule/subscribe-service', payload);
 const DashboardServices = () => supperApiClient.get("/apimodule/dashboard-services");
+
+// supper Admin Key routes
+const HandleCreateKeys = (data) => supperApiClient.post("client/crete/clientKeys", data);
+const HandleFetchAllKeys = (data) => supperApiClient.get(`client/get/TestandLive/clientKeys?clientId=${data}`);
 
 
 const ApiVerification = (isMicro, URLS, data) => {
@@ -106,16 +133,12 @@ const VerifyIPIN = (data) => kycApiClient.post('merchant/Verify/ipin', data);
 
 const HandleGetOtp = (data) => kycApiClient.post('mobileNumber/mobileOtp', data);
 const HandleVerifyOtp = (data) => kycApiClient.post('mobileNumber/mobileotpVerify', data);
-const HandleCreateLiveKeys = (data) => kycApiClient.post("livekey/generateLiveCredentials", data);
-const HandleCreateTestKeys = (data) => kycApiClient.post("testkey/generateTestCredentials", data);
-const HandleFetchLiveKeys = (data) => kycApiClient.get(`livekey/getLiveKeys/${data?.MerchatID}`);
-const HandleFetchTestKeys = (data) => kycApiClient.get(`testkey/getKeys/${data?.MerchatID}`);
 const HandleFetchIP = (data) => kycApiClient.get(`IP/Getipwhitelist/${data?.MerchatID}`);
 const HandleCreateIP = (data) => kycApiClient.post(`IP/WhiteListIP`, data);
 
 export {
 
-  Register, SendOTP, VerifyOTP,ClientService,SubscribeService,DashboardServices,
+  Register, SendOTP, VerifyOTP, ClientService, SubscribeService, DashboardServices,
 
   fetchPublickey,
 
@@ -127,10 +150,9 @@ export {
   HandleGetOtp,
   HandleVerifyOtp,
   ApiVerification,
-  HandleCreateLiveKeys,
-  HandleCreateTestKeys,
-  HandleFetchLiveKeys,
-  HandleFetchTestKeys,
+  HandleCreateKeys,
+  HandleFetchAllKeys,
+
   HandleCreateIP,
   HandleFetchIP,
 }

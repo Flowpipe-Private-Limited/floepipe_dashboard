@@ -1,136 +1,86 @@
 import { useEffect, useState } from "react";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import {
-  HandleCreateLiveKeys,
-  HandleCreateTestKeys,
-  HandleFetchLiveKeys,
-  HandleFetchTestKeys,
+  HandleCreateKeys,
 } from "../../utils/Apis/api";
 import Loader from "../../components/common/Loader";
 import "./apikeys.css";
 import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
-import { X, Calendar } from "lucide-react";
-import { LuTestTube } from "react-icons/lu";
-import { BsLightningCharge } from "react-icons/bs";
-import { IoIosInformationCircleOutline } from "react-icons/io";
+import { X, Calendar, Trash2, Download, Copy } from "lucide-react";
+import { useUserStore } from "../../Store/userStore";
+import { useUserkey } from "../../Store/userKeyStore";
+import { toast } from 'react-toastify';
+import FlowpipeUnlockModal from "../../components/profile/PinVerify/IpinVerify";
+import WarningModal from "../../components/common/WarningModal";
 
 const ApiKeys = () => {
-  const [activeTab, setActiveTab] = useState("Live");
-  const [LiveKeys, setLiveKeys] = useState([]);
-  const [TestKeys, setTestKeys] = useState([]);
+  const [activeTab, setActiveTab] = useState("LIVE");
+  const { users, fetchUsers } = useUserStore();
+  const { TestSecretKey, TestClientId, TestAccessToken, LiveSecretKey, LiveClientId, LiveAccessToken, fetchUserskeys, updateLiveKeys, updateTestKeys } = useUserkey();
   const [apierrorMessage, setApiErrormessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const MerchatID = "MERCHANT39309978";
-  const [showRequestModal, setShowRequestModal] = useState(false);
-  const [activeMode, setActiveMode] = useState("test");
-  const [keyName, setKeyName] = useState("");
-  const [ipWhitelist, setIpWhitelist] = useState("");
-  const [rateLimit, setRateLimit] = useState("");
-  const [permissions, setPermissions] = useState([]);
+  const [showIpinModal, setShowIpinModal] = useState(false);
+  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [pendingAction, setPendingAction] = useState(null);
 
-  const togglePermission = (value) => {
-    setPermissions((prev) => {
-      if (prev.includes(value)) {
-        return prev.filter((p) => p !== value);
-      } else {
-        return [...prev, value];
-      }
-    });
-  };
 
-  const CreateKeys = async () => {
-    setApiErrormessage("");
-    setLoading(true);
-    const ApiURL =
-      activeTab === "Live"
-        ? HandleCreateLiveKeys({ MerchatID: MerchatID })
-        : HandleCreateTestKeys({ MerchatID: MerchatID });
-    await ApirequestHandler(
-      async () => await ApiURL,
-      setLoading,
-      (res) => {
-        const { response } = res;
-        console.log(res);
-        activeTab === "Live"
-          ? setLiveKeys([...LiveKeys, response])
-          : setTestKeys([...TestKeys, response]);
-        setApiErrormessage("");
-        setLoading(false);
-      },
-      (errMessage) => {
-        console.log("Error:", errMessage);
-        setApiErrormessage(errMessage);
-        setLoading(false);
-      },
-    );
-  };
-
-  const FetchKeys = async () => {
-    setApiErrormessage("");
-    setLoading(true);
-    const ApiURL =
-      activeTab === "Live"
-        ? HandleFetchLiveKeys({ MerchatID: MerchatID })
-        : HandleFetchTestKeys({ MerchatID: MerchatID });
-    await ApirequestHandler(
-      async () => ApiURL,
-      setLoading,
-      (res) => {
-        const { response } = res;
-        console.log(res);
-        activeTab === "Live" ? setLiveKeys(response) : setTestKeys(response);
-        setApiErrormessage("");
-        setLoading(false);
-      },
-      (errMessage) => {
-        console.log("Error:", errMessage);
-        setApiErrormessage(errMessage);
-        setLoading(false);
-      },
-    );
-  };
   useEffect(() => {
-    FetchKeys();
-  }, [activeTab]);
+    if (!TestSecretKey || !TestClientId || !LiveSecretKey || !LiveClientId) {
+      console.log('is called')
+      fetchUserskeys();
+    }
+  }, []);
 
-  const handleGenerateKey = async () => {
-    if (!keyName || !rateLimit) {
-      setApiErrormessage("Key name and rate limit are required");
-      return;
+  // Action Executors
+  const executeDownload = (key, clientId, accessToken) => {
+    const fileContent = `ClientId: ${clientId}\nSecretKey: ${key}\nAccessToken: ${accessToken}`;
+    const blob = new Blob([fileContent], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${activeTab}_SecretKey.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const executeDelete = (keyId) => {
+    console.log("Delete key:", keyId);
+    // Placeholder for delete functionality
+    if (confirm("Are you sure you want to delete this key?")) {
+      // Call API to delete key here
+      toast.info("Delete functionality coming soon!");
+    }
+  };
+
+  const executeGenerateKey = async () => {
+    setLoading(true);
+    let userData = users;
+    if (!userData?.clientId || !userData?.email) {
+      await fetchUsers();
+      userData = useUserStore.getState().users;
     }
 
-    setLoading(true);
-
     const payload = {
-      MerchantId: MerchatID,
-      key_name: keyName,
-      ip_whitelist: ipWhitelist.split(",").map((ip) => ip.trim()),
-      rate_limit: Number(rateLimit),
-      permissions,
+      clientId: userData?.clientId,
+      environment: activeTab,
     };
 
-    const ApiURL =
-      activeMode === "live"
-        ? HandleCreateLiveKeys(payload)
-        : HandleCreateTestKeys(payload);
+    console.log('ApiURL', activeTab, payload)
 
     await ApirequestHandler(
-      async () => ApiURL,
+      async () => HandleCreateKeys(payload),
       setLoading,
       (res) => {
-        const { response } = res;
-
-        activeMode === "live"
-          ? setLiveKeys((prev) => [...prev, response])
-          : setTestKeys((prev) => [...prev, response]);
-
-        // reset + close
-        setKeyName("");
-        setIpWhitelist("");
-        setRateLimit("");
-        setPermissions([]);
-        setShowRequestModal(false);
+        const { data } = res;
+        console.log(data);
+        if (activeTab === "LIVE") {
+          updateLiveKeys(data);
+        } else {
+          updateTestKeys(data);
+        }
         setLoading(false);
+        toast.success(`${activeTab} Key Generated Successfully`);
       },
       (err) => {
         setApiErrormessage(err);
@@ -139,6 +89,63 @@ const ApiKeys = () => {
     );
   };
 
+  // iPIN Flow Handlers
+  const handleIpinSuccess = () => {
+    setShowIpinModal(false);
+    if (!pendingAction) return;
+
+    const { type, args } = pendingAction;
+
+    switch (type) {
+      case 'GENERATE':
+        executeGenerateKey();
+        break;
+      case 'DOWNLOAD':
+        executeDownload(...args);
+        break;
+      case 'DELETE':
+        executeDelete(...args);
+        break;
+      default:
+        break;
+    }
+    setPendingAction(null);
+  };
+
+  const initiateGenerate = () => {
+    // Check if keys already exist to show warning
+    const keysExist = activeTab === "LIVE" ? !!LiveClientId : !!TestClientId;
+
+    if (keysExist) {
+      setShowWarningModal(true);
+    } else {
+      setPendingAction({ type: 'GENERATE', args: [] });
+      setShowIpinModal(true);
+    }
+  };
+
+  const confirmRegenerate = () => {
+    setShowWarningModal(false);
+    setPendingAction({ type: 'GENERATE', args: [] });
+    setShowIpinModal(true);
+  };
+
+
+  const initiateDownload = (key, clientId, accessToken) => {
+    setPendingAction({ type: 'DOWNLOAD', args: [key, clientId, accessToken] });
+    setShowIpinModal(true);
+  };
+
+  const initiateDelete = (keyId) => {
+    setPendingAction({ type: 'DELETE', args: [keyId] });
+    setShowIpinModal(true);
+  };
+
+  const handleCopy = (text) => {
+    navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard!");
+  }
+
   return (
     <div className="api-keys-container">
       <Eachpage_header headertitle={"API Keys"} />
@@ -146,15 +153,15 @@ const ApiKeys = () => {
       {/* Tabs */}
       <div className="tabs-wrapper">
         <button
-          className={`tab-btn ${activeTab === "Live" ? "active" : ""}`}
-          onClick={() => setActiveTab("Live")}
+          className={`tab-btn ${activeTab === "LIVE" ? "active" : ""}`}
+          onClick={() => setActiveTab("LIVE")}
         >
           Live API Keys
         </button>
 
         <button
-          className={`tab-btn-two ${activeTab === "Test" ? "active" : ""}`}
-          onClick={() => setActiveTab("Test")}
+          className={`tab-btn-two ${activeTab === "TEST" ? "active" : ""}`}
+          onClick={() => setActiveTab("TEST")}
         >
           Test API Keys
         </button>
@@ -167,14 +174,11 @@ const ApiKeys = () => {
         ) : (
           <button
             className="add-key-btn"
-            onClick={() => setShowRequestModal(true)}
+            onClick={initiateGenerate}
           >
             Add {activeTab} New
           </button>
         )}
-        <p className="note-text">
-          Note: You can add a maximum of 3 IPs, 3 left.
-        </p>
       </div>
 
       {/* Table */}
@@ -183,157 +187,97 @@ const ApiKeys = () => {
           <thead className="thead-header">
             <tr>
               <th className="th-api">SI.No</th>
-              <th className="th-api">MerchantId</th>
               <th className="th-api">ClientId</th>
               <th className="th-api">SecretKey</th>
+              <th className="th-api">Action</th>
             </tr>
           </thead>
-          <tbody>
-            {(activeTab === "Live" ? LiveKeys : TestKeys)?.length === 0 ? (
+          <tbody >
+            {activeTab === "LIVE" ? (
+              LiveClientId ? (
+                <tr>
+                  <td className="td-one empty-table-text">1</td>
+                  <td className="td-one empty-table-text">{LiveClientId}</td>
+                  <td className="td-one empty-table-text">
+                    {LiveSecretKey?.substring(0, 10)}*********************
+                  </td>
+                  <td className="td-one empty-table-text">
+                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                      <Download
+                        size={16}
+                        className="action-icon"
+                        style={{ cursor: "pointer", color: "#4caf50" }}
+                        onClick={() => initiateDownload(LiveSecretKey, LiveClientId, LiveAccessToken)}
+                      />
+                      <Trash2
+                        size={16}
+                        className="action-icon"
+                        style={{ cursor: "pointer", color: "#ff4d4d" }}
+                        onClick={() => initiateDelete(LiveSecretKey)}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                <tr>
+                  <td colSpan="4" className="empty-message">
+                    No Live Keys Generated
+                  </td>
+                </tr>
+              )
+            ) : TestClientId ? (
               <tr>
-                <td colSpan="4" className="empty-table-text">
-                  No {activeTab} API Keys found
+                <td className="td-one empty-table-text">1</td>
+                <td className="td-one empty-table-text">{TestClientId}</td>
+                <td className="td-one empty-table-text">
+                  {TestSecretKey?.substring(0, 10)}********************
+                </td>
+                <td className="td-one empty-table-text">
+                  <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                    <Download
+                      size={16}
+                      className="action-icon"
+                      style={{ cursor: "pointer", color: "#4caf50" }}
+                      onClick={() => initiateDownload(TestSecretKey, TestClientId, TestAccessToken)}
+                    />
+                    <Trash2
+                      size={16}
+                      className="action-icon"
+                      style={{ cursor: "pointer", color: "#ff4d4d" }}
+                      onClick={() => initiateDelete(TestSecretKey)}
+                    />
+                  </div>
                 </td>
               </tr>
             ) : (
-              (activeTab === "Live" ? LiveKeys : TestKeys).map((keys, ind) => (
-                <tr key={ind}>
-                  <td className="td-one">{ind + 1}</td>
-                  <td className="td-one">{keys?.MerchantId}</td>
-                  <td className="td-one">{keys?.client_id}</td>
-                  <td className="td-one">{keys?.secret_key}</td>
-                </tr>
-              ))
+              <tr>
+                <td colSpan="4" className="empty-message">
+                  No Test Keys Generated
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
       </div>
 
-      {showRequestModal && (
-        <div className="request-overlay">
-          <div className="request-modal">
-            {/* Header */}
-            <div className="requested-header">
-              <h3>Request logs</h3>
-              <button
-                className="requested-close"
-                onClick={() => setShowRequestModal(false)}
-              >
-                <X size={20} />
-              </button>
-            </div>
+      {/* Modal Removed as requested */}
+      <FlowpipeUnlockModal
+        isVisible={showIpinModal}
+        onClose={() => {
+          setShowIpinModal(false);
+          setPendingAction(null);
+        }}
+        IsValidPIN={handleIpinSuccess}
+      />
 
-            {/* Mode Toggle */}
-            <div className="request-mode-toggle">
-              <button
-                className={`request-mode-btn ${activeMode === "test" ? "active" : ""}`}
-                onClick={() => setActiveMode("test")}
-              >
-                <span className="request-mode-icon">
-                  <LuTestTube size={16} />
-                </span>
-                Test
-              </button>
-
-              <button
-                className={`request-mode-btn ${activeMode === "live" ? "active" : ""}`}
-                onClick={() => setActiveMode("live")}
-              >
-                <span className="request-mode-icon">
-                  <BsLightningCharge size={16} />
-                </span>
-                Live
-              </button>
-            </div>
-
-            {/* ================= Date Fields ================= */}
-            <div className="request-form">
-              {/* Key Name */}
-              <div className="request-field">
-                <p className="request-label">Key Name</p>
-                <div className="request-date-input-wrapper">
-                  <input
-                    type="text"
-                    className="request-date-input"
-                    placeholder="e.g. Payments Service Key"
-                    value={keyName}
-                    onChange={(e) => setKeyName(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              {/* IP Whitelist */}
-              <div className="request-field">
-                <p className="request-label">IP Whitelist</p>
-                <div className="request-date-input-wrapper">
-                  <input
-                    type="text"
-                    className="request-date-input"
-                    placeholder="e.g. 192.168.1.1, 10.0.0.1"
-                    value={ipWhitelist}
-                    onChange={(e) => setIpWhitelist(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              {/* Rate Limit */}
-              <div className="request-field">
-                <p className="request-label">
-                  Rate Limit (requests/minute) <IoIosInformationCircleOutline />
-                </p>
-                <div className="request-date-input-wrapper">
-                  <input
-                    type="text"
-                    className="request-date-input"
-                    placeholder="e.g., 1000"
-                    value={rateLimit}
-                    onChange={(e) => setRateLimit(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              {/* Permissions */}
-              <div className="request-field">
-                <p className="request-label">Permissions</p>
-                <div className="permission-group">
-                  {["read", "write", "delete"].map((p) => (
-                    <div key={p} className="permission-card">
-                      <input
-                        type="checkbox"
-                        name="permission"
-                        value={p}
-                        checked={permissions.includes(p)}
-                        onChange={() => togglePermission(p)}
-                      />
-                      <span className="custom-radio"></span>
-                      <span className="key-radio">
-                        {p.charAt(0).toUpperCase() + p.slice(1)} Access
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Submit */}
-            <div className="request-footer-api">
-              <button
-                className="request-cancel-btn"
-                onClick={() => setShowRequestModal(false)}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="request-submit-btn"
-                onClick={handleGenerateKey}
-              >
-                Generate API Key
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <WarningModal
+        show={showWarningModal}
+        onClose={() => {
+          setShowWarningModal(false);
+          setPendingAction(null);
+        }}
+        onConfirm={confirmRegenerate}
+      />
     </div>
   );
 };

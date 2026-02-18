@@ -1,3 +1,4 @@
+import { GeneralKeys } from "../../Store/PubliPriviteKey";
 import { decryptServerResponse } from "../helper";
 
 export const ApirequestHandler = async (
@@ -39,6 +40,7 @@ export const ApirequestHandler = async (
     if (setLoading) setLoading(false);
   }
 };
+
 export const EncryptedApirequestHandler = async (
   api,
   setLoading,
@@ -50,9 +52,10 @@ export const EncryptedApirequestHandler = async (
   }
   try {
     const response = await api();
-    console.log('response', response,  window.PRIVITEKEY)
     const { data } = response;
-    const finalResponse = await decryptServerResponse(data, window.PRIVITEKEY)
+    const {Prikeys} = GeneralKeys.getState()
+    console.log('response', response,  Prikeys)
+    const finalResponse = await decryptServerResponse(data?.payload, Prikeys);
     console.log('RequestHandler and response Data after decryption ===>', finalResponse);
 
     if (finalResponse?.success) {
@@ -79,3 +82,4 @@ export const EncryptedApirequestHandler = async (
     if (setLoading) setLoading(false);
   }
 };
+

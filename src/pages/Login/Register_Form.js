@@ -68,9 +68,9 @@ const Login = () => {
       newErrors.name = "name format: Sham, John, ";
     }
 
-    if (!formData.panName) {
-      newErrors.panName = "Name is required";
-    }
+    // if (!formData.panName) {
+    //   newErrors.panName = "Name is required";
+    // }
 
     setErrorMessage(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -78,8 +78,7 @@ const Login = () => {
 
   const handleRegister = async () => {
     const { mobileNumber, email, name } = formData;
-
-    if (!validateForm()) return;
+    // if (!validateForm()) return;
 
     setLoading(true);
     setErrorMessage("");
@@ -91,11 +90,14 @@ const Login = () => {
       module: "API_MODULE",
     };
 
+    console.log('handle Register form', dataToSend)
+
     await ApirequestHandler(
       async () => Register(dataToSend),
       setLoading,
       (resData) => {
         const { success, clientId, message } = resData;
+        console.log( success, clientId, message );
         if (success || clientId) {
           localStorage.setItem("clientId", clientId);
           navigate("/login");

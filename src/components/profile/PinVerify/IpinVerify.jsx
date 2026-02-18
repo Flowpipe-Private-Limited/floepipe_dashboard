@@ -15,6 +15,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const inputRefs = useRef(pin.map(() => createRef()));
+    const unlockButtonRef = useRef(null);
     const modalRef = useRef(null);
 
     const isPinComplete = pin.every(digit => digit.length === 1);
@@ -39,6 +40,10 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
         if (isVisible) {
             setPin(['', '', '', '']);
             setErrorMessage('');
+            // Focus first input on open
+            if (inputRefs.current[0]?.current) {
+                setTimeout(() => inputRefs.current[0].current.focus(), 100);
+            }
         }
     }, [isVisible]);
 
@@ -46,16 +51,42 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
     const handlePinChange = (index, value) => {
         setErrorMessage('');
 
-        const digit = value.replace(/[^0-9]/g, '').slice(0, 1);
+        // Take the last character entered to allow overwriting
+        const digit = value.replace(/[^0-9]/g, '').slice(-1);
 
         const newPin = [...pin];
         newPin[index] = digit;
         setPin(newPin);
 
-        if (digit && index < 3 && inputRefs.current[index + 1]?.current) {
-            inputRefs.current[index + 1].current.focus();
+        // Move focus forward if a digit was entered
+        if (digit) {
+            if (index < 3 && inputRefs.current[index + 1]?.current) {
+                inputRefs.current[index + 1].current.focus();
+            } else if (index === 3 && unlockButtonRef.current) {
+                unlockButtonRef.current.focus();
+            }
         }
     };
+
+    const handleKeyDown = (e, index) => {
+        if (e.key === 'Backspace') {
+            if (!pin[index] && index > 0 && inputRefs.current[index - 1]?.current) {
+                // If current is empty, move back
+                inputRefs.current[index - 1].current.focus();
+            }
+        } else if (e.key === 'ArrowLeft') {
+            if (index > 0 && inputRefs.current[index - 1]?.current) {
+                inputRefs.current[index - 1].current.focus();
+            }
+        } else if (e.key === 'ArrowRight') {
+            if (index < 3 && inputRefs.current[index + 1]?.current) {
+                inputRefs.current[index + 1].current.focus();
+            }
+        } else if (e.key === 'Enter') {
+            handleUnlock();
+        }
+    };
+
 
     const handleUnlock = async () => {
         if (!isPinComplete || isLoading) {
@@ -146,12 +177,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
                                 maxLength="1"
                                 value={digit}
                                 onChange={(e) => handlePinChange(index, e.target.value)}
-                                onKeyDown={(e) => {
-                                    // Backspace logic to move backward
-                                    if (e.key === 'Backspace' && !pin[index] && index > 0 && inputRefs.current[index - 1]?.current) {
-                                        inputRefs.current[index - 1].current.focus();
-                                    }
-                                }}
+                                onKeyDown={(e) => handleKeyDown(e, index)}
                                 ref={inputRefs.current[index]}
                                 disabled={isLoading}
                                 className={`ipin-digit-input ${errorMessage ? 'error' : ''}`}
@@ -167,6 +193,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
 
                 {/* Unlock Button */}
                 <button
+                    ref={unlockButtonRef}
                     onClick={handleUnlock}
                     disabled={!isPinComplete || isLoading}
                     className={`ipin-unlock-btn ${!isPinComplete || isLoading ? '' : 'active'}`}

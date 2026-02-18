@@ -1,21 +1,27 @@
 import { useState, useRef } from "react";
 import { Paperclip } from "lucide-react";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { useUserStore } from "../../../Store/userStore";
 
 export default function IndividualKycForm({ onBack }) {
   // Step 1: PAN, Step 2: Aadhaar, Step 3: Review
-  const [step, setStep] = useState(1);
+  const { users, IskycApproved, kycCompleted, updateUsers, isIndividual, individualKycData, setIndividualKycData } = useUserStore();
+  // Step 1: PAN, Step 2: Aadhaar, Step 3: Review
+  const [step, setStep] = useState(isIndividual ? 3 : 1);
   const fileInputRef = useRef(null);
 
+
+
   // Form state
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState(individualKycData || {
     name: "",
     pan: "",
+    panFile: null,
     aadhaar: "",
+    aadhaarFile: null,
     address: "",
     gender: "",
     useCase: "",
-    file: null,
   });
 
   const handleNext = () => {
@@ -36,7 +42,9 @@ export default function IndividualKycForm({ onBack }) {
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setFormData({ ...formData, file: e.target.files[0] });
+      const file = e.target.files[0];
+      if (step === 1) setFormData({ ...formData, panFile: file });
+      if (step === 2) setFormData({ ...formData, aadhaarFile: file });
     }
   };
 
@@ -114,7 +122,7 @@ export default function IndividualKycForm({ onBack }) {
               rows={2}
               onChange={handleusecaseChange}
               placeholder="knowing test cases"
-              // value={formData.useCase || "knowing test cases"}
+            // value={formData.useCase || "knowing test cases"}
             />
           </div>
 
@@ -137,7 +145,10 @@ export default function IndividualKycForm({ onBack }) {
             <button
               style={{ fontFamily: "JetBrainsMono" }}
               className="btn-verify"
-              onClick={() => console.log("Final Submit")}
+              onClick={() => {
+                console.log("Final Submit", formData);
+                setIndividualKycData(formData);
+              }}
             >
               Submit
             </button>
@@ -223,9 +234,9 @@ export default function IndividualKycForm({ onBack }) {
                     </svg>
 
                     <span className="upload-place">
-                      {formData.file
-                        ? formData.file.name
-                        : "Upload your files here"}
+                      {formData.panFile
+                        ? formData.panFile.name
+                        : "Upload PAN Card"}
                     </span>
                   </div>
                 </div>
@@ -265,9 +276,9 @@ export default function IndividualKycForm({ onBack }) {
                     </svg>
 
                     <span className="upload-place">
-                      {formData.file
-                        ? formData.file.name
-                        : "Upload your files here"}
+                      {formData.aadhaarFile
+                        ? formData.aadhaarFile.name
+                        : "Upload Aadhaar Card"}
                     </span>
                   </div>
                 </div>
@@ -280,7 +291,14 @@ export default function IndividualKycForm({ onBack }) {
           <button className="btn-back" onClick={handleBack}>
             Back
           </button>
-          <button className="btn-verify" onClick={handleNext}>
+          <button
+            className="btn-verify"
+            onClick={handleNext}
+            disabled={
+              (step === 1 && (!formData.pan || !formData.panFile)) ||
+              (step === 2 && (!formData.aadhaar || !formData.aadhaarFile))
+            }
+          >
             {step === 1 ? "Next" : "Verify"}
           </button>
         </div>

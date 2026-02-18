@@ -17,9 +17,11 @@ import { useUserStore } from "../../Store/userStore";
 import "./KycInputOut.css";
 import Lottie from "lottie-react";
 import Images from "../../Images/Images";
+import { GeneralKeys } from "../../Store/PubliPriviteKey";
 
 const KycReuseComponet = ({ data }) => {
   const { IskycApproved, kycCompleted } = useUserStore();
+  const { setPubKey } = GeneralKeys();
   const [formData, setFormData] = useState({});
   const [Publickey, setPublickey] = useState("");
   const [apiResponse, setApiResponse] = useState({});
@@ -108,7 +110,8 @@ const KycReuseComponet = ({ data }) => {
     let finalPayload = await encryptPayload(payloadToEncrypt, Publickey);
     console.log('is called', finalPayload);
     const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair()
-    window.PRIVITEKEY = privateKeyPem;
+
+    await setPubKey({ PrivateKey: privateKeyPem })
     console.log(finalPayload, publicKeyPem, privateKeyPem);
     // if (!IskycApproved || !kycCompleted) {
     //     console.log('is trigred')
@@ -118,7 +121,7 @@ const KycReuseComponet = ({ data }) => {
 
     setLoading(true);
 
-    await ApirequestHandler(
+    await EncryptedApirequestHandler(
       async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...finalPayload, publicKeyPem }),
       setLoading,
       (res) => {
@@ -286,7 +289,7 @@ const KycReuseComponet = ({ data }) => {
                     }}
                   >
 
-                         <div className="kyc-lottie-icon-wrapper">
+                    <div className="kyc-lottie-icon-wrapper">
                       <Lottie
                         animationData={Images.LIVEAnimation}
                         loop

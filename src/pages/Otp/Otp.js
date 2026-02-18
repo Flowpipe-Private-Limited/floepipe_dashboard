@@ -21,6 +21,7 @@ const OtpScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const {token,mobileNumber} = location.state;
+  console.log('OTP Screen verify', location.state);
 
   if (!token || !mobileNumber) {
     console.log("Token or mobile number missing, redirecting to login");
@@ -89,7 +90,7 @@ const OtpScreen = ({ navigation }) => {
       (resData)=>{
         const {success,message} = resData;
         if(success){
-          Cookies.set("token",resData.token);
+          Cookies.set("token",token);
           navigate("/dashboard")
         }else{
           setErrorMessage(message || "Invalid OTP");

@@ -257,7 +257,9 @@ export default function DashboardPage() {
   const navigate = useNavigate("");
 
   useEffect(() => {
-    fetchUsers();
+    if (!users.length) {
+      fetchUsers();
+    }
 
     const handleResize = () => {
       if (window.innerWidth < 1024) {
