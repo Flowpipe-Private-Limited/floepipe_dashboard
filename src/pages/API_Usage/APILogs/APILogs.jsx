@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./APILogs.css";
 import { X, Calendar, ChevronDown, ChevronUp } from "lucide-react";
 import DateRangePicker from "../../../components/ui/Calender/DateRangePicker";
@@ -14,7 +15,7 @@ const APILogs = () => {
   const [toDate, setToDate] = useState("");
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [activeDateField, setActiveDateField] = useState(null);
-  const [expandedRows, setExpandedRows] = useState({});
+  const navigate = useNavigate();
 
   // Sample API logs data - set to empty array [] to show empty state
   const [apiLogsData] = useState([
@@ -91,11 +92,14 @@ const APILogs = () => {
     },
   ]);
 
-  const toggleRow = (rowId) => {
-    setExpandedRows((prev) => ({
-      ...prev,
-      [rowId]: !prev[rowId],
-    }));
+  const handleExpand = (log) => {
+    navigate("/dashboard/APILogsDetail", {
+      state: {
+        records: log.records,
+        clientId: log.clientId,
+        serviceName: log.serviceName
+      }
+    });
   };
 
   return (
@@ -121,11 +125,7 @@ const APILogs = () => {
                 <tbody>
                   {apiLogsData.map((log) => (
                     <React.Fragment key={log.id}>
-                      <tr colSpan="6"
-                        className={
-                          expandedRows[log.id] ? "expanded-row" : ""
-                        }
-                      >
+                      <tr colSpan="6">
                         <td>{log.clientId}</td>
                         <td>{log.serviceId}</td>
                         <td>{log.serviceName}</td>
@@ -133,35 +133,14 @@ const APILogs = () => {
                         <td>
                           <button
                             className="expand-btn"
-                            onClick={() => toggleRow(log.id)}
-                            aria-label={
-                              expandedRows[log.id] ? "Collapse" : "Expand"
-                            }
+                            onClick={() => handleExpand(log)}
+                            aria-label="Expand"
                           >
-                            {expandedRows[log.id] ? (
-                              <ChevronUp size={18} />
-                            ) : (
-                              <ChevronDown size={18} />
-                            )}
+                            <ChevronDown size={18} />
                           </button>
                         </td>
                       </tr>
-                      {expandedRows[log.id] && (
-                        <tr className="expanded-content-row">
-                          <td colSpan="6">
-                            <div className="expanded-details">
-                              {log.records && log.records.map((record, index) => (
-                                <div key={index} className="api-record-item">
-                                  <div>{record.clientId}</div>
-                                  <div>{record.serviceId}</div>
-                                  <div>{record.serviceName}</div>
-                                  <div>{record.count}</div>
-                                </div>
-                              ))}
-                            </div>
-                          </td>
-                        </tr>
-                      )}
+                      {/* Expanded content row removed - now navigates to separate page */}
                     </React.Fragment>
                   ))}
                 </tbody>
@@ -188,9 +167,8 @@ const APILogs = () => {
             {/* Mode Toggle */}
             <div className="request-mode-toggle">
               <button
-                className={`request-mode-btn ${
-                  activeMode === "test" ? "active" : ""
-                }`}
+                className={`request-mode-btn ${activeMode === "test" ? "active" : ""
+                  }`}
                 onClick={() => setActiveMode("test")}
               >
                 <span className="request-mode-icon">
@@ -200,9 +178,8 @@ const APILogs = () => {
               </button>
 
               <button
-                className={`request-mode-btn ${
-                  activeMode === "live" ? "active" : ""
-                }`}
+                className={`request-mode-btn ${activeMode === "live" ? "active" : ""
+                  }`}
                 onClick={() => setActiveMode("live")}
               >
                 <span className="request-mode-icon">

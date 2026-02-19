@@ -48,6 +48,7 @@ import Billing_plans from "../pages/WalletToPop/Billing_plans";
 import ViewAnalytics from "../pages/ViewAnalytics/ViewAnalytics";
 import Trial_Center from "../pages/Trial_Center/Trial_Center";
 import Webhooks from "../pages/Webhooks/Webhooks";
+import APILogs_expandtable from "../pages/API_Usage/APILogs/APILogs_expandtable";
 
 const AppRoute = () => {
   return (
@@ -67,7 +68,7 @@ const AppRoute = () => {
         <Route path="/New_Password" element={<New_Password />} />
 
         {/* User DashBoard Routes */}
-        <Route path="/dashboard"  element={<ProtectionRoute><Dashboard/></ProtectionRoute>}>
+        <Route path="/dashboard" element={<ProtectionRoute><Dashboard /></ProtectionRoute>}>
           {/* <Route path="/dashboard" element={<Dashboard />}> */}
           <Route index element={<MainContent />} />
           <Route path="Profile" element={<ProfilePage />} />
@@ -79,6 +80,7 @@ const AppRoute = () => {
           <Route path="viewAnalytics" element={<ViewAnalytics />} />
           <Route path="apiKeys" element={<ApiKeys />} />
           <Route path="APIUsage" element={<API_Usage />} />
+          <Route path="APILogsDetail" element={<APILogs_expandtable />} />
           <Route path="WhitelistIP" element={<WhiteListIP />} />
           <Route path="KYC/aadhaar" element={<AadhaarVerifyPage />} />
           <Route path="IpAccess" element={<Whitelistapis />} />
