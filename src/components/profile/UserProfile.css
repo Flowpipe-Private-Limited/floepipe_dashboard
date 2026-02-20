@@ -1,7 +1,12 @@
 .profile-page-container {
   width: 100%;
   min-height: 100vh;
-  background-color: #f8f9fc;
+  background-color: var(--white-100);
+}
+
+[data-theme='dark'] .profile-page-container {
+  background-color: var(--white-300);
+  /* Dark background */
 }
 
 .profile-header {
@@ -129,7 +134,7 @@
 
 .tabs-group {
   display: flex;
-  background-color: white;
+  background-color: var(--white);
   border-radius: 0.5rem;
   overflow: hidden;
   width: 100%;
@@ -145,7 +150,7 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  color: #111;
+  color: var(--black);
   transition: all 0.25s ease;
   font-family: "JetBrainsMono";
   border-right: 1.2px solid var(--purple-200);
@@ -189,7 +194,7 @@
 .section-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(black);
+  color: var(--black);
   margin: 0;
   font-family: "JetBrainsMonoSemiBold";
   letter-spacing: -0.5px;
@@ -280,6 +285,7 @@
 .input-field:not(.readonly):hover {
   border-color: var(--black-500);
 }
+
 .input-field.company-details-input:hover {
   border-color: var(--purple-main);
 }
@@ -448,7 +454,7 @@
 .modal-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #111;
+  color: var(--black);
   margin: 0;
   font-family: "JetBrainsMono";
 }
@@ -480,7 +486,7 @@
 
 .modal-label {
   font-size: 0.9rem;
-  color: #374151;
+  color: var(--black-100);
   margin-bottom: -0.5rem;
   font-family: "JetBrainsMono";
 }
@@ -497,7 +503,7 @@
     box-shadow 0.2s;
 }
 
-.modal-input-phone-input{
+.modal-input-phone-input {
   width: 100%;
   padding: 0.5rem;
   border-radius: 0.375rem;
@@ -506,11 +512,11 @@
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
-    color: var(--black-700);
+  color: var(--black-700);
 }
 
 .modal-input:focus {
-  border-color:var(--purple-main);
+  border-color: var(--purple-main);
   box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
 }
 

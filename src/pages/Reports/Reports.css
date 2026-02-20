@@ -2,6 +2,7 @@
   background-color: #fafbfc;
   min-height: 100vh;
 }
+
 .filter-card {
   background: var(--white);
   padding: 1.5rem;
@@ -9,18 +10,21 @@
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 6px #8686861a;
 }
+
 .filter-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
 }
+
 .filter-title {
   font-size: 1.25rem;
   font-weight: 600;
   color: #1f2937;
   margin: 0;
 }
+
 .clear-all-btn {
   background: none;
   border: none;
@@ -30,17 +34,20 @@
   cursor: pointer;
   font-family: "JetBrainsMono";
 }
+
 .filter-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   row-gap: 2rem;
 }
+
 .form-group {
   display: flex;
   flex-direction: column;
   position: relative;
 }
+
 .label {
   font-size: 0.86rem;
   color: var(--purple-main);
@@ -49,6 +56,7 @@
   letter-spacing: 0.5px;
   font-family: "JetBrainsMono";
 }
+
 .custom-select-trigger,
 .input-trigger {
   border: 1px solid var(--gray-300);
@@ -63,17 +71,21 @@
   align-items: center;
   width: 100%;
 }
+
 .input-trigger {
   color: var(--black-100);
 }
+
 .input-trigger.has-value {
   color: #111;
 }
+
 .custom-select-trigger:focus,
 .input-trigger:focus {
   outline: none;
   border-color: #a78bfa;
 }
+
 .select-dropdown-menu {
   position: absolute;
   top: 100%;
@@ -88,6 +100,7 @@
   max-height: 250px;
   overflow-y: auto;
 }
+
 .select-option {
   padding: 0.3rem 0.8rem;
   font-size: 0.9rem;
@@ -95,13 +108,16 @@
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .select-option:hover {
   background-color: #f3f4f6;
 }
+
 .select-option.selected {
   background-color: #f5f3ff;
   color: var(--purple-main);
 }
+
 .radio-group {
   display: flex;
   gap: 1.5rem;
@@ -109,6 +125,7 @@
   height: 100%;
   min-height: 40px;
 }
+
 .radio-label {
   display: flex;
   align-items: center;
@@ -118,6 +135,7 @@
   cursor: pointer;
   font-weight: 500;
 }
+
 .radio-label input[type="radio"] {
   appearance: none;
   width: 1.2rem;
@@ -127,9 +145,11 @@
   position: relative;
   cursor: pointer;
 }
+
 .radio-label input[type="radio"]:checked {
   border-color: var(--purple-main);
 }
+
 .radio-label input[type="radio"]:checked::after {
   content: "";
   position: absolute;
@@ -270,12 +290,13 @@
   flex: 1;
   padding: 0.5rem 1rem;
   font-size: 1rem;
-    font-family: "JetBrainsMono";
+  font-family: "JetBrainsMono";
 
   text-align: center;
   border-radius: 0.6rem;
   background: var(--white);
-  border: 1.5px solid #d1d5db; /* default grey */
+  border: 1.5px solid #d1d5db;
+  /* default grey */
   color: #374151;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
 }
@@ -403,6 +424,7 @@
   color: var(--white);
   border: none;
 }
+
 @media (max-width: 1023px) {
   .filter-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -441,7 +463,9 @@
     width: 100%;
   }
 }
+
 @media (max-width: 767px) {
+
   /* Page spacing */
   .reports-container {
     padding: 0rem;
@@ -509,10 +533,132 @@
     width: 100%;
   }
 
-  /* Result */
   .result-placeholder {
     flex-direction: column;
     gap: 0.5rem;
     font-size: 0.85rem;
   }
+}
+
+/* ==========================================================================
+   Dark Mode Overrides for Reports
+   ========================================================================== */
+
+[data-theme='dark'] .reports-container {
+  background-color: var(--white);
+  /* Dark background */
+}
+
+[data-theme='dark'] .filter-card,
+[data-theme='dark'] .result-section {
+  background-color: var(--white-100);
+  /* Slightly lighter dark */
+  color: var(--black);
+  /* White text */
+}
+
+[data-theme='dark'] .filter-title {
+  color: var(--black);
+}
+
+[data-theme='dark'] .label {
+  color: var(--purple-main);
+}
+
+[data-theme='dark'] .custom-select-trigger,
+[data-theme='dark'] .input-trigger {
+  background-color: var(--white);
+  /* Darker input bg */
+  border-color: var(--gray-500);
+  color: var(--black);
+}
+
+[data-theme='dark'] .select-dropdown-menu {
+  background-color: var(--white-100);
+  border-color: var(--gray-500);
+}
+
+[data-theme='dark'] .select-option {
+  color: var(--black);
+}
+
+[data-theme='dark'] .select-option:hover {
+  background-color: var(--white-200);
+}
+
+[data-theme='dark'] .select-option.selected {
+  background-color: var(--purple-800);
+  color: var(--white);
+}
+
+[data-theme='dark'] .radio-label {
+  color: var(--black);
+}
+
+[data-theme='dark'] .report-set-placeholder {
+  color: var(--black-600);
+}
+
+[data-theme='dark'] .result-placeholder {
+  background-color: var(--white-200);
+  color: var(--black);
+}
+
+/* Date Picker Modal Dark Mode */
+[data-theme='dark'] .date-picker-modal {
+  background-color: var(--white-100);
+}
+
+[data-theme='dark'] .presets-sidebar {
+  background-color: var(--white);
+  border-right-color: var(--gray-500);
+}
+
+[data-theme='dark'] .preset-btn {
+  color: var(--black);
+}
+
+[data-theme='dark'] .preset-btn:hover {
+  background-color: var(--white-200);
+}
+
+[data-theme='dark'] .preset-btn.active {
+  background-color: var(--purple-800);
+  color: var(--white);
+}
+
+[data-theme='dark'] .date-display-box {
+  background-color: var(--white);
+  border-color: var(--gray-500);
+  color: var(--black);
+}
+
+[data-theme='dark'] .month-label {
+  color: var(--black);
+}
+
+[data-theme='dark'] .nav-btn {
+  color: var(--black);
+}
+
+[data-theme='dark'] .day-label {
+  color: var(--gray-400);
+}
+
+[data-theme='dark'] .day-cell {
+  color: var(--black);
+}
+
+[data-theme='dark'] .day-cell:not(.empty):hover {
+  background-color: var(--white-200);
+}
+
+[data-theme='dark'] .modal-footer {
+  border-top-color: var(--gray-500);
+}
+
+[data-theme='dark'] .modal-btn.cancel {
+  background-color: transparent;
+  border-color: var(--purple-main);
+  color: var(--purple-main);
 }

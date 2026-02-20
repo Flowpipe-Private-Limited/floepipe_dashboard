@@ -71,24 +71,24 @@ export const Aadhaar = {
   apiUrl: {
     Method: 'Post',
     URLS: "aadhaar/Aadhaarmaskedverify",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "AadhaarNumber Verification",
     headerTitle: "Verify AadhaarNumber using government KYC service",
     submitButton: 'Verify AadhaarNumber'
   },
-  inputParams: ["aadharNumber"],
+  inputParams: ["aadharNumber", "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[2-9][0-9]{11}$"],
   exampleCurl: `curl --location 'http://localhost:7006/business/Gstinverify' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'X-Ipay-Client-Id: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "aadharNumber": ""
+      "aadharNumber": "",
+      "serviceId": "",
+      "categoryId": ""
   }'`,
   exampleResponse: {
     "message": {
@@ -145,24 +145,24 @@ export const GstIN = {
   apiUrl: {
     Method: 'Post',
     URLS: "business/Gstinverify",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "GSTIN Verification",
     headerTitle: "Verify GSTIN using government KYC service",
     submitButton: 'Verify GSTIN'
   },
-  inputParams: ["gstinNumber"],
+  inputParams: ["gstinNumber", "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}[A-Z\\d]{1}Z[A-Z\\d]{1}$"],
   exampleCurl: `curl --location 'http://localhost:7006/business/Gstinverify' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "gstinNumber": ""
+      "gstinNumber": "",
+      "serviceId": "",
+      "categoryId": ""
   }'`,
   exampleResponse: {
     "message": {
@@ -219,23 +219,24 @@ export const SHOP = {
   apiUrl: {
     Method: 'Post',
     URLS: "shop/shopest",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "SHOP Verification",
     headerTitle: "Verify shop using government KYC service",
     submitButton: 'Verify Shop'
   },
-  inputParams: ['registrationNumber', 'state'],
+  inputParams: ['registrationNumber', 'state', "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "gstinNumber": ""
+      "registrationNumber": "",
+      "state": "",
+      "serviceId": "",
+      "categoryId": ""
   }'`,
   exampleResponse: {
     "essentials": {
@@ -289,24 +290,24 @@ export const SendOTP = {
   apiUrl: {
     Method: 'Post',
     URLS: "mobileNumber/mobileOtp",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "MobileNumber Verification (Send OTP To Number)",
     headerTitle: "Verify MobileNumber using government KYC service",
     submitButton: 'Send OTP to Number'
   },
-  inputParams: ['mobileNumber'],
+  inputParams: ['mobileNumber', "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[6-9]\\d{9}$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "gstinNumber": ""
+      "mobileNumber": "",
+      "serviceId": "",
+      "categoryId": ""
   }'`,
   exampleResponse: {
     "essentials": {
@@ -360,24 +361,25 @@ export const VerifyOTP = {
   apiUrl: {
     Method: 'Post',
     URLS: "mobileNumber/mobileotpVerify",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "MobileNumber Verification (Verify OTP)",
     headerTitle: "Verify MobileNumber using government KYC service",
     submitButton: 'Verify OTP'
   },
-  inputParams: ["submittedOtp", "mobile"],
+  inputParams: ["submittedOtp", "mobile", "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{4}$", "^[6-9]\\d{9}$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "gstinNumber": ""
+      "submittedOtp": "",
+      "mobile": "",
+      "serviceId": "",
+      "categoryId": ""
   }'`,
   exampleResponse: {
     "essentials": {
@@ -431,15 +433,14 @@ export const panVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "pan/verify",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "Pan Verification",
     headerTitle: "Verify Pan using government KYC service",
     submitButton: 'Verify Pan'
   },
-  inputParams: ["panNumber"],
+  inputParams: ["panNumber", "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{5}[0-9]{4}[A-Z]{1}$"],
@@ -502,15 +503,14 @@ export const panAadhaarVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "pan/verify_to_aadhaar",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "Pan Verification",
     headerTitle: "Verify pan To Aadhaar using government KYC service",
     submitButton: 'Verify PantoAadhaar'
   },
-  inputParams: ["panNumber"],
+  inputParams: ["panNumber", "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{5}[0-9]{4}[A-Z]{1}$"],
@@ -573,15 +573,14 @@ export const accountVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "accounts/verify/penny-drop",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "Bank Account Verification",
     headerTitle: "Verify Account using government KYC service",
     submitButton: 'Verify Account'
   },
-  inputParams: ["account_no", "ifsc"],
+  inputParams: ["account_no", "ifsc", "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{9,18}$", "^[A-Z]{4}0[A-Z0-9]{6}$"],
@@ -644,15 +643,14 @@ export const CINVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "business/CinNumberverify",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "CIN Verification",
     headerTitle: "Verify CIN using government KYC service",
     submitButton: 'Verify CIN'
   },
-  inputParams: ["CIN"],
+  inputParams: ["CIN", "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^([LU])\\d{5}[A-Z]{2}\\d{4}[A-Z]{3}\\d{6}$"],
@@ -819,23 +817,23 @@ export const UdamVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "udyam/verify",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "udyam Verification",
     headerTitle: "Verify Udyam number using government KYC service",
     submitButton: 'Verify Udyam number'
   },
-  inputParams: ["udyamNumber"],
+  inputParams: ["udyamNumber", "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/udyam/verify' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "udyamNumber": "",
+      "serviceId": "",
+      "categoryId": ""
   }'`,
   exampleResponse: {
     "success": true,
@@ -861,24 +859,24 @@ export const cardVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "card/cardVerify",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "Credit Card Verification",
     headerTitle: "Verify CreditCard using government KYC service",
     submitButton: 'Verify CreditCard'
   },
-  inputParams: ["creditCardNumber"],
+  inputParams: ["creditCardNumber", "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
 
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "creditCardNumber": "",
+      "serviceId": "",
+      "categoryId": ""
   }'`,
   exampleResponse: {
     "success": true,
@@ -904,24 +902,25 @@ export const NameMatch = {
   apiUrl: {
     Method: 'Post',
     URLS: "name/compareNames",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "Name Verification",
     headerTitle: "Verify Name using government KYC service",
     submitButton: 'Verify Name'
   },
-  inputParams: ["firstName", "secondName"],
+  inputParams: ["firstName", "secondName", "serviceId", "categoryId"],
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Za-z\\s]+$", "^[A-Za-z\\s]+$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "firstName": "",
+      "secondName": "",
+      "serviceId": "",
+      "categoryId": ""
   }'`,
   exampleResponse: {
     "success": true,
@@ -949,8 +948,7 @@ export const RechargeOperators = {
   apiUrl: {
     Method: 'Post',
     URLS: "/Operators",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 1: Fetch Operators",
@@ -963,10 +961,9 @@ export const RechargeOperators = {
   regexValues: ["^[6-9]\\d{9}$"],
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "mobileNumber": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -987,8 +984,7 @@ export const RechargePlans = {
   apiUrl: {
     Method: 'Post',
     URLS: "/Plans",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 2: Fetch Plans",
@@ -1000,10 +996,10 @@ export const RechargePlans = {
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "operatorcode": "",
+      "cricle": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1024,8 +1020,7 @@ export const RechargeOldPlans = {
   apiUrl: {
     Method: 'Post',
     URLS: "/OldPlans",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "Fetch Old Plans",
@@ -1037,10 +1032,10 @@ export const RechargeOldPlans = {
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "operatorcode": "",
+      "cricle": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1061,8 +1056,7 @@ export const RechargeOffersPlans = {
   apiUrl: {
     Method: 'Post',
     URLS: "/OffersPlans",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 3: Fetch OffersPlans",
@@ -1074,10 +1068,10 @@ export const RechargeOffersPlans = {
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "operator_code": "",
+      "mobile_no": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1095,8 +1089,7 @@ export const RechargeURL = {
   apiUrl: {
     Method: 'Post',
     URLS: "/RechargeURL",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 4: RechargeURL",
@@ -1109,10 +1102,13 @@ export const RechargeURL = {
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7009/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "MobileNumber": "",
+      "actualAmount": "",
+      "spKey": "",
+      "transactionId": "",
+      "customerNumber": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1169,8 +1165,7 @@ export const BBPSCategory = {
   apiUrl: {
     Method: 'Get',
     URLS: "/billerInfo/:category",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 1: Get Category",
@@ -1184,10 +1179,9 @@ export const BBPSCategory = {
   isDisable: true,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "category": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1199,8 +1193,7 @@ export const BBPSBillerInfo = {
   apiUrl: {
     Method: 'Get',
     URLS: "/billerInfo/:category",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 2: Get Biller Info",
@@ -1214,10 +1207,9 @@ export const BBPSBillerInfo = {
   isDisable: true,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "billerId": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1229,8 +1221,7 @@ export const BBPSBillFetch = {
   apiUrl: {
     Method: 'Get',
     URLS: "/billerInfo/:category",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 3: Get Bill Fetch",
@@ -1244,10 +1235,12 @@ export const BBPSBillFetch = {
   isDisable: true,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "accessCode": "",
+      "ver": "",
+      "instituteId": "",
+      "secretKey": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1259,8 +1252,7 @@ export const BBPSBillPay = {
   apiUrl: {
     Method: 'POST',
     URLS: "/billPayRequest",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 4: Get Bill Pay",
@@ -1274,10 +1266,13 @@ export const BBPSBillPay = {
   isDisable: true,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "accessCode": "",
+      "ver": "",
+      "instituteId": "",
+      "secretKey": "",
+      "requestId": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1289,8 +1284,7 @@ export const BBPSBillValidation = {
   apiUrl: {
     Method: 'POST',
     URLS: "/billValidation",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 4: Bill Validation Fetch",
@@ -1304,10 +1298,12 @@ export const BBPSBillValidation = {
   isDisable: true,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "accessCode": "",
+      "ver": "",
+      "instituteId": "",
+      "secretKey": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1319,8 +1315,7 @@ export const BBPSBillQuickPay = {
   apiUrl: {
     Method: 'POST',
     URLS: "/billQuickPay",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 5: Bill QuickPay",
@@ -1334,10 +1329,13 @@ export const BBPSBillQuickPay = {
   isDisable: true,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "accessCode": "",
+      "ver": "",
+      "instituteId": "",
+      "secretKey": "",
+      "requestId": ""
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1358,8 +1356,7 @@ export const InstantBillPay = {
   apiUrl: {
     Method: 'POST',
     URLS: "/instantpay/billPay",
-    testUrl: "https://localhost:7007/V1/KYC/TEST/GSTIN/Gstinverify",
-    liveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "STEP 1: InstantBill Pay",

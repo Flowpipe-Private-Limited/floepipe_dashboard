@@ -27,24 +27,6 @@ const kycApiClient = axios.create({
   //   timeout: 120000,
   //   timeout: 120000,
 });
-kycApiClient.interceptors.request.use(
-  async function (config) {
-    const currentState = useUserkey.getState();
-    const token = currentState.LiveAccessToken;
-    const SecretKey = currentState.LiveSecretKey;
-
-    if (token) {
-      const clientId = localStorage.getItem('clientId');
-      config.headers['secret_token'] = token;
-      config.headers['secret_key'] = SecretKey;
-      config.headers['client_id'] = clientId;
-    }
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
 
 // BBPS MICROSERVICE BASE URL
 const bbpsApiClient = axios.create({
@@ -52,24 +34,6 @@ const bbpsApiClient = axios.create({
   //   withCredentials: true,
   //   timeout: 120000,
 });
-bbpsApiClient.interceptors.request.use(
-  async function (config) {
-    const currentState = useUserkey.getState();
-    const token = currentState.LiveAccessToken;
-    const SecretKey = currentState.LiveSecretKey;
-
-    if (token) {
-      const clientId = localStorage.getItem('clientId');
-      config.headers['secret_token'] = token;
-      config.headers['secret_key'] = SecretKey;
-      config.headers['client_id'] = clientId;
-    }
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
 
 // RECHARGE MICROSERVICE BASE URL
 const RechargeApiClient = axios.create({
@@ -77,24 +41,6 @@ const RechargeApiClient = axios.create({
   //   withCredentials: true,
   //   timeout: 120000,
 });
-RechargeApiClient.interceptors.request.use(
-  async function (config) {
-    const currentState = useUserkey.getState();
-    const token = currentState.LiveAccessToken;
-    const SecretKey = currentState.LiveSecretKey;
-
-    if (token) {
-      const clientId = localStorage.getItem('clientId');
-      config.headers['secret_token'] = token;
-      config.headers['secret_key'] = SecretKey;
-      config.headers['client_id'] = clientId;
-    }
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
 
 // Supper Admin Routes
 const Register = (data) => supperApiClient.post('client/register', data)
@@ -118,22 +64,25 @@ const DashboardServices = () => supperApiClient.get("/apimodule/dashboard-servic
 const HandleCreateKeys = (data) => supperApiClient.post("client/crete/clientKeys", data);
 const HandleFetchAllKeys = (data) => supperApiClient.get(`client/get/TestandLive/clientKeys?clientId=${data}`);
 
-
 const SubscribeService = (payload) => supperApiClient.post("/apimodule/subscribe-service", payload);
 const getAllCategoriesService = () => supperApiClient.get("/apimodule/get-all-category")
 const getServicesByCategoryService = (categoryId) =>
   supperApiClient.get("/apimodule/service-config", {
     params: { categoryId },
   });
-const ApiVerification = (isMicro, URLS, data) => {
+const ApiVerification = (isMicro, URLS, data, token) => {
   console.log(isMicro, URLS, data)
+  const headers = {
+    'secret_token': token
+  };
+
   switch (isMicro) {
     case 'KYC':
-      return kycApiClient.post(URLS, data);
+      return kycApiClient.post(URLS, data, { headers });
     case 'RECHARGE':
-      return RechargeApiClient.post(URLS, data);
+      return RechargeApiClient.post(URLS, data, { headers });
     case 'BBPS':
-      return bbpsApiClient.post(URLS, data);
+      return bbpsApiClient.post(URLS, data, { headers });
   }
 };
 const fetchPublickey = () => kycApiClient.get(`ApiModuels/key/Publickey`);
@@ -141,7 +90,7 @@ const fetchPublickey = () => kycApiClient.get(`ApiModuels/key/Publickey`);
 
 // Fetch User Details
 
-const VerifyIPIN = (data) => kycApiClient.post('merchant/Verify/ipin', data);
+const VerifyIPIN = (data) => kycApiClient.post('Client/Verify/ipin', data);
 
 const HandleGetOtp = (data) => kycApiClient.post('mobileNumber/mobileOtp', data);
 const HandleVerifyOtp = (data) => kycApiClient.post('mobileNumber/mobileotpVerify', data);
@@ -150,7 +99,7 @@ const HandleCreateIP = (data) => kycApiClient.post(`IP/WhiteListIP`, data);
 
 export {
 
-  Register, SendOTP, VerifyOTP, ClientService, SubscribeService,DashboardServices, getAllCategoriesService, getServicesByCategoryService,
+  Register, SendOTP, VerifyOTP, ClientService, SubscribeService, DashboardServices, getAllCategoriesService, getServicesByCategoryService,
 
   fetchPublickey,
 

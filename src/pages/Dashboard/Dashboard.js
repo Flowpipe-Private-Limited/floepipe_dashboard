@@ -12,7 +12,10 @@ import {
   ChevronUp,
   Smartphone,
   Briefcase,
+
   Zap,
+  Moon,
+  Sun,
 } from "lucide-react";
 import flowpipeLogo from "../../assets/images/FlowpipeLogo.png";
 import { useUserStore } from "../../Store/userStore";
@@ -274,6 +277,12 @@ export default function DashboardPage() {
     // return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Theme Logic
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, []);
+
   return (
     <div className="h-screen w-full flex bg-[#000] relative">
       {/* Mobile Overlay */}
@@ -291,7 +300,7 @@ export default function DashboardPage() {
           onHelpClick={() => setShowHelp(true)}
           onLogoutClick={() => setShowLogout(true)}
         />
-        <main className="flex-1 overflow-y-auto p-6 bg-[#f8f9fd]">
+        <main className="flex-1 overflow-y-auto p-6 bg-main-content">
           <Outlet />
         </main>
         {showHelp && <Help onClose={() => setShowHelp(false)} />}
@@ -598,6 +607,16 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
 
   const routeTitleMap = {};
 
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+    window.dispatchEvent(new Event("themeChange"));
+  };
+
   // Build route title map including nested API routes
   const buildRouteMap = (items) => {
     items.forEach((item) => {
@@ -686,6 +705,28 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
                 }}
               >
                 My Account
+              </div>
+              <div className="profile-divider"></div>
+
+              <div
+                className="profile-menu-item"
+                style={{ justifyContent: "space-between" }}
+                onClick={toggleTheme}
+              >
+                <div className="flex items-center gap-2">
+                  {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+                  <span>{theme === "light" ? "Dark Mode" : "Light Mode"}</span>
+                </div>
+                {/* Simple Toggle Switch UI */}
+                <div
+                  className={`w-8 h-4 flex items-center bg-gray-300 rounded-full p-1 duration-300 cursor-pointer ${theme === "dark" ? "bg-purple-600" : ""
+                    }`}
+                >
+                  <div
+                    className={`bg-white w-3 h-3 rounded-full shadow-md transform duration-300 ${theme === "dark" ? "translate-x-4" : ""
+                      }`}
+                  ></div>
+                </div>
               </div>
               <div className="profile-divider"></div>
 
