@@ -9,7 +9,6 @@ import {
   ClientService,
   SubscribeService,
 } from "../../utils/Apis/api";
-
 const Products = () => {
   const [filter, setFilter] = useState("All Products");
   const [categories, setCategories] = useState([]);

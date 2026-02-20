@@ -6,7 +6,8 @@ import DateRangePicker from "../../../components/ui/Calender/DateRangePicker";
 import { LuTestTube } from "react-icons/lu";
 import { BsLightningCharge } from "react-icons/bs";
 import Images from "../../../Images/Images";
-
+import { useEffect } from "react";
+import {getAnalyticsService} from "../../../utils/Apis/api";
 const APILogs = () => {
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [showRequestedModal, setShowRequestedModal] = useState(false);
@@ -16,81 +17,8 @@ const APILogs = () => {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [activeDateField, setActiveDateField] = useState(null);
   const navigate = useNavigate();
+const [apiLogsData, setApiLogsData] = useState([]);
 
-  // Sample API logs data - set to empty array [] to show empty state
-  const [apiLogsData] = useState([
-    {
-      id: 1,
-      clientId: "Rakesh Pamula",
-      serviceId: "id : 23456789",
-      serviceName: "Aadhaar Card",
-      count: 10,
-      chargedAmount: "₹5,000",
-      records: [
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 10, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 9, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 8, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 7, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 6, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 5, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 4, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 3, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 2, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 1, chargedAmount: "₹5,000" },
-
-
-      ]
-    },
-    {
-      id: 2,
-      clientId: "Rakesh Pamula",
-      serviceId: "id : 23456789",
-      serviceName: "Aadhaar Card",
-      count: 10,
-      chargedAmount: "₹5,000",
-      records: [
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 10, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 9, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 8, chargedAmount: "₹5,000" },
-      ]
-    },
-    {
-      id: 3,
-      clientId: "Rakesh Pamula",
-      serviceId: "id : 23456789",
-      serviceName: "Aadhaar Card",
-      count: 9,
-      chargedAmount: "₹5,000",
-      records: [
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 9, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 8, chargedAmount: "₹5,000" },
-      ]
-    },
-    {
-      id: 4,
-      clientId: "Rakesh Pamula",
-      serviceId: "id : 23456789",
-      serviceName: "Aadhaar Card",
-      count: 8,
-      chargedAmount: "₹5,000",
-      records: [
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 8, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 7, chargedAmount: "₹5,000" },
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 6, chargedAmount: "₹5,000" },
-      ]
-    },
-    {
-      id: 5,
-      clientId: "Rakesh Pamula",
-      serviceId: "id : 23456789",
-      serviceName: "Aadhaar Card",
-      count: 7,
-      chargedAmount: "₹5,000",
-      records: [
-        { clientId: "Rakesh Pamula", serviceId: "id : 23456789", serviceName: "Aadhaar Card", count: 7, chargedAmount: "₹5,000" },
-      ]
-    },
-  ]);
 
   const handleExpand = (log) => {
     navigate("/dashboard/APILogsDetail", {
@@ -101,6 +29,54 @@ const APILogs = () => {
       }
     });
   };
+useEffect(() => {
+  fetchAnalytics();
+}, []);
+
+const fetchAnalytics = async () => {
+  console.log(" Fetching analytics data...");
+
+  try {
+    const res = await getAnalyticsService();
+
+    console.log("Full API Response:", res.data);
+
+    if (res?.data?.success) {
+      const rawData = res.data.data;
+      console.log("Raw Data from Backend:", rawData);
+      console.log("Number of Clients:", rawData.length);
+      const formatted = rawData.flatMap((client, index) => {
+        console.log(` Processing Client ${index + 1}`);
+        console.log("Client ID:", client.clientId);
+        console.log("Services Count:", client.services.length);
+
+        return client.services.map((service, i) => {
+          console.log(`Service ${i + 1}:`, service);
+
+          return {
+            id: `${index}-${i}`,
+            clientId: client.clientId,
+            serviceId: service._id,
+            serviceName: service.service,
+            count: service.count,
+            records: [service]
+          };
+        });
+      });
+
+      console.log("Final Flattened Data:", formatted);
+      console.log("Total Table Rows:", formatted.length);
+
+      setApiLogsData(formatted);
+    } else {
+      console.warn("⚠ API Success is FALSE");
+    }
+
+  } catch (error) {
+    console.error("Error Fetching Analytics:", error);
+  }
+};
+
 
   return (
     <>
@@ -115,9 +91,9 @@ const APILogs = () => {
               <table className="api-logs-table">
                 <thead colSpan="6">
                   <tr colSpan="6">
-                    <th>Client ID</th>
+                    <th>ClientID</th>
                     <th>Service ID</th>
-                    <th>Service Name</th>
+                    <th>Service Namess</th>
                     <th>Count</th>
                     <th></th>
                   </tr>

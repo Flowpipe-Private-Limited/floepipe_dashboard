@@ -96,7 +96,8 @@ const HandleGetOtp = (data) => kycApiClient.post('mobileNumber/mobileOtp', data)
 const HandleVerifyOtp = (data) => kycApiClient.post('mobileNumber/mobileotpVerify', data);
 const HandleFetchIP = (data) => kycApiClient.get(`IP/Getipwhitelist/${data?.MerchatID}`);
 const HandleCreateIP = (data) => kycApiClient.post(`IP/WhiteListIP`, data);
-
+const getAnalyticsService = () =>
+  kycApiClient.get("/inhouse/analytics/Analyticalreports");
 export {
 
   Register, SendOTP, VerifyOTP, ClientService, SubscribeService, DashboardServices, getAllCategoriesService, getServicesByCategoryService,
@@ -116,6 +117,7 @@ export {
 
   HandleCreateIP,
   HandleFetchIP,
+  getAnalyticsService
 }
 
 
