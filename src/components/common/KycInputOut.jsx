@@ -1,7 +1,8 @@
 import axios from "axios";
 import EXResponse from "../../components/common/response";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import { docco, atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { Check, Copy, Info, AlertCircle, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ERROR_RESPONSES } from "../../utils/KYCContext/kycContex";
 import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
@@ -20,9 +21,32 @@ import Images from "../../Images/Images";
 import { GeneralKeys } from "../../Store/PubliPriviteKey";
 
 const KycReuseComponet = ({ data }) => {
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    const checkTheme = () => {
+      const currentTheme = localStorage.getItem("theme") || "light";
+      if (currentTheme !== theme) {
+        setTheme(currentTheme);
+      }
+    };
+
+    // Listen for custom event from Dashboard
+    window.addEventListener("themeChange", checkTheme);
+
+    // Also keep the interval as a fallback for cross-tab sync
+    const interval = setInterval(checkTheme, 1000);
+
+    return () => {
+      window.removeEventListener("themeChange", checkTheme);
+      clearInterval(interval);
+    };
+  }, [theme]);
+
   const { IskycApproved, kycCompleted } = useUserStore();
   const { setPubKey } = GeneralKeys();
   const [formData, setFormData] = useState({});
+  const [accessToken, setAccessToken] = useState("");
   const [Publickey, setPublickey] = useState("");
   const [apiResponse, setApiResponse] = useState({});
   const [Loading, setLoading] = useState(false);
@@ -32,8 +56,6 @@ const KycReuseComponet = ({ data }) => {
   const [selectedExampleCode, setSelectedExampleCode] = useState(
     data?.exampleResponse || {},
   );
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedUrl, setSelectedUrl] = useState(data?.apiUrl?.liveUrl);
 
   const HandleChangeInput = (e) => {
     console.log("Handle input change is trigred");
@@ -122,7 +144,7 @@ const KycReuseComponet = ({ data }) => {
     setLoading(true);
 
     await EncryptedApirequestHandler(
-      async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...finalPayload, publicKeyPem }),
+      async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...finalPayload, publicKeyPem }, accessToken),
       setLoading,
       (res) => {
         const { data } = res;
@@ -167,7 +189,7 @@ const KycReuseComponet = ({ data }) => {
         console.log(errMessage)
       }
     )
-    // const response = await axios.get(`${import.meta.env.REACT_APP_DASHBOARD_URL}ApiModuel/key/Publickey`);
+    // const response = await axios.get(`${ import.meta.env.REACT_APP_DASHBOARD_URL } ApiModuel / key / Publickey`);
     // const { publicKey } = response.data;
     // console.log(response)
     // setPublickey(publicKey);
@@ -187,6 +209,19 @@ const KycReuseComponet = ({ data }) => {
           <p className="kyc-subheader">{data?.title?.headerTitle}</p>
 
           <div className="kyc-form-container">
+            {/* Access Token Input */}
+            <div className="kyc-input-group">
+              <div className="kyc-label">
+                ACCESS TOKEN <span className="kyc-label-sub">HEADER PARAM</span>
+              </div>
+              <input
+                type="text"
+                placeholder="Enter (secret_token)"
+                value={accessToken}
+                onChange={(e) => setAccessToken(e.target.value)}
+                className="kyc-input-field"
+              />
+            </div>
             {data?.inputParams?.map((input, index) => (
               <div key={index} className="kyc-input-group">
                 <div className="kyc-label">
@@ -195,7 +230,7 @@ const KycReuseComponet = ({ data }) => {
                 </div>
                 <input
                   type="text"
-                  placeholder={!data?.isDisable ? `Enter ${input}` : ""}
+                  placeholder={!data?.isDisable ? `Enter ${input} ` : ""}
                   name={input}
                   pattern={data?.regexValues?.[index]}
                   value={
@@ -204,12 +239,11 @@ const KycReuseComponet = ({ data }) => {
                       : formData?.[input] || ""
                   }
                   disabled={data?.isDisable}
-                  className={`kyc-input-field
-                                            ${errors?.[input]
-                      ? "error"
-                      : formData?.[input]
-                        ? "success"
-                        : ""
+                  className={`kyc-input-field ${errors?.[input]
+                    ? "error"
+                    : formData?.[input]
+                      ? "success"
+                      : ""
                     }`}
                   onChange={HandleChangeInput}
                 />
@@ -262,63 +296,25 @@ const KycReuseComponet = ({ data }) => {
         <div className="kyc-right-section">
           <div className="kyc-card kyc-method-card">
             <span
-              className={`kyc-method-label ${data?.apiUrl?.Method === "Get" ? "get" : "post"}`}
+              className={`kyc - method - label ${data?.apiUrl?.Method === "Get" ? "get" : "post"} `}
             >
               {data?.apiUrl?.Method}:
             </span>
-            {/* Custom Dropdown */}
+            {/* URL Display */}
             <div className="kyc-custom-select-container">
-              <div
-                className="kyc-custom-select-trigger"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              >
+              <div className="kyc-custom-select-trigger" style={{ cursor: "default" }}>
+                <div className="kyc-lottie-icon-wrapper">
+                  <Lottie
+                    animationData={Images.LIVEAnimation}
+                    loop
+                    autoplay
+                    className="kyc-lottie-small"
+                  />
+                </div>
                 <span className="selected-value">
-                  {selectedUrl || data?.apiUrl?.liveUrl}
-                </span>
-                <span className={`arrow ${isDropdownOpen ? "open" : ""}`}>
-                  ▼
+                  {data?.apiUrl?.LiveUrl}
                 </span>
               </div>
-              {isDropdownOpen && (
-                <div className="kyc-custom-options">
-                  <div
-                    className="kyc-option"
-                    onClick={() => {
-                      setSelectedUrl(data?.apiUrl?.liveUrl);
-                      setIsDropdownOpen(false);
-                    }}
-                  >
-
-                    <div className="kyc-lottie-icon-wrapper">
-                      <Lottie
-                        animationData={Images.LIVEAnimation}
-                        loop
-                        autoplay
-                        className="kyc-lottie-small"
-                      />
-                    </div>
-                    <span>{data?.apiUrl?.liveUrl}</span>
-                  </div>
-                  <div
-                    className="kyc-option"
-                    onClick={() => {
-                      setSelectedUrl(data?.apiUrl?.testUrl);
-                      setIsDropdownOpen(false);
-                    }}
-                  >
-                    <div className="kyc-lottie-icon-wrapper">
-                      <Lottie
-                        animationData={Images.TESTAnimation}
-                        loop
-                        autoplay
-                        className="kyc-lottie-small"
-                      />
-                    </div>
-
-                    <span>{data?.apiUrl?.testUrl}</span>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
           <div className="kyc-card">
@@ -344,10 +340,22 @@ const KycReuseComponet = ({ data }) => {
               </div>
             </div>
 
-            <div className="kyc-light-code-theme">
-              <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>
+            <div className="kyc-code-block">
+              <SyntaxHighlighter
+                language="bash"
+                style={theme === 'dark' ? atomOneDark : docco}
+                customStyle={{
+                  backgroundColor: "var(--white-100)",
+                  color: "var(--black)",
+                  padding: "1rem",
+                  fontSize: "0.875rem",
+                  border: "none",
+                  margin: 0
+                }}
+                wrapLongLines={true}
+              >
                 {data?.exampleCurl || EXResponse.AadhaarNumberCurl}
-              </pre>
+              </SyntaxHighlighter>
             </div>
           </div>
           <div className="kyc-card">
@@ -402,14 +410,16 @@ const KycReuseComponet = ({ data }) => {
             </div>
             <SyntaxHighlighter
               language="json"
-              style={docco}
+              style={theme === 'dark' ? atomOneDark : docco}
               customStyle={{
-                backgroundColor: "#f9fafb",
+                backgroundColor: "var(--white-100)",
+                color: "var(--black)",
                 padding: "1rem",
                 borderRadius: "0.5rem",
                 fontSize: "0.875rem",
                 wordBreak: 'break-all',
-                whiteSpace: 'pre-wrap'
+                whiteSpace: 'pre-wrap',
+                border: "1px solid var(--gray-300)"
               }}
               wrapLongLines={true}
             >

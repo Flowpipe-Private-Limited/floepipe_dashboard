@@ -186,6 +186,7 @@
   height: 25px;
   object-fit: contain;
 }
+
 .profile-dropdown {
   position: absolute;
   top: 4rem;
@@ -194,7 +195,8 @@
   background: var(--white);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--black-1000);;
+  border: 1px solid var(--black-1000);
+  ;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -456,6 +458,7 @@
     opacity: 1;
     visibility: visible;
   }
+
   .nav-panel {
     position: fixed;
     top: 0;
@@ -467,14 +470,17 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
+
   .nav-panel--collapsed {
     width: 280px;
     transform: translateX(-100%);
   }
+
   .nav-panel--expanded {
     width: 280px;
     transform: translateX(0);
   }
+
   .mobile-sidebar-tools {
     display: block;
   }
@@ -491,15 +497,159 @@
     text-overflow: ellipsis;
     max-width: 200px;
   }
+
   .Dash-header-right {
     display: none;
   }
 }
 
 @media (max-width: 640px) {
-  .nav-panel--expanded,
   .nav-panel--collapsed {
     width: 85%;
     max-width: 320px;
   }
+}
+
+/* ==========================================================================
+   Dark Mode Overrides
+   (Because variables.css Swaps Black/White, we must force Dark colors 
+    on the sidebar in Dark Mode to keep it Dark)
+   ========================================================================== */
+
+/* Main Content Background */
+.bg-main-content {
+  background-color: #f8f9fd;
+}
+
+[data-theme='dark'] .bg-main-content {
+  background-color: var(--white);
+  /* #111827 (Dark Blue/Gray) */
+  /* OR var(--white-100) #1f2937 (Lighter Dark) */
+}
+
+/* Sidebar Container */
+[data-theme='dark'] .nav-panel {
+  background-color: var(--white) !important;
+  /* #111827 */
+  border-right: 1px solid var(--white-200);
+  /* Dark Border */
+}
+
+/* Sidebar Text & Titles */
+[data-theme='dark'] .section-title-flowpipe,
+[data-theme='dark'] .group-label,
+[data-theme='dark'] .subgroup-label,
+[data-theme='dark'] .sidebar-item span,
+[data-theme='dark'] .api-endpoint-item,
+[data-theme='dark'] .api-label,
+[data-theme='dark'] .bi-dash-lg {
+  color: var(--black) !important;
+  /* #ffffff (White) */
+}
+
+/* Sidebar Items */
+[data-theme='dark'] .sidebar-item {
+  color: var(--black) !important;
+  background-color: transparent;
+  /* Or stick with --purple-100 (#1f2937) but ensure text is white */
+}
+
+[data-theme='dark'] .sidebar-item:hover,
+[data-theme='dark'] .subgroup-button:hover,
+[data-theme='dark'] .api-endpoint-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--black) !important;
+}
+
+/* Sidebar Search */
+[data-theme='dark'] .sidebar-search-box {
+  background-color: var(--white-100);
+  /* #1f2937 */
+  border: 1px solid var(--white-200);
+}
+
+[data-theme='dark'] .sidebar-search-icon,
+[data-theme='dark'] .sidebar-search-input {
+  color: var(--black);
+}
+
+[data-theme='dark'] .sidebar-search-input::placeholder {
+  color: var(--black-600);
+  /* transparent white */
+}
+
+/* Sidebar Subgroups */
+[data-theme='dark'] .subgroup-button {
+  color: var(--black-700);
+  /* slightly dimmed white */
+}
+
+/* Dashboard Header */
+[data-theme='dark'] .Dash-header {
+  background-color: var(--white);
+  /* #111827 */
+  border-bottom: 1px solid var(--white-200);
+}
+
+[data-theme='dark'] .Dash-header-title {
+  color: var(--black);
+}
+
+[data-theme='dark'] .Dash-header-menu-btn {
+  background-color: var(--white-100);
+  border-color: var(--white-200);
+  color: var(--black);
+}
+
+[data-theme='dark'] .Dash-header-btn {
+  color: var(--purple-main);
+  /* Keep purple accent */
+  border-color: var(--purple-main);
+}
+
+/* Sidebar Active State Improvements */
+[data-theme='dark'] .sidebar-item.active {
+  background: rgba(124, 58, 237, 0.2);
+  border-left: 3px solid #a78bfa;
+  /* lighter purple for visibility */
+  color: #a78bfa !important;
+  font-weight: 600;
+}
+
+[data-theme='dark'] .api-endpoint-item.active {
+  background: rgba(124, 58, 237, 0.3) !important;
+  border-left: 2px solid #a78bfa !important;
+  color: #a78bfa !important;
+}
+
+/* Sub-dropdown visibility */
+[data-theme='dark'] .subgroup-button {
+  color: #9ca3af;
+  /* gray-400 */
+}
+
+[data-theme='dark'] .subgroup-button:hover {
+  color: var(--white);
+}
+
+[data-theme='dark'] .subgroup-label {
+  color: inherit;
+}
+
+/* Profile Dropdown Overrides if needed */
+[data-theme='dark'] .profile-dropdown {
+  background-color: var(--white);
+  border-color: var(--white-200);
+}
+
+[data-theme='dark'] .profile-menu {
+  background-color: var(--white);
+}
+
+[data-theme='dark'] .profile-menu-item {
+  color: var(--black);
+}
+
+[data-theme='dark'] .profile-menu-item:hover {
+  background-color: var(--white-100);
 }
