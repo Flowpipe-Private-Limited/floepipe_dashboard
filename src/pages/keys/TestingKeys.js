@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from "react";
-import Call_Api from "../../Handileapicall/call_api";
+import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import { GenerateTestKeys, GetTestKeys, RemoveTestKey } from "../../utils/Apis/api";
 import { toast } from "react-toastify";
 import "./testingKeys.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import data from "../../json/Data";
+import Cookies from 'js-cookie';
 
 const TestingKeys = () => {
   const [showData, setShowData] = useState([]);
-  const token = JSON.parse(localStorage.getItem("token"));
+  const [loading, setLoading] = useState(false);
+  const token = JSON.parse(Cookies.get("token"));
   const apiUrl = import.meta.env.REACT_APP_BACKEND_URL;
 
   const user = useSelector((state) => state.user.user);
   console.log(user);
 
   const handleGenerateTestApiKey = async () => {
-    try {
-      const res = await Call_Api(
-        "/key/generateTestCredentials",
-        "POST",
-        {},
-        token
-      );
-      console.log(res?.response?.response);
-      await getApiKeys();
-    } catch (error) {
-      console.log(error);
-    }
+    await ApirequestHandler(
+      () => GenerateTestKeys(),
+      setLoading,
+      async (res) => {
+        console.log(res);
+        await getApiKeys();
+        toast.success("Keys generated successfully");
+      },
+      (err) => {
+        console.log(err);
+        toast.error(err);
+      }
+    );
   };
 
   useEffect(() => {
@@ -36,29 +40,34 @@ const TestingKeys = () => {
   }, [user?.MerchantId]);
 
   const getApiKeys = async () => {
-    try {
-      const res = await Call_Api(
-        `/key/getKeys/${user?.MerchantId}`,
-        "GET",
-        {},
-        token
-      );
-      console.log(res);
-      console.log(res?.response?.response);
-      setShowData(res?.response?.response);
-    } catch (error) {
-      console.log(error);
-    }
+    await ApirequestHandler(
+      () => GetTestKeys(user?.MerchantId),
+      setLoading,
+      (res) => {
+        console.log(res);
+        setShowData(res?.response);
+      },
+      (err) => {
+        console.log(err);
+        // toast.error(err);
+      }
+    );
   };
 
   const handleDelete = async (id) => {
-    try {
-      const res = await Call_Api(`/key/removeKey/${id}`, "DELETE", {}, token);
-      console.log(res?.response?.response);
-      await getApiKeys();
-    } catch (error) {
-      console.log(error);
-    }
+    await ApirequestHandler(
+      () => RemoveTestKey(id),
+      setLoading,
+      async (res) => {
+        console.log(res);
+        toast.success("Key deleted successfully");
+        await getApiKeys();
+      },
+      (err) => {
+        console.log(err);
+        toast.error(err);
+      }
+    );
   };
 
   const handleCopy = (copydata) => {

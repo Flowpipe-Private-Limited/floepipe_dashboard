@@ -2,7 +2,6 @@ import axios from "axios";
 import EXResponse from "../../components/common/response";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import { docco, atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { Check, Copy, Info, AlertCircle, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ERROR_RESPONSES } from "../../utils/KYCContext/kycContex";
 import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
@@ -12,8 +11,6 @@ import {
 } from "../../utils/Apis/apiRequestHandler";
 import { ApiVerification, fetchPublickey } from "../../utils/Apis/api";
 import { encryptPayload, generateFrontendKeyPair } from "../../utils/helper";
-// import { useUserStore } from "../../Store/userStore";
-import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../Store/userStore";
 import "./KycInputOut.css";
 import Lottie from "lottie-react";
@@ -48,10 +45,12 @@ const KycReuseComponet = ({ data }) => {
   const [formData, setFormData] = useState({});
   const [accessToken, setAccessToken] = useState("");
   const [Publickey, setPublickey] = useState("");
+  const [publickeyLoading, setPublickeyLoading] = useState(false);
+  const [publickeyError, setPublickeyError] = useState("");
   const [apiResponse, setApiResponse] = useState({});
   const [Loading, setLoading] = useState(false);
   const [apiErrorMessage, setApiErrormessage] = useState("");
-  const [errors, setErrors] = useState({}); // ONly for the regex
+  const [errors, setErrors] = useState({}); // Only for regex
   const [showAlert, setShowAlert] = useState(false);
   const [selectedExampleCode, setSelectedExampleCode] = useState(
     data?.exampleResponse || {},
@@ -89,14 +88,20 @@ const KycReuseComponet = ({ data }) => {
     let locationData = {};
     setApiErrormessage("");
 
+    const isEncryptedFlow = data?.isMicro !== "SupperAdmin";
+
+    if (isEncryptedFlow && !Publickey) {
+      setApiErrormessage("Encryption keys not loaded. Please wait or refresh the page.");
+      return;
+    }
+
     if (data?.isGeoLocation) {
       try {
-        // Wrapping callback-based API in a Promise is the standard/best way in modern JS
         const position = await new Promise((resolve, reject) => {
           navigator.geolocation.getCurrentPosition(resolve, reject, {
-            enableHighAccuracy: true, // Request best possible results
-            timeout: 10000, // Wait max 10 seconds
-            maximumAge: 0, // Force fresh location
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0,
           });
         });
 
@@ -105,60 +110,54 @@ const KycReuseComponet = ({ data }) => {
           longitude: position.coords.longitude,
         };
       } catch (error) {
-        console.error("Geolocation error:", error);
-
         let errorMsg = "Location access failed.";
         if (error.code === error.PERMISSION_DENIED) {
-          errorMsg =
-            "Location permission denied. Please allow location access to proceed.";
+          errorMsg = "Location permission denied. Please allow location access to proceed.";
         } else if (error.code === error.POSITION_UNAVAILABLE) {
           errorMsg = "Location information is unavailable.";
         } else if (error.code === error.TIMEOUT) {
           errorMsg = "The request to get user location timed out.";
         }
-
-        // You can choose to block or just warn.
-        // Currently setting message and returning, effectively blocking.
         setApiErrormessage(errorMsg);
         return;
       }
     }
-    console.log(locationData);
 
-    // Merge form data with location data
-    const payloadToEncrypt = { ...formData, ...locationData };
-    console.log(payloadToEncrypt);
+    const payloadForApi = { ...formData, ...locationData };
 
-    let finalPayload = await encryptPayload(payloadToEncrypt, Publickey);
-    console.log('is called', finalPayload);
-    const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair()
+    if (isEncryptedFlow) {
+      const encrypted = await encryptPayload(payloadForApi, Publickey);
+      const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
+      await setPubKey({ PrivateKey: privateKeyPem });
 
-    await setPubKey({ PrivateKey: privateKeyPem })
-    console.log(finalPayload, publicKeyPem, privateKeyPem);
-    // if (!IskycApproved || !kycCompleted) {
-    //     console.log('is trigred')
-    //     setShowAlert(true);
-    //     return;
-    // };
-
-    setLoading(true);
-
-    await EncryptedApirequestHandler(
-      async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...finalPayload, publicKeyPem }, accessToken),
-      setLoading,
-      (res) => {
-        const { data } = res;
-        console.log(res)
-        setApiResponse(res);
-        setApiErrormessage('');
-        setLoading(false)
-      },
-      (errorMessage) => {
-        console.log('Error:', errorMessage);
-        setApiErrormessage(errorMessage);
-        setLoading(false);
-      }
-    )
+      setLoading(true);
+      await EncryptedApirequestHandler(
+        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...encrypted, publicKeyPem }, accessToken),
+        setLoading,
+        (res) => {
+          setApiResponse(res);
+          setApiErrormessage('');
+        },
+        (errorMessage) => {
+          setApiErrormessage(errorMessage);
+          setLoading(false);
+        }
+      );
+    } else {
+      setLoading(true);
+      await ApirequestHandler(
+        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, payloadForApi, accessToken),
+        setLoading,
+        (res) => {
+          setApiResponse(res);
+          setApiErrormessage('');
+        },
+        (errorMessage) => {
+          setApiErrormessage(errorMessage);
+          setLoading(false);
+        }
+      );
+    }
   };
 
   const handleCopy = async (text) => {
@@ -176,24 +175,22 @@ const KycReuseComponet = ({ data }) => {
   };
 
   const GetPublickey = async () => {
-    console.log('is GetPublickey');
+    setPublickeyLoading(true);
+    setPublickeyError("");
     await ApirequestHandler(
       async () => fetchPublickey(),
       null,
       (res) => {
         const { publicKey } = res;
-        console.log(publicKey)
         setPublickey(publicKey);
+        setPublickeyLoading(false);
       },
       (errMessage) => {
-        console.log(errMessage)
+        setPublickeyError("Failed to load encryption keys.");
+        setPublickeyLoading(false);
       }
-    )
-    // const response = await axios.get(`${ import.meta.env.REACT_APP_DASHBOARD_URL } ApiModuel / key / Publickey`);
-    // const { publicKey } = response.data;
-    // console.log(response)
-    // setPublickey(publicKey);
-  }
+    );
+  };
 
   useEffect(() => {
     GetPublickey();
@@ -210,18 +207,23 @@ const KycReuseComponet = ({ data }) => {
 
           <div className="kyc-form-container">
             {/* Access Token Input */}
-            <div className="kyc-input-group">
-              <div className="kyc-label">
-                ACCESS TOKEN <span className="kyc-label-sub">HEADER PARAM</span>
-              </div>
-              <input
-                type="text"
-                placeholder="Enter (secret_token)"
-                value={accessToken}
-                onChange={(e) => setAccessToken(e.target.value)}
-                className="kyc-input-field"
-              />
-            </div>
+            {
+              data?.isToken && (
+                <div className="kyc-input-group">
+                  <div className="kyc-label">
+                    ACCESS TOKEN <span className="kyc-label-sub">HEADER PARAM</span>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Enter (secret_token)"
+                    value={accessToken}
+                    onChange={(e) => setAccessToken(e.target.value)}
+                    className="kyc-input-field"
+                  />
+                </div>
+              )
+            }
+
             {data?.inputParams?.map((input, index) => (
               <div key={index} className="kyc-input-group">
                 <div className="kyc-label">
@@ -255,9 +257,9 @@ const KycReuseComponet = ({ data }) => {
             <button
               className="kyc-submit-button"
               onClick={HandleVerificaton}
-              disabled={data?.isDisable}
+              disabled={data?.isDisable || (data?.isMicro !== "SupperAdmin" && (publickeyLoading || !Publickey))}
             >
-              {Loading ? "Loading ..." : data?.title?.submitButton}
+              {Loading ? "Loading ..." : (data?.isMicro !== "SupperAdmin" && publickeyLoading) ? "Initializing..." : data?.title?.submitButton}
             </button>
             {apiErrorMessage && (
               <p className="kyc-api-error">{apiErrorMessage}</p>

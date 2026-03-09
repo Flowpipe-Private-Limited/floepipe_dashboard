@@ -26,6 +26,8 @@ export default function ProfilePage() {
   console.log("user Data", users);
 
   const handleLogout = () => {
+    // Cookies.remove('token');
+    // Cookies.remove('clientId');
     setShowLogout(true);
   };
 

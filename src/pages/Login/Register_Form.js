@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
 import Background_Login from "../../components/ui/Background_Folder/Background_Login";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [Loading, setLoading] = useState(false);
@@ -99,7 +100,7 @@ const Login = () => {
         const { success, clientId, message } = resData;
         console.log( success, clientId, message );
         if (success || clientId) {
-          localStorage.setItem("clientId", clientId);
+          Cookies.set("clientId", clientId);
           navigate("/login");
         } else {
           setErrorMessage(message || "Registration failed");

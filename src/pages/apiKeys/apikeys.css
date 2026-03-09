@@ -1,8 +1,12 @@
 /* ================= Container ================= */
-.api-keys-container {
+[data-theme='dark'] .api-keys-container {
+  min-height: 100vh;
+  background: var(--purple-100);
+}
+/* .api-keys-container {
   min-height: 100vh;
   background: #fafbfc;
-}
+} */
 
 /* ================= Header ================= */
 .page-header-card {

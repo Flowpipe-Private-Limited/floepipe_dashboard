@@ -1,9 +1,11 @@
 import { create } from "zustand";
+import Cookies from 'js-cookie';
 import { ApirequestHandler } from "../utils/Apis/apiRequestHandler";
 import { HandleFetchAllKeys, HandleGetUser, UpdatedUserDetails } from "../utils/Apis/api";
 
 export const useUserStore = create((set, get) => ({
     users: [],
+    clientId: '',
     IskycApproved: false, // Flag: Checks if admin has approved the KYC
     kycCompleted: false,  // Flag: Checks if the user has completed the KYC process
 
@@ -25,23 +27,19 @@ export const useUserStore = create((set, get) => ({
 
     // Fetches user details from the backend. If `force` is false, it uses cached data if available.
     fetchUsers: async (force = false) => {
-        console.log('fetchUsers triggered')
         const { users } = get();
-        const clientId = localStorage.getItem('clientId')
-        console.log(clientId)
+        const clientId = Cookies.get('clientId');
 
-        if (!force && users.length > 0) return;
+        if (!force && users && (Array.isArray(users) ? users.length > 0 : Object.keys(users).length > 0)) return;
 
         set({ loading: true, error: null });
 
         await ApirequestHandler(
             async () => HandleGetUser(clientId),
+            null, // Loading handled here
             (res) => {
-                set({ loading: res })
-            },
-            (res) => {
-                console.log(res)
                 set({
+                    clientId: res?.clientId,
                     users: res?.data,
                     IskycApproved: res?.data?.IskycApproved,
                     kycCompleted: res?.data?.kycCompleted,

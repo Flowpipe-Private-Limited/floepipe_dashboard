@@ -10,7 +10,11 @@ export async function encryptPayload(payload, publicKeyPem) {
     ["encrypt", "decrypt"]
   );
 
+  console.log(aesKey)
+
   const iv = crypto.getRandomValues(new Uint8Array(12));
+
+  console.log(iv)
 
   // --- 2. Encrypt payload with AES ---
   const encryptedData = await crypto.subtle.encrypt(
@@ -19,16 +23,23 @@ export async function encryptPayload(payload, publicKeyPem) {
     encoder.encode(JSON.stringify(payload))
   );
 
+  console.log(encryptedData)
+
   // --- 3. Export AES key ---
   const rawAesKey = await crypto.subtle.exportKey("raw", aesKey);
+
+  console.log(rawAesKey)
 
   // --- 4. Encrypt AES key with RSA ---
   const keyData = publicKeyPem
     .replace(/-----BEGIN PUBLIC KEY-----/, "")
     .replace(/-----END PUBLIC KEY-----/, "")
     .replace(/\s+/g, "");
+
   const binary = atob(keyData);
+  console.log(binary);
   const binaryArr = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+  console.log(binaryArr)
 
   const publicKey = await crypto.subtle.importKey(
     "spki",
@@ -37,6 +48,8 @@ export async function encryptPayload(payload, publicKeyPem) {
     false,
     ["encrypt"]
   );
+
+  console.log(publicKey)
 
   const encryptedKey = await crypto.subtle.encrypt(
     { name: "RSA-OAEP" },

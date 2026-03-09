@@ -15,20 +15,27 @@ import WarningModal from "../../components/common/WarningModal";
 
 const ApiKeys = () => {
   const [activeTab, setActiveTab] = useState("LIVE");
-  const { users, fetchUsers } = useUserStore();
-  const { TestSecretKey, TestClientId, TestAccessToken, LiveSecretKey, LiveClientId, LiveAccessToken, fetchUserskeys, updateLiveKeys, updateTestKeys } = useUserkey();
+  const users = useUserStore((state) => state.users);
+  const fetchUsers = useUserStore((state) => state.fetchUsers);
+
+  const TestSecretKey = useUserkey((state) => state.TestSecretKey);
+  const TestClientId = useUserkey((state) => state.TestClientId);
+  const TestAccessToken = useUserkey((state) => state.TestAccessToken);
+  const LiveSecretKey = useUserkey((state) => state.LiveSecretKey);
+  const LiveClientId = useUserkey((state) => state.LiveClientId);
+  const LiveAccessToken = useUserkey((state) => state.LiveAccessToken);
+  const fetchUserskeys = useUserkey((state) => state.fetchUserskeys);
+  const updateLiveKeys = useUserkey((state) => state.updateLiveKeys);
+  const updateTestKeys = useUserkey((state) => state.updateTestKeys);
+
   const [apierrorMessage, setApiErrormessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showIpinModal, setShowIpinModal] = useState(false);
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
 
-
   useEffect(() => {
-    if (!TestSecretKey || !TestClientId || !LiveSecretKey || !LiveClientId) {
-      console.log('is called')
-      fetchUserskeys();
-    }
+    fetchUserskeys();
   }, []);
 
   // Action Executors
@@ -129,7 +136,6 @@ const ApiKeys = () => {
     setPendingAction({ type: 'GENERATE', args: [] });
     setShowIpinModal(true);
   };
-
 
   const initiateDownload = (key, clientId, accessToken) => {
     setPendingAction({ type: 'DOWNLOAD', args: [key, clientId, accessToken] });

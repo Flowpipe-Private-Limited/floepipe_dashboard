@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Purple_Button from "../../components/ui/Buttons/Purple_Button/Purple_Button";
 import Background_Login from "../../components/ui/Background_Folder/Background_Login";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [Loading, setLoading] = useState(false);
@@ -43,7 +44,6 @@ const Login = () => {
     }
     setLoading(true);
     setErrorMessage("");
-    const clientId = localStorage.getItem("clientId")
     const dataToSend = {
       identifier: formData?.mobileNumber,
       channel: "MOBILE",
@@ -54,10 +54,11 @@ const Login = () => {
       async () => await SendOTP(dataToSend),
       setLoading,
       (resdata) => {
-        const { success, token, message } = resdata;
+        const { success, accessToken, message } = resdata;
+        console.log('Response Data', resdata)
         if (success) {
-          console.log('Received token:', token);
-          navigate("/otpVerify", { state: { token, mobileNumber: formData?.mobileNumber } })
+          console.log('Received token:', accessToken);
+          navigate("/otpVerify", { state: { token:accessToken, mobileNumber: formData?.mobileNumber } })
         } else {
           setErrorMessage(message || "Login failed");
         }

@@ -49,6 +49,7 @@ import ViewAnalytics from "../pages/ViewAnalytics/ViewAnalytics";
 import Trial_Center from "../pages/Trial_Center/Trial_Center";
 import Webhooks from "../pages/Webhooks/Webhooks";
 import APILogs_expandtable from "../pages/API_Usage/APILogs/APILogs_expandtable";
+import GenerateSecretToken from "../pages/SecretToken/secretToken";
 
 const AppRoute = () => {
   return (
@@ -56,10 +57,9 @@ const AppRoute = () => {
       <Routes>
         {/* Landing Page */}
         <Route path="/" element={<MainDashboardPage />} />
-        {/* Sign || login with OTP */}
+        <Route path="/register_form" element={<Register_Form />} /> 
 
         <Route path="/login" element={<Login />} />
-        <Route path="/register_form" element={<Register_Form />} />
         <Route path="/create_pin" element={<Create_Pin />} />
         <Route path="/otpVerify" element={<Otp />} />
         <Route path="/Loginwith_Email" element={<Loginwith_Email />} />
@@ -68,9 +68,10 @@ const AppRoute = () => {
         <Route path="/New_Password" element={<New_Password />} />
 
         {/* User DashBoard Routes */}
-        <Route path="/dashboard" element={<ProtectionRoute><Dashboard /></ProtectionRoute>}>
-          {/* <Route path="/dashboard" element={<Dashboard />}> */}
+        {/* <Route path="/dashboard" element={<ProtectionRoute><Dashboard /></ProtectionRoute>}> */}
+          <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<MainContent />} />
+          <Route path="generate/SecretToken" element={<GenerateSecretToken />} />
           <Route path="Profile" element={<ProfilePage />} />
           <Route path="Products" element={<Products />} />
           <Route path="Reports" element={<Reports />} />
