@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 const IsLoginUser = ({children})=>{
 
-    const isToken = Cookies.get('token');
+    const isToken = Cookies.get('accessToken');
     console.log('token is', isToken);
 
     if(isToken){

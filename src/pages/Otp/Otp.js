@@ -82,15 +82,17 @@ const OtpScreen = ({ navigation }) => {
     setLoading(true);
     setErrorMessage("");
 
-    const dataToSend = { token, otp: finalOtp, "channel": "MOBILE" }
+    const dataToSend = {otp: finalOtp, "channel": "MOBILE" }
     
     await ApirequestHandler(
-      async()=> await VerifyOTP(dataToSend),
+      async()=> await VerifyOTP(dataToSend,token),  // Token is updated in header verifyOTP section
       setLoading,
       (resData)=>{
-        const {success,message} = resData;
+        console.log('response data',resData )
+        const {success,message,clientId} = resData;
         if(success){
-          Cookies.set("token",token);
+          // Cookies.set("token",token);
+          Cookies.set("clientId",clientId);
           navigate("/dashboard")
         }else{
           setErrorMessage(message || "Invalid OTP");

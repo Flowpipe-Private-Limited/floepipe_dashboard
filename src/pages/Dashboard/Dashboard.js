@@ -24,6 +24,7 @@ import Help from "../../components/Help/Help";
 import { RxPlusCircled } from "react-icons/rx";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import { HiOutlineBell } from "react-icons/hi";
+import Cookies  from "js-cookie";
 
 import "./Dashboard.css";
 import Logout from "../../components/Logout/Logout";
@@ -63,6 +64,19 @@ const sideDashboardConfig = [
     type: "group",
     iconType: "image",
     children: [
+      {
+        label: "Generate secret_token",
+        icon: Images.kyc || FileText,
+        type: "subgroup",
+        iconType: "image",
+        children: [
+          {
+            label: "Generate Secret Token",
+            href: "/dashboard/generate/SecretToken",
+            method: "POST",
+          },
+        ],
+      },
       {
         label: "KYC",
         icon: Images.kyc || FileText,
@@ -256,13 +270,12 @@ export default function DashboardPage() {
   const [collapsed, setCollapsed] = useState(window.innerWidth < 1024);
   const [showHelp, setShowHelp] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
-  const { users, fetchUsers } = useUserStore();
+  const users = useUserStore((state) => state.users);
+  const fetchUsers = useUserStore((state) => state.fetchUsers);
   const navigate = useNavigate("");
 
   useEffect(() => {
-    if (!users.length) {
-      fetchUsers();
-    }
+    fetchUsers();
 
     const handleResize = () => {
       if (window.innerWidth < 1024) {
@@ -310,6 +323,8 @@ export default function DashboardPage() {
           onConfirm={() => {
             // Handle logout logic here, e.g., clear localStorage, tokens
             // For now, navigating to login
+            Cookies.remove('clientId');
+            Cookies.remove('token');
             setShowLogout(false);
             navigate("/login");
           }}
@@ -453,7 +468,6 @@ function Sidebar({ collapsed, onHelpClick }) {
 
             return (
               <div key={idx} className="sidebar-group">
-                {/* Group Header */}
                 <button
                   onClick={() => toggleGroup(item.label)}
                   className={`sidebar-item group-header ${collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"

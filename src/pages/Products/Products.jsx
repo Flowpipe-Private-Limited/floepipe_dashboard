@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import { FileCheck, Layers, ChevronRight } from "lucide-react";
+import { FileCheck, Layers, ChevronRight, Cookie } from "lucide-react";
 import "./Products.css";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import Cookies from 'js-cookie';
 import {
   getAllCategoriesService,
   getServicesByCategoryService,
@@ -84,7 +85,7 @@ const Products = () => {
     console.groupEnd();
   };
   const fetchClientServices = async (currentProducts, categoryId) => {
-    const clientId = localStorage.getItem("clientId");
+    const clientId = Cookies.get("clientId");
     console.log("clientId in fetchclientservice", clientId)
     if (!clientId || !categoryId) return;
 
@@ -111,7 +112,7 @@ const Products = () => {
     );
   };
   const handleSubscribe = async (serviceId) => {
-    const clientId = localStorage.getItem("clientId");
+    const clientId = Cookies.get("clientId");
     console.log("clientId in handlesubscribe", clientId)
     if (!clientId || !selectedCategory) return;
 

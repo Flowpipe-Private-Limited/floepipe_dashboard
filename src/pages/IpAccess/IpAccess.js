@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Call_Api from "../../Handileapicall/call_api";
+import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+// import { WhitelistApi } from "../../utils/Apis/api";
 import { path } from "../../common/path/path";
 import gettingTokenFromLocalStorage from "../../common/getTokenFromLocalStorage/GetToken";
 import { toast } from "react-toastify";
@@ -12,76 +13,59 @@ const Whitelistapis = () => {
     const [Ip, setIp] = useState("");
     const [whitelistedIps, setWhitelistedIps] = useState([]);
     const [comment, setComment] = useState("");
-    const merchantId = ""
+    const [loading, setLoading] = useState(false);
+    const merchantId = "";
     const user = useSelector((state) => state?.user?.user);
-    console.log("user in ipaccess", user)
-    useEffect(() => {
-        fetchWhitelistedIps();
-    }, []);
+    console.log("user in ipaccess", user);
 
-    const fetchWhitelistedIps = async () => {
-        try {
-            // const token = await gettingTokenFromLocalStorage();
-            // if (!token) return toast.error("Authentication token missing");
+    // useEffect(() => {
+    //     fetchWhitelistedIps();
+    // }, []);
 
-            const response = await Call_Api(path.IPWHITELIST, "GET", {merchantId});
+    // const fetchWhitelistedIps = async () => {
+    //     await ApirequestHandler(
+    //         () => WhitelistApi("GET", { merchantId }),
+    //         setLoading,
+    //         (res) => {
+    //             setWhitelistedIps(res?.whitelistIP || []);
+    //         },
+    //         (err) => {
+    //             toast.warn(err || "Failed to fetch whitelisted IPs");
+    //         }
+    //     );
+    // };
 
-            if (response?.success) {
-                setWhitelistedIps(response?.response?.whitelistIP || []);
-            } else {
-                toast.warn(response?.message || "Failed to fetch whitelisted IPs");
-            }
-        } catch (error) {
-            toast.error(error?.message || "Something went wrong!");
-        }
-    };
+    // const handleWhitelistApis = async () => {
+    //     console.log("entering into handlewhitelist");
+    //     await ApirequestHandler(
+    //         () => WhitelistApi("POST", { whitelist: Ip, Comment: comment }),
+    //         setLoading,
+    //         (res) => {
+    //             console.log("response from whitelistip", res);
+    //             setIp("");
+    //             setComment("");
+    //             fetchWhitelistedIps();
+    //             toast.success("IP successfully whitelisted!");
+    //         },
+    //         (err) => {
+    //             toast.error(err || "Something went wrong!");
+    //         }
+    //     );
+    // };
 
-    const handleWhitelistApis = async () => {
-        console.log("entering into handlewhitelist")
-        try {
-            // const token = await gettingTokenFromLocalStorage();
-            // console.log("token in ipwhitelist",token)
-            // if (!token) return toast.error("Authentication token missing");
-
-            const response = await Call_Api(
-                path.IPWHITELIST,
-                "POST",
-                { whitelist: Ip, Comment: comment }
-            );
-            console.log("response from whiteluistip",response)
-            if (response?.success) {
-                setIp("");
-                setComment("");
-                fetchWhitelistedIps();
-                toast.success(response?.message || "IP successfully whitelisted!");
-            }
-        } catch (error) {
-            toast.error(error?.message || "Something went wrong!");
-        }
-    };
-
-    const handleDeleteIp = async (ip) => {
-        try {
-            const token = await gettingTokenFromLocalStorage();
-            if (!token) return toast.error("Authentication token missing");
-
-            const response = await Call_Api(
-                path.IPWHITELIST,
-                "DELETE",
-                { ipAddress: ip },
-                token
-            );
-
-            if (response?.success) {
-                fetchWhitelistedIps();
-                toast.success("IP successfully removed!", { autoClose: true });
-            } else {
-                toast.warn(response?.message || "Failed to remove IP");
-            }
-        } catch (error) {
-            toast.error(error?.message || "Something went wrong!");
-        }
-    };
+    // const handleDeleteIp = async (ip) => {
+    //     await ApirequestHandler(
+    //         () => WhitelistApi("DELETE", { ipAddress: ip }),
+    //         setLoading,
+    //         (res) => {
+    //             fetchWhitelistedIps();
+    //             toast.success("IP successfully removed!", { autoClose: true });
+    //         },
+    //         (err) => {
+    //             toast.warn(err || "Failed to remove IP");
+    //         }
+    //     );
+    // };
 
     return (
         <div className="whitelist-wrapper">

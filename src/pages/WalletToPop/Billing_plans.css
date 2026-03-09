@@ -1,5 +1,6 @@
-.BillingPlans_page {
-  background-color: #f9faff;
+ [data-theme='dark'] .BillingPlans_page {
+  background-color: var(--white);
+  /* background-color: #f9faff; */
   min-height: 100vh;
   color: var(--black);
 }
@@ -294,10 +295,18 @@
   font-family: "JetBrainsMono";
 }
 
-.BillingPlans_transactions-table td {
+ .BillingPlans_transactions-table td {
   font-size: 14px;
   padding: 8px 0;
   vertical-align: middle;
+}
+
+[data-theme='dark'] .BillingPlans_transactions-table tbody td {
+  text-align: left;
+  vertical-align: middle;
+  padding-right: 20px;
+  border-bottom: 1px solid var(--black-500);
+  color: var(--black);
 }
 
 .BillingPlans_transactions-table tbody td {
@@ -305,6 +314,7 @@
   vertical-align: middle;
   padding-right: 20px;
   border-bottom: 1px solid var(--black-500);
+  color: black;
 }
 
 /* Center pills & buttons properly */

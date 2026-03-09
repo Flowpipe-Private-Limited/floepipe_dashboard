@@ -4,15 +4,17 @@ import { HandleCreateIP, HandleFetchIP } from "../../utils/Apis/api";
 import Loader from "../../components/common/Loader";
 import "./whiteList.css";
 import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
+import { useUserStore } from "../../Store/userStore";
+import Cookies from 'js-cookie';
 
 const WhiteListIP = () => {
+  // const {clientId} = useUserStore();
+  const clientId = Cookies.get('clientId');
   const [whitelistIPs, setWhitelistIPs] = useState([]);
   const [ipAddress, setIpAddress] = useState("");
   const [comments, setComments] = useState("");
   const [apierrorMessage, setApiErrormessage] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const MerchatID = "MERCHANT39309978";
 
   const ipRegex =
     /^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/;
@@ -26,9 +28,9 @@ const WhiteListIP = () => {
     setApiErrormessage("");
     setLoading(true);
     const detailsTosend = {
-      MerchatID: MerchatID,
-      ip_address: ipAddress,
-      comments: comments,
+      clientId: clientId,
+      ip: ipAddress,
+      comment: comments,
     };
     console.log("data to send ", detailsTosend);
     await ApirequestHandler(
@@ -37,7 +39,7 @@ const WhiteListIP = () => {
       (res) => {
         const { WhiteListData } = res;
         console.log(res);
-        setWhitelistIPs(WhiteListData);
+        setWhitelistIPs(pre => [...pre, detailsTosend ]);
         setIpAddress("");
         setComments("");
         setLoading(false);
@@ -55,12 +57,12 @@ const WhiteListIP = () => {
     setLoading(true);
 
     await ApirequestHandler(
-      async () => HandleFetchIP({ MerchatID: MerchatID }),
+      async () => HandleFetchIP(clientId),
       setLoading,
       (res) => {
-        const { whitelistIP } = res;
+        const { data } = res;
         console.log(res);
-        setWhitelistIPs(whitelistIP || []);
+        setWhitelistIPs(data?.allowedIps || []);
         setLoading(false);
       },
       (errMessage) => {
@@ -99,7 +101,7 @@ const WhiteListIP = () => {
           {loading ? (
             <Loader />
           ) : (
-            <button onClick={CreateIP} className="add-ip-btn">
+            <button onClick={()=>CreateIP()} className="add-ip-btn">
               Add IP
             </button>
           )}
@@ -117,7 +119,7 @@ const WhiteListIP = () => {
             <tr>
               <th>SI.NO</th>
               <th>IP Address</th>
-              <th>ActiveStatus</th>
+              <th>Comment</th>
             </tr>
           </thead>
 
@@ -126,13 +128,9 @@ const WhiteListIP = () => {
               whitelistIPs.map((ip, ind) => (
                 <tr key={ind} className="border-t">
                   <td>{ind + 1}</td>
-                  <td>{ip?.ipAddress}</td>
+                  <td>{ip?.ip}</td>
                   <td>
-                    <button
-                      className={`status-btn ${ip?.Active ? "active" : "inactive"}`}
-                    >
-                      {ip?.Active ? "Active" : "DeActive"}
-                    </button>
+                    {ip?.comment || "NA"}
                   </td>
                 </tr>
               ))

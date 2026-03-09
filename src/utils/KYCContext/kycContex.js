@@ -66,6 +66,81 @@ const validationPatterns = [
   }
 ];
 
+export const SecretToken = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "/client/generate/clientToken",
+    LiveUrl: "https://localhost:7007/api/v1/client/generate/clientToken"
+  },
+  title: {
+    header: "Generate Access Token",
+    headerTitle: "Generate Access Token using ClientId, SecretKey",
+    submitButton: 'Create Token'
+  },
+  inputParams: ["clientId", "clientSecret" ],
+  isToken:false,
+  isMicro: 'SupperAdmin',
+  isDisable: false,
+  // regexValues: ["^[2-9][0-9]{11}$",],
+  exampleCurl: `curl --location 'https://localhost:7007/api/v1/client/generate/clientToken' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{
+      "clientId": "",
+      "clientSecret": ""
+  }'`,
+  exampleResponse: {
+    "message": {
+      "request_id": "",
+      "task_id": "",
+      "group_id": "",
+      "success": "",
+      "response_code": "100",
+      "response_message": "Valid Authentication",
+      "metadata": {
+        "billable": "Y"
+      },
+      "result": {
+        "business_constitution": "Private Limited Company",
+        "business_nature": [
+          "Supplier of Services"
+        ],
+        "central_jurisdiction": "",
+        "central_jurisdiction_code": "NA",
+        "current_registration_status": "Active",
+        "gstin": "",
+        "last_updated": "NA",
+        "legal_name": "ABC PRIVATE LIMITED",
+        "other_business_address": "",
+        "primary_business_address": {
+          "building_name": "3rd Floor",
+          "building_number": "H.No. 5-5-165/2/TF Plot no. 4",
+          "city": "",
+          "district": "",
+          "flat_number": "",
+          "latitude": "",
+          "location": "",
+          "longitude": "",
+          "business_nature": "",
+          "pincode": "",
+          "street": "",
+          "state_code": "",
+          "full_address": ""
+        },
+        "register_cancellation_date": "",
+        "register_date": "",
+        "state_jurisdiction": "",
+        "state_jurisdiction_code": "NA",
+        "tax_payer_type": "Regular",
+        "trade_name": "ABC PRIVATE LIMITED"
+      },
+      "request_timestamp": "",
+      "response_timestamp": ""
+    },
+    "success": true
+  }
+};
+
 // KYC Services
 export const Aadhaar = {
   apiUrl: {
@@ -79,9 +154,10 @@ export const Aadhaar = {
     submitButton: 'Verify AadhaarNumber'
   },
   inputParams: ["aadharNumber", "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
-  regexValues: ["^[2-9][0-9]{11}$"],
+  regexValues: ["^[2-9][0-9]{11}$",],
   exampleCurl: `curl --location 'http://localhost:7006/business/Gstinverify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
@@ -153,6 +229,7 @@ export const GstIN = {
     submitButton: 'Verify GSTIN'
   },
   inputParams: ["gstinNumber", "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}[A-Z\\d]{1}Z[A-Z\\d]{1}$"],
@@ -227,6 +304,7 @@ export const SHOP = {
     submitButton: 'Verify Shop'
   },
   inputParams: ['registrationNumber', 'state', "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -298,6 +376,7 @@ export const SendOTP = {
     submitButton: 'Send OTP to Number'
   },
   inputParams: ['mobileNumber', "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[6-9]\\d{9}$"],
@@ -369,6 +448,7 @@ export const VerifyOTP = {
     submitButton: 'Verify OTP'
   },
   inputParams: ["submittedOtp", "mobile", "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{4}$", "^[6-9]\\d{9}$"],
@@ -441,6 +521,7 @@ export const panVerify = {
     submitButton: 'Verify Pan'
   },
   inputParams: ["panNumber", "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{5}[0-9]{4}[A-Z]{1}$"],
@@ -511,6 +592,7 @@ export const panAadhaarVerify = {
     submitButton: 'Verify PantoAadhaar'
   },
   inputParams: ["panNumber", "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{5}[0-9]{4}[A-Z]{1}$"],
@@ -581,6 +663,7 @@ export const accountVerify = {
     submitButton: 'Verify Account'
   },
   inputParams: ["account_no", "ifsc", "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{9,18}$", "^[A-Z]{4}0[A-Z0-9]{6}$"],
@@ -651,6 +734,7 @@ export const CINVerify = {
     submitButton: 'Verify CIN'
   },
   inputParams: ["CIN", "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^([LU])\\d{5}[A-Z]{2}\\d{4}[A-Z]{3}\\d{6}$"],
@@ -825,6 +909,7 @@ export const UdamVerify = {
     submitButton: 'Verify Udyam number'
   },
   inputParams: ["udyamNumber", "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/udyam/verify' \\
@@ -867,6 +952,7 @@ export const cardVerify = {
     submitButton: 'Verify CreditCard'
   },
   inputParams: ["creditCardNumber", "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
 
@@ -910,6 +996,7 @@ export const NameMatch = {
     submitButton: 'Verify Name'
   },
   inputParams: ["firstName", "secondName", "serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Za-z\\s]+$", "^[A-Za-z\\s]+$"],
@@ -955,7 +1042,8 @@ export const RechargeOperators = {
     headerTitle: "Fetch Service operators using NTAR service",
     submitButton: 'Operators Fetch'
   },
-  inputParams: ["mobileNumber"],
+  inputParams: ["mobileNumber","serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'RECHARGE',
   isDisable: false,
   regexValues: ["^[6-9]\\d{9}$"],
@@ -991,7 +1079,8 @@ export const RechargePlans = {
     headerTitle: "Fetch plans using NTAR service",
     submitButton: 'Fetch Plans'
   },
-  inputParams: ["operatorcode", "cricle"],
+  inputParams: ["operatorcode", "cricle","serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'RECHARGE',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -1027,7 +1116,8 @@ export const RechargeOldPlans = {
     headerTitle: "Fetch old plans using NTAR service",
     submitButton: 'Fetch oldPlans'
   },
-  inputParams: ["operatorcode", "cricle"],
+  inputParams: ["operatorcode", "cricle","serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'RECHARGE',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -1063,7 +1153,8 @@ export const RechargeOffersPlans = {
     headerTitle: "Fetch Offersplans using NTAR service",
     submitButton: 'Fetch Offers'
   },
-  inputParams: ["operator_code", "mobile_no"],
+  inputParams: ["operator_code", "mobile_no","serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'RECHARGE',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
@@ -1085,6 +1176,7 @@ export const RechargeOffersPlans = {
     "success": true
   }
 };
+
 export const RechargeURL = {
   apiUrl: {
     Method: 'Post',
@@ -1097,7 +1189,8 @@ export const RechargeURL = {
     submitButton: 'Recharge'
   },
   isGeoLocation: true,
-  inputParams: ["MobileNumber", "actualAmount", "spKey", "transactionId", "customerNumber",],
+  inputParams: ["MobileNumber", "actualAmount", "spKey", "transactionId", "customerNumber","serviceId", "categoryId"],
+  isToken:true,
   isMicro: 'RECHARGE',
   isDisable: false,
   exampleCurl: `curl --location 'http://localhost:7009/shop/shopest' \\
