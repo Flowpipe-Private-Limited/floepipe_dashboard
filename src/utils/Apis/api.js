@@ -116,7 +116,7 @@ const ClientService = (clientId, categoryId) =>
 const DashboardServices = () => supperApiClient.get("/apimodule/dashboard-services");
 
 // supper Admin Key routes
-const HandleCreateKeys = (data) => supperApiClient.post("client/crete/clientKeys", data);
+const HandleCreateKeys = (data) => supperApiClient.post("client/create/clientKeys", data);
 const HandleFetchAllKeys = (data) => supperApiClient.get(`client/get/TestandLive/clientKeys?clientId=${data}`);
 const HandleCreateIP = (data) => supperApiClient.post(`client/whitelist/clientIp`, data);
 const HandleFetchIP = (clientId) => supperApiClient.get(`client/Get/whitelist/clientIp?clientId=${clientId}`);
