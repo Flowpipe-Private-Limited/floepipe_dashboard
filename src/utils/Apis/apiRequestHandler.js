@@ -7,7 +7,6 @@ const baseHandler = async (api, setLoading, onSuccess, onError, decrypt = false)
   try {
     const response = await api();
     let data = response.data;
-
     if (decrypt) {
       const { Prikeys } = GeneralKeys.getState();
       data = await decryptServerResponse(data?.payload, Prikeys);

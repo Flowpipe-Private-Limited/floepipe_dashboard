@@ -21,6 +21,12 @@ export const useUserStore = create((set, get) => ({
     setIndividualKycData: (data) => set({ individualKycData: data, isIndividual: true }),
     setBusinessKycData: (data) => set({ businessKycData: data, isCompany: true }),
 
+    isLocked: sessionStorage.getItem('isLocked') === 'true', // Persistence across partial refreshes
+    setIsLocked: (value) => {
+        sessionStorage.setItem('isLocked', value);
+        set({ isLocked: value });
+    },
+
     loading: false, // Loading state for async operations
     error: null,    // Error message if any operation fails
     // --- Async Actions ---

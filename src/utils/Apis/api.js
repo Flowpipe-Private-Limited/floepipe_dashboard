@@ -99,6 +99,7 @@ supperApiClient.interceptors.response.use((response) => response, handleResponse
 
 // Supper Admin Routes
 const Register = (data) => supperApiClient.post('client/register', data)
+const HandleRefreshToken = () => supperApiClient.post('client/refresh-token');
 const SendOTP = (data) => supperApiClient.post('client/login/send-otp', data);
 const VerifyOTP = (data) => supperApiClient.post('client/login/verify-otp', data);
 const HandleGetUser = (clientId) => supperApiClient.get('/client/get-user-details', {
@@ -122,7 +123,9 @@ const HandleCreateIP = (data) => supperApiClient.post(`client/whitelist/clientIp
 const HandleFetchIP = (clientId) => supperApiClient.get(`client/Get/whitelist/clientIp?clientId=${clientId}`);
 
 const SubscribeService = (payload) => supperApiClient.post("/apimodule/subscribe-service", payload);
-const getAllCategoriesService = () => supperApiClient.get("/apimodule/get-all-category")
+const getAllCategoriesService = () => supperApiClient.get("/apimodule/get-all-category");
+const VerifyIPIN = (data) => supperApiClient.post('Client/Verify/ipin', data);
+
 const getServicesByCategoryService = (categoryId) =>
   supperApiClient.get("/apimodule/service-config", {
     params: { categoryId },
@@ -146,7 +149,6 @@ const fetchPublickey = () => kycApiClient.get(`ApiModuels/key/Publickey`);
 
 // Fetch User Details
 
-const VerifyIPIN = (data) => kycApiClient.post('Client/Verify/ipin', data);
 
 const HandleGetOtp = (data) => kycApiClient.post('mobileNumber/mobileOtp', data);
 const HandleVerifyOtp = (data) => kycApiClient.post('mobileNumber/mobileotpVerify', data);
@@ -157,8 +159,6 @@ const HandleVerifyOtp = (data) => kycApiClient.post('mobileNumber/mobileotpVerif
 
 const getAnalyticsService = () =>
   kycApiClient.get("/inhouse/analytics/Analyticalreports");
-
-const HandleRefreshToken = () => supperApiClient.post('client/refresh-token');
 
 //
 const GenerateTestKeys = () => { console.log('hello') }

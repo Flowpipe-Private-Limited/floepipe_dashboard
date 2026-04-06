@@ -28,6 +28,7 @@ import Cookies  from "js-cookie";
 
 import "./Dashboard.css";
 import Logout from "../../components/Logout/Logout";
+import FlowpipeUnlockModal from "../../components/profile/PinVerify/IpinVerify";
 
 const sideDashboardConfig = [
   {
@@ -272,6 +273,8 @@ export default function DashboardPage() {
   const [showLogout, setShowLogout] = useState(false);
   const users = useUserStore((state) => state.users);
   const fetchUsers = useUserStore((state) => state.fetchUsers);
+  const isLocked = useUserStore((state) => state.isLocked);
+  const setIsLocked = useUserStore((state) => state.setIsLocked);
   const navigate = useNavigate("");
 
   useEffect(() => {
@@ -329,6 +332,13 @@ export default function DashboardPage() {
             navigate("/login");
           }}
         />
+        {isLocked && (
+          <FlowpipeUnlockModal 
+            isVisible={isLocked} 
+            onClose={() => setIsLocked(false)} 
+            IsValidPIN={(status) => setIsLocked(!status)} 
+          />
+        )}
       </div>
     </div>
   );
