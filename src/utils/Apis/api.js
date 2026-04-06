@@ -121,6 +121,8 @@ const HandleFetchAllKeys = (data) => supperApiClient.get(`client/get/TestandLive
 const HandleCreateIP = (data) => supperApiClient.post(`client/whitelist/clientIp`, data);
 const HandleFetchIP = (clientId) => supperApiClient.get(`client/Get/whitelist/clientIp?clientId=${clientId}`);
 
+const VerifyIPIN = (data) => supperApiClient.post('Client/verify-mpin', data);
+
 const SubscribeService = (payload) => supperApiClient.post("/apimodule/subscribe-service", payload);
 const getAllCategoriesService = () => supperApiClient.get("/apimodule/get-all-category")
 const getServicesByCategoryService = (categoryId) =>
@@ -145,8 +147,6 @@ const fetchPublickey = () => kycApiClient.get(`ApiModuels/key/Publickey`);
 
 
 // Fetch User Details
-
-const VerifyIPIN = (data) => kycApiClient.post('Client/Verify/ipin', data);
 
 const HandleGetOtp = (data) => kycApiClient.post('mobileNumber/mobileOtp', data);
 const HandleVerifyOtp = (data) => kycApiClient.post('mobileNumber/mobileotpVerify', data);
