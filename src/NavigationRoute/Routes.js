@@ -50,6 +50,7 @@ import Trial_Center from "../pages/Trial_Center/Trial_Center";
 import Webhooks from "../pages/Webhooks/Webhooks";
 import APILogs_expandtable from "../pages/API_Usage/APILogs/APILogs_expandtable";
 import GenerateSecretToken from "../pages/SecretToken/secretToken";
+import SessionManager from "../components/SessionManager/SessionManager";
 
 const AppRoute = () => {
   return (
@@ -69,7 +70,7 @@ const AppRoute = () => {
 
         {/* User DashBoard Routes */}
         {/* <Route path="/dashboard" element={<ProtectionRoute><Dashboard /></ProtectionRoute>}> */}
-          <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="/dashboard" element={<SessionManager><Dashboard /></SessionManager>}>
           <Route index element={<MainContent />} />
           <Route path="generate/SecretToken" element={<GenerateSecretToken />} />
           <Route path="Profile" element={<ProfilePage />} />

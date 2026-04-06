@@ -1,14 +1,15 @@
 import React, { useState, useRef, createRef, useEffect } from 'react';
 import FlowpipeLogo from '../../../assets/images/FlowpipeLogo.png';
-import { HandleVerifyIPIN } from '../../../common/apiCalls/CommonApiCall';
-import { toTitleCase } from '../../../utils/simpleHellperFn';
 import { useUserStore } from '../../../Store/userStore';
+import { VerifyIPIN } from '../../../utils/Apis/api';
+import { EncryptedApirequestHandler } from '../../../utils/Apis/apiRequestHandler';
+import { toTitleCase } from '../../../utils/simpleHellperFn';
 import './IpinVerify.css';
 
 
 // ⚛️ Updated Flowpipe Unlock Modal Component
 const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
-    const { users } = useUserStore();
+    const { users, setIsLocked } = useUserStore();
 
     const [pin, setPin] = useState(['', '', '', '']);
     const [errorMessage, setErrorMessage] = useState('');
@@ -99,23 +100,27 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
         setIsLoading(true);
 
         try {
-            // const isValidPin = await HandleVerifyIPIN(fullPin);
-            const isValidPin = fullPin === '1526';
-
-            if (isValidPin) {
-                // Successful unlock: Hide the modal and continue the flow
-                if (onClose) {
-                    onClose();
-                    IsValidPIN(isValidPin);
+            await EncryptedApirequestHandler(
+                async () => await VerifyIPIN({ IPIN: fullPin }),
+                null,
+                (res) => {
+                    if (res?.success) {
+                        // Successful unlock: Hide the modal, clear store lock, and continue flow
+                        setIsLocked(false);
+                        if (onClose) onClose();
+                        if (IsValidPIN) IsValidPIN(true);
+                    } else {
+                        setErrorMessage(res?.message || "Invalid iPIN. Please try again.");
+                        setPin(['', '', '', '']);
+                        if (inputRefs.current[0]?.current) {
+                            inputRefs.current[0].current.focus();
+                        }
+                    }
+                },
+                (errMessage) => {
+                    setErrorMessage(errMessage || "An error occurred during verification.");
                 }
-            } else {
-                // Invalid PIN: Show error message
-                setErrorMessage("Invalid iPIN. Please try again.");
-                setPin(['', '', '', '']); // Clear PIN inputs
-                if (inputRefs.current[0]?.current) {
-                    inputRefs.current[0].current.focus(); // Focus on the first input
-                }
-            }
+            );
         } catch (error) {
             console.error("PIN verification failed:", error);
             setErrorMessage("An error occurred during verification. Please try again later.");
