@@ -12,11 +12,23 @@ import {
   ChevronUp,
   Smartphone,
   Briefcase,
-
   Zap,
   Moon,
   Sun,
+  CreditCard,
+  Building2,
+  BadgeCheck,
+  Car,
+  ScanFace,
+  FileSearch,
+  Files,
+  Phone,
+  MapPin,
+  ShieldAlert,
+  Stethoscope,
+  MoreHorizontal
 } from "lucide-react";
+
 import flowpipeLogo from "../../assets/images/FlowpipeLogo.png";
 import { useUserStore } from "../../Store/userStore";
 import Images from "../../Images/Images";
@@ -25,10 +37,67 @@ import { RxPlusCircled } from "react-icons/rx";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import { HiOutlineBell } from "react-icons/hi";
 import Cookies  from "js-cookie";
+import { 
+  SERVICES_METADATA, 
+  KYC_CATEGORIES 
+} from "../../utils/KYCContext/servicesMetadata";
 
 import "./Dashboard.css";
 import Logout from "../../components/Logout/Logout";
 import FlowpipeUnlockModal from "../../components/profile/PinVerify/IpinVerify";
+
+const LucideIcons = {
+  FileText,
+  Briefcase,
+  User,
+  CreditCard,
+  Building2,
+  BadgeCheck,
+  Car,
+  ScanFace,
+  FileSearch,
+  Files,
+  Phone,
+  MapPin,
+  ShieldAlert,
+  Stethoscope,
+  MoreHorizontal
+};
+
+// Helper to group services by category for the sidebar
+const generateKycSidebarItems = () => {
+  const groups = {};
+  
+  // Group metadata by categoryId
+  SERVICES_METADATA.forEach(service => {
+    if (!groups[service.categoryId]) {
+      groups[service.categoryId] = [];
+    }
+    groups[service.categoryId].push({
+      label: service.label,
+      href: `/dashboard/KYC/${service.id}`,
+      method: service.config.apiUrl.Method,
+      type: "service"
+    });
+  });
+
+  const kycCategories = Object.keys(groups).map(catId => {
+    const category = KYC_CATEGORIES[catId];
+    return {
+      label: category.label,
+      type: "category",
+      children: groups[catId]
+    };
+  });
+
+  return [{
+    label: "KYC",
+    icon: Images.kyc || FileText,
+    type: "subgroup",
+    iconType: "image",
+    children: kycCategories
+  }];
+};
 
 const sideDashboardConfig = [
   {
@@ -78,70 +147,7 @@ const sideDashboardConfig = [
           },
         ],
       },
-      {
-        label: "KYC",
-        icon: Images.kyc || FileText,
-        type: "subgroup",
-        iconType: "image",
-        children: [
-          {
-            label: "Aadhaar Verification",
-            href: "/dashboard/KYC/aadhaar",
-            method: "POST",
-          },
-          {
-            label: "Pan Verification",
-            href: "/dashboard/KYC/Pan",
-            method: "POST",
-          },
-          {
-            label: "Pan to Aadhaar",
-            href: "/dashboard/KYC/PanAadhaar",
-            method: "POST",
-          },
-          {
-            label: "Bank Account",
-            href: "/dashboard/KYC/Account",
-            method: "POST",
-          },
-          {
-            label: "GST Verification",
-            href: "/dashboard/KYC/GSTIN",
-            method: "POST",
-          },
-          {
-            label: "Shop Verification",
-            href: "/dashboard/KYC/Shop",
-            method: "POST",
-          },
-          {
-            label: "Send OTP",
-            href: "/dashboard/KYC/MobileNumber/otpsend",
-            method: "POST",
-          },
-          {
-            label: "Verify OTP",
-            href: "/dashboard/KYC/MobileNumber/otpverify",
-            method: "POST",
-          },
-          {
-            label: "Card Verify",
-            href: "/dashboard/KYC/cardValidation",
-            method: "POST",
-          },
-          { label: "CIN Verify", href: "/dashboard/KYC/Cin", method: "POST" },
-          {
-            label: "Udyam Verify",
-            href: "/dashboard/KYC/Udyam",
-            method: "POST",
-          },
-          {
-            label: "Name Verify",
-            href: "/dashboard/KYC/NameMatch",
-            method: "POST",
-          },
-        ],
-      },
+      ...generateKycSidebarItems(),
       {
         label: "Recharge",
         icon: Images.Recharges || Smartphone,
@@ -347,6 +353,7 @@ function Sidebar({ collapsed, onHelpClick }) {
   const [search, setSearch] = useState("");
   const [openGroups, setOpenGroups] = useState({});
   const [openSubGroups, setOpenSubGroups] = useState({});
+  const [openKycCategories, setOpenKycCategories] = useState({});
   const searchRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -378,6 +385,13 @@ function Sidebar({ collapsed, onHelpClick }) {
     }));
   };
 
+  const toggleKycCategory = (catLabel) => {
+    setOpenKycCategories((prev) => ({
+      ...prev,
+      [catLabel]: !prev[catLabel],
+    }));
+  };
+
   // ✅ Filter groups based on search
   const filteredConfig = search
     ? sideDashboardConfig
@@ -388,14 +402,28 @@ function Sidebar({ collapsed, onHelpClick }) {
               (child) =>
                 child.label.toLowerCase().includes(search.toLowerCase()) ||
                 child.children?.some((subChild) =>
-                  subChild.label.toLowerCase().includes(search.toLowerCase()),
+                  subChild.label.toLowerCase().includes(search.toLowerCase()) ||
+                  subChild.children?.some((leaf) => 
+                    leaf.label.toLowerCase().includes(search.toLowerCase())
+                  )
                 ),
             )
             .map((child) => ({
               ...child,
               children:
-                child.children?.filter((subChild) =>
-                  subChild.label.toLowerCase().includes(search.toLowerCase()),
+                child.children?.map(subChild => {
+                  if (subChild.children) {
+                     return {
+                       ...subChild,
+                       children: subChild.children.filter(leaf => 
+                        leaf.label.toLowerCase().includes(search.toLowerCase())
+                       )
+                     };
+                  }
+                  return subChild;
+                }).filter(subChild => 
+                  subChild.label.toLowerCase().includes(search.toLowerCase()) || 
+                  (subChild.children && subChild.children.length > 0)
                 ) || [],
             }))
             .filter(
@@ -557,37 +585,65 @@ function Sidebar({ collapsed, onHelpClick }) {
                             )}
                           </button>
 
-                          {/* ================= API ENDPOINTS ================= */}
+                          {/* ================= API ENDPOINTS / CATEGORIES ================= */}
                           {(isSubGroupOpen || search) && subGroup.children && (
                             <ul className="api-endpoints">
-                              {subGroup.children.map((api, apiIdx) => {
-                                const isApiActive =
-                                  location.pathname === api.href;
+                              {subGroup.children.map((child, childIdx) => {
+                                // Render Category Dropdown
+                                if (child.children) {
+                                  const isCatOpen = openKycCategories[child.label] || search;
+                                  return (
+                                    <li key={childIdx} className="category-dropdown-wrapper">
+                                      <button 
+                                        onClick={() => toggleKycCategory(child.label)}
+                                        className="category-toggle-btn"
+                                      >
+                                        <div className="flex items-center gap-2">
+                                           <ChevronDown 
+                                            size={12} 
+                                            className={`transition-transform ${isCatOpen ? "rotate-180" : "-rotate-90"}`} 
+                                           />
+                                           <span>{child.label}</span>
+                                        </div>
+                                      </button>
+                                      
+                                      {isCatOpen && (
+                                        <ul className="nested-endpoints">
+                                          {child.children.map((api, apiIdx) => {
+                                            const isApiActive = location.pathname === api.href;
+                                            return (
+                                              <li
+                                                key={apiIdx}
+                                                onClick={() => navigate(api.href)}
+                                                className={`cursor-pointer border-l border-gray-300 py-1.5 hover:bg-white/10 hover:text-white api-endpoint-item ${isApiActive ? "active" : ""}`}
+                                              >
+                                                <span className="text-gray-300 bi bi-dash-lg"></span>
+                                                <div className="api-method-badge">
+                                                  <span className={api.method === "GET" ? "method-get" : "method-post"}>{api.method}</span>
+                                                </div>
+                                                <span className="api-label">{api.label}</span>
+                                              </li>
+                                            );
+                                          })}
+                                        </ul>
+                                      )}
+                                    </li>
+                                  );
+                                }
 
+                                // Render standard endpoint if not categorized
+                                const isApiActive = location.pathname === child.href;
                                 return (
                                   <li
-                                    key={apiIdx}
-                                    onClick={() => navigate(api.href)}
-                                    className={`cursor-pointer border-l border-gray-300 py-1.5 hover:bg-white/10 hover:text-white api-endpoint-item ${isApiActive ? "active" : ""
-                                      }`}
+                                    key={childIdx}
+                                    onClick={() => navigate(child.href)}
+                                    className={`cursor-pointer border-l border-gray-300 py-1.5 hover:bg-white/10 hover:text-white api-endpoint-item ${isApiActive ? "active" : ""}`}
                                   >
                                     <span className="text-gray-300 bi bi-dash-lg"></span>
-
                                     <div className="api-method-badge">
-                                      <span
-                                        className={
-                                          api.method === "GET"
-                                            ? "method-get"
-                                            : "method-post"
-                                        }
-                                      >
-                                        {api.method}
-                                      </span>
+                                      <span className={child.method === "GET" ? "method-get" : "method-post"}>{child.method}</span>
                                     </div>
-
-                                    <span className="api-label">
-                                      {api.label}
-                                    </span>
+                                    <span className="api-label">{child.label}</span>
                                   </li>
                                 );
                               })}

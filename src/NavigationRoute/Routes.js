@@ -52,6 +52,9 @@ import APILogs_expandtable from "../pages/API_Usage/APILogs/APILogs_expandtable"
 import GenerateSecretToken from "../pages/SecretToken/secretToken";
 import SessionManager from "../components/SessionManager/SessionManager";
 
+// Dynamic KYC Page
+import KYCServicePage from "../pages/KYC/KYCServicePage";
+
 const AppRoute = () => {
   return (
     <Router>
@@ -84,23 +87,7 @@ const AppRoute = () => {
           <Route path="APIUsage" element={<API_Usage />} />
           <Route path="APILogsDetail" element={<APILogs_expandtable />} />
           <Route path="WhitelistIP" element={<WhiteListIP />} />
-          <Route path="KYC/aadhaar" element={<AadhaarVerifyPage />} />
-          <Route path="IpAccess" element={<Whitelistapis />} />
-          <Route path="TestingKeys" element={<TestingKeys />} />
-          <Route path="KYC/GSTIN" element={<GSTPage />} />
-          <Route path="KYC/Shop" element={<ShopPage />} />
-          <Route path="KYC/MobileNumber/otpsend" element={<SendMobileOTP />} />
-          <Route
-            path="KYC/MobileNumber/otpverify"
-            element={<VerifyMobileOTP />}
-          />
-          <Route path="KYC/Pan" element={<PanVerification />} />
-          <Route path="KYC/PanAadhaar" element={<PanAadhaar />} />
-          <Route path="KYC/Account" element={<AccountVerify />} />
-          <Route path="KYC/cardValidation" element={<CardValidationPage />} />
-          <Route path="KYC/Udyam" element={<UdyamVerifyPage />} />
-          <Route path="KYC/Cin" element={<CinVerification />} />
-          <Route path="KYC/NameMatch" element={<NameMatchpage />} />
+          <Route path="KYC/:serviceId" element={<KYCServicePage />} />
           <Route
             path="Recharge/Operators"
             element={<RechargeOperatorsPage />}

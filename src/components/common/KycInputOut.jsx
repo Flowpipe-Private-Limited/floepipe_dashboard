@@ -56,6 +56,21 @@ const KycReuseComponet = ({ data }) => {
     data?.exampleResponse || {},
   );
 
+  useEffect(() => {
+    if (data?.isDisable && data?.inputParams && data?.Inputvalues) {
+      const initialFormData = {};
+      data.inputParams.forEach((param, index) => {
+        initialFormData[param] = data.Inputvalues[index];
+      });
+      setFormData(initialFormData);
+    } else {
+      setFormData({});
+    }
+    setApiResponse(null);
+    setSelectedExampleCode(data?.exampleResponse || {});
+    setApiErrormessage("");
+  }, [data]);
+
   const HandleChangeInput = (e) => {
     console.log("Handle input change is trigred");
     setApiErrormessage("");
@@ -132,7 +147,7 @@ const KycReuseComponet = ({ data }) => {
 
       setLoading(true);
       await EncryptedApirequestHandler(
-        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...encrypted, publicKeyPem }, accessToken),
+        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...encrypted, publicKeyPem }, accessToken, data?.apiUrl?.Method || 'Post'),
         setLoading,
         (res) => {
           setApiResponse(res);
@@ -146,7 +161,7 @@ const KycReuseComponet = ({ data }) => {
     } else {
       setLoading(true);
       await ApirequestHandler(
-        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, payloadForApi, accessToken),
+        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, payloadForApi, accessToken, data?.apiUrl?.Method || 'Post'),
         setLoading,
         (res) => {
           setApiResponse(res);
@@ -160,9 +175,13 @@ const KycReuseComponet = ({ data }) => {
     }
   };
 
+  const [showCopyTip, setShowCopyTip] = useState(false);
+
   const handleCopy = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
+      setShowCopyTip(true);
+      setTimeout(() => setShowCopyTip(false), 2000);
     } catch (err) {
       console.log("Clipboard blocked, using fallback");
       const textarea = document.createElement("textarea");
@@ -171,6 +190,8 @@ const KycReuseComponet = ({ data }) => {
       textarea.select();
       document.execCommand("copy");
       textarea.remove();
+      setShowCopyTip(true);
+      setTimeout(() => setShowCopyTip(false), 2000);
     }
   };
 
@@ -198,6 +219,7 @@ const KycReuseComponet = ({ data }) => {
 
   return (
     <div className="kyc-input-container">
+      {showCopyTip && <div className="kyc-copy-tip">✓ Copied to clipboard</div>}
       <Eachpage_header headertitle={"KYC"} />
       <div className="kyc-grid-container">
         {/* LEFT INPUT SECTION */}
@@ -228,7 +250,7 @@ const KycReuseComponet = ({ data }) => {
               <div key={index} className="kyc-input-group">
                 <div className="kyc-label">
                   {input.replace(/([A-Z])/g, " $1").toUpperCase()}{" "}
-                  <span className="kyc-label-sub">{data?.bodyParams}</span>
+                  <span className="kyc-label-sub">{data?.bodyParams || 'BODY'}</span>
                 </div>
                 <input
                   type="text"
@@ -250,19 +272,41 @@ const KycReuseComponet = ({ data }) => {
                   onChange={HandleChangeInput}
                 />
                 {errors?.[input] && (
-                  <p className="kyc-error-msg">{errors[input]}</p>
+                  <p className="kyc-error-msg">
+                    <svg style={{ width: '12px', height: '12px', marginRight: '4px', verticalAlign: 'middle' }} viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors[input]}
+                  </p>
                 )}
               </div>
             ))}
             <button
               className="kyc-submit-button"
               onClick={HandleVerificaton}
-              disabled={data?.isDisable || (data?.isMicro !== "SupperAdmin" && (publickeyLoading || !Publickey))}
+              disabled={data?.isDisable || Loading || (data?.isMicro !== "SupperAdmin" && (publickeyLoading || !Publickey))}
             >
-              {Loading ? "Loading ..." : (data?.isMicro !== "SupperAdmin" && publickeyLoading) ? "Initializing..." : data?.title?.submitButton}
+              {Loading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                  Processing...
+                </>
+              ) : (data?.isMicro !== "SupperAdmin" && publickeyLoading) ? "Initializing Keys..." : (
+                <>
+                  <svg style={{ width: '18px', height: '18px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {data?.title?.submitButton}
+                </>
+              )}
             </button>
             {apiErrorMessage && (
-              <p className="kyc-api-error">{apiErrorMessage}</p>
+              <div className="kyc-api-error">
+                <svg style={{ width: '20px', height: '20px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {apiErrorMessage}
+              </div>
             )}
             {(!IskycApproved || !kycCompleted) && showAlert && (
               <div className="kyc-alert-box">
@@ -298,9 +342,9 @@ const KycReuseComponet = ({ data }) => {
         <div className="kyc-right-section">
           <div className="kyc-card kyc-method-card">
             <span
-              className={`kyc - method - label ${data?.apiUrl?.Method === "Get" ? "get" : "post"} `}
+              className={`kyc-method-label ${data?.apiUrl?.Method?.toLowerCase() === "get" ? "get" : "post"}`}
             >
-              {data?.apiUrl?.Method}:
+              {data?.apiUrl?.Method}
             </span>
             {/* URL Display */}
             <div className="kyc-custom-select-container">
@@ -316,6 +360,13 @@ const KycReuseComponet = ({ data }) => {
                 <span className="selected-value">
                   {data?.apiUrl?.LiveUrl}
                 </span>
+                <button
+                  className="kyc-copy-btn-small"
+                  onClick={() => handleCopy(data?.apiUrl?.LiveUrl)}
+                  title="Copy URL"
+                >
+                  <img src={Images.copyicon} className="kyc-copy-icon-img" alt="copy" />
+                </button>
               </div>
             </div>
           </div>
@@ -327,16 +378,15 @@ const KycReuseComponet = ({ data }) => {
               >
                 Example Request
               </div>
-              <div className="flex gap-2"></div>
               <div className="kyc-curl">
-                <div className="kyc-badge-pill">Crul</div>
+                <div className="kyc-badge-pill">CURL</div>
                 <button
                   className="kyc-copy-btn-outline"
                   onClick={() =>
                     handleCopy(data?.exampleCurl || selectedExampleCode)
                   }
                 >
-                  <img className="copyicon" src={Images.copyicon} />
+                  <img className="copyicon" src={Images.copyicon} alt="copy" />
                   Copy
                 </button>
               </div>
@@ -347,11 +397,9 @@ const KycReuseComponet = ({ data }) => {
                 language="bash"
                 style={theme === 'dark' ? atomOneDark : docco}
                 customStyle={{
-                  backgroundColor: "var(--white-100)",
-                  color: "var(--black)",
-                  padding: "1rem",
-                  fontSize: "0.875rem",
-                  border: "none",
+                  backgroundColor: theme === 'dark' ? "transparent" : "#f9fafb",
+                  padding: "1.5rem",
+                  fontSize: "0.85rem",
                   margin: 0
                 }}
                 wrapLongLines={true}
@@ -368,41 +416,39 @@ const KycReuseComponet = ({ data }) => {
 
               <div className="kyc-curl">
                 <div className="kyc-status-group">
-                  <button className="kyc-status-pill">Response</button>
                   <button
-                    className="kyc-status-pill kyc-status-200"
-                    onClick={() =>
-                      setSelectedExampleCode(
-                        data?.exampleResponse || selectedExampleCode,
-                      )
-                    }
+                    className={`kyc-status-pill ${!apiResponse ? 'active' : ''}`}
+                    onClick={() => {
+                      setApiResponse(null);
+                      setSelectedExampleCode(data?.exampleResponse || {});
+                    }}
                   >
                     200
                   </button>
                   <button
-                    className="kyc-status-pill kyc-status-400"
-                    onClick={() => setSelectedExampleCode(ERROR_RESPONSES[400])}
+                    className={`kyc-status-pill kyc-status-400 ${selectedExampleCode?.message === "Bad Request" ? 'active' : ''}`}
+                    onClick={() => {
+                      setApiResponse(null);
+                      setSelectedExampleCode(ERROR_RESPONSES[400]);
+                    }}
                   >
                     400
                   </button>
                   <button
-                    className="kyc-status-pill kyc-status-503"
-                    onClick={() => setSelectedExampleCode(ERROR_RESPONSES[503])}
+                    className={`kyc-status-pill kyc-status-503 ${selectedExampleCode?.message === "Service Unavailable" ? 'active' : ''}`}
+                    onClick={() => {
+                      setApiResponse(null);
+                      setSelectedExampleCode(ERROR_RESPONSES[503]);
+                    }}
                   >
                     503
-                  </button>
-                  <button
-                    className="kyc-status-pill kyc-status-504"
-                    onClick={() => setSelectedExampleCode(ERROR_RESPONSES[504])}
-                  >
-                    504
                   </button>
                 </div>
 
                 <button
                   className="kyc-copy-btn-outline"
                   onClick={() =>
-                    handleCopy(JSON.stringify(selectedExampleCode, null, 2))
+                    handleCopy(JSON.stringify(apiResponse || selectedExampleCode, null, 2))
                   }
                 >
                   <img className="copyicon" src={Images.copyicon} />
@@ -410,27 +456,28 @@ const KycReuseComponet = ({ data }) => {
                 </button>
               </div>
             </div>
-            <SyntaxHighlighter
-              language="json"
-              style={theme === 'dark' ? atomOneDark : docco}
-              customStyle={{
-                backgroundColor: "var(--white-100)",
-                color: "var(--black)",
-                padding: "1rem",
-                borderRadius: "0.5rem",
-                fontSize: "0.875rem",
-                wordBreak: 'break-all',
-                whiteSpace: 'pre-wrap',
-                border: "1px solid var(--gray-300)"
-              }}
-              wrapLongLines={true}
-            >
-              {JSON.stringify(
-                apiResponse ? apiResponse : selectedExampleCode,
-                null,
-                2,
-              )}
-            </SyntaxHighlighter>
+            <div className="kyc-code-block" style={{ border: 'none' }}>
+              <SyntaxHighlighter
+                language="json"
+                style={theme === 'dark' ? atomOneDark : docco}
+                customStyle={{
+                  backgroundColor: theme === 'dark' ? "transparent" : "#f9fafb",
+                  padding: "1.5rem",
+                  borderRadius: "0.75rem",
+                  fontSize: "0.85rem",
+                  wordBreak: 'break-all',
+                  whiteSpace: 'pre-wrap',
+                  margin: 0
+                }}
+                wrapLongLines={true}
+              >
+                {JSON.stringify(
+                  apiResponse ? apiResponse : selectedExampleCode,
+                  null,
+                  2,
+                )}
+              </SyntaxHighlighter>
+            </div>
           </div>
         </div>
       </div>

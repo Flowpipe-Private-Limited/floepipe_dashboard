@@ -129,19 +129,36 @@ const getServicesByCategoryService = (categoryId) =>
   supperApiClient.get("/apimodule/service-config", {
     params: { categoryId },
   });
-const ApiVerification = (isMicro, URLS, data, token) => {
-  console.log(isMicro, URLS, data)
+const ApiVerification = (isMicro, URLS, data, token, method = 'Post') => {
+  console.log(isMicro, URLS, data, method);
   const headers = {
     'secret_token': token
   };
 
-  switch (isMicro) {
-    case 'KYC': return kycApiClient.post(URLS, data, { headers });
-    case 'RECHARGE': return RechargeApiClient.post(URLS, data, { headers });
-    case 'BBPS': return bbpsApiClient.post(URLS, data, { headers });;
-    case 'SupperAdmin': return supperApiClient.post(URLS, data, { headers });
+  // Replace path parameters (e.g., :category) if they exist in the data
+  let finalURL = URLS;
+  if (data && typeof data === 'object') {
+    Object.keys(data).forEach(key => {
+      if (finalURL.includes(`:${key}`)) {
+        finalURL = finalURL.replace(`:${key}`, encodeURIComponent(data[key]));
+      }
+    });
   }
 
+  const clientMap = {
+    'KYC': kycApiClient,
+    'RECHARGE': RechargeApiClient,
+    'BBPS': bbpsApiClient,
+    'SupperAdmin': supperApiClient
+  };
+
+  const apiClient = clientMap[isMicro] || kycApiClient;
+
+  if (method.toLowerCase() === 'get') {
+    return apiClient.get(finalURL, { headers, params: data });
+  } else {
+    return apiClient.post(finalURL, data, { headers });
+  }
 };
 const fetchPublickey = () => kycApiClient.get(`ApiModuels/key/Publickey`);
 

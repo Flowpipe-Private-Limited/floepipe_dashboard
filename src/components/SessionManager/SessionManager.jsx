@@ -13,8 +13,8 @@ const SessionManager = ({ children }) => {
     const visibilityStartTime = useRef(null);
 
     // Thresholds: Configurable and easy to adjust
-    const IDLE_TIMEOUT = 5 * 60 * 1000;         // Lock if no mouse/keyboard for 5 minutes
-    const TAB_SWITCH_TIMEOUT = 60 * 1000;      // Lock if user switches tab for more than 1 minute
+    const IDLE_TIMEOUT = 10 * 60 * 1000;         // Lock if no mouse/keyboard for 10 minutes
+    const TAB_SWITCH_TIMEOUT = 3 * 60 * 1000;      // Lock if user switches tab for more than 3 minute
 
     const updateActivity = useCallback(() => {
         const now = Date.now();

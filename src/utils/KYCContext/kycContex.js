@@ -77,7 +77,7 @@ export const SecretToken = {
     headerTitle: "Generate Access Token using ClientId, SecretKey",
     submitButton: 'Create Token'
   },
-  inputParams: ["clientId", "clientSecret" ],
+  inputParams: ["clientId", "clientSecret", "expDate" ],
   isToken:false,
   isMicro: 'SupperAdmin',
   isDisable: false,
@@ -145,74 +145,35 @@ export const SecretToken = {
 export const Aadhaar = {
   apiUrl: {
     Method: 'Post',
-    URLS: "aadhaar/Aadhaarmaskedverify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    URLS: "client/aadhaar/pan/maskedverify",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/aadhaar/Aadhaarmaskedverify"
   },
   title: {
-    header: "AadhaarNumber Verification",
-    headerTitle: "Verify AadhaarNumber using government KYC service",
-    submitButton: 'Verify AadhaarNumber'
+    header: "Aadhaar Verification",
+    headerTitle: "Verify Aadhaar using OTP-less masked verification service",
+    submitButton: 'Verify Aadhaar'
   },
-  inputParams: ["aadharNumber", "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ["aadharNumber"],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  regexValues: ["^[2-9][0-9]{11}$",],
-  exampleCurl: `curl --location 'http://localhost:7006/business/Gstinverify' \\
+  regexValues: ["^[2-9][0-9]{11}$"],
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/aadhaar/Aadhaarmaskedverify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "aadharNumber": "",
-      "serviceId": "",
-      "categoryId": ""
+      "aadharNumber": "XXXXXXXXXXXX"
   }'`,
   exampleResponse: {
-    "message": {
-      "request_id": "",
-      "task_id": "",
-      "group_id": "",
-      "success": "",
-      "response_code": "100",
-      "response_message": "Valid Authentication",
-      "metadata": {
-        "billable": "Y"
-      },
-      "result": {
-        "business_constitution": "Private Limited Company",
-        "business_nature": [
-          "Supplier of Services"
-        ],
-        "central_jurisdiction": "",
-        "central_jurisdiction_code": "NA",
-        "current_registration_status": "Active",
-        "gstin": "",
-        "last_updated": "NA",
-        "legal_name": "ABC PRIVATE LIMITED",
-        "other_business_address": "",
-        "primary_business_address": {
-          "building_name": "3rd Floor",
-          "building_number": "H.No. 5-5-165/2/TF Plot no. 4",
-          "city": "",
-          "district": "",
-          "flat_number": "",
-          "latitude": "",
-          "location": "",
-          "longitude": "",
-          "business_nature": "",
-          "pincode": "",
-          "street": "",
-          "state_code": "",
-          "full_address": ""
-        },
-        "register_cancellation_date": "",
-        "register_date": "",
-        "state_jurisdiction": "",
-        "state_jurisdiction_code": "NA",
-        "tax_payer_type": "Regular",
-        "trade_name": "ABC PRIVATE LIMITED"
-      },
-      "request_timestamp": "",
-      "response_timestamp": ""
+    "message": "Success",
+    "data": {
+      "aadhaar_number": "XXXXXXXXXXXX",
+      "full_name": "JOHN DOE",
+      "gender": "M",
+      "dob": "01-01-1990",
+      "address": "123, Sample Street, Example City, State - 123456",
+      "mobile_verified": "Y",
+      "masked_aadhaar": "XXXXXXXXXXXX"
     },
     "success": true
   }
@@ -220,74 +181,35 @@ export const Aadhaar = {
 export const GstIN = {
   apiUrl: {
     Method: 'Post',
-    URLS: "business/Gstinverify",
+    URLS: "client/business/Gstin/verify",
     LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
   },
   title: {
     header: "GSTIN Verification",
-    headerTitle: "Verify GSTIN using government KYC service",
+    headerTitle: "Verify GSTIN using official government GST records",
     submitButton: 'Verify GSTIN'
   },
-  inputParams: ["gstinNumber", "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ["gstinNumber"],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}[A-Z\\d]{1}Z[A-Z\\d]{1}$"],
-  exampleCurl: `curl --location 'http://localhost:7006/business/Gstinverify' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "gstinNumber": "",
-      "serviceId": "",
-      "categoryId": ""
+      "gstinNumber": "33AACCC1234F1Z1"
   }'`,
   exampleResponse: {
-    "message": {
-      "request_id": "",
-      "task_id": "",
-      "group_id": "",
-      "success": "",
-      "response_code": "100",
-      "response_message": "Valid Authentication",
-      "metadata": {
-        "billable": "Y"
-      },
-      "result": {
-        "business_constitution": "Private Limited Company",
-        "business_nature": [
-          "Supplier of Services"
-        ],
-        "central_jurisdiction": "",
-        "central_jurisdiction_code": "NA",
-        "current_registration_status": "Active",
-        "gstin": "",
-        "last_updated": "NA",
-        "legal_name": "ABC PRIVATE LIMITED",
-        "other_business_address": "",
-        "primary_business_address": {
-          "building_name": "3rd Floor",
-          "building_number": "H.No. 5-5-165/2/TF Plot no. 4",
-          "city": "",
-          "district": "",
-          "flat_number": "",
-          "latitude": "",
-          "location": "",
-          "longitude": "",
-          "business_nature": "",
-          "pincode": "",
-          "street": "",
-          "state_code": "",
-          "full_address": ""
-        },
-        "register_cancellation_date": "",
-        "register_date": "",
-        "state_jurisdiction": "",
-        "state_jurisdiction_code": "NA",
-        "tax_payer_type": "Regular",
-        "trade_name": "ABC PRIVATE LIMITED"
-      },
-      "request_timestamp": "",
-      "response_timestamp": ""
+    "message": "Success",
+    "data": {
+      "gstin": "33AACCC1234F1Z1",
+      "legal_name": "EXAMPLE ENTERPRISE PVT LTD",
+      "trade_name": "EXAMPLE ENTERPRISE",
+      "registration_date": "01/01/2017",
+      "status": "Active",
+      "taxpayer_type": "Regular",
+      "principal_place": "123, Business Park, Chennai, Tamil Nadu - 600001"
     },
     "success": true
   }
@@ -296,454 +218,221 @@ export const SHOP = {
   apiUrl: {
     Method: 'Post',
     URLS: "shop/shopest",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/shop/shopest"
   },
   title: {
-    header: "SHOP Verification",
-    headerTitle: "Verify shop using government KYC service",
+    header: "Shop & Establishment Verification",
+    headerTitle: "Verify business using Shop & Establishment registration number",
     submitButton: 'Verify Shop'
   },
-  inputParams: ['registrationNumber', 'state', "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ['registrationNumber', 'state'],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/shop/shopest' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "registrationNumber": "",
-      "state": "",
-      "serviceId": "",
-      "categoryId": ""
+      "registrationNumber": "12345/ABC",
+      "state": "Maharashtra"
   }'`,
   exampleResponse: {
-    "essentials": {
-      "registrationNumber": "registrationNumber",
-      "state": "State",
-      "category": ""
+    "message": "Success",
+    "data": {
+      "registration_number": "12345/ABC",
+      "shop_name": "GOODWILL ENTERPRISES",
+      "owner_name": "JANE SMITH",
+      "address": "Flat 402, Sunshine Plaza, Mumbai, Maharashtra - 400001",
+      "status": "Active",
+      "commencement_date": "10/05/2020"
     },
-    "id": "",
-    "patronId": "",
-    "result": {
-      "registrationNumber": "registrationNumber",
-      "previousRegistrationCertificate": "NA",
-      "nameOfTheShop": "",
-      "address": "",
-      "act": "Shops and Establishments",
-      "dateOfCommencment": "",
-      "summary": {
-        "registrationNumber": "registrationNumber",
-        "name": "",
-        "status": "",
-        "dateOfCommencement": "",
-        "address": "",
-        "splitAddress": {
-          "district": [
-            ""
-          ],
-          "state": [
-            [
-              "state",
-              ""
-            ]
-          ],
-          "city": [
-            ""
-          ],
-          "pincode": "",
-          "country": [],
-          "addressLine": ""
-        }
-      },
-      "detailed": {
-        "registrationNumber": "registrationNumber",
-        "previousRegistrationCertificate": "NA",
-        "nameOfTheShop": "name of Shop",
-        "act": ""
-      }
-    }
+    "success": true
   }
 };
 export const SendOTP = {
   apiUrl: {
     Method: 'Post',
     URLS: "mobileNumber/mobileOtp",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/mobileNumber/mobileOtp"
   },
   title: {
-    header: "MobileNumber Verification (Send OTP To Number)",
-    headerTitle: "Verify MobileNumber using government KYC service",
-    submitButton: 'Send OTP to Number'
+    header: "Mobile OTP Verification (Send)",
+    headerTitle: "Send a verification OTP to the provided mobile number",
+    submitButton: 'Send OTP'
   },
-  inputParams: ['mobileNumber', "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ['mobileNumber'],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[6-9]\\d{9}$"],
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/mobileNumber/mobileOtp' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "mobileNumber": "",
-      "serviceId": "",
-      "categoryId": ""
+      "mobileNumber": "9876543210"
   }'`,
   exampleResponse: {
-    "essentials": {
-      "registrationNumber": "registrationNumber",
-      "state": "State",
-      "category": ""
+    "message": "OTP sent successfully",
+    "data": {
+      "mobileNumber": "9876543210",
+      "status": "SENT"
     },
-    "id": "",
-    "patronId": "",
-    "result": {
-      "registrationNumber": "registrationNumber",
-      "previousRegistrationCertificate": "NA",
-      "nameOfTheShop": "",
-      "address": "",
-      "act": "Shops and Establishments",
-      "dateOfCommencment": "",
-      "summary": {
-        "registrationNumber": "registrationNumber",
-        "name": "",
-        "status": "",
-        "dateOfCommencement": "",
-        "address": "",
-        "splitAddress": {
-          "district": [
-            ""
-          ],
-          "state": [
-            [
-              "state",
-              ""
-            ]
-          ],
-          "city": [
-            ""
-          ],
-          "pincode": "",
-          "country": [],
-          "addressLine": ""
-        }
-      },
-      "detailed": {
-        "registrationNumber": "registrationNumber",
-        "previousRegistrationCertificate": "NA",
-        "nameOfTheShop": "name of Shop",
-        "act": ""
-      }
-    }
+    "success": true
   }
 };
 export const VerifyOTP = {
   apiUrl: {
     Method: 'Post',
     URLS: "mobileNumber/mobileotpVerify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/mobileNumber/mobileotpVerify"
   },
   title: {
-    header: "MobileNumber Verification (Verify OTP)",
-    headerTitle: "Verify MobileNumber using government KYC service",
+    header: "Mobile OTP Verification (Verify)",
+    headerTitle: "Submit the 4-digit OTP received on the mobile number",
     submitButton: 'Verify OTP'
   },
-  inputParams: ["submittedOtp", "mobile", "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ["submittedOtp", "mobile"],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{4}$", "^[6-9]\\d{9}$"],
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/mobileNumber/mobileotpVerify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "submittedOtp": "",
-      "mobile": "",
-      "serviceId": "",
-      "categoryId": ""
+      "submittedOtp": "1234",
+      "mobile": "9876543210"
   }'`,
   exampleResponse: {
-    "essentials": {
-      "registrationNumber": "registrationNumber",
-      "state": "State",
-      "category": ""
+    "message": "OTP verified successfully",
+    "data": {
+      "mobile": "9876543210",
+      "status": "VERIFIED"
     },
-    "id": "",
-    "patronId": "",
-    "result": {
-      "registrationNumber": "registrationNumber",
-      "previousRegistrationCertificate": "NA",
-      "nameOfTheShop": "",
-      "address": "",
-      "act": "Shops and Establishments",
-      "dateOfCommencment": "",
-      "summary": {
-        "registrationNumber": "registrationNumber",
-        "name": "",
-        "status": "",
-        "dateOfCommencement": "",
-        "address": "",
-        "splitAddress": {
-          "district": [
-            ""
-          ],
-          "state": [
-            [
-              "state",
-              ""
-            ]
-          ],
-          "city": [
-            ""
-          ],
-          "pincode": "",
-          "country": [],
-          "addressLine": ""
-        }
-      },
-      "detailed": {
-        "registrationNumber": "registrationNumber",
-        "previousRegistrationCertificate": "NA",
-        "nameOfTheShop": "name of Shop",
-        "act": ""
-      }
-    }
+    "success": true
   }
 };
 export const panVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "pan/verify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/pan/verify"
   },
   title: {
-    header: "Pan Verification",
-    headerTitle: "Verify Pan using government KYC service",
-    submitButton: 'Verify Pan'
+    header: "PAN Card Verification",
+    headerTitle: "Verify PAN details against Income Tax Department records",
+    submitButton: 'Verify PAN'
   },
-  inputParams: ["panNumber", "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ["panNumber"],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{5}[0-9]{4}[A-Z]{1}$"],
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/pan/verify' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "panNumber": "ABCDE1234F"
   }'`,
   exampleResponse: {
-    "essentials": {
-      "registrationNumber": "registrationNumber",
-      "state": "State",
-      "category": ""
+    "message": "Success",
+    "data": {
+      "pan": "ABCDE1234F",
+      "full_name": "JOHN DOE",
+      "status": "VALID",
+      "category": "Individual"
     },
-    "id": "",
-    "patronId": "",
-    "result": {
-      "registrationNumber": "registrationNumber",
-      "previousRegistrationCertificate": "NA",
-      "nameOfTheShop": "",
-      "address": "",
-      "act": "Shops and Establishments",
-      "dateOfCommencment": "",
-      "summary": {
-        "registrationNumber": "registrationNumber",
-        "name": "",
-        "status": "",
-        "dateOfCommencement": "",
-        "address": "",
-        "splitAddress": {
-          "district": [
-            ""
-          ],
-          "state": [
-            [
-              "state",
-              ""
-            ]
-          ],
-          "city": [
-            ""
-          ],
-          "pincode": "",
-          "country": [],
-          "addressLine": ""
-        }
-      },
-      "detailed": {
-        "registrationNumber": "registrationNumber",
-        "previousRegistrationCertificate": "NA",
-        "nameOfTheShop": "name of Shop",
-        "act": ""
-      }
-    }
+    "success": true
   }
 };
 export const panAadhaarVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "pan/verify_to_aadhaar",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/pan/verify_to_aadhaar"
   },
   title: {
-    header: "Pan Verification",
-    headerTitle: "Verify pan To Aadhaar using government KYC service",
-    submitButton: 'Verify PantoAadhaar'
+    header: "PAN to Aadhaar Link Verification",
+    headerTitle: "Check if a PAN is linked with an Aadhaar number",
+    submitButton: 'Check Link Status'
   },
-  inputParams: ["panNumber", "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ["panNumber"],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{5}[0-9]{4}[A-Z]{1}$"],
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/pan/verify_to_aadhaar' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "panNumber": "ABCDE1234F"
   }'`,
   exampleResponse: {
-    "essentials": {
-      "registrationNumber": "registrationNumber",
-      "state": "State",
-      "category": ""
+    "message": "Success",
+    "data": {
+      "pan": "ABCDE1234F",
+      "is_linked": true,
+      "masked_aadhaar": "XXXXXXXX1234"
     },
-    "id": "",
-    "patronId": "",
-    "result": {
-      "registrationNumber": "registrationNumber",
-      "previousRegistrationCertificate": "NA",
-      "nameOfTheShop": "",
-      "address": "",
-      "act": "Shops and Establishments",
-      "dateOfCommencment": "",
-      "summary": {
-        "registrationNumber": "registrationNumber",
-        "name": "",
-        "status": "",
-        "dateOfCommencement": "",
-        "address": "",
-        "splitAddress": {
-          "district": [
-            ""
-          ],
-          "state": [
-            [
-              "state",
-              ""
-            ]
-          ],
-          "city": [
-            ""
-          ],
-          "pincode": "",
-          "country": [],
-          "addressLine": ""
-        }
-      },
-      "detailed": {
-        "registrationNumber": "registrationNumber",
-        "previousRegistrationCertificate": "NA",
-        "nameOfTheShop": "name of Shop",
-        "act": ""
-      }
-    }
+    "success": true
   }
 };
 export const accountVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "accounts/verify/penny-drop",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/accounts/verify/penny-drop"
   },
   title: {
     header: "Bank Account Verification",
-    headerTitle: "Verify Account using government KYC service",
+    headerTitle: "Verify bank account details using Penny Drop service",
     submitButton: 'Verify Account'
   },
-  inputParams: ["account_no", "ifsc", "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ["account_no", "ifsc"],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{9,18}$", "^[A-Z]{4}0[A-Z0-9]{6}$"],
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/accounts/verify/penny-drop' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "account_no": "1234567890",
+      "ifsc": "SBIN0001234"
   }'`,
   exampleResponse: {
-    "essentials": {
-      "registrationNumber": "registrationNumber",
-      "state": "State",
-      "category": ""
+    "message": "Success",
+    "data": {
+      "account_no": "1234567890",
+      "ifsc": "SBIN0001234",
+      "bank_name": "STATE BANK OF INDIA",
+      "account_holder": "JOHN DOE",
+      "status": "VALID"
     },
-    "id": "",
-    "patronId": "",
-    "result": {
-      "registrationNumber": "registrationNumber",
-      "previousRegistrationCertificate": "NA",
-      "nameOfTheShop": "",
-      "address": "",
-      "act": "Shops and Establishments",
-      "dateOfCommencment": "",
-      "summary": {
-        "registrationNumber": "registrationNumber",
-        "name": "",
-        "status": "",
-        "dateOfCommencement": "",
-        "address": "",
-        "splitAddress": {
-          "district": [
-            ""
-          ],
-          "state": [
-            [
-              "state",
-              ""
-            ]
-          ],
-          "city": [
-            ""
-          ],
-          "pincode": "",
-          "country": [],
-          "addressLine": ""
-        }
-      },
-      "detailed": {
-        "registrationNumber": "registrationNumber",
-        "previousRegistrationCertificate": "NA",
-        "nameOfTheShop": "name of Shop",
-        "act": ""
-      }
-    }
+    "success": true
   }
 };
 export const CINVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "business/CinNumberverify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/business/CinNumberverify"
   },
   title: {
     header: "CIN Verification",
-    headerTitle: "Verify CIN using government KYC service",
+    headerTitle: "Verify Corporate Identification Number (CIN) for businesses",
     submitButton: 'Verify CIN'
   },
-  inputParams: ["CIN", "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ["CIN"],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^([LU])\\d{5}[A-Z]{2}\\d{4}[A-Z]{3}\\d{6}$"],
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/business/CinNumberverify' \\
     --header 'Content-Type: application/json' \\
-    --header 'secretKey: {{secretKey}}' \\
-    --header 'clientId: {{clientId}}' \\
+    --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "panNumber": ""
+      "CIN": "U72200TN2020PTC123456"
   }'`,
   exampleResponse: {
     "CIN": "",
@@ -901,43 +590,33 @@ export const UdamVerify = {
   apiUrl: {
     Method: 'Post',
     URLS: "udyam/verify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/udyam/verify"
   },
   title: {
-    header: "udyam Verification",
-    headerTitle: "Verify Udyam number using government KYC service",
-    submitButton: 'Verify Udyam number'
+    header: "Udyam Aadhaar Verification",
+    headerTitle: "Verify MSME Udyam Registration number",
+    submitButton: 'Verify Udyam'
   },
-  inputParams: ["udyamNumber", "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ["udyamNumber"],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'http://localhost:7006/udyam/verify' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/udyam/verify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "udyamNumber": "",
-      "serviceId": "",
-      "categoryId": ""
+      "udyamNumber": "UDYAM-TN-01-1234567"
   }'`,
   exampleResponse: {
-    "success": true,
-    "response": {
-      "message": "valid",
-      "success": true,
-      "response": {
-        "bin": "6 digit of Credit card Number",
-        "brand": "Card brand",
-        "type": "",
-        "category": "WORLD",
-        "issuer": "",
-        "issuer_phone": "",
-        "issuer_url": "",
-        "iso2": "",
-        "iso3": "",
-        "country": ""
-      }
-    }
+    "message": "Success",
+    "data": {
+      "udyam_number": "UDYAM-TN-01-1234567",
+      "enterprise_name": "ABC TECH SOLUTIONS",
+      "enterprise_type": "Micro",
+      "major_activity": "Services",
+      "status": "Active"
+    },
+    "success": true
   }
 };
 export const cardVerify = {
@@ -951,7 +630,7 @@ export const cardVerify = {
     headerTitle: "Verify CreditCard using government KYC service",
     submitButton: 'Verify CreditCard'
   },
-  inputParams: ["creditCardNumber", "serviceId", "categoryId"],
+  inputParams: ["creditCardNumber"],
   isToken:true,
   isMicro: 'KYC',
   isDisable: false,
@@ -988,45 +667,33 @@ export const NameMatch = {
   apiUrl: {
     Method: 'Post',
     URLS: "name/compareNames",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/name/compareNames"
   },
   title: {
-    header: "Name Verification",
-    headerTitle: "Verify Name using government KYC service",
-    submitButton: 'Verify Name'
+    header: "Name Comparison Service",
+    headerTitle: "Calculate similarity score between two names",
+    submitButton: 'Compare Names'
   },
-  inputParams: ["firstName", "secondName", "serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ["firstName", "secondName"],
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Za-z\\s]+$", "^[A-Za-z\\s]+$"],
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/name/compareNames' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "firstName": "",
-      "secondName": "",
-      "serviceId": "",
-      "categoryId": ""
+      "firstName": "JOHN DOE",
+      "secondName": "JON DOE"
   }'`,
   exampleResponse: {
-    "success": true,
-    "response": {
-      "message": "valid",
-      "success": true,
-      "response": {
-        "bin": "6 digit of Credit card Number",
-        "brand": "Card brand",
-        "type": "",
-        "category": "WORLD",
-        "issuer": "",
-        "issuer_phone": "",
-        "issuer_url": "",
-        "iso2": "",
-        "iso3": "",
-        "country": ""
-      }
-    }
+    "message": "Success",
+    "data": {
+      "score": 0.95,
+      "status": "Match",
+      "algorithm": "Levenshtein"
+    },
+    "success": true
   }
 };
 
@@ -1042,7 +709,7 @@ export const RechargeOperators = {
     headerTitle: "Fetch Service operators using NTAR service",
     submitButton: 'Operators Fetch'
   },
-  inputParams: ["mobileNumber","serviceId", "categoryId"],
+  inputParams: ["mobileNumber"],
   isToken:true,
   isMicro: 'RECHARGE',
   isDisable: false,
@@ -1079,7 +746,7 @@ export const RechargePlans = {
     headerTitle: "Fetch plans using NTAR service",
     submitButton: 'Fetch Plans'
   },
-  inputParams: ["operatorcode", "cricle","serviceId", "categoryId"],
+  inputParams: ["operatorcode", "cricle"],
   isToken:true,
   isMicro: 'RECHARGE',
   isDisable: false,
@@ -1116,7 +783,7 @@ export const RechargeOldPlans = {
     headerTitle: "Fetch old plans using NTAR service",
     submitButton: 'Fetch oldPlans'
   },
-  inputParams: ["operatorcode", "cricle","serviceId", "categoryId"],
+  inputParams: ["operatorcode", "cricle"],
   isToken:true,
   isMicro: 'RECHARGE',
   isDisable: false,
@@ -1153,7 +820,7 @@ export const RechargeOffersPlans = {
     headerTitle: "Fetch Offersplans using NTAR service",
     submitButton: 'Fetch Offers'
   },
-  inputParams: ["operator_code", "mobile_no","serviceId", "categoryId"],
+  inputParams: ["operator_code", "mobile_no"],
   isToken:true,
   isMicro: 'RECHARGE',
   isDisable: false,
@@ -1181,27 +848,27 @@ export const RechargeURL = {
   apiUrl: {
     Method: 'Post',
     URLS: "/RechargeURL",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/RECHARGE/LIVE/RechargeURL"
   },
   title: {
-    header: "STEP 4: RechargeURL",
-    headerTitle: "Recharge using NTAR service",
-    submitButton: 'Recharge'
+    header: "STEP 4: Mobile Recharge",
+    headerTitle: "Initiate a mobile recharge transaction",
+    submitButton: 'Process Recharge'
   },
   isGeoLocation: true,
-  inputParams: ["MobileNumber", "actualAmount", "spKey", "transactionId", "customerNumber","serviceId", "categoryId"],
-  isToken:true,
+  inputParams: ["MobileNumber", "actualAmount", "spKey", "transactionId", "customerNumber"],
+  isToken: true,
   isMicro: 'RECHARGE',
   isDisable: false,
-  exampleCurl: `curl --location 'http://localhost:7009/shop/shopest' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/RECHARGE/LIVE/RechargeURL' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "MobileNumber": "",
-      "actualAmount": "",
-      "spKey": "",
-      "transactionId": "",
-      "customerNumber": ""
+      "MobileNumber": "9876543210",
+      "actualAmount": "199",
+      "spKey": "JIO",
+      "transactionId": "TXN12345",
+      "customerNumber": "9876543210"
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -1258,24 +925,20 @@ export const BBPSCategory = {
   apiUrl: {
     Method: 'Get',
     URLS: "/billerInfo/:category",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/BBPS/LIVE/billerInfo/:category"
   },
   title: {
-    header: "STEP 1: Get Category",
-    headerTitle: "BBPS using NTAR service",
-    submitButton: 'Get Category'
+    header: "STEP 1: BBPS Categories",
+    headerTitle: "Fetch available BBPS service categories",
+    submitButton: 'List Categories'
   },
   inputParams: ["category"],
   isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["Credit Card"],
   isDisable: true,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
-    --header 'Content-Type: application/json' \\
-    --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "category": ""
-  }'`,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/BBPS/LIVE/billerInfo/Credit%20Card' \\
+    --header 'secret_token: {{secret_token}}'`,
   exampleResponse: {
     "message": "Success",
     "success": true,
@@ -1285,12 +948,12 @@ export const BBPSCategory = {
 export const BBPSBillerInfo = {
   apiUrl: {
     Method: 'Get',
-    URLS: "/billerInfo/:category",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    URLS: "/billerInfo/:billerId",
+    LiveUrl: "https://localhost:7007/V1/BBPS/LIVE/billerInfo/:billerId"
   },
   title: {
-    header: "STEP 2: Get Biller Info",
-    headerTitle: "BBPS using NTAR service",
+    header: "STEP 2: Biller Information",
+    headerTitle: "Fetch detailed information for a specific BBPS biller",
     submitButton: 'Get Biller Info'
   },
   inputParams: ["billerId"],
@@ -1298,12 +961,8 @@ export const BBPSBillerInfo = {
   bodyParams: "(params)",
   Inputvalues: ["SBIC00000NATDN"],
   isDisable: true,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
-    --header 'Content-Type: application/json' \\
-    --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "billerId": ""
-  }'`,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/BBPS/LIVE/billerInfo/SBIC00000NATDN' \\
+    --header 'secret_token: {{secret_token}}'`,
   exampleResponse: {
     "message": "Success",
     "success": true,
@@ -1313,28 +972,21 @@ export const BBPSBillerInfo = {
 export const BBPSBillFetch = {
   apiUrl: {
     Method: 'Get',
-    URLS: "/billerInfo/:category",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    URLS: "/billFetch",
+    LiveUrl: "https://localhost:7007/V1/BBPS/LIVE/billFetch"
   },
   title: {
-    header: "STEP 3: Get Bill Fetch",
-    headerTitle: "BBPS using NTAR service",
-    submitButton: 'Get Bill Fetch'
+    header: "STEP 3: BBPS Bill Fetch",
+    headerTitle: "Fetch pending bills for a user from a specific biller",
+    submitButton: 'Fetch Bill'
   },
   inputParams: ["accessCode", "ver", "instituteId", "secretKey"],
   isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg"],
   isDisable: true,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
-    --header 'Content-Type: application/json' \\
-    --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "accessCode": "",
-      "ver": "",
-      "instituteId": "",
-      "secretKey": ""
-  }'`,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/BBPS/LIVE/billFetch?accessCode=77TRLSNG7N000HENTL&ver=1.0' \\
+    --header 'secret_token: {{secret_token}}'`,
   exampleResponse: {
     "message": "Success",
     "success": true,
@@ -1408,41 +1060,36 @@ export const BBPSBillQuickPay = {
   apiUrl: {
     Method: 'POST',
     URLS: "/billQuickPay",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
+    LiveUrl: "https://localhost:7007/V1/BBPS/LIVE/billQuickPay"
   },
   title: {
-    header: "STEP 5: Bill QuickPay",
-    headerTitle: "BBPS using NTAR service",
-    submitButton: 'Quick pay'
+    header: "STEP 5: BBPS Quick Pay",
+    headerTitle: "Process immediate bill payment via BBPS",
+    submitButton: 'Quick Pay'
   },
   inputParams: ["accessCode", "ver", "instituteId", "secretKey", "requestId"],
   isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg", "8d57XXX99ac4dXXXXX09011XXXXX"],
   isDisable: true,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location 'https://localhost:7007/V1/BBPS/LIVE/billQuickPay' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "accessCode": "",
-      "ver": "",
-      "instituteId": "",
-      "secretKey": "",
-      "requestId": ""
+      "accessCode": "77TRLSNG7N000HENTL",
+      "ver": "1.0",
+      "requestId": "8d57XXX99ac4dXXXXX09011XXXXX"
   }'`,
   exampleResponse: {
     "message": "Success",
-    "success": true,
     "data": {
-      "ERROR": "0",
-      "STATUS": "1",
-      "Mobile": "918688571181",
-      "Operator": "Reliance Jio Infocomm Limited",
-      "OpCode": "11",
-      "Circle": "Andhra Pradesh",
-      "CircleCode": "49",
-      "Message": "Successfully"
-    }
+      "status": "SUCCESS",
+      "txn_id": "BBPS88776655",
+      "approval_ref": "321456",
+      "amount": "500",
+      "date": "2024-04-06"
+    },
+    "success": true
   }
 };
 export const InstantBillPay = {
@@ -1526,6 +1173,233 @@ export const InstantBillPay = {
     internalCode: null
   }
 };
+
+// Identity Services (Expanded)
+export const VoterID = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "client/government/voterId/verify",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/government/voterId/verify"
+  },
+  title: {
+    header: "Voter ID Verification",
+    headerTitle: "Verify Voter ID details using official EPIC number",
+    submitButton: 'Verify Voter ID'
+  },
+  inputParams: ["voterIdNumber"],
+  isToken: true,
+  isMicro: 'KYC',
+  isDisable: false,
+  regexValues: ["^[A-Z]{3}[0-9]{7}$"],
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/government/voterId/verify' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{"voterIdNumber": "ABC1234567"}'`,
+  exampleResponse: { "message": "Success", "data": { "epic_no": "ABC1234567", "name": "JOHN DOE", "gender": "M", "state": "Delhi" }, "success": true }
+};
+
+export const Passport = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "client/government/passport/verify",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/government/passport/verify"
+  },
+  title: {
+    header: "Passport Verification",
+    headerTitle: "Verify Indian Passport details using Passport Number and DOB",
+    submitButton: 'Verify Passport'
+  },
+  inputParams: ["passportNumber", "dob"],
+  isToken: true,
+  isMicro: 'KYC',
+  isDisable: false,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/government/passport/verify' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{"passportNumber": "S1234567", "dob": "1990-01-01"}'`,
+  exampleResponse: { "message": "Success", "data": { "passportNumber": "S1234567", "full_name": "JOHN DOE", "dob": "01/01/1990" }, "success": true }
+};
+
+export const DLVerify = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "client/vehicle/driving_license/verify",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/vehicle/driving_license/verify"
+  },
+  title: {
+    header: "Driving License Verification",
+    headerTitle: "Verify DL details using License Number and Date of Birth",
+    submitButton: 'Verify DL'
+  },
+  inputParams: ["dlNumber", "dob"],
+  isToken: true,
+  isMicro: 'KYC',
+  isDisable: false,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/vehicle/driving_license/verify' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{"dlNumber": "DL-1234567890123", "dob": "1990-01-01"}'`,
+  exampleResponse: { "message": "Success", "data": { "license_number": "DL-1234567890123", "name": "JOHN DOE", "expiry_date": "2030-01-01" }, "success": true }
+};
+
+// Vehicle Services (Expanded)
+export const RCVerify = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "client/vehicle/rcverify",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/vehicle/rcverify"
+  },
+  title: {
+    header: "RC Verification",
+    headerTitle: "Verify Vehicle Registration Certificate (RC) details",
+    submitButton: 'Verify RC'
+  },
+  inputParams: ["rcNumber"],
+  isToken: true,
+  isMicro: 'KYC',
+  isDisable: false,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/vehicle/rcverify' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{"rcNumber": "DL1CA1234"}'`,
+  exampleResponse: { "message": "Success", "data": { "rc_number": "DL1CA1234", "owner_name": "JOHN DOE", "vehicle_model": "MARUTI SWIFT" }, "success": true }
+};
+
+export const RCChallan = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "client/vehicle/challan_via_rc",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/vehicle/challan_via_rc"
+  },
+  title: {
+    header: "RC Challan Search",
+    headerTitle: "Fetch traffic challan details using Vehicle RC Number",
+    submitButton: 'Fetch Challans'
+  },
+  inputParams: ["rcNumber"],
+  isToken: true,
+  isMicro: 'KYC',
+  isDisable: false,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/vehicle/challan_via_rc' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{"rcNumber": "DL1CA1234"}'`,
+  exampleResponse: { "message": "Success", "data": { "rc_number": "DL1CA1234", "challans": [] }, "success": true }
+};
+
+// Business Services (Expanded)
+export const DINVerify = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "client/business/din/verify",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/business/din/verify"
+  },
+  title: {
+    header: "DIN Verification",
+    headerTitle: "Verify Director Identification Number (DIN) details",
+    submitButton: 'Verify DIN'
+  },
+  inputParams: ["din"],
+  isToken: true,
+  isMicro: 'KYC',
+  isDisable: false,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/business/din/verify' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{"din": "01234567"}'`,
+  exampleResponse: { "message": "Success", "data": { "din": "01234567", "name": "JOHN DOE", "status": "Active" }, "success": true }
+};
+
+export const IECVerify = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "client/business/IEC/verify",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/business/IEC/verify"
+  },
+  title: {
+    header: "IEC Verification",
+    headerTitle: "Verify Import Export Code (IEC) details",
+    submitButton: 'Verify IEC'
+  },
+  inputParams: ["iecNumber"],
+  isToken: true,
+  isMicro: 'KYC',
+  isDisable: false,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/business/IEC/verify' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{"iecNumber": "0123456789"}'`,
+  exampleResponse: { "message": "Success", "data": { "iec": "0123456789", "entity_name": "ABC EXPORTS", "status": "Active" }, "success": true }
+};
+
+// Utility Services (Expanded)
+export const ElectricityBill = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "client/government/electricity_bill",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/government/electricity_bill"
+  },
+  title: {
+    header: "Electricity Bill Verification",
+    headerTitle: "Fetch electricity bill details using Consumer ID and Biller",
+    submitButton: 'Fetch Bill'
+  },
+  inputParams: ["consumerId", "biller"],
+  isToken: true,
+  isMicro: 'KYC',
+  isDisable: false,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/government/electricity_bill' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{"consumerId": "123456789", "biller": "TNEB"}'`,
+  exampleResponse: { "message": "Success", "data": { "consumerId": "123456789", "amount": "500", "due_date": "2024-05-01" }, "success": true }
+};
+
+export const PincodeGeofencing = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "client/location/pincode/geofencing",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/location/pincode/geofencing"
+  },
+  title: {
+    header: "Pincode Geofencing",
+    headerTitle: "Verify if a coordinate falls within a specific Pincode area",
+    submitButton: 'Verify Geofence'
+  },
+  inputParams: ["pincode", "latitude", "longitude"],
+  isToken: true,
+  isMicro: 'KYC',
+  isDisable: false,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/location/pincode/geofencing' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{"pincode": "600001", "latitude": "13.0827", "longitude": "80.2707"}'`,
+  exampleResponse: { "message": "Success", "data": { "in_range": true, "distance": "0.5km" }, "success": true }
+};
+
+// Finance Services (Expanded)
+export const BankStatement = {
+  apiUrl: {
+    Method: 'Post',
+    URLS: "client/bank/statement",
+    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/bank/statement"
+  },
+  title: {
+    header: "Bank Statement Fetch",
+    headerTitle: "Fetch bank statement details via Net Banking integration",
+    submitButton: 'Fetch Statement'
+  },
+  inputParams: ["accountId", "bankName"],
+  isToken: true,
+  isMicro: 'KYC',
+  isDisable: false,
+  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/bank/statement' \\
+    --header 'Content-Type: application/json' \\
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{"accountId": "1234567890", "bankName": "SBI"}'`,
+  exampleResponse: { "message": "Success", "data": { "transactions": [] }, "success": true }
+};
+
 
 
 
