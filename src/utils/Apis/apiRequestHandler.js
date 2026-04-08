@@ -8,8 +8,8 @@ const baseHandler = async (api, setLoading, onSuccess, onError, decrypt = false)
     const response = await api();
     let data = response.data;
     if (decrypt) {
-      const { Prikeys } = GeneralKeys.getState();
-      data = await decryptServerResponse(data?.payload, Prikeys);
+      const { privateKey } = GeneralKeys.getState();
+      data = await decryptServerResponse(data?.payload, privateKey);
     }
 
     if (data?.success) {

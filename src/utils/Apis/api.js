@@ -121,6 +121,8 @@ const HandleCreateKeys = (data) => supperApiClient.post("client/create/clientKey
 const HandleFetchAllKeys = (data) => supperApiClient.get(`client/get/TestandLive/clientKeys?clientId=${data}`);
 const HandleCreateIP = (data) => supperApiClient.post(`client/whitelist/clientIp`, data);
 const HandleFetchIP = (clientId) => supperApiClient.get(`client/Get/whitelist/clientIp?clientId=${clientId}`);
+const HandleDeleteIP = (data) => supperApiClient.post(`client/delete/whitelist/clientIp`, data);
+const HandleDeleteKey = (data) => supperApiClient.post(`client/delete/clientKeys`, data);
 
 const SubscribeService = (payload) => supperApiClient.post("/apimodule/subscribe-service", payload);
 const getAllCategoriesService = () => supperApiClient.get("/apimodule/get-all-category");
@@ -130,25 +132,41 @@ const getServicesByCategoryService = (categoryId) =>
   supperApiClient.get("/apimodule/service-config", {
     params: { categoryId },
   });
-const ApiVerification = (isMicro, URLS, data, token) => {
-  console.log(isMicro, URLS, data)
+const ApiVerification = (isMicro, URLS, data, token, method = 'Post') => {
+  console.log(isMicro, URLS, data, method);
   const headers = {
     'secret_token': token
   };
 
-  switch (isMicro) {
-    case 'KYC': return kycApiClient.post(URLS, data, { headers });
-    case 'RECHARGE': return RechargeApiClient.post(URLS, data, { headers });
-    case 'BBPS': return bbpsApiClient.post(URLS, data, { headers });;
-    case 'SupperAdmin': return supperApiClient.post(URLS, data, { headers });
+  // Replace path parameters (e.g., :category) if they exist in the data
+  let finalURL = URLS;
+  if (data && typeof data === 'object') {
+    Object.keys(data).forEach(key => {
+      if (finalURL.includes(`:${key}`)) {
+        finalURL = finalURL.replace(`:${key}`, encodeURIComponent(data[key]));
+      }
+    });
   }
 
+  const clientMap = {
+    'KYC': kycApiClient,
+    'RECHARGE': RechargeApiClient,
+    'BBPS': bbpsApiClient,
+    'SupperAdmin': supperApiClient
+  };
+
+  const apiClient = clientMap[isMicro] || kycApiClient;
+
+  if (method.toLowerCase() === 'get') {
+    return apiClient.get(finalURL, { headers, params: data });
+  } else {
+    return apiClient.post(finalURL, data, { headers });
+  }
 };
 const fetchPublickey = () => kycApiClient.get(`ApiModuels/key/Publickey`);
 
 
 // Fetch User Details
-
 
 const HandleGetOtp = (data) => kycApiClient.post('mobileNumber/mobileOtp', data);
 const HandleVerifyOtp = (data) => kycApiClient.post('mobileNumber/mobileotpVerify', data);
@@ -184,6 +202,8 @@ export {
 
   HandleCreateIP,
   HandleFetchIP,
+  HandleDeleteIP,
+  HandleDeleteKey,
   getAnalyticsService,
   HandleRefreshToken,
   GenerateTestKeys, GetTestKeys, RemoveTestKey

@@ -51,13 +51,33 @@ const ApiKeys = () => {
     document.body.removeChild(link);
   };
 
-  const executeDelete = (keyId) => {
-    console.log("Delete key:", keyId);
-    // Placeholder for delete functionality
-    if (confirm("Are you sure you want to delete this key?")) {
-      // Call API to delete key here
-      toast.info("Delete functionality coming soon!");
-    }
+  const executeDelete = async (keyId) => {
+    if (!window.confirm("Are you sure you want to delete this key? This action cannot be undone.")) return;
+
+    setLoading(true);
+    const payload = {
+      clientId: users?.clientId,
+      environment: activeTab,
+      keyId: keyId
+    };
+
+    await ApirequestHandler(
+      async () => await HandleDeleteKey(payload),
+      setLoading,
+      () => {
+        if (activeTab === "LIVE") {
+          useUserkey.getState().clearLiveKeys();
+        } else {
+          useUserkey.getState().clearTestKeys();
+        }
+        toast.success(`${activeTab} Key Deleted Successfully`);
+        setLoading(false);
+      },
+      (err) => {
+        toast.error(err);
+        setLoading(false);
+      }
+    );
   };
 
   const executeGenerateKey = async () => {

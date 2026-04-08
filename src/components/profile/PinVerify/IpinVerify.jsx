@@ -2,7 +2,7 @@ import React, { useState, useRef, createRef, useEffect } from 'react';
 import FlowpipeLogo from '../../../assets/images/FlowpipeLogo.png';
 import { useUserStore } from '../../../Store/userStore';
 import { VerifyIPIN } from '../../../utils/Apis/api';
-import { EncryptedApirequestHandler } from '../../../utils/Apis/apiRequestHandler';
+import { ApirequestHandler, EncryptedApirequestHandler } from '../../../utils/Apis/apiRequestHandler';
 import { toTitleCase } from '../../../utils/simpleHellperFn';
 import './IpinVerify.css';
 
@@ -23,18 +23,8 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
     const userName = toTitleCase(users?.name) || 'User';
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (modalRef.current && !modalRef.current.contains(event.target)) {
-                if (isVisible && onClose) {
-                    onClose();
-                }
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
+        // Modal is now strictly required for security/session continuity.
+        // We no longer close it via clicking outside.
     }, [isVisible, onClose]);
 
     useEffect(() => {
@@ -52,8 +42,11 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
     const handlePinChange = (index, value) => {
         setErrorMessage('');
 
-        // Take the last character entered to allow overwriting
-        const digit = value.replace(/[^0-9]/g, '').slice(-1);
+        // Manual Masking Logic:
+        // If the value ends with a digit, use that as the new digit.
+        // If the value is empty, the user deleted the digit.
+        const lastChar = value.slice(-1);
+        const digit = /[0-9]/.test(lastChar) ? lastChar : (value === '' ? '' : pin[index]);
 
         const newPin = [...pin];
         newPin[index] = digit;
@@ -100,8 +93,8 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
         setIsLoading(true);
 
         try {
-            await EncryptedApirequestHandler(
-                async () => await VerifyIPIN({ IPIN: fullPin }),
+            await ApirequestHandler(
+                async () => await VerifyIPIN({ MPIN: fullPin, clientID: users?.clientId }),
                 null,
                 (res) => {
                     if (res?.success) {
@@ -110,7 +103,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
                         if (onClose) onClose();
                         if (IsValidPIN) IsValidPIN(true);
                     } else {
-                        setErrorMessage(res?.message || "Invalid iPIN. Please try again.");
+                        setErrorMessage(res?.message || "Invalid MPIN. Please try again.");
                         setPin(['', '', '', '']);
                         if (inputRefs.current[0]?.current) {
                             inputRefs.current[0].current.focus();
@@ -147,15 +140,6 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
                 className="ipin-modal"
             >
 
-                {/* Close Button (X) */}
-                <button
-                    onClick={onClose}
-                    className="ipin-close-btn"
-                    aria-label="Close modal"
-                >
-                    <svg className="icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-
                 {/* Logo and Greeting */}
                 <div className="ipin-header">
                     <div className="ipin-logo-container">
@@ -178,14 +162,16 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
                         {pin.map((digit, index) => (
                             <input
                                 key={index}
-                                type="password"
-                                maxLength="1"
-                                value={digit}
+                                type="text"
+                                inputMode="numeric"
+                                maxLength="2"
+                                value={digit ? '*' : ''}
                                 onChange={(e) => handlePinChange(index, e.target.value)}
                                 onKeyDown={(e) => handleKeyDown(e, index)}
                                 ref={inputRefs.current[index]}
                                 disabled={isLoading}
-                                className={`ipin-digit-input ${errorMessage ? 'error' : ''}`}
+                                className={`ipin-digit-input ${errorMessage ? 'error' : ''} text-security-manual`}
+                                autoComplete="off"
                             />
                         ))}
                     </div>

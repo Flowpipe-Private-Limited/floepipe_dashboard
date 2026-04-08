@@ -3,6 +3,7 @@ import EXResponse from "../../components/common/response";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import { docco, atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ERROR_RESPONSES } from "../../utils/KYCContext/kycContex";
 import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
 import {
@@ -12,12 +13,17 @@ import {
 import { ApiVerification, fetchPublickey } from "../../utils/Apis/api";
 import { encryptPayload, generateFrontendKeyPair } from "../../utils/helper";
 import { useUserStore } from "../../Store/userStore";
+import { useUserkey } from "../../Store/userKeyStore";
+import { ShieldAlert } from "lucide-react";
 import "./KycInputOut.css";
 import Lottie from "lottie-react";
 import Images from "../../Images/Images";
 import { GeneralKeys } from "../../Store/PubliPriviteKey";
 
 const KycReuseComponet = ({ data }) => {
+  console.log('Data: ', data);
+  console.log('Is Valid', `${data?.isDisable}`)
+  const navigate = useNavigate();
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
@@ -41,6 +47,15 @@ const KycReuseComponet = ({ data }) => {
   }, [theme]);
 
   const { IskycApproved, kycCompleted } = useUserStore();
+  const {
+    LiveAccessToken,
+    TestAccessToken,
+    whitelistIps,
+    currentPublicIp,
+    detectCurrentIp,
+    fetchWhitelistIPs
+  } = useUserkey();
+
   const { setPubKey } = GeneralKeys();
   const [formData, setFormData] = useState({});
   const [accessToken, setAccessToken] = useState("");
@@ -53,8 +68,41 @@ const KycReuseComponet = ({ data }) => {
   const [errors, setErrors] = useState({}); // Only for regex
   const [showAlert, setShowAlert] = useState(false);
   const [selectedExampleCode, setSelectedExampleCode] = useState(
-    data?.exampleResponse || {},
+    data?.exampleResponse
   );
+
+  useEffect(() => {
+    if (data?.isDisable && data?.inputParams && data?.Inputvalues) {
+      const initialFormData = {};
+      data.inputParams.forEach((param, index) => {
+        initialFormData[param] = data.Inputvalues[index];
+      });
+      setFormData(initialFormData);
+    } else {
+      setFormData({});
+    }
+
+    // Auto-populate Access Token
+    if (data?.isToken) {
+      const isLive = data?.apiUrl?.LiveUrl?.includes('/LIVE/') || data?.apiUrl?.URLS?.includes('/LIVE/');
+      setAccessToken(isLive ? LiveAccessToken : TestAccessToken);
+    }
+
+    setApiResponse(null);
+    setSelectedExampleCode(data?.exampleResponse || {});
+    setApiErrormessage("");
+    setErrors({}); // Reset validation errors when switching services
+    setPublickeyError(""); // Reset key error on transition
+  }, [data, LiveAccessToken, TestAccessToken]);
+
+  useEffect(() => {
+    if (!currentPublicIp) detectCurrentIp();
+    if (whitelistIps.length === 0) fetchWhitelistIPs();
+  }, []);
+
+  const isIpWhitelisted = whitelistIps.some(item => item.ip === currentPublicIp);
+  const showIpWarning = currentPublicIp && !isIpWhitelisted && data?.isMicro !== "SupperAdmin";
+
 
   const HandleChangeInput = (e) => {
     console.log("Handle input change is trigred");
@@ -89,10 +137,15 @@ const KycReuseComponet = ({ data }) => {
     setApiErrormessage("");
 
     const isEncryptedFlow = data?.isMicro !== "SupperAdmin";
+    let currentKey = Publickey;
 
-    if (isEncryptedFlow && !Publickey) {
-      setApiErrormessage("Encryption keys not loaded. Please wait or refresh the page.");
-      return;
+    if (isEncryptedFlow && !currentKey) {
+      setPublickeyLoading(true);
+      currentKey = await GetPublickey(true); // Attempt to fetch immediately and capture the result
+      if (!currentKey) {
+        setApiErrormessage("Encryption keys not loaded. Please ensure you have a stable connection.");
+        return;
+      }
     }
 
     if (data?.isGeoLocation) {
@@ -126,13 +179,13 @@ const KycReuseComponet = ({ data }) => {
     const payloadForApi = { ...formData, ...locationData };
 
     if (isEncryptedFlow) {
-      const encrypted = await encryptPayload(payloadForApi, Publickey);
+      const encrypted = await encryptPayload(payloadForApi, currentKey);
       const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
-      await setPubKey({ PrivateKey: privateKeyPem });
+      await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
 
       setLoading(true);
       await EncryptedApirequestHandler(
-        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...encrypted, publicKeyPem }, accessToken),
+        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...encrypted, publicKeyPem }, accessToken, data?.apiUrl?.Method || 'Post'),
         setLoading,
         (res) => {
           setApiResponse(res);
@@ -146,7 +199,7 @@ const KycReuseComponet = ({ data }) => {
     } else {
       setLoading(true);
       await ApirequestHandler(
-        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, payloadForApi, accessToken),
+        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, payloadForApi, accessToken, data?.apiUrl?.Method || 'Post'),
         setLoading,
         (res) => {
           setApiResponse(res);
@@ -160,9 +213,13 @@ const KycReuseComponet = ({ data }) => {
     }
   };
 
+  const [showCopyTip, setShowCopyTip] = useState(false);
+
   const handleCopy = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
+      setShowCopyTip(true);
+      setTimeout(() => setShowCopyTip(false), 2000);
     } catch (err) {
       console.log("Clipboard blocked, using fallback");
       const textarea = document.createElement("textarea");
@@ -171,33 +228,49 @@ const KycReuseComponet = ({ data }) => {
       textarea.select();
       document.execCommand("copy");
       textarea.remove();
+      setShowCopyTip(true);
+      setTimeout(() => setShowCopyTip(false), 2000);
     }
   };
 
-  const GetPublickey = async () => {
-    setPublickeyLoading(true);
-    setPublickeyError("");
-    await ApirequestHandler(
-      async () => fetchPublickey(),
-      null,
-      (res) => {
-        const { publicKey } = res;
-        setPublickey(publicKey);
-        setPublickeyLoading(false);
-      },
-      (errMessage) => {
-        setPublickeyError("Failed to load encryption keys.");
-        setPublickeyLoading(false);
-      }
-    );
+  const GetPublickey = async (force = false) => {
+    // Only fetch if missing or forced
+    if (!force && Publickey && !publickeyError) return Publickey;
+    
+    return new Promise(async (resolve) => {
+      console.log('Get publickey is called here')
+      setPublickeyLoading(true);
+      setPublickeyError("");
+      await ApirequestHandler(
+        async () => fetchPublickey(),
+        null,
+        (res) => {
+          const { publicKey } = res;
+          console.log('publickey is this :', publicKey);
+          setPublickey(publicKey);
+          setPublickeyLoading(false);
+          setPublickeyError(""); // Clear any previous error
+          resolve(publicKey);
+        },
+        (errMessage) => {
+          setPublickeyError("Failed to load encryption keys.");
+          setPublickeyLoading(false);
+          resolve(null);
+        }
+      );
+    });
   };
 
   useEffect(() => {
-    GetPublickey();
-  }, []);
+    // Only trigger fetch if needed
+    if (!Publickey && !publickeyLoading) {
+        GetPublickey();
+    }
+  }, [data]); // Re-check when service changes
 
   return (
     <div className="kyc-input-container">
+      {showCopyTip && <div className="kyc-copy-tip">✓ Copied to clipboard</div>}
       <Eachpage_header headertitle={"KYC"} />
       <div className="kyc-grid-container">
         {/* LEFT INPUT SECTION */}
@@ -206,6 +279,25 @@ const KycReuseComponet = ({ data }) => {
           <p className="kyc-subheader">{data?.title?.headerTitle}</p>
 
           <div className="kyc-form-container">
+            {/* IP Whitelist Warning */}
+            {showIpWarning && (
+              <div className="kyc-ip-warning">
+                <div className="flex items-center gap-2">
+                  <ShieldAlert size={18} className="text-orange-500" />
+                  <div>
+                    <p className="warning-title">IP Not Whitelisted</p>
+                    <p className="warning-desc">Your current IP <strong>{currentPublicIp}</strong> is not authorized. Please whitelist it to avoid API errors.</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => navigate('/dashboard/WhitelistIP')}
+                  className="whitelist-now-btn"
+                >
+                  Whitelist Now
+                </button>
+              </div>
+            )}
+
             {/* Access Token Input */}
             {
               data?.isToken && (
@@ -228,7 +320,7 @@ const KycReuseComponet = ({ data }) => {
               <div key={index} className="kyc-input-group">
                 <div className="kyc-label">
                   {input.replace(/([A-Z])/g, " $1").toUpperCase()}{" "}
-                  <span className="kyc-label-sub">{data?.bodyParams}</span>
+                  <span className="kyc-label-sub">{data?.bodyParams || 'BODY'}</span>
                 </div>
                 <input
                   type="text"
@@ -243,26 +335,48 @@ const KycReuseComponet = ({ data }) => {
                   disabled={data?.isDisable}
                   className={`kyc-input-field ${errors?.[input]
                     ? "error"
-                    : formData?.[input]
+                    : (formData?.[input] && !data?.isDisable && formData?.[input]?.trim() !== "")
                       ? "success"
                       : ""
                     }`}
                   onChange={HandleChangeInput}
                 />
                 {errors?.[input] && (
-                  <p className="kyc-error-msg">{errors[input]}</p>
+                  <p className="kyc-error-msg">
+                    <svg style={{ width: '12px', height: '12px', marginRight: '4px', verticalAlign: 'middle' }} viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors[input]}
+                  </p>
                 )}
               </div>
             ))}
             <button
               className="kyc-submit-button"
               onClick={HandleVerificaton}
-              disabled={data?.isDisable || (data?.isMicro !== "SupperAdmin" && (publickeyLoading || !Publickey))}
+              disabled={data?.isDisable || Loading || publickeyLoading}
             >
-              {Loading ? "Loading ..." : (data?.isMicro !== "SupperAdmin" && publickeyLoading) ? "Initializing..." : data?.title?.submitButton}
+              {Loading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                  Processing...
+                </>
+              ) : (data?.isMicro !== "SupperAdmin" && publickeyLoading) ? "Initializing Keys..." : (
+                <>
+                  <svg style={{ width: '18px', height: '18px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {data?.title?.submitButton} 
+                </>
+              )}
             </button>
             {apiErrorMessage && (
-              <p className="kyc-api-error">{apiErrorMessage}</p>
+              <div className="kyc-api-error">
+                <svg style={{ width: '20px', height: '20px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {apiErrorMessage}
+              </div>
             )}
             {(!IskycApproved || !kycCompleted) && showAlert && (
               <div className="kyc-alert-box">
@@ -298,9 +412,9 @@ const KycReuseComponet = ({ data }) => {
         <div className="kyc-right-section">
           <div className="kyc-card kyc-method-card">
             <span
-              className={`kyc - method - label ${data?.apiUrl?.Method === "Get" ? "get" : "post"} `}
+              className={`kyc-method-label ${data?.apiUrl?.Method?.toLowerCase() === "get" ? "get" : "post"}`}
             >
-              {data?.apiUrl?.Method}:
+              {data?.apiUrl?.Method}
             </span>
             {/* URL Display */}
             <div className="kyc-custom-select-container">
@@ -316,6 +430,13 @@ const KycReuseComponet = ({ data }) => {
                 <span className="selected-value">
                   {data?.apiUrl?.LiveUrl}
                 </span>
+                <button
+                  className="kyc-copy-btn-small"
+                  onClick={() => handleCopy(data?.apiUrl?.LiveUrl)}
+                  title="Copy URL"
+                >
+                  <img src={Images.copyicon} className="kyc-copy-icon-img" alt="copy" />
+                </button>
               </div>
             </div>
           </div>
@@ -327,16 +448,15 @@ const KycReuseComponet = ({ data }) => {
               >
                 Example Request
               </div>
-              <div className="flex gap-2"></div>
               <div className="kyc-curl">
-                <div className="kyc-badge-pill">Crul</div>
+                <div className="kyc-badge-pill">CURL</div>
                 <button
                   className="kyc-copy-btn-outline"
                   onClick={() =>
                     handleCopy(data?.exampleCurl || selectedExampleCode)
                   }
                 >
-                  <img className="copyicon" src={Images.copyicon} />
+                  <img className="copyicon" src={Images.copyicon} alt="copy" />
                   Copy
                 </button>
               </div>
@@ -347,11 +467,9 @@ const KycReuseComponet = ({ data }) => {
                 language="bash"
                 style={theme === 'dark' ? atomOneDark : docco}
                 customStyle={{
-                  backgroundColor: "var(--white-100)",
-                  color: "var(--black)",
-                  padding: "1rem",
-                  fontSize: "0.875rem",
-                  border: "none",
+                  backgroundColor: theme === 'dark' ? "transparent" : "#f9fafb",
+                  padding: "1.5rem",
+                  fontSize: "0.85rem",
                   margin: 0
                 }}
                 wrapLongLines={true}
@@ -368,41 +486,33 @@ const KycReuseComponet = ({ data }) => {
 
               <div className="kyc-curl">
                 <div className="kyc-status-group">
-                  <button className="kyc-status-pill">Response</button>
                   <button
-                    className="kyc-status-pill kyc-status-200"
-                    onClick={() =>
-                      setSelectedExampleCode(
-                        data?.exampleResponse || selectedExampleCode,
-                      )
-                    }
+                    className={`kyc-status-pill ${!apiResponse && selectedExampleCode === data?.exampleResponse ? 'active' : ''}`}
+                    onClick={() => {
+                      setApiResponse(null);
+                      setSelectedExampleCode(data?.exampleResponse || {});
+                    }}
                   >
                     200
                   </button>
-                  <button
-                    className="kyc-status-pill kyc-status-400"
-                    onClick={() => setSelectedExampleCode(ERROR_RESPONSES[400])}
-                  >
-                    400
-                  </button>
-                  <button
-                    className="kyc-status-pill kyc-status-503"
-                    onClick={() => setSelectedExampleCode(ERROR_RESPONSES[503])}
-                  >
-                    503
-                  </button>
-                  <button
-                    className="kyc-status-pill kyc-status-504"
-                    onClick={() => setSelectedExampleCode(ERROR_RESPONSES[504])}
-                  >
-                    504
-                  </button>
+                  {[400, 403, 404, 429, 500, 503].map((code) => (
+                    <button
+                      key={code}
+                      className={`kyc-status-pill kyc-status-${code} ${selectedExampleCode?.httpCode === code ? 'active' : ''}`}
+                      onClick={() => {
+                        setApiResponse(null);
+                        setSelectedExampleCode(ERROR_RESPONSES[code]);
+                      }}
+                    >
+                      {code}
+                    </button>
+                  ))}
                 </div>
 
                 <button
                   className="kyc-copy-btn-outline"
                   onClick={() =>
-                    handleCopy(JSON.stringify(selectedExampleCode, null, 2))
+                    handleCopy(JSON.stringify(apiResponse || selectedExampleCode, null, 2))
                   }
                 >
                   <img className="copyicon" src={Images.copyicon} />
@@ -410,27 +520,35 @@ const KycReuseComponet = ({ data }) => {
                 </button>
               </div>
             </div>
-            <SyntaxHighlighter
-              language="json"
-              style={theme === 'dark' ? atomOneDark : docco}
-              customStyle={{
-                backgroundColor: "var(--white-100)",
-                color: "var(--black)",
-                padding: "1rem",
-                borderRadius: "0.5rem",
-                fontSize: "0.875rem",
-                wordBreak: 'break-all',
-                whiteSpace: 'pre-wrap',
-                border: "1px solid var(--gray-300)"
-              }}
-              wrapLongLines={true}
-            >
-              {JSON.stringify(
-                apiResponse ? apiResponse : selectedExampleCode,
-                null,
-                2,
-              )}
-            </SyntaxHighlighter>
+            <div className="kyc-code-block" style={{ border: 'none' }}>
+              <SyntaxHighlighter
+                language="json"
+                style={theme === 'dark' ? atomOneDark : docco}
+                customStyle={{
+                  backgroundColor: theme === 'dark' ? "transparent" : "#f9fafb",
+                  padding: "1.5rem",
+                  borderRadius: "0.75rem",
+                  fontSize: "0.85rem",
+                  wordBreak: 'break-all',
+                  whiteSpace: 'pre-wrap',
+                  margin: 0
+                }}
+                wrapLongLines={true}
+              >
+                {(() => {
+                  const displayData = apiResponse || selectedExampleCode;
+                  // Detection logic to NOT show raw encrypted data
+                  if (displayData?.encryptedKey && !apiResponse?._decrypted) {
+                    return JSON.stringify({
+                      status: "Response is Encrypted",
+                      message: "Data has been received and is being processed...",
+                      details: "Decryption is handled in the background."
+                    }, null, 2);
+                  }
+                  return JSON.stringify(displayData, null, 2);
+                })()}
+              </SyntaxHighlighter>
+            </div>
           </div>
         </div>
       </div>

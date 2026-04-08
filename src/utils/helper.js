@@ -1,6 +1,6 @@
 
 export async function encryptPayload(payload, publicKeyPem) {
-    console.log("called",payload, publicKeyPem)
+  console.log("called", payload, publicKeyPem)
   const encoder = new TextEncoder();
 
   // --- 1. AES key ---
@@ -98,7 +98,12 @@ function arrayBufferToPem(buffer, label) {
   return `-----BEGIN ${label}-----\n${formatted}\n-----END ${label}-----`;
 }
 
-export async function decryptServerResponse({ encryptedKey, data, iv, tag }, clientPrivateKeyPem) {
+export async function decryptServerResponse(resdata, clientPrivateKeyPem) {
+  if (!resdata) {
+    console.error("decryptServerResponse: No data provided for decryption");
+    return null;
+  }
+  const { encryptedKey, data, iv, tag } = resdata;
   // 1️⃣ Import client's RSA private key
   const privateKey = await window.crypto.subtle.importKey(
     "pkcs8",
@@ -142,8 +147,8 @@ export async function decryptServerResponse({ encryptedKey, data, iv, tag }, cli
     aesKey,
     concatCipherAndTag(data, tag)
   );
-  
-    console.log(decryptedBuffer)
+
+  console.log(decryptedBuffer)
 
   return JSON.parse(new TextDecoder().decode(decryptedBuffer));
 }

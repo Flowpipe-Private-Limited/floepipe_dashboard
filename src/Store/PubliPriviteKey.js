@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
 export const GeneralKeys = create((set, get) => ({
-    Pubkeys: '',
-    Prikeys: '',
+    publicKey: '',
+    privateKey: '',
     setPubKey: (data)=>{
-        const {publicKey,PrivateKey} = data
-        set({Pubkeys:publicKey,Prikeys:PrivateKey})
+        const {publicKey, privateKey} = data
+        set({publicKey, privateKey})
     },
 }));
