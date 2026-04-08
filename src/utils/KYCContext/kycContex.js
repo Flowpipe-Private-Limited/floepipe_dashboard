@@ -74,6 +74,10 @@ export const apiExamples = [
     examples: [{ statusCode: 200, message: { success: true, data: { CIN: "U12345DL2025PTC999999", COMPANY_NAME: "ABC TECHNOLOGIES PRIVATE LIMITED", STATUS: "Active", EMAIL: "info@abctech.com", PAN: "AABCD1234F" } } }]
   },
   {
+    name: "CINBASECOMPANYSEARCH",
+    examples: [{ statusCode: 200, message: { success: true, data: { CompanyName: "xyz Pvt Ltd", COMPANY_NAME: "ABC TECHNOLOGIES PRIVATE LIMITED", STATUS: "Active", EMAIL: "info@abctech.com", PAN: "AABCD1234F" } } }]
+  },
+  {
     name: "UDYAM",
     examples: [{ statusCode: 200, message: { success: true, response: { udyam: "UDYAM-XXXXXXXX", "Name of Enterprise": "Dummy Enterprise Pvt Ltd", Mobile: "9999999999" } } }]
   },

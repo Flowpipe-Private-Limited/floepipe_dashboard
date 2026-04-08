@@ -10,7 +10,7 @@ import { X, Calendar, Trash2, Download, Copy } from "lucide-react";
 import { useUserStore } from "../../Store/userStore";
 import { useUserkey } from "../../Store/userKeyStore";
 import { toast } from 'react-toastify';
-import FlowpipeUnlockModal from "../../components/profile/PinVerify/IpinVerify";
+import FlowpipeUnlockModal from "../../components/profile/PinVerify/FpinVerify";
 import WarningModal from "../../components/common/WarningModal";
 
 const ApiKeys = () => {
@@ -30,7 +30,7 @@ const ApiKeys = () => {
 
   const [apierrorMessage, setApiErrormessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showIpinModal, setShowIpinModal] = useState(false);
+  const [showFpinModal, setShowFpinModal] = useState(false);
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
 
@@ -116,9 +116,9 @@ const ApiKeys = () => {
     );
   };
 
-  // iPIN Flow Handlers
-  const handleIpinSuccess = () => {
-    setShowIpinModal(false);
+  // fPIN Flow Handlers
+  const handleFpinSuccess = () => {
+    setShowFpinModal(false);
     if (!pendingAction) return;
 
     const { type, args } = pendingAction;
@@ -147,24 +147,24 @@ const ApiKeys = () => {
       setShowWarningModal(true);
     } else {
       setPendingAction({ type: 'GENERATE', args: [] });
-      setShowIpinModal(true);
+      setShowFpinModal(true);
     }
   };
 
   const confirmRegenerate = () => {
     setShowWarningModal(false);
     setPendingAction({ type: 'GENERATE', args: [] });
-    setShowIpinModal(true);
+    setShowFpinModal(true);
   };
 
   const initiateDownload = (key, clientId, accessToken) => {
     setPendingAction({ type: 'DOWNLOAD', args: [key, clientId, accessToken] });
-    setShowIpinModal(true);
+    setShowFpinModal(true);
   };
 
   const initiateDelete = (keyId) => {
     setPendingAction({ type: 'DELETE', args: [keyId] });
-    setShowIpinModal(true);
+    setShowFpinModal(true);
   };
 
   const handleCopy = (text) => {
@@ -288,12 +288,12 @@ const ApiKeys = () => {
 
       {/* Modal Removed as requested */}
       <FlowpipeUnlockModal
-        isVisible={showIpinModal}
+        isVisible={showFpinModal}
         onClose={() => {
-          setShowIpinModal(false);
+          setShowFpinModal(false);
           setPendingAction(null);
         }}
-        IsValidPIN={handleIpinSuccess}
+        IsValidPIN={handleFpinSuccess}
       />
 
       <WarningModal

@@ -1,10 +1,10 @@
 import React, { useState, useRef, createRef, useEffect } from 'react';
 import FlowpipeLogo from '../../../assets/images/FlowpipeLogo.png';
 import { useUserStore } from '../../../Store/userStore';
-import { VerifyIPIN } from '../../../utils/Apis/api';
+import { VerifyFPIN } from '../../../utils/Apis/api';
 import { ApirequestHandler, EncryptedApirequestHandler } from '../../../utils/Apis/apiRequestHandler';
 import { toTitleCase } from '../../../utils/simpleHellperFn';
-import './IpinVerify.css';
+import './FpinVerify.css';
 
 
 // ⚛️ Updated Flowpipe Unlock Modal Component
@@ -84,7 +84,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
 
     const handleUnlock = async () => {
         if (!isPinComplete || isLoading) {
-            setErrorMessage("Please enter the complete 4-digit Flowpipe iPIN.");
+            setErrorMessage("Please enter the complete 4-digit Flowpipe fPIN.");
             return;
         }
 
@@ -94,7 +94,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
 
         try {
             await ApirequestHandler(
-                async () => await VerifyIPIN({ MPIN: fullPin, clientID: users?.clientId }),
+                async () => await VerifyFPIN({ FPIN: fullPin, clientID: users?.clientId }),
                 null,
                 (res) => {
                     if (res?.success) {
@@ -103,7 +103,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
                         if (onClose) onClose();
                         if (IsValidPIN) IsValidPIN(true);
                     } else {
-                        setErrorMessage(res?.message || "Invalid MPIN. Please try again.");
+                        setErrorMessage(res?.message || "Invalid FPIN. Please try again.");
                         setPin(['', '', '', '']);
                         if (inputRefs.current[0]?.current) {
                             inputRefs.current[0].current.focus();
@@ -132,33 +132,33 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
 
     return (
         // Modal Overlay
-        <div className="ipin-overlay">
+        <div className="fpin-overlay">
 
             {/* Modal Container */}
             <div
                 ref={modalRef}
-                className="ipin-modal"
+                className="fpin-modal"
             >
 
                 {/* Logo and Greeting */}
-                <div className="ipin-header">
-                    <div className="ipin-logo-container">
-                        <img src={FlowpipeLogo} alt="Flowpipe Logo" className="ipin-logo" />
+                <div className="fpin-header">
+                    <div className="fpin-logo-container">
+                        <img src={FlowpipeLogo} alt="Flowpipe Logo" className="fpin-logo" />
                     </div>
-                    <h3 className="ipin-greeting">
+                    <h3 className="fpin-greeting">
                         Hey {userName}!
                     </h3>
-                    <p className="ipin-subtext">
+                    <p className="fpin-subtext">
                         Your screen was locked because of inactivity<br />To protect your account.
                     </p>
                 </div>
 
                 {/* PIN Input Section */}
-                <div className="ipin-input-section">
-                    <p className="ipin-instruction">
-                        Enter Flowpipe iPIN
+                <div className="fpin-input-section">
+                    <p className="fpin-instruction">
+                        Enter Flowpipe fPIN
                     </p>
-                    <div className="ipin-inputs">
+                    <div className="fpin-inputs">
                         {pin.map((digit, index) => (
                             <input
                                 key={index}
@@ -170,7 +170,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
                                 onKeyDown={(e) => handleKeyDown(e, index)}
                                 ref={inputRefs.current[index]}
                                 disabled={isLoading}
-                                className={`ipin-digit-input ${errorMessage ? 'error' : ''} text-security-manual`}
+                                className={`fpin-digit-input ${errorMessage ? 'error' : ''} text-security-manual`}
                                 autoComplete="off"
                             />
                         ))}
@@ -179,7 +179,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
 
                 {/* Error Message Display */}
                 {errorMessage && (
-                    <p className="ipin-error-msg">{errorMessage}</p>
+                    <p className="fpin-error-msg">{errorMessage}</p>
                 )}
 
                 {/* Unlock Button */}
@@ -187,7 +187,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
                     ref={unlockButtonRef}
                     onClick={handleUnlock}
                     disabled={!isPinComplete || isLoading}
-                    className={`ipin-unlock-btn ${!isPinComplete || isLoading ? '' : 'active'}`}
+                    className={`fpin-unlock-btn ${!isPinComplete || isLoading ? '' : 'active'}`}
                 >
                     {isLoading ? (
                         <svg className="spinner-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -200,7 +200,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
                 </button>
 
                 {/* Separator and OTP Option */}
-                <div className="ipin-separator">
+                <div className="fpin-separator">
                     <hr className="separator-line" />
                     <span className="separator-text">OR</span>
                     <hr className="separator-line" />
@@ -208,7 +208,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
 
                 <button
                     onClick={handlePasswordUnlock}
-                    className="ipin-otp-btn"
+                    className="fpin-otp-btn"
                     disabled={isLoading}
                 >
                     Unlock using OTP

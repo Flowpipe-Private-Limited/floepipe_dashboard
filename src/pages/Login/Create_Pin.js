@@ -51,43 +51,43 @@ const Create_Pin = () => {
   return (
     <>
       <div className="login-container">
-        <div className="login-card-ipin">
-          <div onClick={() => navigate(-1)} className="ipin-arrow">
+        <div className="login-card-fpin">
+          <div onClick={() => navigate(-1)} className="fpin-arrow">
             <IoIosArrowRoundBack size={34} />
-            <h2 className="login-title-Pin">Create iPIN</h2>
+            <h2 className="login-title-Pin">Create fPIN</h2>
           </div>
-          <div className="ipin-padding-section">
-            <h6 className="ipin-subtext">
-              IPIN is your 4-digit code used to authenticate Transactions and
+          <div className="fpin-padding-section">
+            <h6 className="fpin-subtext">
+              fPIN is your 4-digit code used to authenticate Transactions and
               log-in to your flowpipe account.
             </h6>
-            <div className="ipin-section">
-              <p className="ipin-label">Create iPIN</p>
-              <div className="ipin-box-wrapper">
+            <div className="fpin-section">
+              <p className="fpin-label">Create fPIN</p>
+              <div className="fpin-box-wrapper">
                 {[...Array(4)].map((_, index) => (
                   <input
                     key={index}
                     type="password"
                     maxLength={1}
                     inputMode="numeric"
-                    className="ipin-box"
+                    className="fpin-box"
                     onChange={(e) => handlePinChange(e, index, "create")}
                     onKeyDown={(e) => handleKeyDown(e, index, "create")}
                   />
                 ))}
               </div>
             </div>
-            <div className="ipin-section">
-              <p className="ipin-label">Confirm iPIN</p>
+            <div className="fpin-section">
+              <p className="fpin-label">Confirm fPIN</p>
 
-              <div className="ipin-box-wrapper">
+              <div className="fpin-box-wrapper">
                 {[...Array(4)].map((_, index) => (
                   <input
                     key={index}
                     type="password"
                     maxLength={1}
                     inputMode="numeric"
-                    className="ipin-box"
+                    className="fpin-box"
                     onChange={(e) => handlePinChange(e, index, "confirm")}
                     onKeyDown={(e) => handleKeyDown(e, index, "confirm")}
                   />
