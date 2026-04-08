@@ -14,7 +14,7 @@ const SessionManager = ({ children }) => {
 
     // Thresholds: Configurable and easy to adjust
     const IDLE_TIMEOUT = 10 * 60 * 1000;         // Lock if no mouse/keyboard for 10 minutes
-    const TAB_SWITCH_TIMEOUT = 3 * 60 * 1000;      // Lock if user switches tab for more than 3 minute
+    const TAB_SWITCH_TIMEOUT = 1 * 60 * 1000;      // Lock if user switches tab for more than 3 minute
 
     const updateActivity = useCallback(() => {
         const now = Date.now();
@@ -22,6 +22,14 @@ const SessionManager = ({ children }) => {
         // This ensures zero impact on performance.
         if (now - lastActivityTime.current > 1000 && !isLocked) {
             lastActivityTime.current = now;
+        }
+    }, [isLocked]);
+
+    // Reset activity timer whenever the screen is unlocked
+    useEffect(() => {
+        if (!isLocked) {
+            lastActivityTime.current = Date.now();
+            visibilityStartTime.current = null;
         }
     }, [isLocked]);
 

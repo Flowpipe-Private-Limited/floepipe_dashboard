@@ -1,8 +1,171 @@
+export const KYC_BASE = import.meta.env.REACT_APP_KYC_URL || "https://localhost:7010";
+export const RECHARGE_BASE = import.meta.env.REACT_APP_RECHARGE_URL || "https://localhost:7010";
+export const BBPS_BASE = import.meta.env.REACT_APP_BBPS_URL || "https://localhost:7010";
+export const ADMIN_BASE = import.meta.env.REACT_APP_SUPPERADMIN_URL || "https://localhost:7010/api/v1/";
+
 export const ERROR_RESPONSES = {
-  400: { message: "Bad Request", success: false },
-  503: { message: "Service Unavailable", success: false },
-  504: { message: "Gateway Timeout", success: false }
+  400: { message: "Bad Request / Missing Parameters", success: false, httpCode: 400 },
+  403: { message: "Access Denied", success: false, httpCode: 403 },
+  404: { message: "Not Found", success: false, httpCode: 404 },
+  429: { message: "Too Many Requests / Rate Limit Exceeded", success: false, httpCode: 429 },
+  500: { message: "Internal Server Error", success: false, httpCode: 500 },
+  503: { message: "Service Unavailable", success: false, httpCode: 503 }
 };
+
+export const apiExamples = [
+  {
+    name: "PAN",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { PAN: "ABCDE1234F", Name: "RAM BABU", PAN_Status: "VALID", PAN_Holder_Type: "Person" } } }]
+  },
+  {
+    name: "PAN_DIRECTOR",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { din: "ABCDEXXXXXXXX", name: "RAM" } } }]
+  },
+  {
+    name: "PAN_TO_GST",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { gstin: "ABCDXXXXXXXX", authStatus: "", stateCd: "" } } }]
+  },
+  {
+    name: "PTA",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { code: 200, message: "Data Found Successfully.", result: { aadhaar: "53XXXXXXXX11" } } } }]
+  },
+  {
+    name: "NM",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { firstName: "SAI BABA", secondName: "RAM BABU", result: 100 } } }]
+  },
+  {
+    name: "FCV",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { card_number: "7854XXXXXXXX8569", is_valid: true, issuer_info: { Brand: "visa", Category: "platinum/Business", CountryName: "India", Issuer: "Sbi Cards And Payment Services, Ltd.", Type: "Credit/Debit", isoCode2: "In", isoCode3: "Ind" } } } }]
+  },
+  {
+    name: "BIN",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { Brand: "visa", Category: "platinum/Business", CountryName: "India", Issuer: "Sbi Cards And Payment Services, Ltd.", Type: "Credit/Debit", isoCode2: "In", isoCode3: "Ind" } } }]
+  },
+  {
+    name: "AVI",
+    examples: [{ statusCode: 200, message: { success: true, message: "DigiLocker link generate successfully.", transId: "TS-1766728568969", ts_trans_id: "PX-PBJ-340999", link: "https://www.truthscreen.com/eaadhaarDigilocker/dgl_auth_validate/MzY5MzAwMw==" } }]
+  },
+  {
+    name: "AVS",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { success: true, message: "Aadhaar retrieved and verified successfully", data: { status: 1, msg: "Digilocker status API", data: { "DV-ABC-123456": { final_status: "Completed", msg: [{ doc_type: "ADHAR", doc_name: "Aadhaar Card", data: { name: "Ravi Kumar", dob: "01-01-1995", aadhar_number: "xxxxxxxx1234", gender: "M", address: { city: "Mumbai Suburban", state: "Maharashtra", pc: "400069" } } }] } } } } } }]
+  },
+  {
+    name: "MOG",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { message: "OTP sent to 91XXXXXX78", success: "Otp sent to Your Mobile Number 91XXXXXX78" } } }]
+  },
+  {
+    name: "MOV",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { message: "Mobile Number 91XXXXXX78 is Verified with OTP 23XX" } } }]
+  },
+  {
+    name: "GST",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", data: { gstinNumber: "11AAAAA1111A1Z1", companyName: "ABC PRIVATE LIMITED", taxpayer_type: "Regular", primary_business_address: { city: "Demo City", pincode: "123456", full_address: "Demo Building, 12345, Demo Street, Demo Location, Demo District, DemoState - 123456" } } } }]
+  },
+  {
+    name: "FACE",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { score: 98.45, matched: true } } }]
+  },
+  {
+    name: "SHOP",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { registrationNumber: "registrationNumber", shop_name: "GOODWILL ENTERPRISES", status: "Active" } } }]
+  },
+  {
+    name: "CIN",
+    examples: [{ statusCode: 200, message: { success: true, data: { CIN: "U12345DL2025PTC999999", COMPANY_NAME: "ABC TECHNOLOGIES PRIVATE LIMITED", STATUS: "Active", EMAIL: "info@abctech.com", PAN: "AABCD1234F" } } }]
+  },
+  {
+    name: "UDYAM",
+    examples: [{ statusCode: 200, message: { success: true, response: { udyam: "UDYAM-XXXXXXXX", "Name of Enterprise": "Dummy Enterprise Pvt Ltd", Mobile: "9999999999" } } }]
+  },
+  {
+    name: "BPD",
+    examples: [{ statusCode: 200, message: { success: true, response: { name: "SAI BABA", status: "VALID", account_no: "3864XXXXXXX", ifsc: "SBINXXXXXXX" } } }]
+  },
+  {
+    name: "IFSC",
+    examples: [{ statusCode: 200, message: { success: true, response: { BRANCH: "Demo Branch", ADDRESS: "123 Demo Street", CITY: "Demo City", BANK: "Demo Bank Ltd", IFSC: "DMBC0001234" } } }]
+  },
+  {
+    name: "PCG",
+    examples: [{ statusCode: 200, message: { success: true, response: { District: "Agra", Pincode: "282003", State: "UTTAR PRADESH" } } }]
+  },
+  {
+    name: "IB",
+    examples: [{ statusCode: 200, message: { success: true, data: { result: "Clear" } } }]
+  },
+  {
+    name: "AIC",
+    examples: [{ statusCode: 200, message: { success: true, data: { ai_generated: 0.01 } } }]
+  },
+  {
+    name: "DIC",
+    examples: [{ statusCode: 200, message: { success: true, data: { deepfake: 0.01 } } }]
+  },
+  {
+    name: "ADIC",
+    examples: [{ statusCode: 200, message: { success: true, data: { ai_generated: 0.01, deepfake: 0.01 } } }]
+  },
+  {
+    name: "FO",
+    examples: [{ statusCode: 200, message: { success: true, data: { Mobile: "918688571181", Operator: "Reliance Jio", OpCode: "11", Circle: "Andhra Pradesh" } } }]
+  },
+  {
+    name: "FP",
+    examples: [{ statusCode: 200, message: { success: true, data: { Operator: "RELIANCE JIO", Circle: "AP", RDATA: { "Popular Plans": [] } } } }]
+  },
+  {
+    name: "RP",
+    examples: [{ statusCode: 200, message: { success: true, response: { status: "VALID", success: true, message: "Transaction Successful", account_no: "3864XXXXXXX" } } }]
+  },
+  {
+    name: "BillerInfo",
+    examples: [{ statusCode: 200, message: { success: true, response: { billerName: "XXXX XXXX", billerCategory: "Credit Card", billerStatus: "ACTIVE" } } }]
+  },
+  {
+    name: "BillFetch",
+    examples: [{ statusCode: 200, message: { success: true, response: { billAmount: "XXXXXX", customerName: "XXXXXXXX XXXXXXX", dueDate: "XXXX-XX-XX" } } }]
+  },
+  {
+    name: "BillPay",
+    examples: [{ statusCode: 200, message: { success: true, response: { responseReason: "Successful", txnRefId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXX" } } }]
+  },
+  {
+    name: "InstantPay",
+    examples: [{ status: "Transaction Successful", data: { externalRef: "XXXXXXXXXXXX", txnValue: "4.00", payer: { name: "Sample Store" }, payee: { name: "Instantpay India Ltd" } } }]
+  },
+  {
+    name: "VoterID",
+    examples: [{ statusCode: 200, message: { success: true, response: { voterid_number: "ABC1234567", full_name: "JOHN DOE", dob: "01-01-1990", gender: "M" } } }]
+  },
+  {
+    name: "DL",
+    examples: [{ statusCode: 200, message: { success: true, response: { dl_number: "SS-01-20230001234", name: "RAVI KUMAR", dob: "15-05-1985", expiry: "2040-01-01" } } }]
+  },
+  {
+    name: "Passport",
+    examples: [{ statusCode: 200, message: { success: true, response: { passport_number: "A1234567", name: "AMIT SHARMA", dob: "20-10-1992", type: "P" } } }]
+  },
+  {
+    name: "RC",
+    examples: [{ statusCode: 200, message: { success: true, response: { rc_number: "TN-01-AB-1234", owner_name: "SURESH BABU", model: "MARUTI SWIFT", fuel: "PETROL" } } }]
+  },
+  {
+    name: "Utility",
+    examples: [{ statusCode: 200, message: { success: true, response: { bill_status: "PAID", customer_name: "MAHESH REDDY", amount: "1250.00", due_date: "2024-05-10" } } }]
+  },
+  {
+    name: "RC_CHALLAN",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { challan_number: "DL12345678", amount: "500", status: "PENDING", date: "2024-03-01" } } }] // dummy for future update
+  },
+  {
+    name: "IEC",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { iec_number: "0123456789", company_name: "EXIM CORP", status: "ACTIVE" } } }] // dummy for future update
+  },
+  {
+    name: "BANK_STATEMENT",
+    examples: [{ statusCode: 200, message: { success: true, message: "Valid", response: { account_number: "1234567890", transactions: [{ date: "2024-03-01", type: "CR", amount: "1000.00" }] } } }] // dummy for future update
+  },
+];
 const validationPatterns = [
   {
     key: "mobile",
@@ -70,19 +233,14 @@ export const SecretToken = {
   apiUrl: {
     Method: 'Post',
     URLS: "/client/generate/clientToken",
-    LiveUrl: "https://localhost:7007/api/v1/client/generate/clientToken"
+    LiveUrl: `${ADMIN_BASE}client/generate/clientToken`
   },
-  title: {
-    header: "Generate Access Token",
-    headerTitle: "Generate Access Token using ClientId, SecretKey",
-    submitButton: 'Create Token'
-  },
-  inputParams: ["clientId", "clientSecret", "expDate" ],
-  isToken:false,
+  title: { header: "Generate Access Token", headerTitle: "Generate Access Token using ClientId, SecretKey", submitButton: 'Create Token' },
+  inputParams: ["clientId", "clientSecret", "expDate"],
+  isToken: false,
   isMicro: 'SupperAdmin',
   isDisable: false,
-  // regexValues: ["^[2-9][0-9]{11}$",],
-  exampleCurl: `curl --location 'https://localhost:7007/api/v1/client/generate/clientToken' \\
+  exampleCurl: `curl --location '${ADMIN_BASE}client/generate/clientToken' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
@@ -90,611 +248,180 @@ export const SecretToken = {
       "clientSecret": ""
   }'`,
   exampleResponse: {
-    "message": {
-      "request_id": "",
-      "task_id": "",
-      "group_id": "",
-      "success": "",
-      "response_code": "100",
-      "response_message": "Valid Authentication",
-      "metadata": {
-        "billable": "Y"
-      },
-      "result": {
-        "business_constitution": "Private Limited Company",
-        "business_nature": [
-          "Supplier of Services"
-        ],
-        "central_jurisdiction": "",
-        "central_jurisdiction_code": "NA",
-        "current_registration_status": "Active",
-        "gstin": "",
-        "last_updated": "NA",
-        "legal_name": "ABC PRIVATE LIMITED",
-        "other_business_address": "",
-        "primary_business_address": {
-          "building_name": "3rd Floor",
-          "building_number": "H.No. 5-5-165/2/TF Plot no. 4",
-          "city": "",
-          "district": "",
-          "flat_number": "",
-          "latitude": "",
-          "location": "",
-          "longitude": "",
-          "business_nature": "",
-          "pincode": "",
-          "street": "",
-          "state_code": "",
-          "full_address": ""
-        },
-        "register_cancellation_date": "",
-        "register_date": "",
-        "state_jurisdiction": "",
-        "state_jurisdiction_code": "NA",
-        "tax_payer_type": "Regular",
-        "trade_name": "ABC PRIVATE LIMITED"
-      },
-      "request_timestamp": "",
-      "response_timestamp": ""
-    },
-    "success": true
-  }
-};
+  "httpCode": 200,"data": {"secret_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ik.....","environment": "LIVE"},"message": "Token generated successfully", "success": true
+}
+}
 
 // KYC Services
 export const Aadhaar = {
   apiUrl: {
     Method: 'Post',
     URLS: "client/aadhaar/pan/maskedverify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/aadhaar/Aadhaarmaskedverify"
+    LiveUrl: `${KYC_BASE}/aadhaar/Aadhaarmaskedverify`
   },
-  title: {
-    header: "Aadhaar Verification",
-    headerTitle: "Verify Aadhaar using OTP-less masked verification service",
-    submitButton: 'Verify Aadhaar'
-  },
+  title: { header: "Aadhaar Verification", headerTitle: "Verify Aadhaar using OTP-less masked verification service", submitButton: 'Verify Aadhaar' },
   inputParams: ["aadharNumber"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[2-9][0-9]{11}$"],
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/aadhaar/Aadhaarmaskedverify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/aadhaar/Aadhaarmaskedverify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
       "aadharNumber": "XXXXXXXXXXXX"
   }'`,
-  exampleResponse: {
-    "message": "Success",
-    "data": {
-      "aadhaar_number": "XXXXXXXXXXXX",
-      "full_name": "JOHN DOE",
-      "gender": "M",
-      "dob": "01-01-1990",
-      "address": "123, Sample Street, Example City, State - 123456",
-      "mobile_verified": "Y",
-      "masked_aadhaar": "XXXXXXXXXXXX"
-    },
-    "success": true
-  }
+  exampleResponse: apiExamples.find(e => e.name === "AVS")?.examples[0]?.message || {}
 };
 export const GstIN = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/business/Gstin/verify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
-  },
-  title: {
-    header: "GSTIN Verification",
-    headerTitle: "Verify GSTIN using official government GST records",
-    submitButton: 'Verify GSTIN'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/business/Gstin/verify", LiveUrl: `${KYC_BASE}/GSTIN/Gstinverify` },
+  title: { header: "GSTIN Verification", headerTitle: "Verify GSTIN using government records", submitButton: 'Verify GSTIN' },
   inputParams: ["gstinNumber"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}[A-Z\\d]{1}Z[A-Z\\d]{1}$"],
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/GSTIN/Gstinverify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "gstinNumber": "33AACCC1234F1Z1"
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "data": {
-      "gstin": "33AACCC1234F1Z1",
-      "legal_name": "EXAMPLE ENTERPRISE PVT LTD",
-      "trade_name": "EXAMPLE ENTERPRISE",
-      "registration_date": "01/01/2017",
-      "status": "Active",
-      "taxpayer_type": "Regular",
-      "principal_place": "123, Business Park, Chennai, Tamil Nadu - 600001"
-    },
-    "success": true
-  }
+    --data '{ "gstinNumber": "33AACCC1234F1Z1" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "GST")?.examples[0]?.message || {}
 };
 export const SHOP = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "shop/shopest",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/shop/shopest"
-  },
-  title: {
-    header: "Shop & Establishment Verification",
-    headerTitle: "Verify business using Shop & Establishment registration number",
-    submitButton: 'Verify Shop'
-  },
+  apiUrl: { Method: 'Post', URLS: "shop/shopest", LiveUrl: `${KYC_BASE}/shop/shopest` },
+  title: { header: "Shop & Establishment Verification", headerTitle: "Verify business using registration number", submitButton: 'Verify Shop' },
   inputParams: ['registrationNumber', 'state'],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/shop/shopest' \\
+  exampleCurl: `curl --location '${KYC_BASE}/shop/shopest' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "registrationNumber": "12345/ABC",
-      "state": "Maharashtra"
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "data": {
-      "registration_number": "12345/ABC",
-      "shop_name": "GOODWILL ENTERPRISES",
-      "owner_name": "JANE SMITH",
-      "address": "Flat 402, Sunshine Plaza, Mumbai, Maharashtra - 400001",
-      "status": "Active",
-      "commencement_date": "10/05/2020"
-    },
-    "success": true
-  }
+    --data '{ "registrationNumber": "12345/ABC", "state": "Maharashtra" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "SHOP")?.examples[0]?.message || {}
 };
 export const SendOTP = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "mobileNumber/mobileOtp",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/mobileNumber/mobileOtp"
-  },
-  title: {
-    header: "Mobile OTP Verification (Send)",
-    headerTitle: "Send a verification OTP to the provided mobile number",
-    submitButton: 'Send OTP'
-  },
+  apiUrl: { Method: 'Post', URLS: "mobileNumber/mobileOtp", LiveUrl: `${KYC_BASE}/mobileNumber/mobileOtp` },
+  title: { header: "Mobile OTP (Send)", headerTitle: "Send a verification OTP to the provided mobile number", submitButton: 'Send OTP' },
   inputParams: ['mobileNumber'],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[6-9]\\d{9}$"],
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/mobileNumber/mobileOtp' \\
+  exampleCurl: `curl --location '${KYC_BASE}/mobileNumber/mobileOtp' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "mobileNumber": "9876543210"
-  }'`,
-  exampleResponse: {
-    "message": "OTP sent successfully",
-    "data": {
-      "mobileNumber": "9876543210",
-      "status": "SENT"
-    },
-    "success": true
-  }
+    --data '{ "mobileNumber": "9876543210" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "MOG")?.examples[0]?.message || {}
 };
 export const VerifyOTP = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "mobileNumber/mobileotpVerify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/mobileNumber/mobileotpVerify"
-  },
-  title: {
-    header: "Mobile OTP Verification (Verify)",
-    headerTitle: "Submit the 4-digit OTP received on the mobile number",
-    submitButton: 'Verify OTP'
-  },
+  apiUrl: { Method: 'Post', URLS: "mobileNumber/mobileotpVerify", LiveUrl: `${KYC_BASE}/mobileNumber/mobileotpVerify` },
+  title: { header: "Mobile OTP (Verify)", headerTitle: "Submit the 4-digit OTP received", submitButton: 'Verify OTP' },
   inputParams: ["submittedOtp", "mobile"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{4}$", "^[6-9]\\d{9}$"],
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/mobileNumber/mobileotpVerify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/mobileNumber/mobileotpVerify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "submittedOtp": "1234",
-      "mobile": "9876543210"
-  }'`,
-  exampleResponse: {
-    "message": "OTP verified successfully",
-    "data": {
-      "mobile": "9876543210",
-      "status": "VERIFIED"
-    },
-    "success": true
-  }
+    --data '{ "submittedOtp": "1234", "mobile": "9876543210" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "MOV")?.examples[0]?.message || {}
 };
-export const panVerify = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "pan/verify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/pan/verify"
-  },
-  title: {
-    header: "PAN Card Verification",
-    headerTitle: "Verify PAN details against Income Tax Department records",
-    submitButton: 'Verify PAN'
-  },
+export const PanVerify = {
+  apiUrl: { Method: 'Post', URLS: "pan/verify", LiveUrl: `${KYC_BASE}/pan/verify` },
+  title: { header: "PAN Card Verification", headerTitle: "Verify PAN details against records", submitButton: 'Verify PAN' },
   inputParams: ["panNumber"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{5}[0-9]{4}[A-Z]{1}$"],
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/pan/verify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/pan/verify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "panNumber": "ABCDE1234F"
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "data": {
-      "pan": "ABCDE1234F",
-      "full_name": "JOHN DOE",
-      "status": "VALID",
-      "category": "Individual"
-    },
-    "success": true
-  }
+    --data '{ "panNumber": "ABCDE1234F" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "PAN")?.examples[0]?.message || {}
 };
 export const panAadhaarVerify = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "pan/verify_to_aadhaar",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/pan/verify_to_aadhaar"
-  },
-  title: {
-    header: "PAN to Aadhaar Link Verification",
-    headerTitle: "Check if a PAN is linked with an Aadhaar number",
-    submitButton: 'Check Link Status'
-  },
+  apiUrl: { Method: 'Post', URLS: "pan/verify_to_aadhaar", LiveUrl: `${KYC_BASE}/pan/verify_to_aadhaar` },
+  title: { header: "PAN-Aadhaar Link", headerTitle: "Check link status", submitButton: 'Check Link Status' },
   inputParams: ["panNumber"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{5}[0-9]{4}[A-Z]{1}$"],
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/pan/verify_to_aadhaar' \\
+  exampleCurl: `curl --location '${KYC_BASE}/pan/verify_to_aadhaar' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "panNumber": "ABCDE1234F"
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "data": {
-      "pan": "ABCDE1234F",
-      "is_linked": true,
-      "masked_aadhaar": "XXXXXXXX1234"
-    },
-    "success": true
-  }
+    --data '{ "panNumber": "ABCDE1234F" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "PTA")?.examples[0]?.message || {}
 };
 export const accountVerify = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "accounts/verify/penny-drop",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/accounts/verify/penny-drop"
-  },
-  title: {
-    header: "Bank Account Verification",
-    headerTitle: "Verify bank account details using Penny Drop service",
-    submitButton: 'Verify Account'
-  },
-  inputParams: ["account_no", "ifsc"],
+  apiUrl: { Method: 'Post', URLS: "bank/penny/drop", LiveUrl: `${KYC_BASE}/bank/penny/drop` },
+  title: { header: "Bank Account Penny Drop", headerTitle: "Verify bank account by depositing 1 rupee", submitButton: 'Verify Account' },
+  inputParams: ["accountNumber", "ifsc"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^\\d{9,18}$", "^[A-Z]{4}0[A-Z0-9]{6}$"],
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/accounts/verify/penny-drop' \\
+  exampleCurl: `curl --location '${KYC_BASE}/bank/penny/drop' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "account_no": "1234567890",
-      "ifsc": "SBIN0001234"
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "data": {
-      "account_no": "1234567890",
-      "ifsc": "SBIN0001234",
-      "bank_name": "STATE BANK OF INDIA",
-      "account_holder": "JOHN DOE",
-      "status": "VALID"
-    },
-    "success": true
-  }
+    --data '{ "accountNumber": "1234567890", "ifsc": "SBIN0012345" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "BPD")?.examples[0]?.message || {}
 };
 export const CINVerify = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "business/CinNumberverify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/business/CinNumberverify"
-  },
-  title: {
-    header: "CIN Verification",
-    headerTitle: "Verify Corporate Identification Number (CIN) for businesses",
-    submitButton: 'Verify CIN'
-  },
+  apiUrl: { Method: 'Post', URLS: "business/CinNumberverify", LiveUrl: `${KYC_BASE}/business/CinNumberverify` },
+  title: { header: "CIN Verification", headerTitle: "Verify Corporate Identification Number (CIN)", submitButton: 'Verify CIN' },
   inputParams: ["CIN"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^([LU])\\d{5}[A-Z]{2}\\d{4}[A-Z]{3}\\d{6}$"],
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/business/CinNumberverify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/business/CinNumberverify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "CIN": "U72200TN2020PTC123456"
-  }'`,
-  exampleResponse: {
-    "CIN": "",
-    "COMPANY_NAME": "",
-    "DATE_OF_REGISTRATION": "",
-    "CITY": "",
-    "DISTRICT": "",
-    "STATE": "",
-    "COUNTRY": "India",
-    "PINCODE": "",
-    "ROC": "",
-    "CATEGORY": "",
-    "SUBCATEGORY": "",
-    "CLASS": "",
-    "AUTHORIZED_CAPITAL": "",
-    "PAIDUP_CAPITAL": "",
-    "NUMBER_OF_MEMBERS": "",
-    "ACTIVITY_DESCRIPTION": "0",
-    "REGISTERED_OFFICE_ADDRESS": "",
-    "GETDATA": 1,
-    "TIMESTAMP": "",
-    "COUNTRY_INC": "Indian",
-    "F_COMPANY_SHARE_CAP": "null",
-    "STATUS": "Active",
-    "TYPE_OF_OFFICE": "",
-    "FOREIGN_DETAILS": null,
-    "FOREIGN_ADDRESS": null,
-    "ACTIVITY_CODE": "null",
-    "ADDRESS_OTHER_THAN_RO": "-",
-    "EMAIL": "xyz@gmail.com",
-    "LISTING_STATUS": "Unlisted",
-    "ACTIVE_COMPLIANCE": "",
-    "COMPANY_FILING_STATUS_16_17_18": "",
-    "SUSPENDED_AT_STOCK": "-",
-    "LAST_AGM": "09/30/2023",
-    "LAST_BALANCESHEET": "03/31/2023",
-    "CIRP": "",
-    "PARTNERS": "",
-    "PREVIOUS_FIRM": null,
-    "SOLVENCY_FILED": "null",
-    "COMPANY_STATUS": "Active",
-    "old_cin": null,
-    "PAN": "AAICC7291C",
-    "has_financials": 1,
-    "has_charges": 1,
-    "IS_DOCS_PROCESSED": 0,
-    "IS_AUDITOR_MOVED": 100,
-    "PRIORITY_1": 100,
-    "DOCS_PROCESS_ON": "2024-11-24T18:19:06.000Z",
-    "MULTIPLE_ADDRESS": [
-      {
-        "city": "",
-        "state": "",
-        "country": "",
-        "district": "",
-        "locality": "",
-        "officeType": "",
-        "postalCode": "",
-        "addressType": "",
-        "activeStatus": "Y",
-        "migrationFlag": "",
-        "streetAddress": "",
-        "streetAddress2": "",
-        "streetAddress3": "",
-        "streetAddress4": "",
-        "establishmentDate": ""
-      },
-      {
-        "city": "",
-        "state": "",
-        "country": "",
-        "district": "",
-        "locality": "NA",
-        "officeType": "",
-        "postalCode": "",
-        "addressType": "",
-        "activeStatus": "Y",
-        "migrationFlag": "N",
-        "streetAddress": "",
-        "streetAddress2": "",
-        "streetAddress3": "",
-        "streetAddress4": "",
-        "establishmentDate": ""
-      },
-      {
-        "city": "",
-        "state": "",
-        "country": "",
-        "district": "",
-        "locality": "NA",
-        "officeType": "",
-        "postalCode": "",
-        "addressType": "",
-        "activeStatus": "Y",
-        "migrationFlag": "N",
-        "streetAddress": "",
-        "streetAddress2": "",
-        "streetAddress3": "",
-        "streetAddress4": "",
-        "establishmentDate": ""
-      }
-    ],
-    "IS_ADDRESS_UPDATED": 1,
-    "STOCKS": null,
-    "WEBSITE": null,
-    "LOGO": null,
-    "INDUSTRY": null,
-    "COMPANY_AGE": null,
-    "MOBILE": null,
-    "SHOWN_TO_WEBSITE": 1,
-    "IS_PAN_SAVED": 0,
-    "IS_MASKED_EMAIL_DONE": 1,
-    "IS_CIN_DIN_MAP": 0,
-    "ANNUAL_RETURNS_3YRS": [
-      {
-        "dataOfFilling": "",
-        "financialYear": ""
-      },
-      {
-        "dataOfFilling": "",
-        "financialYear": ""
-      },
-      {
-        "dataOfFilling": "",
-        "financialYear": ""
-      }
-    ],
-    "BALANCESHEET_3YRS": [
-      {
-        "dataOfFilling": "",
-        "financialYear": ""
-      },
-      {
-        "dataOfFilling": "",
-        "financialYear": ""
-      },
-      {
-        "dataOfFilling": "",
-        "financialYear": ""
-      }
-    ],
-    "MOVED_TO_NEW_DB": 0,
-    "DIN_CONTACT_UPDATE": 0,
-    "IS_BASIC": 1,
-    "NEW_UPDATED_TIME": "",
-    "NICCode1": "",
-    "NICCode1Desc": "",
-    "NICCode2": null,
-    "NICCode2Desc": null,
-    "NICCode3": null,
-    "NICCode3Desc": null
-  }
+    --data '{ "CIN": "U72200TN2020PTC123456" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "CIN")?.examples[0]?.message || {}
 };
 export const UdamVerify = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "udyam/verify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/udyam/verify"
-  },
-  title: {
-    header: "Udyam Aadhaar Verification",
-    headerTitle: "Verify MSME Udyam Registration number",
-    submitButton: 'Verify Udyam'
-  },
+  apiUrl: { Method: 'Post', URLS: "udyam/verify", LiveUrl: `${KYC_BASE}/udyam/verify` },
+  title: { header: "Udyam Aadhaar Verification", headerTitle: "Verify MSME Udyam Registration number", submitButton: 'Verify Udyam' },
   inputParams: ["udyamNumber"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/udyam/verify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/udyam/verify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "udyamNumber": "UDYAM-TN-01-1234567"
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "data": {
-      "udyam_number": "UDYAM-TN-01-1234567",
-      "enterprise_name": "ABC TECH SOLUTIONS",
-      "enterprise_type": "Micro",
-      "major_activity": "Services",
-      "status": "Active"
-    },
-    "success": true
-  }
+    --data '{ "udyamNumber": "UDYAM-TN-01-1234567" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "UDYAM")?.examples[0]?.message || {}
 };
 export const cardVerify = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "card/cardVerify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
-  },
-  title: {
-    header: "Credit Card Verification",
-    headerTitle: "Verify CreditCard using government KYC service",
-    submitButton: 'Verify CreditCard'
-  },
+  apiUrl: { Method: 'Post', URLS: "card/cardVerify", LiveUrl: `${KYC_BASE}/card/cardVerify` },
+  title: { header: "Credit Card Verification", headerTitle: "Verify Credit Card details", submitButton: 'Verify Credit Card' },
   inputParams: ["creditCardNumber"],
-  isToken:true,
+  isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location '${KYC_BASE}/card/cardVerify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "creditCardNumber": "",
-      "serviceId": "",
-      "categoryId": ""
-  }'`,
-  exampleResponse: {
-    "success": true,
-    "response": {
-      "message": "valid",
-      "success": true,
-      "response": {
-        "bin": "6 digit of Credit card Number",
-        "brand": "Card brand",
-        "type": "",
-        "category": "WORLD",
-        "issuer": "",
-        "issuer_phone": "",
-        "issuer_url": "",
-        "iso2": "",
-        "iso3": "",
-        "country": ""
-      }
-    }
-  }
+    --data '{ "creditCardNumber": "4532XXXXXXXX1234" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "FCV")?.examples[0]?.message || {}
 };
 export const NameMatch = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "name/compareNames",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/name/compareNames"
-  },
-  title: {
-    header: "Name Comparison Service",
-    headerTitle: "Calculate similarity score between two names",
-    submitButton: 'Compare Names'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/match/nameMatch", LiveUrl: `${KYC_BASE}/match/nameMatch` },
+  title: { header: "Name Match", headerTitle: "Compare two names for similarity score", submitButton: 'Match Names' },
   inputParams: ["firstName", "secondName"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  regexValues: ["^[A-Za-z\\s]+$", "^[A-Za-z\\s]+$"],
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/name/compareNames' \\
+  exampleCurl: `curl --location '${KYC_BASE}/match/nameMatch' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "firstName": "JOHN DOE",
-      "secondName": "JON DOE"
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "data": {
-      "score": 0.95,
-      "status": "Match",
-      "algorithm": "Levenshtein"
-    },
-    "success": true
-  }
+    --data '{ "firstName": "John Doe", "secondName": "John" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "NM")?.examples[0]?.message || {}
 };
 
 // Recharge Services
@@ -710,15 +437,15 @@ export const RechargeOperators = {
     submitButton: 'Operators Fetch'
   },
   inputParams: ["mobileNumber"],
-  isToken:true,
+  isToken: true,
   isMicro: 'RECHARGE',
   isDisable: false,
   regexValues: ["^[6-9]\\d{9}$"],
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location '${RECHARGE_BASE}/Operators' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "mobileNumber": ""
+      "mobileNumber": "9876543210"
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -747,15 +474,15 @@ export const RechargePlans = {
     submitButton: 'Fetch Plans'
   },
   inputParams: ["operatorcode", "cricle"],
-  isToken:true,
+  isToken: true,
   isMicro: 'RECHARGE',
   isDisable: false,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location '${RECHARGE_BASE}/Plans' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "operatorcode": "",
-      "cricle": ""
+      "operatorcode": "11",
+      "cricle": "49"
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -784,15 +511,15 @@ export const RechargeOldPlans = {
     submitButton: 'Fetch oldPlans'
   },
   inputParams: ["operatorcode", "cricle"],
-  isToken:true,
+  isToken: true,
   isMicro: 'RECHARGE',
   isDisable: false,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location '${RECHARGE_BASE}/OldPlans' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "operatorcode": "",
-      "cricle": ""
+      "operatorcode": "11",
+      "cricle": "49"
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -821,15 +548,15 @@ export const RechargeOffersPlans = {
     submitButton: 'Fetch Offers'
   },
   inputParams: ["operator_code", "mobile_no"],
-  isToken:true,
+  isToken: true,
   isMicro: 'RECHARGE',
   isDisable: false,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location '${RECHARGE_BASE}/OffersPlans' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{
-      "operator_code": "",
-      "mobile_no": ""
+      "operator_code": "11",
+      "mobile_no": "9876543210"
   }'`,
   exampleResponse: {
     "message": "Success",
@@ -922,482 +649,230 @@ export const RechargeURL = {
 //   }
 // };
 export const BBPSCategory = {
-  apiUrl: {
-    Method: 'Get',
-    URLS: "/billerInfo/:category",
-    LiveUrl: "https://localhost:7007/V1/BBPS/LIVE/billerInfo/:category"
-  },
-  title: {
-    header: "STEP 1: BBPS Categories",
-    headerTitle: "Fetch available BBPS service categories",
-    submitButton: 'List Categories'
-  },
+  apiUrl: { Method: 'Get', URLS: "/billerInfo/:category", LiveUrl: `${BBPS_BASE}/billerInfo/:category` },
+  title: { header: "STEP 1: BBPS Categories", headerTitle: "Fetch BBPS categories", submitButton: 'List Categories' },
   inputParams: ["category"],
   isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["Credit Card"],
   isDisable: true,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/BBPS/LIVE/billerInfo/Credit%20Card' \\
+  exampleCurl: `curl --location '${BBPS_BASE}/billerInfo/Credit%20Card' \\
     --header 'secret_token: {{secret_token}}'`,
-  exampleResponse: {
-    "message": "Success",
-    "success": true,
-    "data": {}
-  }
+  exampleResponse: apiExamples.find(e => e.name === "BillerInfo")?.examples[0]?.message || {}
 };
 export const BBPSBillerInfo = {
-  apiUrl: {
-    Method: 'Get',
-    URLS: "/billerInfo/:billerId",
-    LiveUrl: "https://localhost:7007/V1/BBPS/LIVE/billerInfo/:billerId"
-  },
-  title: {
-    header: "STEP 2: Biller Information",
-    headerTitle: "Fetch detailed information for a specific BBPS biller",
-    submitButton: 'Get Biller Info'
-  },
+  apiUrl: { Method: 'Get', URLS: "/billerInfo/:billerId", LiveUrl: `${BBPS_BASE}/billerInfo/:billerId` },
+  title: { header: "STEP 2: Biller Information", headerTitle: "Fetch detailed biller info", submitButton: 'Get Biller Info' },
   inputParams: ["billerId"],
   isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["SBIC00000NATDN"],
   isDisable: true,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/BBPS/LIVE/billerInfo/SBIC00000NATDN' \\
+  exampleCurl: `curl --location '${BBPS_BASE}/billerInfo/SBIC00000NATDN' \\
     --header 'secret_token: {{secret_token}}'`,
-  exampleResponse: {
-    "message": "Success",
-    "success": true,
-    "data": { "jsonData": { "billerInfoResponse": { "biller": { "billerId": "SBIC00000NATDN", "billerName": "SBI Card", "billerAdhoc": "true", "billerStatus": "ACTIVE", "billerTimeout": "120", "supportDeemed": "Yes", "billerCategory": "Credit Card", "billerCoverage": "IND", "billerAliasName": "SBI Card", "billerDescription": "Please do not initiate payment more than the Maximum Permissible Amount limit", "billerInputParams": { "paramInfo": [{ "regEx": "^[0-9]{4,4}$", "dataType": "NUMERIC", "maxLength": "4", "minLength": "4", "paramName": "Last 4 digit of primary credit card number", "isOptional": "false", "visibility": "true" }, { "regEx": "^[6-9][0-9]{9}$", "dataType": "NUMERIC", "maxLength": "10", "minLength": "10", "paramName": "Mobile Number", "isOptional": "false", "visibility": "true" }] }, "billerPaymentModes": { "paymentModeInfo": [{ "maxAmount": "99999999900", "minAmount": "100", "paymentMode": "AEPS" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentMode": "Account Transfer" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentMode": "Cash" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentMode": "Debit Card" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentMode": "Internet Banking" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentMode": "UPI" }] }, "billerResponseType": "SINGLE", "interchangeFeeCCF1": { "feeCode": "CCF1", "flatFee": "0", "feeMaxAmt": "2147483647", "feeMinAmt": "1", "percentFee": "0.00", "feeDirection": "C2B" }, "planAdditionalInfo": "", "planMdmRequirement": "NOT_SUPPORTED", "billerAmountOptions": "BASE_BILL_AMOUNT,,,", "billerAdditionalInfo": { "paramInfo": [{ "paramName": "Minimum Amount Due" }, { "paramName": "Maximum Permissible Amount" }] }, "supportPendingStatus": "Yes", "billerFetchRequiremet": "MANDATORY", "billerPaymentChannels": { "paymentChannelInfo": [{ "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "ATM" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "AGT" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "BNKBRNCH" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "BSC" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "INT" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "INTB" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "KIOSK" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "MPOS" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "MOB" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "MOBB" }, { "maxAmount": "99999999900", "minAmount": "100", "paymentChannelName": "POS" }] }, "billerPaymentExactness": "", "billerPlanResponseParams": "", "billerAdditionalInfoPayment": "", "billerSupportBillValidation": "NOT_SUPPORTED", "rechargeAmountInValidationRequest": "" }, "responseCode": "000" } } }
-  }
+  exampleResponse: apiExamples.find(e => e.name === "BillerInfo")?.examples[0]?.message || {}
 };
 export const BBPSBillFetch = {
-  apiUrl: {
-    Method: 'Get',
-    URLS: "/billFetch",
-    LiveUrl: "https://localhost:7007/V1/BBPS/LIVE/billFetch"
-  },
-  title: {
-    header: "STEP 3: BBPS Bill Fetch",
-    headerTitle: "Fetch pending bills for a user from a specific biller",
-    submitButton: 'Fetch Bill'
-  },
+  apiUrl: { Method: 'Get', URLS: "/billFetch", LiveUrl: `${BBPS_BASE}/billFetch` },
+  title: { header: "STEP 3: BBPS Bill Fetch", headerTitle: "Fetch pending bills", submitButton: 'Fetch Bill' },
   inputParams: ["accessCode", "ver", "instituteId", "secretKey"],
   isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg"],
   isDisable: true,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/BBPS/LIVE/billFetch?accessCode=77TRLSNG7N000HENTL&ver=1.0' \\
+  exampleCurl: `curl --location '${BBPS_BASE}/billFetch?accessCode=77TRLSNG7N000HENTL&ver=1.0&instituteId={{instituteId}}&secretKey={{secretKey}}' \\
     --header 'secret_token: {{secret_token}}'`,
-  exampleResponse: {
-    "message": "Success",
-    "success": true,
-    "data": { "jsonData": { "billFetchResponse": { "responseCode": "000", "inputParams": { "input": [{ "paramName": "Last 4 digit of primary credit card number", "paramValue": "8584" }, { "paramName": "Mobile Number", "paramValue": "8099781613" }] }, "billerResponse": { "billAmount": "1953604", "billDate": "2025-11-23", "customerName": "CHITRA KASTURI", "dueDate": "2025-12-13" }, "additionalInfo": { "info": [{ "infoName": "Minimum Amount Due", "infoValue": "6171.56" }, { "infoName": "Maximum Permissible Amount", "infoValue": "23038.51" }] } } }, "requestId": "v4UteaitqfmcHAWcaYX9q3bEqWC53300535" }
-  }
+  exampleResponse: apiExamples.find(e => e.name === "BillFetch")?.examples[0]?.message || {}
 };
 export const BBPSBillPay = {
-  apiUrl: {
-    Method: 'POST',
-    URLS: "/billPayRequest",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
-  },
-  title: {
-    header: "STEP 4: Get Bill Pay",
-    headerTitle: "BBPS using NTAR service",
-    submitButton: 'Get Bill Fetch'
-  },
+  apiUrl: { Method: 'POST', URLS: "/billPayRequest", LiveUrl: `${BBPS_BASE}/billPayRequest` },
+  title: { header: "STEP 4: Get Bill Pay", headerTitle: "Process bill payment", submitButton: 'Bill Pay' },
   inputParams: ["accessCode", "ver", "instituteId", "secretKey", "requestId"],
   isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg", "8d57XXX99ac4dXXXXX09011XXXXX"],
   isDisable: true,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location '${BBPS_BASE}/billPayRequest' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "accessCode": "",
-      "ver": "",
-      "instituteId": "",
-      "secretKey": "",
-      "requestId": ""
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "success": true,
-    "data": { "responseCode": "000", "responseReason": "Successful", "txnRefId": "CC015330CBAA98155678", "approvalRefNumber": "RneKliUJVyXjAOEJvC6GwhtL15d53300529", "txnRespType": "FORWARD TYPE RESPONSE", "inputParams": { "input": [{ "paramName": "Last 4 digit of primary credit card number", "paramValue": "8584" }, { "paramName": "Mobile Number", "paramValue": "8099781613" }] }, "CustConvFee": "0", "RespAmount": "100", "RespBillDate": "2025-11-23", "RespCustomerName": "CHITRA KASTURI", "RespDueDate": "2025-12-13" }
-  }
+    --data '{ "accessCode": "77TRLSNG7N000HENTL", "ver": "1.0", "requestId": "8d57XXX99ac4dXXXXX09011XXXXX", "instituteId": "{{instituteId}}", "secretKey": "{{secretKey}}" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "BillPay")?.examples[0]?.message || {}
 };
 export const BBPSBillValidation = {
-  apiUrl: {
-    Method: 'POST',
-    URLS: "/billValidation",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
-  },
-  title: {
-    header: "STEP 4: Bill Validation Fetch",
-    headerTitle: "BBPS using NTAR service",
-    submitButton: 'Bill Validate'
-  },
+  apiUrl: { Method: 'POST', URLS: "/billValidation", LiveUrl: `${BBPS_BASE}/billValidation` },
+  title: { header: "STEP 4: Bill Validation", headerTitle: "Validate bill details before payment", submitButton: 'Bill Validate' },
   inputParams: ["accessCode", "ver", "instituteId", "secretKey"],
   isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg"],
   isDisable: true,
-  exampleCurl: `curl --location 'http://localhost:7006/shop/shopest' \\
+  exampleCurl: `curl --location '${BBPS_BASE}/billValidation' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "accessCode": "",
-      "ver": "",
-      "instituteId": "",
-      "secretKey": ""
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "success": true,
-    "data": { "jsonData": { "billValidationResponse": { "responseCode": "000", "responseReason": "Successful", "complianceCode": "", "complianceReason": "", "approvalRefNo": "262914526361914" } }, "requestId": "6ssI9l5Lizr9veFhTzEYd8DQkKd53300551" }
-  }
+    --data '{ "accessCode": "77TRLSNG7N000HENTL", "ver": "1.0", "instituteId": "{{instituteId}}", "secretKey": "{{secretKey}}" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "BillFetch")?.examples[0]?.message || {}
 };
 export const BBPSBillQuickPay = {
-  apiUrl: {
-    Method: 'POST',
-    URLS: "/billQuickPay",
-    LiveUrl: "https://localhost:7007/V1/BBPS/LIVE/billQuickPay"
-  },
-  title: {
-    header: "STEP 5: BBPS Quick Pay",
-    headerTitle: "Process immediate bill payment via BBPS",
-    submitButton: 'Quick Pay'
-  },
+  apiUrl: { Method: 'POST', URLS: "/billQuickPay", LiveUrl: `${BBPS_BASE}/billQuickPay` },
+  title: { header: "STEP 5: BBPS Quick Pay", headerTitle: "Process immediate bill payment", submitButton: 'Quick Pay' },
   inputParams: ["accessCode", "ver", "instituteId", "secretKey", "requestId"],
   isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["77TRLSNG7N000HENTL", "1.0", "instituteId", "Tlxnsh4.43fjdsj6.dfsdkf.9gd565fdfg", "8d57XXX99ac4dXXXXX09011XXXXX"],
   isDisable: true,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/BBPS/LIVE/billQuickPay' \\
+  exampleCurl: `curl --location '${BBPS_BASE}/billQuickPay' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
-    --data '{
-      "accessCode": "77TRLSNG7N000HENTL",
-      "ver": "1.0",
-      "requestId": "8d57XXX99ac4dXXXXX09011XXXXX"
-  }'`,
-  exampleResponse: {
-    "message": "Success",
-    "data": {
-      "status": "SUCCESS",
-      "txn_id": "BBPS88776655",
-      "approval_ref": "321456",
-      "amount": "500",
-      "date": "2024-04-06"
-    },
-    "success": true
-  }
+    --data '{ "accessCode": "77TRLSNG7N000HENTL", "ver": "1.0", "requestId": "8d57XXX99ac4dXXXXX09011XXXXX", "instituteId": "{{instituteId}}", "secretKey": "{{secretKey}}" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "InstantPay")?.examples[0]?.message || {}
 };
 export const InstantBillPay = {
-  apiUrl: {
-    Method: 'POST',
-    URLS: "/instantpay/billPay",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/GSTIN/Gstinverify"
-  },
-  title: {
-    header: "STEP 1: InstantBill Pay",
-    headerTitle: "InstantPay using NTAR service",
-    submitButton: 'InatantBill Pay'
-  },
+  apiUrl: { Method: 'POST', URLS: "/instantpay/billPay", LiveUrl: `${BBPS_BASE}/instantpay/billPay` },
+  title: { header: "InstantPay Bill Pay", headerTitle: "Instant bill payment via InstantPay", submitButton: 'Bill Pay' },
   inputParams: ["cardNumber"],
   isMicro: 'BBPS',
   bodyParams: "(params)",
   Inputvalues: ["****************"],
-  // isDisable: true,
-  exampleCurl: `curl --location 'http://localhost:7006/instant/cardPayment' \\
+  isDisable: true,
+  exampleCurl: `curl --location '${BBPS_BASE}/instantpay/billPay' \\
     --header 'Content-Type: application/json' \\
-    --header 'X-Ipay-Auth-Code: "' \\
-    --header 'X-Ipay-Client-Id: "' \\
-    --header 'X-Ipay-Client-Secret: "' \\
-    --header 'X-Ipay-Endpoint-Ip: "' \\
-    --data '{
-    "payer": {
-        "bankId": "",
-        "bankProfileId": "",
-        "accountNumber": "",
-        "name": "Instantpay",
-        "paymentMode": "",
-        "cardNumber": "",
-        "cardSecurityCode": "",
-        "cardExpiry": {
-            "month": "",
-            "year": ""
-        },
-        "referenceNumber": ""
-    },
-    "payee": {
-        "accountNumber": "",
-        "name": "Instantpay"
-    },
-    "transferMode": "",
-    "transferAmount": "",
-    "externalRef": "",
-    "latitude": "",
-    "longitude": "",
-    "remarks": "",
-    "alertEmail": ""
-}'`,
-  exampleResponse: {
-    statusCode: "TXN",
-    actcode: null,
-    status: "Transaction Successful",
-    data: {
-      externalRef: "XXXXXXXXXXXX",
-      poolReferenceId: "XXXXXXXXXXXX",
-      txnValue: "4.00",
-      txnReferenceId: "XXXXXXXX",
-      pool: {
-        account: "7428XXXXXX42",
-        openingBal: "3697.27",
-        mode: "DR",
-        amount: "9.90",
-        closingBal: "3687.37"
-      },
-      payer: {
-        account: "7428XXXXXX42",
-        name: "Sample Store"
-      },
-      payee: {
-        account: "3798XXXXXXXX2004",
-        name: "Instantpay India Ltd"
-      }
-    },
-    timestamp: "2022-03-15 18:08:13",
-    ipay_uuid: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-    orderid: "XXXXXXXXXXXX",
-    environment: "LIVE",
-    internalCode: null
-  }
+    --header 'secret_token: {{secret_token}}' \\
+    --data '{ "cardNumber": "****************" }'`,
+  exampleResponse: apiExamples.find(e => e.name === "InstantPay")?.examples[0]?.message || {}
 };
 
 // Identity Services (Expanded)
 export const VoterID = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/government/voterId/verify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/government/voterId/verify"
-  },
-  title: {
-    header: "Voter ID Verification",
-    headerTitle: "Verify Voter ID details using official EPIC number",
-    submitButton: 'Verify Voter ID'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/government/voterId/verify", LiveUrl: `${KYC_BASE}/government/voterId/verify` },
+  title: { header: "Voter ID Verification", headerTitle: "Verify Voter ID details", submitButton: 'Verify Voter ID' },
   inputParams: ["voterIdNumber"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
   regexValues: ["^[A-Z]{3}[0-9]{7}$"],
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/government/voterId/verify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/government/voterId/verify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{"voterIdNumber": "ABC1234567"}'`,
-  exampleResponse: { "message": "Success", "data": { "epic_no": "ABC1234567", "name": "JOHN DOE", "gender": "M", "state": "Delhi" }, "success": true }
+  exampleResponse: apiExamples.find(e => e.name === "VoterID")?.examples[0]?.message || {}
 };
 
 export const Passport = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/government/passport/verify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/government/passport/verify"
-  },
-  title: {
-    header: "Passport Verification",
-    headerTitle: "Verify Indian Passport details using Passport Number and DOB",
-    submitButton: 'Verify Passport'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/government/passport/verify", LiveUrl: `${KYC_BASE}/government/passport/verify` },
+  title: { header: "Passport Verification", headerTitle: "Verify Passport details", submitButton: 'Verify Passport' },
   inputParams: ["passportNumber", "dob"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/government/passport/verify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/government/passport/verify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{"passportNumber": "S1234567", "dob": "1990-01-01"}'`,
-  exampleResponse: { "message": "Success", "data": { "passportNumber": "S1234567", "full_name": "JOHN DOE", "dob": "01/01/1990" }, "success": true }
+  exampleResponse: apiExamples.find(e => e.name === "Passport")?.examples[0]?.message || {}
 };
 
 export const DLVerify = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/vehicle/driving_license/verify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/vehicle/driving_license/verify"
-  },
-  title: {
-    header: "Driving License Verification",
-    headerTitle: "Verify DL details using License Number and Date of Birth",
-    submitButton: 'Verify DL'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/vehicle/driving_license/verify", LiveUrl: `${KYC_BASE}/vehicle/driving_license/verify` },
+  title: { header: "Driving License Verification", headerTitle: "Verify DL details", submitButton: 'Verify DL' },
   inputParams: ["dlNumber", "dob"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/vehicle/driving_license/verify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/vehicle/driving_license/verify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{"dlNumber": "DL-1234567890123", "dob": "1990-01-01"}'`,
-  exampleResponse: { "message": "Success", "data": { "license_number": "DL-1234567890123", "name": "JOHN DOE", "expiry_date": "2030-01-01" }, "success": true }
+  exampleResponse: apiExamples.find(e => e.name === "DL")?.examples[0]?.message || {}
 };
 
 // Vehicle Services (Expanded)
 export const RCVerify = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/vehicle/rcverify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/vehicle/rcverify"
-  },
-  title: {
-    header: "RC Verification",
-    headerTitle: "Verify Vehicle Registration Certificate (RC) details",
-    submitButton: 'Verify RC'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/vehicle/rcverify", LiveUrl: `${KYC_BASE}/vehicle/rcverify` },
+  title: { header: "RC Verification", headerTitle: "Verify Vehicle RC details", submitButton: 'Verify RC' },
   inputParams: ["rcNumber"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/vehicle/rcverify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/vehicle/rcverify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{"rcNumber": "DL1CA1234"}'`,
-  exampleResponse: { "message": "Success", "data": { "rc_number": "DL1CA1234", "owner_name": "JOHN DOE", "vehicle_model": "MARUTI SWIFT" }, "success": true }
+  exampleResponse: apiExamples.find(e => e.name === "RC")?.examples[0]?.message || {}
 };
 
 export const RCChallan = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/vehicle/challan_via_rc",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/vehicle/challan_via_rc"
-  },
-  title: {
-    header: "RC Challan Search",
-    headerTitle: "Fetch traffic challan details using Vehicle RC Number",
-    submitButton: 'Fetch Challans'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/vehicle/challan_via_rc", LiveUrl: `${KYC_BASE}/vehicle/challan_via_rc` },
+  title: { header: "RC Challan Search", headerTitle: "Fetch traffic challan details", submitButton: 'Fetch Challans' },
   inputParams: ["rcNumber"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/vehicle/challan_via_rc' \\
+  exampleCurl: `curl --location '${KYC_BASE}/vehicle/challan_via_rc' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{"rcNumber": "DL1CA1234"}'`,
-  exampleResponse: { "message": "Success", "data": { "rc_number": "DL1CA1234", "challans": [] }, "success": true }
+  exampleResponse: apiExamples.find(e => e.name === "RC_CHALLAN")?.examples[0]?.message || {} // dummy for future update
 };
 
 // Business Services (Expanded)
 export const DINVerify = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/business/din/verify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/business/din/verify"
-  },
-  title: {
-    header: "DIN Verification",
-    headerTitle: "Verify Director Identification Number (DIN) details",
-    submitButton: 'Verify DIN'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/business/din/verify", LiveUrl: `${KYC_BASE}/business/din/verify` },
+  title: { header: "DIN Verification", headerTitle: "Verify Director Identification Number", submitButton: 'Verify DIN' },
   inputParams: ["din"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/business/din/verify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/business/din/verify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{"din": "01234567"}'`,
-  exampleResponse: { "message": "Success", "data": { "din": "01234567", "name": "JOHN DOE", "status": "Active" }, "success": true }
+  exampleResponse: apiExamples.find(e => e.name === "PAN_DIRECTOR")?.examples[0]?.message || {}
 };
 
 export const IECVerify = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/business/IEC/verify",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/business/IEC/verify"
-  },
-  title: {
-    header: "IEC Verification",
-    headerTitle: "Verify Import Export Code (IEC) details",
-    submitButton: 'Verify IEC'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/business/IEC/verify", LiveUrl: `${KYC_BASE}/business/IEC/verify` },
+  title: { header: "IEC Verification", headerTitle: "Verify Import Export Code details", submitButton: 'Verify IEC' },
   inputParams: ["iecNumber"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/business/IEC/verify' \\
+  exampleCurl: `curl --location '${KYC_BASE}/business/IEC/verify' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{"iecNumber": "0123456789"}'`,
-  exampleResponse: { "message": "Success", "data": { "iec": "0123456789", "entity_name": "ABC EXPORTS", "status": "Active" }, "success": true }
+  exampleResponse: apiExamples.find(e => e.name === "IEC")?.examples[0]?.message || {} // dummy for future update
 };
 
 // Utility Services (Expanded)
 export const ElectricityBill = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/government/electricity_bill",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/government/electricity_bill"
-  },
-  title: {
-    header: "Electricity Bill Verification",
-    headerTitle: "Fetch electricity bill details using Consumer ID and Biller",
-    submitButton: 'Fetch Bill'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/government/electricity_bill", LiveUrl: `${KYC_BASE}/government/electricity_bill` },
+  title: { header: "Electricity Bill Verification", headerTitle: "Fetch electricity bill details", submitButton: 'Fetch Bill' },
   inputParams: ["consumerId", "biller"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/government/electricity_bill' \\
+  exampleCurl: `curl --location '${KYC_BASE}/government/electricity_bill' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{"consumerId": "123456789", "biller": "TNEB"}'`,
-  exampleResponse: { "message": "Success", "data": { "consumerId": "123456789", "amount": "500", "due_date": "2024-05-01" }, "success": true }
+  exampleResponse: apiExamples.find(e => e.name === "Utility")?.examples[0]?.message || {}
 };
 
-export const PincodeGeofencing = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/location/pincode/geofencing",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/location/pincode/geofencing"
-  },
-  title: {
-    header: "Pincode Geofencing",
-    headerTitle: "Verify if a coordinate falls within a specific Pincode area",
-    submitButton: 'Verify Geofence'
-  },
-  inputParams: ["pincode", "latitude", "longitude"],
-  isToken: true,
-  isMicro: 'KYC',
-  isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/location/pincode/geofencing' \\
-    --header 'Content-Type: application/json' \\
-    --header 'secret_token: {{secret_token}}' \\
-    --data '{"pincode": "600001", "latitude": "13.0827", "longitude": "80.2707"}'`,
-  exampleResponse: { "message": "Success", "data": { "in_range": true, "distance": "0.5km" }, "success": true }
-};
+
 
 // Finance Services (Expanded)
 export const BankStatement = {
-  apiUrl: {
-    Method: 'Post',
-    URLS: "client/bank/statement",
-    LiveUrl: "https://localhost:7007/V1/KYC/LIVE/bank/statement"
-  },
-  title: {
-    header: "Bank Statement Fetch",
-    headerTitle: "Fetch bank statement details via Net Banking integration",
-    submitButton: 'Fetch Statement'
-  },
+  apiUrl: { Method: 'Post', URLS: "client/bank/statement", LiveUrl: `${KYC_BASE}/bank/statement` },
+  title: { header: "Bank Statement Fetch", headerTitle: "Fetch bank statement details", submitButton: 'Fetch Statement' },
   inputParams: ["accountId", "bankName"],
   isToken: true,
   isMicro: 'KYC',
   isDisable: false,
-  exampleCurl: `curl --location 'https://localhost:7007/V1/KYC/LIVE/bank/statement' \\
+  exampleCurl: `curl --location '${KYC_BASE}/bank/statement' \\
     --header 'Content-Type: application/json' \\
     --header 'secret_token: {{secret_token}}' \\
     --data '{"accountId": "1234567890", "bankName": "SBI"}'`,
-  exampleResponse: { "message": "Success", "data": { "transactions": [] }, "success": true }
+  exampleResponse: apiExamples.find(e => e.name === "BANK_STATEMENT")?.examples[0]?.message || {} // dummy for future update
 };
 
 

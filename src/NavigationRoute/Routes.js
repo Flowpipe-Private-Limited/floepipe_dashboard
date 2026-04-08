@@ -3,27 +3,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "../../src/pages/Dashboard/Dashboard";
 import MainContent from "../pages/MainContent/mainContent";
-import GSTPage from "../pages/GST/gstIn";
-import ShopPage from "../pages/IFSC/ifsc";
-import VerifyMobileOTP from "../pages/MobileNumber/VerifyOTP";
-import SendMobileOTP from "../pages/MobileNumber/SendOTP";
-import PanVerification from "../pages/PanVerification/PanVerificaton";
-import PanAadhaar from "../pages/PanVerification/panAadhaar";
-import AccountVerify from "../pages/Account/accountVerify";
-import CardValidationPage from "../pages/CardValidaton/CardValidate";
-import CinVerification from "../pages/CinVerification/CinVerify";
-import UdyamVerifyPage from "../pages/Udyam/UdamVerify";
-import { RechargeOffersPage, RechargeOldPlansPage, RechargeOperatorsPage, RechargePlansPage, RechargeURLPage } from "../pages/Recharge/Recharge";
-import NameMatchpage from "../pages/nameMatch/nameMatch";
-import AadhaarVerifyPage from "../pages/Aadhaar/AadhaarVerify";
-import {
-  BbpsBillerInfoPage,
-  BbpsBillFetch,
-  BbpsBillPay,
-  BbpsBillQuickPay,
-  BbpsBillVallidation,
-  BbpsCategoryPage,
-} from "../pages/BBPS/Bbps";
 import Otp from "../pages/Otp/Otp";
 import Login from "../pages/Login/Login";
 import Register_Form from "../pages/Login/Register_Form";
@@ -38,7 +17,6 @@ import MainDashboardPage from "../pages/MainPage/MainPage";
 import ProtectionRoute from "../components/protectionRoutes/Protection";
 import ProfilePage from "../components/profile/UserProfile";
 import WalletToPop from "../pages/WalletToPop/WalletToPop";
-import InstantPayVerification from "../pages/InstantPay/InstantPay";
 import Products from "../pages/Products/Products";
 import Reports from "../pages/Reports/Reports";
 import ApiKeys from "../pages/apiKeys/apikeys";
@@ -61,7 +39,7 @@ const AppRoute = () => {
       <Routes>
         {/* Landing Page */}
         <Route path="/" element={<MainDashboardPage />} />
-        <Route path="/register_form" element={<Register_Form />} /> 
+        <Route path="/register_form" element={<Register_Form />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/create_pin" element={<Create_Pin />} />
@@ -73,7 +51,7 @@ const AppRoute = () => {
 
         {/* User DashBoard Routes */}
         {/* <Route path="/dashboard" element={<ProtectionRoute><Dashboard /></ProtectionRoute>}> */}
-          <Route path="/dashboard" element={<SessionManager><Dashboard /></SessionManager>}>
+        <Route path="/dashboard" element={<SessionManager><Dashboard /></SessionManager>}>
           <Route index element={<MainContent />} />
           <Route path="generate/SecretToken" element={<GenerateSecretToken />} />
           <Route path="Profile" element={<ProfilePage />} />
@@ -88,23 +66,7 @@ const AppRoute = () => {
           <Route path="APILogsDetail" element={<APILogs_expandtable />} />
           <Route path="WhitelistIP" element={<WhiteListIP />} />
           <Route path="KYC/:serviceId" element={<KYCServicePage />} />
-          <Route
-            path="Recharge/Operators"
-            element={<RechargeOperatorsPage />}
-          />
-          <Route path="Recharge/Plans" element={<RechargePlansPage />} />
-          <Route path="Recharge/Offers" element={<RechargeOffersPage />} />
-          <Route path="Recharge/RecharUrl" element={<RechargeURLPage />} />
-          <Route path="Recharge/OldPlans" element={<RechargeOldPlansPage />} />
-          <Route path="bbps/Category" element={<BbpsCategoryPage />} />
-          <Route path="bbps/BillerInfo" element={<BbpsBillerInfoPage />} />
-          <Route path="bbps/BillFetch" element={<BbpsBillFetch />} />
-          <Route path="bbps/BillPay" element={<BbpsBillPay />} />
-          <Route path="bbps/BillValidation" element={<BbpsBillVallidation />} />
-          <Route path="bbps/QuickPay" element={<BbpsBillQuickPay />} />
           <Route path="WalletToPop" element={<WalletToPop />} />
-
-          <Route path="InstantPayVerification" element={<InstantPayVerification />} />
         </Route>
       </Routes>
     </Router>

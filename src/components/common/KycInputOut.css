@@ -12,12 +12,12 @@
 }
 
 [data-theme="dark"] {
-  --kyc-bg-card: #1f2937;
-  --kyc-bg-input: #374151;
+  --kyc-bg-card: #111827;
+  --kyc-bg-input: #1f2937;
   --kyc-text-main: #f9fafb;
   --kyc-text-sub: #9ca3af;
-  --kyc-border: #4b5563;
-  --kyc-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  --kyc-border: #374151;
+  --kyc-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
 }
 
 .kyc-input-container {
@@ -370,3 +370,71 @@
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+/* Security Warning Styles */
+.kyc-ip-warning {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border-left: 4px solid #f97316;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.1);
+  animation: slideIn 0.3s ease-out;
+}
+
+[data-theme="dark"] .kyc-ip-warning {
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.1) 0%, rgba(251, 146, 60, 0.05) 100%);
+  border-color: #ea580c;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.warning-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #9a3412;
+  margin: 0;
+}
+
+[data-theme="dark"] .warning-title { color: #fb923c; }
+
+.warning-desc {
+  font-size: 0.8rem;
+  color: #7c2d12;
+  margin: 0.35rem 0 0 0;
+  line-height: 1.5;
+}
+
+[data-theme="dark"] .warning-desc { color: #fed7aa; }
+
+.whitelist-now-btn {
+  white-space: nowrap;
+  background: #f97316;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+}
+
+.whitelist-now-btn:hover {
+  background: #ea580c;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(249, 115, 22, 0.3);
+}
+
+.flex { display: flex; }
+.items-center { align-items: center; }
+.gap-2 { gap: 0.5rem; }
+.text-orange-500 { color: #f97316; }

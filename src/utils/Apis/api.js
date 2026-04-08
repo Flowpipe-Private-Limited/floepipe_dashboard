@@ -120,6 +120,8 @@ const HandleCreateKeys = (data) => supperApiClient.post("client/create/clientKey
 const HandleFetchAllKeys = (data) => supperApiClient.get(`client/get/TestandLive/clientKeys?clientId=${data}`);
 const HandleCreateIP = (data) => supperApiClient.post(`client/whitelist/clientIp`, data);
 const HandleFetchIP = (clientId) => supperApiClient.get(`client/Get/whitelist/clientIp?clientId=${clientId}`);
+const HandleDeleteIP = (data) => supperApiClient.post(`client/delete/whitelist/clientIp`, data);
+const HandleDeleteKey = (data) => supperApiClient.post(`client/delete/clientKeys`, data);
 
 const VerifyIPIN = (data) => supperApiClient.post('Client/verify-mpin', data);
 
@@ -201,6 +203,8 @@ export {
 
   HandleCreateIP,
   HandleFetchIP,
+  HandleDeleteIP,
+  HandleDeleteKey,
   getAnalyticsService,
   HandleRefreshToken,
   GenerateTestKeys, GetTestKeys, RemoveTestKey

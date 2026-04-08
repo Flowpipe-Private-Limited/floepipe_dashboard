@@ -1,27 +1,48 @@
 import { useEffect, useState } from "react";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
-import { HandleCreateIP, HandleFetchIP } from "../../utils/Apis/api";
+import { HandleCreateIP, HandleDeleteIP } from "../../utils/Apis/api";
 import Loader from "../../components/common/Loader";
 import "./whiteList.css";
 import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
-import { useUserStore } from "../../Store/userStore";
+import { useUserkey } from "../../Store/userKeyStore";
 import Cookies from 'js-cookie';
+import { Trash2, Globe, Plus } from "lucide-react";
+import { toast } from "react-toastify";
 
 const WhiteListIP = () => {
-  // const {clientId} = useUserStore();
   const clientId = Cookies.get('clientId');
-  const [whitelistIPs, setWhitelistIPs] = useState([]);
+  
+  const { 
+    whitelistIps, 
+    fetchWhitelistIPs, 
+    addWhitelistIP, 
+    deleteWhitelistIP, 
+    currentPublicIp, 
+    detectCurrentIp 
+  } = useUserkey();
+
   const [ipAddress, setIpAddress] = useState("");
   const [comments, setComments] = useState("");
   const [apierrorMessage, setApiErrormessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const ipRegex =
-    /^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/;
+  const ipRegex =/^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/;
 
-  const CreateIP = async () => {
-    if (!ipRegex.test(ipAddress)) {
+  useEffect(() => {
+    fetchWhitelistIPs();
+    detectCurrentIp();
+  }, []);
+
+  const CreateIP = async (customIp) => {
+    const targetIp = customIp || ipAddress;
+
+    if (!ipRegex.test(targetIp)) {
       setApiErrormessage("Please enter a valid IP address");
+      return;
+    }
+
+    if (whitelistIps.length >= 3) {
+      setApiErrormessage("Maximum limit of 3 IPs reached. Please delete an existing IP to add a new one.");
       return;
     }
 
@@ -29,57 +50,73 @@ const WhiteListIP = () => {
     setLoading(true);
     const detailsTosend = {
       clientId: clientId,
-      ip: ipAddress,
-      comment: comments,
+      ip: targetIp,
+      comment: comments || (customIp ? "Added via Detection" : ""),
     };
-    console.log("data to send ", detailsTosend);
+
     await ApirequestHandler(
       async () => await HandleCreateIP(detailsTosend),
       setLoading,
       (res) => {
-        const { WhiteListData } = res;
-        console.log(res);
-        setWhitelistIPs(pre => [...pre, detailsTosend ]);
+        addWhitelistIP({ ...detailsTosend, _id: res?.data?._id || Date.now().toString() });
         setIpAddress("");
         setComments("");
         setLoading(false);
+        toast.success("IP Whitelisted Successfully");
       },
       (errMessage) => {
-        console.log("Error:", errMessage);
         setApiErrormessage(errMessage);
         setLoading(false);
       },
     );
   };
 
-  const FetchIPs = async () => {
-    setApiErrormessage("");
+  const RemoveIP = async (ip) => {
+    if (!window.confirm(`Are you sure you want to remove IP: ${ip}?`)) return;
+
     setLoading(true);
-
     await ApirequestHandler(
-      async () => HandleFetchIP(clientId),
+      async () => await HandleDeleteIP({ clientId, ip }),
       setLoading,
-      (res) => {
-        const { data } = res;
-        console.log(res);
-        setWhitelistIPs(data?.allowedIps || []);
+      () => {
+        deleteWhitelistIP(ip);
+        toast.success("IP Removed Successfully");
         setLoading(false);
       },
-      (errMessage) => {
-        console.log("Error:", errMessage);
-        setApiErrormessage(errMessage);
+      (err) => {
+        setApiErrormessage(err);
         setLoading(false);
-      },
+      }
     );
   };
 
-  useEffect(() => {
-    FetchIPs();
-  }, []);
+  const isCurrentIpWhitelisted = whitelistIps.some(item => item.ip === currentPublicIp);
 
   return (
     <div className="whitelist-container-main">
       <Eachpage_header headertitle={"Whitelist IPs"} />
+      
+      {/* IP Detection Banner */}
+      {currentPublicIp && (
+        <div className={`ip-detection-banner ${isCurrentIpWhitelisted ? 'whitelisted' : 'not-whitelisted'}`}>
+          <div className="flex items-center gap-2">
+            <Globe size={18} />
+            <span>Your current public IP: <strong>{currentPublicIp}</strong></span>
+          </div>
+          {isCurrentIpWhitelisted ? (
+            <span className="status-badge">Whitelisted</span>
+          ) : (
+            <button 
+              onClick={() => CreateIP(currentPublicIp)} 
+              className="add-detected-btn"
+              disabled={loading || whitelistIps.length >= 3}
+            >
+              <Plus size={14} /> Add to Whitelist
+            </button>
+          )}
+        </div>
+      )}
+
       <div className="add-ip-section">
         <div className="input-grid">
           <input
@@ -101,13 +138,13 @@ const WhiteListIP = () => {
           {loading ? (
             <Loader />
           ) : (
-            <button onClick={()=>CreateIP()} className="add-ip-btn">
+            <button onClick={() => CreateIP()} className="add-ip-btn" disabled={whitelistIps.length >= 3}>
               Add IP
             </button>
           )}
         </div>
 
-        <p className="note-text">Note: You can add a maximum of 3 IPs.</p>
+        <p className="note-text">Note: You can add a maximum of 3 IPs. ({whitelistIps.length}/3 used)</p>
 
         {apierrorMessage && <p className="error-text">{apierrorMessage}</p>}
       </div>
@@ -120,17 +157,32 @@ const WhiteListIP = () => {
               <th>SI.NO</th>
               <th>IP Address</th>
               <th>Comment</th>
+              <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {whitelistIPs && whitelistIPs.length > 0 ? (
-              whitelistIPs.map((ip, ind) => (
+            {whitelistIps && whitelistIps.length > 0 ? (
+              whitelistIps.map((ip, ind) => (
                 <tr key={ind} className="border-t">
                   <td>{ind + 1}</td>
-                  <td>{ip?.ip}</td>
+                  <td>
+                    <div className="flex items-center gap-2">
+                      {ip?.ip}
+                      {ip?.ip === currentPublicIp && <span className="current-tag">Current</span>}
+                    </div>
+                  </td>
                   <td>
                     {ip?.comment || "NA"}
+                  </td>
+                  <td>
+                    <button 
+                      onClick={() => RemoveIP(ip.ip)} 
+                      className="delete-ip-btn"
+                      title="Remove IP"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </td>
                 </tr>
               ))

@@ -36,10 +36,10 @@ import Help from "../../components/Help/Help";
 import { RxPlusCircled } from "react-icons/rx";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import { HiOutlineBell } from "react-icons/hi";
-import Cookies  from "js-cookie";
-import { 
-  SERVICES_METADATA, 
-  KYC_CATEGORIES 
+import Cookies from "js-cookie";
+import {
+  SERVICES_METADATA,
+  KYC_CATEGORIES
 } from "../../utils/KYCContext/servicesMetadata";
 
 import "./Dashboard.css";
@@ -67,14 +67,14 @@ const LucideIcons = {
 // Helper to group services by category for the sidebar
 const generateKycSidebarItems = () => {
   const groups = {};
-  
+
   // Group metadata by categoryId
   SERVICES_METADATA.forEach(service => {
     if (!groups[service.categoryId]) {
       groups[service.categoryId] = [];
     }
     groups[service.categoryId].push({
-      label: service.label,
+      label: service?.label,
       href: `/dashboard/KYC/${service.id}`,
       method: service.config.apiUrl.Method,
       type: "service"
@@ -84,7 +84,7 @@ const generateKycSidebarItems = () => {
   const kycCategories = Object.keys(groups).map(catId => {
     const category = KYC_CATEGORIES[catId];
     return {
-      label: category.label,
+      label: category?.label,
       type: "category",
       children: groups[catId]
     };
@@ -156,27 +156,27 @@ const sideDashboardConfig = [
         children: [
           {
             label: "Fetch Operators",
-            href: "/dashboard/Recharge/Operators",
+            href: "/dashboard/KYC/recharge_operators",
             method: "POST",
           },
           {
             label: "Fetch Plans",
-            href: "/dashboard/Recharge/Plans",
+            href: "/dashboard/KYC/recharge_plans",
             method: "POST",
           },
           {
             label: "Fetch Offers",
-            href: "/dashboard/Recharge/Offers",
+            href: "/dashboard/KYC/recharge_offers",
             method: "POST",
           },
           {
             label: "Recharge URL",
-            href: "/dashboard/Recharge/RecharUrl",
+            href: "/dashboard/KYC/recharge_recharge_url",
             method: "POST",
           },
           {
             label: "Old Plans",
-            href: "/dashboard/Recharge/OldPlans",
+            href: "/dashboard/KYC/recharge_old_plans",
             method: "POST",
           },
         ],
@@ -190,32 +190,32 @@ const sideDashboardConfig = [
         children: [
           {
             label: "Fetch Category",
-            href: "/dashboard/bbps/Category",
+            href: "/dashboard/KYC/bbps_category",
             method: "GET",
           },
           {
             label: "Fetch Biller Info",
-            href: "/dashboard/bbps/BillerInfo",
+            href: "/dashboard/KYC/bbps_biller_info",
             method: "GET",
           },
           {
             label: "Bill Fetch",
-            href: "/dashboard/bbps/BillFetch",
+            href: "/dashboard/KYC/bbps_bill_fetch",
             method: "GET",
           },
           {
             label: "Bill Pay",
-            href: "/dashboard/bbps/BillPay",
+            href: "/dashboard/KYC/bbps_bill_pay",
             method: "POST",
           },
           {
             label: "Bill Validation",
-            href: "/dashboard/bbps/BillValidation",
+            href: "/dashboard/KYC/bbps_bill_validation",
             method: "POST",
           },
           {
             label: "Quick Pay",
-            href: "/dashboard/bbps/QuickPay",
+            href: "/dashboard/KYC/bbps_quick_pay",
             method: "POST",
           },
         ],
@@ -339,9 +339,9 @@ export default function DashboardPage() {
           }}
         />
         {isLocked && (
-          <FlowpipeUnlockModal 
-            isVisible={isLocked} 
-            IsValidPIN={(status) => setIsLocked(!status)} 
+          <FlowpipeUnlockModal
+            isVisible={isLocked}
+            IsValidPIN={(status) => setIsLocked(!status)}
           />
         )}
       </div>
@@ -372,7 +372,6 @@ function Sidebar({ collapsed, onHelpClick }) {
 
   const toggleGroup = (groupLabel) => {
     setOpenGroups((prev) => ({
-      ...prev,
       [groupLabel]: !prev[groupLabel],
     }));
   };
@@ -380,63 +379,103 @@ function Sidebar({ collapsed, onHelpClick }) {
   const toggleSubGroup = (parentLabel, childLabel) => {
     const key = `${parentLabel}-${childLabel}`;
     setOpenSubGroups((prev) => ({
-      ...prev,
       [key]: !prev[key],
     }));
   };
 
   const toggleKycCategory = (catLabel) => {
     setOpenKycCategories((prev) => ({
-      ...prev,
       [catLabel]: !prev[catLabel],
     }));
   };
+
+  // ✅ Auto-expand sidebar when location changes (especially useful after search)
+  useEffect(() => {
+    // Only auto-expand if not currently searching (to avoid focus loss) 
+    // or if search was just cleared
+    if (search) return;
+
+    let expandedGroup = {};
+    let expandedSubGroup = {};
+    let expandedKycCat = {};
+
+    sideDashboardConfig?.forEach((group) => {
+      if (group?.type === "group") {
+        group?.children?.forEach((subgroup) => {
+          const subgroupKey = `${group?.label}-${subgroup?.label}`;
+          
+          subgroup?.children?.forEach((child) => {
+            // Case 1: Direct link in subgroup
+            if (child?.href === location?.pathname) {
+              expandedGroup[group?.label] = true;
+              expandedSubGroup[subgroupKey] = true;
+            }
+            
+            // Case 2: Link inside a Category (KYC nested structure)
+            if (child?.children) {
+              child?.children?.forEach((api) => {
+                if (api?.href === location?.pathname) {
+                  expandedGroup[group?.label] = true;
+                  expandedSubGroup[subgroupKey] = true;
+                  expandedKycCat[child?.label] = true;
+                }
+              });
+            }
+          });
+        });
+      }
+    });
+
+    if (Object.keys(expandedGroup).length > 0) setOpenGroups(expandedGroup);
+    if (Object.keys(expandedSubGroup).length > 0) setOpenSubGroups(expandedSubGroup);
+    if (Object.keys(expandedKycCat).length > 0) setOpenKycCategories(expandedKycCat);
+  }, [location?.pathname, search]);
 
   // ✅ Filter groups based on search
   const filteredConfig = search
     ? sideDashboardConfig
       .map((item) => {
-        if (item.type === "group") {
-          const filteredChildren = item.children
+        if (item?.type === "group") {
+          const filteredChildren = (item.children || [])
             .filter(
               (child) =>
-                child.label.toLowerCase().includes(search.toLowerCase()) ||
-                child.children?.some((subChild) =>
-                  subChild.label.toLowerCase().includes(search.toLowerCase()) ||
-                  subChild.children?.some((leaf) => 
-                    leaf.label.toLowerCase().includes(search.toLowerCase())
+                (child?.label || "").toLowerCase().includes(search.toLowerCase()) ||
+                child?.children?.some((subChild) =>
+                  (subChild?.label || "").toLowerCase().includes(search.toLowerCase()) ||
+                  subChild?.children?.some((leaf) =>
+                    (leaf?.label || "").toLowerCase().includes(search.toLowerCase())
                   )
                 ),
             )
             .map((child) => ({
               ...child,
               children:
-                child.children?.map(subChild => {
-                  if (subChild.children) {
-                     return {
-                       ...subChild,
-                       children: subChild.children.filter(leaf => 
-                        leaf.label.toLowerCase().includes(search.toLowerCase())
-                       )
-                     };
+                (child?.children || [])?.map(subChild => {
+                  if (subChild?.children) {
+                    return {
+                      ...subChild,
+                      children: subChild.children.filter(leaf =>
+                        (leaf?.label || "").toLowerCase().includes(search.toLowerCase())
+                      )
+                    };
                   }
                   return subChild;
-                }).filter(subChild => 
-                  subChild.label.toLowerCase().includes(search.toLowerCase()) || 
-                  (subChild.children && subChild.children.length > 0)
+                }).filter(subChild =>
+                  (subChild?.label || "").toLowerCase().includes(search.toLowerCase()) ||
+                  (subChild?.children && subChild.children.length > 0)
                 ) || [],
             }))
             .filter(
               (child) =>
-                child.children?.length > 0 ||
-                child.label.toLowerCase().includes(search.toLowerCase()),
+                (child?.children || [])?.length > 0 ||
+                (child?.label || "").toLowerCase().includes(search.toLowerCase()),
             );
 
           return filteredChildren.length > 0
             ? { ...item, children: filteredChildren }
             : null;
         }
-        return item.label.toLowerCase().includes(search.toLowerCase())
+        return (item?.label || "").toLowerCase().includes(search.toLowerCase())
           ? item
           : null;
       })
@@ -594,19 +633,19 @@ function Sidebar({ collapsed, onHelpClick }) {
                                   const isCatOpen = openKycCategories[child.label] || search;
                                   return (
                                     <li key={childIdx} className="category-dropdown-wrapper">
-                                      <button 
+                                      <button
                                         onClick={() => toggleKycCategory(child.label)}
                                         className="category-toggle-btn"
                                       >
                                         <div className="flex items-center gap-2">
-                                           <ChevronDown 
-                                            size={12} 
-                                            className={`transition-transform ${isCatOpen ? "rotate-180" : "-rotate-90"}`} 
-                                           />
-                                           <span>{child.label}</span>
+                                          <ChevronDown
+                                            size={12}
+                                            className={`transition-transform ${isCatOpen ? "rotate-180" : "-rotate-90"}`}
+                                          />
+                                          <span>{child.label}</span>
                                         </div>
                                       </button>
-                                      
+
                                       {isCatOpen && (
                                         <ul className="nested-endpoints">
                                           {child.children.map((api, apiIdx) => {
