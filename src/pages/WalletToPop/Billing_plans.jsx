@@ -36,8 +36,9 @@ const BillingPlans = () => {
     setError("");
     try {
       const res = await axios.get(
-        `${BASE_URL}/api/v1/apimodule/get-wallte-balance?clientId=${CLIENT_ID}`,
+        `${BASE_URL}apimodule/get-wallte-balance?clientId=${CLIENT_ID}`,
       );
+      
       if (res.data?.success) {
         setBalance(res.data?.data?.balance);
       } else {
@@ -384,7 +385,7 @@ const BillingPlans = () => {
                 <span className="BillingPlans_slider round"></span>
               </div>
             </div>
-            <p className="BillingPlans_card-sub">Add Money via UPI</p>
+            <p className="BillingPlans_card-sub">Add Money via UPIppp</p>
             <div className="BillingPlans_recharge-input-group">
               <div className="BillingPlans_input-wrapper">
                 <span className="BillingPlans_currency-img">

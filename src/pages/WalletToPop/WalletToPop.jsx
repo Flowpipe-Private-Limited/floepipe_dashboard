@@ -14,15 +14,17 @@ const WalletToPop = () => {
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
+  const BASE_URL = import.meta.env.REACT_APP_SUPPERADMIN_URL;
+
+
+
   const getWalletBalance = async () => {
+    console.log("entered into getwalletbalance")
     setLoading(true);
     setError("");
     try {
-      const res = await axios.get(
-        `${BASE_URL}/api/v1/apimodule/get-wallte-balance?clientId=${CLIENT_ID}`,
-      );
-      console.log("Wallet API Response:", res);
+      console.log("entered into getwalletbalance")
+      const res = await axios.get( `${BASE_URL}apimodule/get-wallte-balance?clientId=${CLIENT_ID}`,);
       console.log("Wallet API Response:", res.data);
 
       if (res.data?.success) {
@@ -37,6 +39,10 @@ const WalletToPop = () => {
       setLoading(false);
     }
   };
+
+
+
+
   useEffect(() => {
     getWalletBalance();
   }, []);
@@ -120,7 +126,7 @@ const WalletToPop = () => {
           </div>
 
           <div className="add-money-card">
-            <h3>Add Money via UPI</h3>
+            <h3>Add Money via UPIss</h3>
 
             <div className="upi-input-row">
               <div className="upi-icon-box">
