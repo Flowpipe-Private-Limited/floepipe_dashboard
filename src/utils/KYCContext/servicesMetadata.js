@@ -252,14 +252,14 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: { Method: 'Post', URLS: "client/business/Cin/verify", LiveUrl: `${KYC_BASE}/business/Cin/verify` },
       title: { header: "CIN Verification", headerTitle: "Verify Corporate Identification Number", submitButton: 'Verify CIN' },
-      inputParams: ["cin"],
+      inputParams: ["CIN"],
       isToken: true,
       isMicro: 'KYC',
       isDisable: false,
       exampleCurl: `curl --location '${KYC_BASE}/business/Cin/verify' \\
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
-        --data '{ "cin": "L01234MH2021PLC123456" }'`,
+        --data '{ "CIN": "L01234MH2021PLC123456" }'`,
       exampleResponse: apiExamples.find(e => e.name === "CIN")?.examples[0]?.message || {}
     }
   },
@@ -297,6 +297,42 @@ export const SERVICES_METADATA = [
           --header 'secret_token: {{secret_token}}' \\
           --data '{ "iecNumber": "0123456789" }'`,
       exampleResponse: apiExamples.find(e => e.name === "IEC")?.examples[0]?.message || {} // dummy
+    }
+  },
+  {
+    id: "cinbased_companysearch",
+    categoryId: "BUSINESS_COMPANY",
+    label: "CIN Based Company Search",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/business/cinbased/company/search", LiveUrl: `${KYC_BASE}/business/cinbased/company/search` },
+      title: { header: "CIN Based Company Search", headerTitle: "CIN Based Company Search", submitButton: 'Search company' },
+      inputParams: ["CompanyName"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/business/cinbased/company/search' \\
+          --header 'Content-Type: application/json' \\
+          --header 'secret_token: {{secret_token}}' \\
+          --data '{ "CompanyName": "XYZ PVT LIT" }'`,
+      exampleResponse: apiExamples.find(e => e.name === "CINBASECOMPANYSEARCH")?.examples[0]?.message || {} // dummy
+    }
+  },
+  {
+    id: "company_search",
+    categoryId: "BUSINESS_COMPANY",
+    label: "Company Search",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/business/cinbased/company/search", LiveUrl: `${KYC_BASE}/business/cinbased/company/search` },
+      title: { header: "Company Search", headerTitle: "CIN Based Company Search", submitButton: 'Search company' },
+      inputParams: ["CompanyName"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/business/cinbased/company/search' \\
+          --header 'Content-Type: application/json' \\
+          --header 'secret_token: {{secret_token}}' \\
+          --data '{ "CompanyName": "XYZ PVT LIT" }'`,
+      exampleResponse: apiExamples.find(e => e.name === "CINBASECOMPANYSEARCH")?.examples[0]?.message || {} // dummy
     }
   },
 

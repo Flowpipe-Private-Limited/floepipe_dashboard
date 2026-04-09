@@ -66,6 +66,8 @@ const AppRoute = () => {
           <Route path="APILogsDetail" element={<APILogs_expandtable />} />
           <Route path="WhitelistIP" element={<WhiteListIP />} />
           <Route path="KYC/:serviceId" element={<KYCServicePage />} />
+          <Route path="Recharge/:serviceId" element={<KYCServicePage />} />
+          <Route path="BBPS/:serviceId" element={<KYCServicePage />} />
           <Route path="WalletToPop" element={<WalletToPop />} />
         </Route>
       </Routes>

@@ -1,13 +1,13 @@
-import { VerifyIPIN } from "../../utils/Apis/api";
+import { VerifyFPIN } from "../../utils/Apis/api";
 import { EncryptedApirequestHandler } from "../../utils/Apis/apiRequestHandler"
 
 
-export const HandleVerifyIPIN = async(data)=>{
-    if(!data?.IPIN){
+export const HandleVerifyFPIN = async(data)=>{
+    if(!data?.FPIN){
         return false;
     }
     await EncryptedApirequestHandler(
-        async()=> await VerifyIPIN(data),
+        async()=> await VerifyFPIN(data),
         null,
         (res)=>{
             const {success} = res;

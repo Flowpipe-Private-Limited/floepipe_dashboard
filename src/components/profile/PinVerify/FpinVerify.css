@@ -1,5 +1,5 @@
 /* Modal Overlay */
-.ipin-overlay {
+.fpin-overlay {
     position: fixed;
     inset: 0;
     z-index: 50;
@@ -12,7 +12,7 @@
 }
 
 /* Modal Content */
-.ipin-modal {
+.fpin-modal {
     background-color: var(--white);
     padding: 2rem;
     border-radius: 0.75rem;
@@ -24,7 +24,7 @@
 }
 
 /* Close Button */
-.ipin-close-btn {
+.fpin-close-btn {
     position: absolute;
     top: 0.75rem;
     right: 0.75rem;
@@ -37,7 +37,7 @@
     padding: 0;
 }
 
-.ipin-close-btn:hover {
+.fpin-close-btn:hover {
     color: var(--gray-400);
 }
 
@@ -47,12 +47,12 @@
 }
 
 /* Header Section */
-.ipin-header {
+.fpin-header {
     text-align: center;
     margin-bottom: 1.5rem;
 }
 
-.ipin-logo-container {
+.fpin-logo-container {
     width: 4rem;
     height: 4rem;
     background-color: #1f2937;
@@ -65,13 +65,13 @@
     overflow: hidden;
 }
 
-.ipin-logo {
+.fpin-logo {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.ipin-greeting {
+.fpin-greeting {
     font-size: 1.25rem;
     font-weight: 600;
     color: #1f2937;
@@ -80,7 +80,7 @@
     margin-top: 0;
 }
 
-.ipin-subtext {
+.fpin-subtext {
     font-size: 0.875rem;
     color: var(--black-100);
     /* gray-500 */
@@ -89,24 +89,24 @@
 }
 
 /* PIN Input Section */
-.ipin-input-section {
+.fpin-input-section {
     margin-bottom: 1rem;
 }
 
-.ipin-instruction {
+.fpin-instruction {
     text-align: center;
     font-size: 0.875rem;
     color: var(--gray-400);
     margin-bottom: 0.75rem;
 }
 
-.ipin-inputs {
+.fpin-inputs {
     display: flex;
     justify-content: center;
     gap: 0.75rem;
 }
 
-.ipin-digit-input {
+.fpin-digit-input {
     width: 3rem;
     height: 3.5rem;
     text-align: center;
@@ -123,18 +123,18 @@
     justify-content: center;
 }
 
-.ipin-digit-input:focus {
+.fpin-digit-input:focus {
     outline: none;
     border-color: #9333ea;
     /* purple-600 */
     box-shadow: 0 0 0 1px #9333ea;
 }
 
-.ipin-digit-input.error {
+.fpin-digit-input.error {
     border-color: var(--red-200);
 }
 
-.ipin-error-msg {
+.fpin-error-msg {
     color: var(--red-200);
     font-size: 0.875rem;
     text-align: center;
@@ -142,7 +142,7 @@
 }
 
 /* Unlock Button */
-.ipin-unlock-btn {
+.fpin-unlock-btn {
     width: 100%;
     padding: 0.75rem 0;
     border-radius: 0.5rem;
@@ -156,17 +156,17 @@
     cursor: pointer;
 }
 
-.ipin-unlock-btn.active {
+.fpin-unlock-btn.active {
     background-color: #9333ea;
     /* purple-600 */
 }
 
-.ipin-unlock-btn.active:hover {
+.fpin-unlock-btn.active:hover {
     background-color: #7e22ce;
     /* purple-700 */
 }
 
-.ipin-unlock-btn:disabled {
+.fpin-unlock-btn:disabled {
     background-color: #c084fc;
     /* purple-400 equivalentish */
     cursor: not-allowed;
@@ -201,7 +201,7 @@
 }
 
 /* Separator */
-.ipin-separator {
+.fpin-separator {
     display: flex;
     align-items: center;
     margin: 1.5rem 0;
@@ -222,7 +222,7 @@
 }
 
 /* OTP Button */
-.ipin-otp-btn {
+.fpin-otp-btn {
     width: 100%;
     padding: 0.75rem 0;
     color: #374151;
@@ -234,12 +234,12 @@
     transition: color 0.15s;
 }
 
-.ipin-otp-btn:hover {
+.fpin-otp-btn:hover {
     color: #9333ea;
     /* purple-600 */
 }
 
-.ipin-otp-btn:disabled {
+.fpin-otp-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }

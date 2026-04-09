@@ -44,7 +44,7 @@ import {
 
 import "./Dashboard.css";
 import Logout from "../../components/Logout/Logout";
-import FlowpipeUnlockModal from "../../components/profile/PinVerify/IpinVerify";
+import FlowpipeUnlockModal from "../../components/profile/PinVerify/FpinVerify";
 
 const LucideIcons = {
   FileText,
@@ -156,27 +156,27 @@ const sideDashboardConfig = [
         children: [
           {
             label: "Fetch Operators",
-            href: "/dashboard/KYC/recharge_operators",
+            href: "/dashboard/Recharge/recharge_operators",
             method: "POST",
           },
           {
             label: "Fetch Plans",
-            href: "/dashboard/KYC/recharge_plans",
+            href: "/dashboard/Recharge/recharge_plans",
             method: "POST",
           },
           {
             label: "Fetch Offers",
-            href: "/dashboard/KYC/recharge_offers",
+            href: "/dashboard/Recharge/recharge_offers",
             method: "POST",
           },
           {
             label: "Recharge URL",
-            href: "/dashboard/KYC/recharge_recharge_url",
+            href: "/dashboard/Recharge/recharge_recharge_url",
             method: "POST",
           },
           {
             label: "Old Plans",
-            href: "/dashboard/KYC/recharge_old_plans",
+            href: "/dashboard/Recharge/recharge_old_plans",
             method: "POST",
           },
         ],
@@ -190,32 +190,32 @@ const sideDashboardConfig = [
         children: [
           {
             label: "Fetch Category",
-            href: "/dashboard/KYC/bbps_category",
+            href: "/dashboard/BBPS/bbps_category",
             method: "GET",
           },
           {
             label: "Fetch Biller Info",
-            href: "/dashboard/KYC/bbps_biller_info",
+            href: "/dashboard/BBPS/bbps_biller_info",
             method: "GET",
           },
           {
             label: "Bill Fetch",
-            href: "/dashboard/KYC/bbps_bill_fetch",
+            href: "/dashboard/BBPS/bbps_bill_fetch",
             method: "GET",
           },
           {
             label: "Bill Pay",
-            href: "/dashboard/KYC/bbps_bill_pay",
+            href: "/dashboard/BBPS/bbps_bill_pay",
             method: "POST",
           },
           {
             label: "Bill Validation",
-            href: "/dashboard/KYC/bbps_bill_validation",
+            href: "/dashboard/BBPS/bbps_bill_validation",
             method: "POST",
           },
           {
             label: "Quick Pay",
-            href: "/dashboard/KYC/bbps_quick_pay",
+            href: "/dashboard/BBPS/bbps_quick_pay",
             method: "POST",
           },
         ],

@@ -132,8 +132,8 @@
   top: 36.5rem;
 }
 
-/* ipin css */
-.login-card-ipin {
+/* fpin css */
+.login-card-fpin {
   gap: 1rem;
   position: relative;
   width: 100%;
@@ -148,19 +148,19 @@
     inset 0 2px 12px rgba(38, 38, 38, 0.25),
     0 25px 50px -12px rgba(0, 0, 0, 0.45);
 }
-.ipin-padding-section {
+.fpin-padding-section {
   padding: 0rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.ipin-arrow {
+.fpin-arrow {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.3rem;
 }
-.login-card-ipin::before {
+.login-card-fpin::before {
   content: "";
   position: absolute;
   inset: -2px;
@@ -196,14 +196,14 @@
     --angle: 360deg;
   }
 }
-.ipin-subtext {
+.fpin-subtext {
   text-align: left;
   color: var(--white);
   font-size: 0.65rem;
   font-weight: lighter;
   font-family: "figtree", sans-serif;
 }
-.login-title-pin {
+.login-title-fpin {
   text-align: left;
   color: var(--white);
   font-size: 1.2rem;
@@ -211,21 +211,21 @@
 }
 /* ================= PIN INPUT ================= */
 
-.ipin-section {
+.fpin-section {
 }
 
-.ipin-label {
+.fpin-label {
   color: var(--white);
   font-size: 0.85rem;
   margin-bottom: 0.6rem;
 }
 
-.ipin-box-wrapper {
+.fpin-box-wrapper {
   display: flex;
   gap: 0.8rem;
 }
 
-.ipin-box {
+.fpin-box {
     width: 4rem;
     height: 4.2rem;
   border-radius: 8px;
@@ -237,7 +237,7 @@
   outline: none;
 }
 
-.ipin-box:focus {
+.fpin-box:focus {
   border-color: var(--purple-main);
   box-shadow: 0 0 0 1px #26000000;
 }

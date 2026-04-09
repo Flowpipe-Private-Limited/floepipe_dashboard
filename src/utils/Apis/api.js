@@ -124,9 +124,10 @@ const HandleFetchIP = (clientId) => supperApiClient.get(`client/Get/whitelist/cl
 const HandleDeleteIP = (data) => supperApiClient.post(`client/delete/whitelist/clientIp`, data);
 const HandleDeleteKey = (data) => supperApiClient.post(`client/delete/clientKeys`, data);
 
+const VerifyFPIN = (data) => supperApiClient.post('Client/verify-fpin', data);
+
 const SubscribeService = (payload) => supperApiClient.post("/apimodule/subscribe-service", payload);
 const getAllCategoriesService = () => supperApiClient.get("/apimodule/get-all-category");
-const VerifyIPIN = (data) => supperApiClient.post('Client/Verify/ipin', data);
 
 const getServicesByCategoryService = (categoryId) =>
   supperApiClient.get("/apimodule/service-config", {
@@ -192,7 +193,7 @@ export {
   HandleGetUser,
   UpdatedUserDetails,
 
-  VerifyIPIN,
+  VerifyFPIN,
 
   HandleGetOtp,
   HandleVerifyOtp,
