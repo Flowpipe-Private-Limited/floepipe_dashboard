@@ -98,7 +98,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
                 null,
                 (res) => {
                     if (res?.success) {
-                        // Successful unlock: Hide the modal, clear store lock, and continue flow
+                        // Successful unlock: Hide the modal, clear store lock, and continue flow test the commit
                         setIsLocked(false);
                         if (onClose) onClose();
                         if (IsValidPIN) IsValidPIN(true);
