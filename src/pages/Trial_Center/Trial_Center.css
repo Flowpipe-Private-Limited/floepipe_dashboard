@@ -22,7 +22,7 @@
 .Trail-products-subtitle {
   font-size: 0.9rem;
   color: var(--gray-200);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 /* ================= Dropdown ================= */
@@ -80,7 +80,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.85rem;
-    font-family: "JetBrainsMono";
+    font-family: "Konnect";
 }
 
 .Trail-product-card {
@@ -179,7 +179,7 @@
   cursor: pointer;
   background: transparent;
   transition: all 0.2s;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .Trail-action-btn.subscribed {

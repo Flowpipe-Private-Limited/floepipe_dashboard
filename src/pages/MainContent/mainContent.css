@@ -27,7 +27,7 @@
 
 .hello-main-text {
   color: var(--black);
-  font-size: 1.5rem;
+  font-size: var(--medium-heading);
   text-align: left;
   font-weight: 600;
 }
@@ -35,21 +35,28 @@
 /* ===== TOP GRID ===== */
 .dashboard-top {
   display: grid;
-  grid-template-columns: 2.28fr 1fr;
+  grid-template-columns: 2.28fr 0.78fr;
   gap: 20px;
 }
 
 .section-title-mc {
-  font-size: 22px;
+  font-size: var(--main-heading);
   font-weight: 600;
   color: var(--black);
-  margin-bottom: -10px;
+  margin-bottom:10px;
+}
+
+.quick-actions-bg{
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: var(--border-radius-12);
+
 }
 
 .quick-action-main {
   display: grid;
-  grid-template-columns: 2.3fr 1fr;
-  gap: 20px;
+  grid-template-columns: 2.3fr;
 }
 
 .quick-action-column {
@@ -65,7 +72,7 @@
   gap: 20px;
 }
 
-.quick-card-decor {
+/* .quick-card-decor {
   position: absolute;
   top: -27px;
   right: -22px;
@@ -75,7 +82,7 @@
   border-radius: 55%;
   pointer-events: none;
   z-index: 0;
-}
+} */
 
 .quick-action-rightsection {
   display: flex;
@@ -93,7 +100,7 @@
   border-radius: 16px;
   padding: 24px;
   color: var(--white);
-  height: 215px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -106,10 +113,6 @@
   display: flex;
   flex-direction: row;
   gap: 12px;
-  background: var(--white);
-  padding: 0.8rem;
-  border-radius: 8px;
-  border: 1px solid var(--black-500);
 }
 
 .wallet-top-check {
@@ -120,6 +123,39 @@
 
 .wallet-sun-icon {
   width: 13%;
+}
+
+.stat-card-decor-overview {
+  position: absolute;
+  bottom: 0.8rem;
+  right: 2px;
+  width: 150px;
+  height: 85px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stat-card-decor-quickactions {
+  position: absolute;
+  bottom: 3.6rem;
+  right: 2px;
+  width: 150px;
+  height: 85px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stat-card-decor-panlite{
+    position: absolute;
+  bottom: 2.7rem;
+  right: 2px;
+  width: 150px;
+  height: 85px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .wallet-middle {
@@ -139,14 +175,14 @@
 }
 
 .wallet-eye-icon {
-  font-size: 18px;
+  font-size: var(--medium-heading);
   opacity: 0.6;
   cursor: pointer;
 }
 
 .wallet-actions {
   display: flex;
-  font-size: 12px;
+  font-size: var(--small-text);
   opacity: 0.95;
   margin-top: auto;
   justify-content: space-between;
@@ -164,7 +200,7 @@
   gap: 6px;
   cursor: pointer;
   font-weight: 300;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
   width: 100%;
 }
 
@@ -174,7 +210,7 @@
   gap: 2px;
   cursor: pointer;
   font-weight: 300;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
   width: 100%;
   justify-content: flex-end;
 }
@@ -183,7 +219,7 @@
   font-size: 11px;
   text-transform: uppercase;
   opacity: 0.7;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
   font-weight: 200;
   letter-spacing: 0.5rem;
 }
@@ -202,10 +238,10 @@
   border-radius: 8px;
   padding: 10px;
   height: 100px;
-  border: 1px solid #eef0f6;
+  border: 1px solid var(--border);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   position: relative;
@@ -225,15 +261,29 @@
 
 .stat-card .outline-btn.small {
   padding: 4px 10px;
-  font-size: 10px;
+  font-size: var(--small-text-10);
   height: auto;
-  width: 95px;
+  width: 130px;
 }
 
 .star-card-boxes-maincon {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+}
+
+.head-sub-one{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-stat-card{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .quick-icon-grid-main {
@@ -247,28 +297,35 @@
 }
 
 .stat-title {
-  font-size: 10px;
+  font-size: var(----below-medium-heading);
   color: var(--black-100);
   margin-bottom: 4px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .stat-value {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   font-weight: 700;
   color: var(--black);
 }
 
 .stat-sub {
-  font-size: 12px;
-  color: #9ca3af;
+  font-size: var(--small-text);
+  color: var(--black-100);
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  width: 100%;
+    display: flex;
+  align-items: center;
+  gap: 3px;
 }
 
 /* ===== BUTTON ===== */
 .outline-btn {
   padding: 6px 12px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: var(--small-text);
   border: 1px solid var(--black-100);
   background: transparent;
   color: var(--black-100);
@@ -306,14 +363,14 @@
 }
 
 .promo-content h3 {
-  font-size: 20px;
+  font-size: var(--main-heading);
   font-weight: 700;
   line-height: 1.4;
   font-weight: 500;
 }
 
 .promo-sub {
-  font-size: 12px;
+  font-size: var(--small-text);
   margin-bottom: 12px;
   margin-top: auto;
 }
@@ -329,7 +386,7 @@
 
 /* ===== QUICK ACTIONS ===== */
 .section-title {
-  font-size: 22px;
+  font-size: var(--large-heading);
   font-weight: 600;
   color: var(--black);
 }
@@ -356,7 +413,6 @@
   transition: all 0.2s ease;
   cursor: pointer;
   position: relative;
-  /* Make sure the card is positioned relative */
   overflow: hidden;
 }
 
@@ -371,15 +427,37 @@
   align-items: center;
 }
 
+.graph-border-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+
+}
+
 .quick-icon-litepur {
   background: var(--purple-200);
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  margin-bottom: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.length-border-main{
+  border: 1px solid var(--purple-main);
+  width: 35%;
+  height: auto;
+  padding: 0.2rem;
+  border-radius: var(--border-radius-12);
+  color: var(--purple-main);
+  font-size: var(--small-text-10);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .quick-icon-litepur img {
@@ -395,16 +473,14 @@
 }
 
 .quick-card h4 {
-  font-size: 14px;
+  font-size: var(--normal-text);
   font-weight: 600;
-  color: var(--black-300);
-  font-family: "JetBrainsMono";
+  color: var(--black-100);
 }
 
 .quick-card p {
-  font-size: 10px;
-  color: var(--gray-100);
-  font-family: "JetBrainsMono";
+  font-size: var(--small-text-10);
+  color: var(--black-100);
 }
 
 .quick-card.second-row {
@@ -415,24 +491,24 @@
 }
 
 .quick-card-label-sm {
-  font-size: 10px;
+  font-size: var(--small-text) !important;
   color: var(--black-100);
   font-weight: 600;
   margin-bottom: 4px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .quick-card-val-lg {
-  font-size: 20px;
+  font-size: var(--main-heading);
   font-weight: 700;
-  color: var(--black);
+  color: var(--black) !important;
 }
 
 .quick-link-badge {
   display: inline-block;
   padding: 4px 10px;
   border-radius: 20px;
-  font-size: 10px;
+  font-size: var(--small-text-10);
   font-weight: 600;
   border: 1px solid #d8b4fe;
   color: var(--purple-main);
@@ -440,7 +516,7 @@
 }
 
 .quick-link {
-  font-size: 12px;
+  font-size: var(--small-text);
   color: var(--purple-main);
   font-weight: 600;
   display: block;
@@ -467,7 +543,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  max-height: 39.6vh;
+  max-height: 70.6vh;
   overflow: auto;
 }
 
@@ -479,15 +555,15 @@
   margin-bottom: 12px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--gray-300);
-  flex-shrink: 0; 
-  font-family: "JetBrainsMono";
+  flex-shrink: 0;
+  font-family: "Konnect";
 }
 
 .recent-activity-title {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--medium-heading);
+  font-weight: 700;
   color: var(--black);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .recent-activity-bell {
@@ -518,9 +594,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  /* Reduced from 14px */
   padding: 8px 0;
-  /* Slightly increased vertical breathing room for separate items, but overall smaller header makes it smaller */
   border-top: 1px solid #f3f4f6;
 }
 
@@ -537,7 +611,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   flex-shrink: 0;
 }
 
@@ -562,24 +636,22 @@
 }
 
 .activity-title {
-  font-size: 13px;
+  font-size: var(--normal-text);
   /* Reduced from 16px */
   font-weight: 600;
   color: var(--black-400);
-  font-family: "JetBrainsMono";
 }
 
 .activity-subtitle {
-  font-size: 11px;
+  font-size: var(--small-text);
   /* Reduced from 14px */
   color: var(--gray-200);
   margin-top: 2px;
-  font-family: "JetBrainsMono";
 }
 
 /* Time */
 .activity-time {
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--black-100);
   white-space: nowrap;
 }
@@ -619,7 +691,7 @@
 }
 
 .chart-header h3 {
-  font-size: 24px;
+  font-size: var(--main-heading);
   font-weight: 600;
   color: var(--black);
 }
@@ -636,23 +708,23 @@
 .control-group {
   display: flex;
   flex-direction: column;
-  width: 32%;
+  width: 35%;
 }
 
 .control-group label {
-  font-size: 10px;
+  font-size: var(--small-text-10);
   font-weight: 600;
   color: var(--black-100);
   margin-bottom: 2px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .control-group select {
   border: 1px solid var(--gray-300);
   border-radius: 6px;
-  padding: 8px;
-  font-size: 12px;
-  color: #374151;
+  padding: 12px;
+  font-size: var(--normal-text);
+  color: var(--black);
   outline: none;
   background-color: var(--white);
   min-width: 120px;
@@ -673,7 +745,7 @@
   background: transparent;
   padding: 5px 25px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: var(--small-text);
   cursor: pointer;
   color: var(--black-100);
   font-weight: 500;
@@ -773,10 +845,10 @@
 }
 
 .pan-card-header h4 {
-  font-size: 14px;
+  font-size: var(--normal-text);
   font-weight: 600;
   color: var(--black);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .pan-card-header span {
@@ -799,26 +871,24 @@
 }
 
 .stat-val {
-  font-size: 14px;
+  font-size: var(--normal-text);
   font-weight: 700;
-  color: #1f2937;
-  font-family: "JetBrainsMono";
+  color: var(--black);
+  font-family: "Konnect";
 }
 
 .stat-lbl {
-  font-size: 10px;
-  color: #9ca3af;
+  font-size: var(--small-text-10);
+  color: var(--black-100);
   margin-top: 2px;
-  font-family: "JetBrainsMono";
 }
 
 /* --- TABLES --- */
 .transactions-table-card {
   background: var(--white);
   border-radius: 8px;
-  padding: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  border: 1px solid #f3f4f6;
+  border: 1px solid var(--border);
 }
 
 .apps-running-card {
@@ -826,7 +896,7 @@
   border-radius: 8px;
   padding: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  border: 1px solid #f3f4f6;
+  border: 1px solid var(--border);
   height: 260px;
 }
 
@@ -835,11 +905,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  padding: 1rem 1rem 0rem;
 }
 
 .table-header-row h3,
 .apps-running-card h3 {
-  font-size: 24px;
+  font-size: var(--main-heading);
   font-weight: 600;
   color: var(--black);
 }
@@ -862,9 +933,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: var(--small-text);
   font-weight: 600;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .switch-track {
@@ -887,26 +958,26 @@
   background: var(--white);
   border-radius: 50%;
   transform: translateX(0);
-  /* Default position */
   transition: transform 0.3s ease;
 }
 
 .switch-track.active .switch-thumb {
   transform: translateX(16px);
-  /* Move to the right */
 }
 
 .toggle-switch .trail-color {
   cursor: pointer;
-  color: #9ca3af;
-  /* Default inactive color */
+  color: var(--black);
   transition: color 0.3s ease;
+  font-weight: 500;
+  font-size: var(--normal-text);
 }
 
 .toggle-switch .trail-color.active-text {
   color: var(--black);
-  /* Active color */
-  font-weight: 700;
+  font-weight: 500;
+  font-size: var(--normal-text);
+
 }
 
 .empty-state-container {
@@ -927,17 +998,16 @@
 }
 
 .empty-state-container h4 {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   font-weight: 600;
   color: var(--black);
   margin-bottom: 0.5rem;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .empty-state-container p {
-  font-size: 12px;
-  color: #9ca3af;
-  font-family: "JetBrainsMono";
+  font-size: var(--small-text);
+  color: var(--black-100);
 }
 
 .control-group-sm {
@@ -949,23 +1019,23 @@
   border: 1px solid var(--black-1100);
   border-radius: 6px;
   padding: 0.5rem;
-  font-size: 12px;
+  font-size: var(--small-text);
   color: var(--black);
   width: 150px;
 }
 
 .control-group p {
-  color: var(--black);
-  font-family: "JetBrainsMono";
-  font-size: 14px;
+  color: var(--black-100);
+  font-size: var(--normal-text);
   margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 .duration-p {
-  font-size: 14px;
-  color: var(--black);
-  font-family: "JetBrainsMono";
-  margin-bottom: 0.6rem;
+  font-size: var(--normal-text);
+  color: var(--black-100);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 .table-wrapper-main {
@@ -975,21 +1045,26 @@
 .custom-table-main {
   width: 100%;
   border-collapse: collapse;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .custom-table-main th {
+  padding: 1rem;
   text-align: left;
-  font-size: 14px;
-  color: var(--black-100);
+  font-size: var(--normal-text);
+  color: var(--gray-500);
   font-weight: 700;
   padding-bottom: 12px;
+  background-color: var(--white-100);
+  padding: 0.8rem;
+  font-weight: 'Konnect';
+  text-transform: uppercase;
 }
 
 .custom-table-main td {
-  padding: 1rem 0px;
-  font-size: 14px;
-  color: var(--black);
+  padding: 1rem;
+  font-size: var(--normal-text);
+  color: var(--black-100);
   border-bottom: 1px solid var(--black-500);
   font-family: "Figtree";
 }
@@ -1045,7 +1120,7 @@
   }
 
   .wallet-dots {
-    font-size: 24px;
+    font-size: var(--large-heading);
   }
 
   .wallet-sun-icon {
@@ -1075,11 +1150,11 @@
   }
 
   .promo-content h3 {
-    font-size: 16px;
+    font-size: var(--below-medium-heading);
   }
 
   .section-title-mc {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .quick-action-main {
@@ -1108,15 +1183,15 @@
   }
 
   .recent-activity-title {
-    font-size: 14px;
+    font-size: var(--normal-text);
   }
 
   .activity-title {
-    font-size: 12px;
+    font-size: var(--small-text);
   }
 
   .activity-subtitle {
-    font-size: 10px;
+    font-size: var(--small-text-10);
   }
 
   .activity-time {
@@ -1143,7 +1218,7 @@
   }
 
   .chart-header h3 {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .chart-controls {
@@ -1189,7 +1264,7 @@
 
   .table-header-row h3,
   .apps-running-card h3 {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .table-controls {
@@ -1205,12 +1280,12 @@
 
   .custom-table-main th,
   .custom-table-main td {
-    font-size: 12px;
+    font-size: var(--small-text);
     padding: 0.75rem 0;
   }
 
   .duration-p {
-    font-size: 12px;
+    font-size: var(--small-text);
     margin-bottom: 0.4rem;
   }
 }
@@ -1271,11 +1346,11 @@
   }
 
   .promo-content h3 {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .section-title-mc {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .quick-action-main {
@@ -1307,7 +1382,7 @@
   }
 
   .chart-header h3 {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .chart-controls {
@@ -1334,7 +1409,7 @@
 
   .table-header-row h3,
   .apps-running-card h3 {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .table-controls {
@@ -1347,7 +1422,7 @@
 
   .custom-table-main th,
   .custom-table-main td {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 }
 
@@ -1383,7 +1458,7 @@
   }
 
   .wallet-dots {
-    font-size: 24px;
+    font-size: var(--large-heading);
   }
 
   .wallet-sun-icon {
@@ -1412,11 +1487,11 @@
   }
 
   .promo-content h3 {
-    font-size: 16px;
+    font-size: var(--below-medium-heading);
   }
 
   .section-title-mc {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .quick-action-main {
@@ -1446,15 +1521,15 @@
   }
 
   .recent-activity-title {
-    font-size: 14px;
+    font-size: var(--normal-text);
   }
 
   .activity-title {
-    font-size: 12px;
+    font-size: var(--small-text);
   }
 
   .activity-subtitle {
-    font-size: 10px;
+    font-size: var(--small-text-10);
   }
 
   .activity-time {
@@ -1480,7 +1555,7 @@
   }
 
   .chart-header h3 {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .chart-controls {
@@ -1526,7 +1601,7 @@
 
   .table-header-row h3,
   .apps-running-card h3 {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .table-controls {
@@ -1542,12 +1617,12 @@
 
   .custom-table-main th,
   .custom-table-main td {
-    font-size: 12px;
+    font-size: var(--small-text);
     padding: 0.75rem 0;
   }
 
   .duration-p {
-    font-size: 12px;
+    font-size: var(--small-text);
     margin-bottom: 0.4rem;
   }
 }
@@ -1584,7 +1659,7 @@
   }
 
   .wallet-dots {
-    font-size: 24px;
+    font-size: var(--large-heading);
   }
 
   .wallet-sun-icon {
@@ -1614,11 +1689,11 @@
   }
 
   .promo-content h3 {
-    font-size: 16px;
+    font-size: var(--below-medium-heading);
   }
 
   .section-title-mc {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .quick-action-main {
@@ -1647,15 +1722,15 @@
   }
 
   .recent-activity-title {
-    font-size: 14px;
+    font-size: var(--normal-text);
   }
 
   .activity-title {
-    font-size: 12px;
+    font-size: var(--small-text);
   }
 
   .activity-subtitle {
-    font-size: 10px;
+    font-size: var(--small-text-10);
   }
 
   .activity-time {
@@ -1682,7 +1757,7 @@
   }
 
   .chart-header h3 {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .chart-controls {
@@ -1728,7 +1803,7 @@
 
   .table-header-row h3,
   .apps-running-card h3 {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .table-controls {
@@ -1744,12 +1819,12 @@
 
   .custom-table-main th,
   .custom-table-main td {
-    font-size: 12px;
+    font-size: var(--small-text);
     padding: 0.75rem 0;
   }
 
   .duration-p {
-    font-size: 12px;
+    font-size: var(--small-text);
     margin-bottom: 0.4rem;
   }
 }
@@ -1783,12 +1858,12 @@
 }
 @media (min-width: 1541px) {
   .stat-title {
-    font-size: 14px;
+    font-size: var(--normal-text);
     color: var(--black-100);
     margin-bottom: 4px;
-    font-family: "JetBrainsMono";
+    font-family: "Konnect";
   }
-  .recent-activity-card{
+  .recent-activity-card {
     background: var(--white);
     border-radius: 8px;
     padding: 16px;
@@ -1799,5 +1874,5 @@
     flex-direction: column;
     max-height: 32.7vh;
     overflow: auto;
-}
+  }
 }

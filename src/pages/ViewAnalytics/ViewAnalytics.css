@@ -26,9 +26,9 @@
 }
 
 .analytics-header p {
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--gray-200);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .header-actions {
@@ -49,7 +49,7 @@
   padding: 4px 16px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--gray-200);
   transition: all 0.2s;
   display: flex;
@@ -61,7 +61,7 @@
   background: var(--white);
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--normal-text);
   transition: all 0.2s;
   display: flex;
   flex-direction: row;
@@ -84,9 +84,9 @@
   color: var(--white);
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--normal-text);
   transition: all 0.2s;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .metrics-row {
@@ -94,7 +94,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   margin-bottom: 24px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .metric-card {
@@ -105,20 +105,19 @@
 }
 
 .metric-label {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   color: var(--gray-200);
   margin-bottom: 8px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .metric-value {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   font-weight: 600;
   color: var(--black);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
-/* Charts Grid */
 .charts-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -149,26 +148,26 @@
 }
 
 .chart-header-analytics h3 {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   font-weight: 600;
   color: var(--black);
   margin-bottom: 8px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 .lasthours {
   color: var(--gray-100);
 }
 
 .chart-subtitle {
-  font-size: 24px;
+  font-size: var(--large-heading);
   font-weight: 600;
   color: var(--black-100);
   text-align: end;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .trend-text {
-  font-size: 13px;
+  font-size: var(--small-text);
   color: var(--green-200);
   font-weight: 400;
 }
@@ -209,12 +208,12 @@
 
 .legend-label {
   flex: 1;
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--black);
 }
 
 .legend-value {
-  font-size: 14px;
+  font-size: var(--normal-text);
   font-weight: 600;
   color: var(--black);
 }
@@ -239,7 +238,7 @@
 }
 
 .legend-label-horizontal {
-  font-size: 13px;
+  font-size: var(--small-text);
   color: var(--black);
 }
 
@@ -261,11 +260,11 @@
 }
 
 .endpoint-path {
-  font-size: 13px;
+  font-size: var(--small-text);
   color: var(--black);
   display: block;
   margin-bottom: 6px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .endpoint-bar {
@@ -283,7 +282,7 @@
 }
 
 .endpoint-count {
-  font-size: 14px;
+  font-size: var(--normal-text);
   font-weight: 600;
   color: var(--black);
   min-width: 50px;
@@ -327,7 +326,7 @@
   }
 
   .metric-value {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .chart-card {
@@ -342,7 +341,7 @@
 
 @media screen and (max-width: 480px) {
   .analytics-header h1 {
-    font-size: 22px;
+    font-size: var(--large-heading);
   }
 
   .metrics-row {
@@ -361,6 +360,6 @@
   }
 
   .chart-subtitle {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 }

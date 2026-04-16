@@ -313,7 +313,11 @@ export default function DashboardPage() {
         onClick={() => setCollapsed(true)}
       />
 
-      <Sidebar collapsed={collapsed} onHelpClick={() => setShowHelp(true)} />
+      <Sidebar 
+        collapsed={collapsed} 
+        data={users} 
+        onHelpClick={() => setShowHelp(true)} 
+      />
       <div className="flex-1 flex flex-col relative w-full overflow-hidden">
         <Header
           onToggle={() => setCollapsed(!collapsed)}
@@ -349,7 +353,7 @@ export default function DashboardPage() {
   );
 }
 
-function Sidebar({ collapsed, onHelpClick }) {
+function Sidebar({ collapsed, data, onHelpClick }) {
   const [search, setSearch] = useState("");
   const [openGroups, setOpenGroups] = useState({});
   const [openSubGroups, setOpenSubGroups] = useState({});
@@ -486,21 +490,32 @@ function Sidebar({ collapsed, onHelpClick }) {
     <aside
       className={`nav-panel ${collapsed ? "nav-panel--collapsed" : "nav-panel--expanded"}`}
     >
-      <div className="h-16 flex items-center justify-start gap-3 px-4 border-b border-white/5">
-        <img src={flowpipeLogo} width={40} />
-        {!collapsed && <span className="section-title-flowpipe">flowpipe</span>}
-      </div>
+      {!collapsed && (
+        <div className="sidebar-greeting">
+          <h2 className="greeting-main">
+            Welcome back, <br />
+            <span className="greeting-name">{data?.full_name || data?.name || "Kushal"}!</span>
+          </h2>
+          <p className="greeting-sub">Manage payments here.</p>
+        </div>
+      )}
+
+      {collapsed && (
+        <div className="h-16 flex items-center justify-center border-b border-gray-100">
+          <img src={flowpipeLogo} width={32} alt="Logo" />
+        </div>
+      )}
 
       {!collapsed && (
         <div className="sidebar-search-wrapper">
           <div className="sidebar-search-box">
-            <Search size={16} className="sidebar-search-icon" />
+            <Search size={18} className="sidebar-search-icon" />
             <input
               ref={searchRef}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="sidebar-search-input"
-              placeholder="Search APIs..."
+              placeholder="Search"
             />
           </div>
         </div>

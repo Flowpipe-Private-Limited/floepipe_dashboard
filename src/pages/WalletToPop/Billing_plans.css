@@ -17,17 +17,18 @@
 }
 
 .BillingPlans_header h1 {
-  font-size: 24px;
+  font-size: var(--large-heading);
   font-weight: 600;
   margin: 0 0 8px 0;
   letter-spacing: -0.02em;
+  color: var(--black);
 }
 
 .BillingPlans_header p {
   color: var(--gray-200);
   margin: 0;
-  font-size: 14px;
-  font-family: "JetBrainsMono";
+  font-size: var(--normal-text);
+  font-family: "Konnect";
 }
 
 .BillingPlans_header-right {
@@ -49,7 +50,7 @@
   background: transparent;
   border: none;
   padding: 6px 15px;
-  font-size: 13px;
+  font-size: var(--small-text);
   font-weight: 500;
   color: var(--black-100);
   cursor: pointer;
@@ -94,30 +95,30 @@
 }
 
 .BillingPlans_stat-icon {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   color: var(--purple-main);
   line-height: 1;
 }
 
 .BillingPlans_stat-label {
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--black);
   font-weight: 500;
   margin: 0;
   line-height: 1;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .BillingPlans_stat-value-group {
 }
 
 .BillingPlans_stat-card h3 {
-  font-size: 18px;
+  font-size: var(--medium-heading);
   color: var(--black);
 }
 
 .BillingPlans_stat-sub {
-  font-size: 12px;
+  font-size: var(--small-text);
   color: var(--gray-200);
 }
 
@@ -142,7 +143,7 @@
 }
 
 .BillingPlans_card-sub {
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .BillingPlans_badge.purple-solid {
@@ -184,12 +185,12 @@
 
 .BillingPlans_info-icon {
   color: #9ca3af;
-  font-size: 14px;
+  font-size: var(--normal-text);
 }
 
 .BillingPlans_edit-link {
   display: block;
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--black-100);
   text-decoration: none;
   display: flex;
@@ -222,7 +223,7 @@
 }
 
 .BillingPlans_section-header h2 {
-  font-size: 22px;
+  font-size: var(--large-heading);
   font-weight: 500;
   margin: 0;
 }
@@ -243,13 +244,13 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--black);
   font-weight: 500;
 }
 
 .BillingPlans_arrow {
-  font-size: 10px;
+  font-size: var(--small-text-10);
   margin-left: 8px;
 }
 
@@ -268,7 +269,7 @@
 
 .BillingPlans_dropdown-item {
   padding: 10px 16px;
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--gray-400);
   cursor: pointer;
   transition: background 0.1s;
@@ -290,13 +291,13 @@
   text-align: left;
   color: var(--black-100);
   font-weight: 500;
-  font-size: 14px;
+  font-size: var(--normal-text);
   padding-bottom: 8px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
  .BillingPlans_transactions-table td {
-  font-size: 14px;
+  font-size: var(--normal-text);
   padding: 8px 0;
   vertical-align: middle;
 }
@@ -331,7 +332,7 @@
   display: inline-block;
   padding: 4px 12px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: var(--small-text);
   font-weight: 500;
   border: 1px solid var(--gray-300);
   color: var(--black);
@@ -341,7 +342,7 @@
   display: inline-block;
   padding: 4px 12px;
   border-radius: 10px;
-  font-size: 12px;
+  font-size: var(--small-text);
   font-weight: 500;
 }
 
@@ -356,7 +357,7 @@
   border: none;
   cursor: pointer;
   color: var(--black-100);
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
 }
 
 /* Sidebar */
@@ -383,7 +384,7 @@
 
 .BillingPlans_card-header-toggle h3 {
   margin: 0;
-  font-size: 22px;
+  font-size: var(--large-heading);
   font-weight: 500;
   margin: 0;
 }
@@ -392,7 +393,7 @@
 .BillingPlans_plan-history h3 {
   margin-top: 0;
   margin-bottom: 24px;
-  font-size: 22px;
+  font-size: var(--large-heading);
   font-weight: 500;
 }
 
@@ -458,14 +459,14 @@
 
 .BillingPlans_timeline-header-row h4 {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   font-weight: 500;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .BillingPlans_timeline-date {
   margin: 0;
-  font-size: 13px;
+  font-size: var(--small-text);
   color: var(--black-100);
 }
 
@@ -540,20 +541,20 @@ input:checked + .BillingPlans_slider:before {
 
 .BillingPlans_currency-symbol {
   color: var(--black-100);
-  font-size: 14px;
+  font-size: var(--normal-text);
   margin-right: 8px;
 }
 
 .BillingPlans_currency-img {
   margin-right: 8px;
-  font-size: 14px;
+  font-size: var(--normal-text);
 }
 
 .BillingPlans_input-wrapper input {
   border: none;
   outline: none;
   width: 100%;
-  font-size: 14px;
+  font-size: var(--normal-text);
 }
 
 .BillingPlans_pay-small-btn {
@@ -562,7 +563,7 @@ input:checked + .BillingPlans_slider:before {
   border: none;
   padding: 6px 16px;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: var(--small-text);
   cursor: pointer;
 }
 
@@ -579,7 +580,7 @@ input:checked + .BillingPlans_slider:before {
   border: none;
   padding: 6px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: var(--small-text);
   cursor: pointer;
 }
 
@@ -588,7 +589,7 @@ input:checked + .BillingPlans_slider:before {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .bhim-img {
@@ -601,7 +602,7 @@ input:checked + .BillingPlans_slider:before {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: var(--normal-text);
   cursor: pointer;
 }
 
@@ -627,7 +628,7 @@ input:checked + .BillingPlans_slider:before {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
+  font-size: var(--normal-text);
 }
 
 /* Responsive */
@@ -691,7 +692,7 @@ input:checked + .BillingPlans_slider:before {
 
 .BillingPlans_slider-header h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: var(--large-heading);
   font-weight: 600;
   color: var(--black);
 }
@@ -730,12 +731,12 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_header h1 {
-    font-size: 20px;
+    font-size: var(--main-heading);
     margin-bottom: 6px;
   }
 
   .BillingPlans_header p {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .BillingPlans_header-right {
@@ -749,12 +750,12 @@ input:checked + .BillingPlans_slider:before {
 
   .BillingPlans_mode-btn {
     padding: 5px 12px;
-    font-size: 12px;
+    font-size: var(--small-text);
   }
 
   .BillingPlans_add-balance-main-btn {
     padding: 8px 16px;
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .BillingPlans_stats-row {
@@ -769,11 +770,11 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_stat-label {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .BillingPlans_stat-card h3 {
-    font-size: 16px;
+    font-size: var(--below-medium-heading);
   }
 
   .BillingPlans_stat-sub {
@@ -798,7 +799,7 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_section-header h2 {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .BillingPlans_custom-dropdown-container {
@@ -818,7 +819,7 @@ input:checked + .BillingPlans_slider:before {
 
   .BillingPlans_transactions-table th,
   .BillingPlans_transactions-table td {
-    font-size: 12px;
+    font-size: var(--small-text);
     padding: 8px 12px;
   }
 
@@ -832,11 +833,11 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_card-header-toggle h3 {
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .BillingPlans_plan-history h3 {
-    font-size: 18px;
+    font-size: var(--medium-heading);
     margin-bottom: 20px;
   }
 
@@ -847,11 +848,11 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_timeline-header-row h4 {
-    font-size: 14px;
+    font-size: var(--normal-text);
   }
 
   .BillingPlans_timeline-date {
-    font-size: 12px;
+    font-size: var(--small-text);
   }
 
   .BillingPlans_input-wrapper {
@@ -871,7 +872,7 @@ input:checked + .BillingPlans_slider:before {
   .BillingPlans_warning-banner {
     margin-top: 20px;
     padding: 12px;
-    font-size: 13px;
+    font-size: var(--small-text);
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
@@ -904,7 +905,7 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_slider-header h2 {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .BillingPlans_slider-content .wallet-container {
@@ -919,7 +920,7 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_header h1 {
-    font-size: 22px;
+    font-size: var(--large-heading);
   }
 
   .BillingPlans_header p {
@@ -954,7 +955,7 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_section-header h2 {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .BillingPlans_sidebar-card {
@@ -962,11 +963,11 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_card-header-toggle h3 {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .BillingPlans_plan-history h3 {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .BillingPlans_quick-amounts {
@@ -1031,7 +1032,7 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_stat-card h3 {
-    font-size: 15px;
+    font-size: var(--normal-text);
   }
 
   .BillingPlans_mode-btn {
@@ -1041,7 +1042,7 @@ input:checked + .BillingPlans_slider:before {
 
   .BillingPlans_add-balance-main-btn {
     padding: 7px 14px;
-    font-size: 12px;
+    font-size: var(--small-text);
   }
 
   .BillingPlans_tx-type,

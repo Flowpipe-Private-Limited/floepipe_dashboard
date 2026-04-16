@@ -133,7 +133,7 @@
   border-radius: 10px;
   text-align: center;
   color: var(--white);
-  font-size: 18px;
+  font-size: var(--medium-heading);
 }
 .otp-inputs .error {
   border-color: red;

@@ -25,8 +25,8 @@
 }
 
 .setting-subsection-title {
-  font-size: 1rem;
-  font-family: "JetBrainsMono";
+  font-size: var(--below-medium-heading);
+  font-family: "Konnect";
   color: var(--black);
   margin-bottom: 1rem;
 }
@@ -79,7 +79,7 @@
   cursor: pointer;
   box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3);
   transition: background-color 0.2s;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .btn-next-setting:hover {

@@ -12,7 +12,6 @@ import FlowpipeLogo from '../assets/images/FlowpipeLogo.png';
 import statement from '../assets/images/statement.webp';
 import dashboardright from '../assets/images/dashboardright.webp';
 import dashboardrightnew from '../assets/images/dashboardright.png';
-
 import playstore from '../assets/images/playstore.webp';
 import Appstore from '../assets/images/Appstore.webp';
 import reportsempty from '../assets/images/reportsempty.webp';
@@ -38,6 +37,9 @@ import copyicon from '../assets/images/copyicon.png';
 import trailimg from '../assets/images/trailimg.webp';
 import LIVEAnimation from "../assets/images/LIVEAnimation.json";
 import kyccomplete from '../assets/images/kyccomplete.webp';
+// new images
+import fldesign from '../assets/images/fldesign.png';
+
 
 const images = {
   FlowLoginImage,
@@ -78,7 +80,9 @@ const images = {
   copyicon,
   trailimg,
   LIVEAnimation,
-  kyccomplete
+  kyccomplete,
+  // new
+  fldesign,
 };
 
 export default images;

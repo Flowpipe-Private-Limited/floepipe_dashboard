@@ -100,14 +100,14 @@
   max-width: 900px;
   line-height: 1.6;
   margin-bottom: 2rem;
-  font-family: "JetBrainsMono";
-  font-size: 14px;
+  font-family: "Konnect";
+  font-size: var(--normal-text);
 }
 
 .kyc-selection-wrapper {
   max-width: 600px;
   margin: 0 auto;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .kyc-selection-header {
@@ -115,7 +115,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1rem;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .kyc-selection-title {
@@ -240,7 +240,7 @@
 
 .sub-one-kyc {
   color: var(--black-1200);
-  font-size: 13px;
+  font-size: var(--small-text);
 }
 
 .kyc-tab-btn {
@@ -252,7 +252,7 @@
   border-bottom: 2px solid transparent;
   background: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: var(--below-medium-heading);
 }
 
 .kyc-tab-btn.active {
@@ -269,11 +269,11 @@
   background-color: #f3e8ff;
   padding: 1.2rem;
   border-radius: 0.5rem;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .ind-kyc-header {
-  font-size: 1rem;
+  font-size: var(--below-medium-heading);
   font-weight: 700;
   margin-bottom: 0.8rem;
   color: var(--black);
@@ -285,7 +285,7 @@
   align-items: baseline;
   margin-bottom: 1rem;
   position: relative;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .stepper-step {
@@ -306,7 +306,7 @@
   justify-content: center;
   font-size: 0.75rem;
   margin-right: 0.5rem;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .stepper-step.active .step-circle {
@@ -321,7 +321,7 @@
   font-size: 0.7rem;
   color: var(--black-1200);
   font-weight: 500;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .stepper-step.active .step-label {
@@ -362,7 +362,7 @@
   font-weight: 600;
   color: #374151;
   margin-bottom: 0.5rem;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .custom-input {
@@ -375,7 +375,7 @@
   outline: none;
   transition: border-color 0.2s;
   color: var(--black-100);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .custom-input:focus {
@@ -417,8 +417,8 @@
 }
 
 .upload-place {
-  font-family: "JetBrainsMono";
-  font-size: 14px;
+  font-family: "Konnect";
+  font-size: var(--normal-text);
 }
 
 .file-upload-box:hover {
@@ -554,8 +554,8 @@
   color: var(--purple-main);
   font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
-  font-family: "JetBrainsMono";
+  font-size: var(--below-medium-heading);
+  font-family: "Konnect";
 }
 
 /* =========================================
@@ -573,11 +573,11 @@
   }
 
   .kyc-title-large {
-    font-size: 1.5rem;
+    font-size: var(--medium-heading);
   }
 
   .kyc-subtitle {
-    font-size: 12px;
+    font-size: var(--small-text);
     padding: 0 0.5rem;
   }
 
@@ -731,7 +731,7 @@
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: all 0.2s;
-  font-size: 1rem;
+  font-size: var(--below-medium-heading);
 }
 
 .kyc-tab-btn.active {
