@@ -1,51 +1,42 @@
 import React, { useEffect, useState } from "react";
 import "./WalletToPop.css";
+import axios from "axios";
 import Images from "../../Images/Images";
-import { GoEye, GoEyeClosed } from "react-icons/go";
 import { BiRupee } from "react-icons/bi";
 import { AiOutlineBank } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import { GetWalletBalance, GenerateStaticQrApi } from "../../utils/Apis/api";
+import { LuClock, LuInfo } from "react-icons/lu";
+import { IoIosArrowDown } from "react-icons/io";
+import Bank_Transfer from "./Bank_Transfer";
+import Scan_Pay from "./Scan_Pay";
+import Wallet_Receipt from "./Wallet_Receipt/Wallet_Receipt";
+import Wallet_Invoice from "./Wallet_Receipt/Wallet_Invoice";
 
-const WalletToPop = () => {
-  const navigate = useNavigate();
-
-  const [showBalance, setShowBalance] = useState(false);
+const WalletToPop = ({ setPopupTitle, setHideHeader, onClose }) => {
+  const CLIENT_ID = "CID_1766992391408";
   const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [qrData, setQrData] = useState(null);
-  const [showQRScreen, setShowQRScreen] = useState(false); // ✅ important
+  const [currentView, setCurrentView] = useState("MAIN");
+  const BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 
-  // ================= WALLET BALANCE =================
   const getWalletBalance = async () => {
-    console.log("========== WALLET BALANCE START ==========");
-
+    setLoading(true);
+    setError("");
     try {
-      setLoading(true);
-
-      const clientId = localStorage.getItem("clientId");
-      console.log("Client ID:", clientId);
-
-      const res = await GetWalletBalance(clientId);
-
-      console.log("Wallet API Response:", res.data);
-
-      if (res?.data?.success) {
-        setBalance(res.data.data.balance);
-        console.log("✅ Balance Set:", res.data.data.balance);
+      const res = await axios.get(
+        `${BASE_URL}/api/v1/apimodule/get-wallte-balance?clientId=${CLIENT_ID}`,
+      );
+      if (res.data?.success) {
+        setBalance(res.data?.data?.balance);
       } else {
-        console.warn("❌ Failed:", res.data.message);
-        setError(res.data.message);
+        setError(res.data?.message || "Failed to fetch balance");
       }
-
     } catch (err) {
-      console.error("❌ Wallet Error:", err.response || err.message);
-      setError("Error fetching wallet balance");
+      console.error("Error fetching wallet balance:", err.response || err);
+      setError(err.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
-      console.log("========== WALLET BALANCE END ==========\n");
     }
   };
 
@@ -53,174 +44,175 @@ const WalletToPop = () => {
     getWalletBalance();
   }, []);
 
-  // ================= STATIC QR =================
-  const handleTopUp = async () => {
-    console.log("========== STATIC QR START ==========");
-
-    try {
-      setLoading(true);
-
-      console.log("Calling Static QR API...");
-
-      const res = await GenerateStaticQrApi();
-
-      console.log("📥 Full Response:", res);
-      console.log("📥 Response Data:", res.data);
-
-      if (res?.data?.success) {
-        console.log("✅ Static QR Generated");
-
-        const finalQR = {
-          ...res.data.data
-        };
-
-        setQrData(finalQR);
-        setShowQRScreen(true); // ✅ show full screen QR
-
-        console.log("📦 QR Stored:", finalQR);
-
-      } else {
-        console.warn("❌ API Failed:", res.data.message);
-        alert(res.data.message);
-      }
-
-    } catch (error) {
-      console.log("========== STATIC QR ERROR ==========");
-
-      console.error("❌ Error:", error.message);
-
-      if (error.response) {
-        console.error("❌ API Error:", error.response.data);
-      }
-
-      alert("Failed to generate Static QR");
-
-    } finally {
-      setLoading(false);
-      console.log("========== STATIC QR END ==========\n");
+  useEffect(() => {
+    if (setHideHeader) {
+      setHideHeader(currentView === "SCAN_PAY" || currentView === "RECEIPT" || currentView === "INVOICE");
     }
+  }, [currentView, setHideHeader]);
+
+  const handleTopUp = async () => {
+    if (!amount || amount <= 0) {
+      alert("Please enter a valid amount");
+      return;
+    }
+    setCurrentView("SCAN_PAY");
+    if (setPopupTitle) setPopupTitle("");
   };
 
-  const NavigateToBalance = () => {
-    navigate("/dashboard/Billing_Plans");
+  const handleScanSuccess = () => {
+    setCurrentView("RECEIPT");
+    if (setPopupTitle) setPopupTitle("");
   };
 
-  // ================= UI =================
+  const quickAmounts = [500, 1000, 2000, 3000];
+
+  const gst = amount ? (Number(amount) * 0.18).toFixed(2) : 0;
+  const total = amount ? (Number(amount) + Number(gst)).toFixed(2) : 0;
+
+  const handleBankTransferClick = () => {
+    setCurrentView("BANK");
+    if (setPopupTitle) setPopupTitle("Bank Transfer");
+  };
+
+  const handleBackToMain = () => {
+    setCurrentView("MAIN");
+    if (setPopupTitle) setPopupTitle("Add Money");
+  };
+
+  if (currentView === "BANK") {
+    return <Bank_Transfer onBack={handleBackToMain} />;
+  }
+
+  if (currentView === "SCAN_PAY") {
+    return <Scan_Pay amount={total} onTimerEnd={handleScanSuccess} />;
+  }
+
+  if (currentView === "RECEIPT") {
+    const transactionDetails = {
+      id: "TXN" + Date.now().toString().slice(-10),
+      mobile: "+91 9876543210",
+      dateTime: new Date().toLocaleString(),
+      amount: amount,
+      gst: gst,
+      newBalance: Number(balance) + Number(amount),
+    };
+    return (
+      <Wallet_Receipt
+        transactionDetails={transactionDetails}
+        onViewInvoice={() => setCurrentView("INVOICE")}
+        onBack={() => {
+          if (onClose) onClose();
+        }}
+      />
+    );
+  }
+
+  if (currentView === "INVOICE") {
+    return (
+      <Wallet_Invoice
+        amount={amount}
+        onBack={() => setCurrentView("RECEIPT")}
+      />
+    );
+  }
+
   return (
-    <div className="wallet-container">
-
-      {/* ================= WALLET UI ================= */}
-      {!showQRScreen && (
-        <div className="wallet-wrapper">
-
-          {/* WALLET CARD */}
-          <div className="wallet-card">
-            <div className="wallet-card-slide">
-              <div className="wallet-card-header">
-                <p className="wallet-title">PERSONAL WALLET</p>
-                <img className="wallet-sun-icon" src={Images.FlowpipeLogo} />
-              </div>
-
-              <div className="wallet-middle">
-                <span className="wallet-dots">
-                  {showBalance ? `₹ ${balance}` : "*******"}
-                </span>
-
-                <span
-                  className="wallet-eye-icon"
-                  onClick={() => setShowBalance(!showBalance)}
-                >
-                  {showBalance ? <GoEye /> : <GoEyeClosed />}
-                </span>
-              </div>
-            </div>
-
-            <div className="wallet-card-footer">
-              <div onClick={NavigateToBalance} className="wallet-action">
-                <img src={Images.statement} alt="Statement" />
-                <span>View Statement</span>
-              </div>
-
-              <div className="wallet-action">
-                <BiRupee size={20} />
-                <span>Add Money</span>
-              </div>
-            </div>
-          </div>
-
-          {/* ADD MONEY */}
-          <div className="add-money-card">
-            <h3>Add Money via UPI</h3>
-
-            <div className="upi-input-row">
-              <div className="upi-icon-box">
-                <img className="bhim-img" src={Images.bhim} />
-              </div>
-
-              <span className="currency">₹</span>
-
-              <input
-                type="number"
-                placeholder="0.00"
-                value={amount}
-                onChange={(e) => {
-                  console.log("Typing Amount:", e.target.value);
-                  setAmount(e.target.value);
-                }}
-              />
-
-              <button className="pay-btn" onClick={handleTopUp}>
-                {loading ? "Processing..." : "Pay"}
-              </button>
-            </div>
-
-            <div className="amount-buttons">
-              <button onClick={() => setAmount("500")}>500</button>
-              <button onClick={() => setAmount("1000")}>1000</button>
-              <button onClick={() => setAmount("2000")}>2000</button>
-              <button onClick={() => setAmount("3000")}>3000</button>
-            </div>
-          </div>
-
-          {/* OTHER */}
-          <div className="other-ways">
-            <h3>Other ways to add Money</h3>
-
-            <div className="bank-transfer">
-              <AiOutlineBank size={22} />
-              <span>Bank Transfer</span>
-            </div>
-          </div>
-
+    <div className="wallet-modal-content">
+      <div className="wallet-balance-section">
+        <div className="balance-info">
+          <p className="balance-label">Primary Wallet</p>
+          <p className="balance-amount">₹ {balance}</p>
         </div>
-      )}
+        <div className="set-alert">
+          <div className="alert-icon-box">
+            <LuClock size={20} color="#7C3AED" />
+          </div>
+          <span className="alert-text">Set Alert</span>
+        </div>
+      </div>
 
-      {/* ================= FULL SCREEN QR ================= */}
-      {showQRScreen && qrData && (
-        <div className="qr-fullscreen">
-          <h2>Scan & Pay</h2>
-
-          <img
-            src={qrData.qrCode}
-            alt="QR Code"
-            style={{ width: "300px", height: "300px" }}
+      <div className="amount-input-section">
+        <div className="amount-input-box">
+          <span className="rupee-symbol">₹</span>
+          <input
+            type="number"
+            placeholder="0"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
           />
+        </div>
+      </div>
 
-          <p><b>Name:</b> {qrData.payeeName}</p>
-          <p><b>UPI:</b> {qrData.payeeAddress}</p>
+      <div className="quick-select-section">
+        <p className="quick-label">Quick Select</p>
+        <div className="quick-amounts">
+          {quickAmounts.map((amt) => (
+            <button
+              key={amt}
+              className={`quick-btn ${Number(amount) === amt ? "active" : ""}`}
+              onClick={() => setAmount(amt)}
+            >
+              ₹ {amt}
+            </button>
+          ))}
+        </div>
+      </div>
 
-          <button
-            onClick={() => {
-              console.log("🔙 Back to Wallet");
-              setShowQRScreen(false);
-              setQrData(null);
-            }}
-          >
-            Back
-          </button>
+      <div className="info-box">
+        <div className="info-icon">
+          <LuInfo size={16} />
+        </div>
+        <p className="info-text">
+          Wallet balance will be used for API consumption. Charges are deducted
+          automatically based on your usage.
+        </p>
+      </div>
+
+      {amount > 0 && (
+        <div className="payment-summary-section">
+          <h3>Payment Summary</h3>
+          <div className="summary-card">
+            <div className="summary-row">
+              <span>Amount</span>
+              <span>₹{amount}</span>
+            </div>
+            <div className="summary-row">
+              <span>GST (18%)</span>
+              <span>+₹{gst}</span>
+            </div>
+            <div className="summary-total">
+              <span>Total Payable</span>
+              <span>₹{total}</span>
+            </div>
+            <button className="proceed-pay-btn" onClick={handleTopUp}>
+              Proceed to Pay
+            </button>
+          </div>
         </div>
       )}
 
+      {!amount && (
+        <div className="other-payment-ways">
+          <h3>Other ways to add Money</h3>
+          <div className="payment-method-item" onClick={handleBankTransferClick}>
+            <div className="method-left">
+              <div className="method-icon-box bank">
+                <AiOutlineBank size={20} color="#7C3AED" />
+              </div>
+              <span className="method-name">Bank Transfer</span>
+            </div>
+            <div className="expand-arrow">
+              <IoIosArrowDown />
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="modal-footer">
+        <a href="#" className="contact-helpdesk">
+          Contact Helpdesk
+        </a>
+      </div>
     </div>
   );
 };

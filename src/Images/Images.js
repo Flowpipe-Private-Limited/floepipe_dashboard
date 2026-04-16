@@ -9,6 +9,7 @@ import viewanalytics from '../assets/images/viewanalytics.webp';
 import graphicon from '../assets/images/graphicon.webp';
 import bellicon from '../assets/images/bellicon.webp';
 import FlowpipeLogo from '../assets/images/FlowpipeLogo.png';
+import flowpipe_logo_round from '../assets/images/flowpipe_logo_round.png';
 import statement from '../assets/images/statement.webp';
 import dashboardright from '../assets/images/dashboardright.webp';
 import dashboardrightnew from '../assets/images/dashboardright.png';

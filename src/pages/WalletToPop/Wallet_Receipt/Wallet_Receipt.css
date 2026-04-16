@@ -1,0 +1,188 @@
+.receipt-container {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.success-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+}
+
+.success-icon-wrapper {
+    margin-bottom: 4px;
+    animation: scaleIn 0.5s ease-out;
+}
+
+.success-icon-wrapper svg {
+    width: 48px;
+    height: 48px;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--black-300);
+    margin: 0;
+}
+
+.success-sub {
+    font-size: var(--small-text);
+    color: var(--black-1200);
+    margin: 0;
+}
+
+.transaction-details-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.transaction-details-section h3 {
+    font-size: var(--small-text);
+    font-weight: 600;
+    color: var(--black-300);
+    margin: 0;
+}
+
+.details-card {
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-12);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.receipt-label {
+    font-size: var(--small-text-10);
+    color: var(--black-1200);
+}
+
+.receipt-value {
+    font-size: var(--small-text-10);
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.green-text {
+    color: #22c55e;
+}
+
+.wallet-update-card {
+    background: #F9FAFB;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-12);
+    padding: 12px;
+}
+
+.update-label {
+    font-size: var(--small-text-10);
+    color: var(--purple-main);
+    margin-bottom: 8px;
+}
+
+.update-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.update-title {
+    font-size: var(--normal-text);
+    font-weight: 700;
+    color: var(--black-300);
+}
+
+.update-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: #22c55e;
+}
+
+.receipt-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.receipt-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: var(--border-radius-8);
+    font-size: var(--small-text);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.primary-receipt-btn {
+    background: var(--purple-main);
+    color: var(--white);
+    border: none;
+}
+
+.secondary-receipt-btn {
+    background: var(--white);
+    color: var(--black-1200);
+    border: 1px solid var(--gray-300);
+}
+
+.back-dashboard-btn {
+    background: transparent;
+    border: none;
+    color: var(--black-1200);
+    font-size: var(--small-text);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.receipt-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.contact-helpdesk {
+    font-size: var(--small-text);
+    font-weight: 500;
+    color: var(--purple-main);
+}
+
+/* Responsiveness */
+@media (max-width: 640px) {
+    .receipt-container {
+        padding: 24px;
+    }
+}

@@ -14,6 +14,7 @@ import { FiEdit } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 import EnvironmentSwitch from "../../components/ui/EnvironmentSwitch/EnvironmentSwitch";
 import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebutton";
+import Popup from "../../components/ui/Popup/Popup";
 import { GetWalletBalance } from "../../utils/Apis/api"
 
 const BillingPlans = () => {
@@ -24,6 +25,8 @@ const BillingPlans = () => {
   const [dateDropdownOpen, setDateDropdownOpen] = useState(false);
   const [selectedDateRange, setSelectedDateRange] = useState("Last 30 days");
   const [environment, setEnvironment] = useState("test");
+  const [popupTitle, setPopupTitle] = useState("Add Money");
+  const [hideHeader, setHideHeader] = useState(false);
 
   // Wallet Logic State
   const CLIENT_ID = "CID_1766992391408";
@@ -447,25 +450,18 @@ const BillingPlans = () => {
         interruption.
       </div>
 
-      {/* Side Slider Overlay */}
-      {isSliderOpen && (
-        <div className="BillingPlans_slider-overlay">
-          <div className="BillingPlans_slider-container">
-            <div className="BillingPlans_slider-header">
-              <h2>Add Money</h2>
-              <button
-                className="BillingPlans_close-btn"
-                onClick={() => setIsSliderOpen(false)}
-              >
-                <MdClose color="#7C3AED" size={28} />
-              </button>
-            </div>
-            <div className="BillingPlans_slider-content">
-              <WalletToPop />
-            </div>
-          </div>
-        </div>
-      )}
+      <Popup
+        isOpen={isSliderOpen}
+        onClose={() => setIsSliderOpen(false)}
+        title={popupTitle}
+        hideHeader={hideHeader}
+      >
+        <WalletToPop
+          setPopupTitle={setPopupTitle}
+          setHideHeader={setHideHeader}
+          onClose={() => setIsSliderOpen(false)}
+        />
+      </Popup>
     </div>
   );
 };

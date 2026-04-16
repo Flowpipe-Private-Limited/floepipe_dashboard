@@ -1,0 +1,147 @@
+.bank-transfer-container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bank-transfer-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.back-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: var(--white-200);
+}
+
+.bank-transfer-title {
+    font-size: var(--main-heading);
+    font-weight: 600;
+    color: var(--black-300);
+    margin: 0;
+}
+
+.bank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bank-card {
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-12);
+    padding: 16px;
+    background: var(--white);
+    transition: box-shadow 0.2s;
+}
+
+.bank-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.bank-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.bank-logo-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bank-logo {
+    height: 24px;
+    object-fit: contain;
+}
+
+.bank-name {
+    font-size: var(--below-medium-heading);
+    font-weight: 600;
+    color: var(--black-300);
+}
+
+.copy-btn-main {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.copy-btn-main:hover {
+    background: var(--white-200);
+}
+
+.bank-details-box {
+    background: #fdfcff;
+    border-radius: var(--border-radius-8);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #F3F1FF;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail-label {
+    font-size: var(--small-text);
+    color: #9ca3af;
+}
+
+.detail-value {
+    font-size: var(--small-text);
+    font-weight: 600;
+    color: #4b5563;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.bank-footer-contact {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.contact-helpdesk {
+    font-size: var(--normal-text);
+    font-weight: 500;
+    color: var(--purple-main);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.contact-helpdesk:hover {
+    color: var(--purple-600);
+}
+
+/* Responsiveness */
+@media (max-width: 640px) {
+    .bank-transfer-container {
+        padding: 20px;
+    }
+}
