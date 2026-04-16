@@ -75,7 +75,7 @@ const handleResponseError = async (error) => {
       Cookies.remove('clientId');
       localStorage.clear();
       sessionStorage.clear();
-      window.location.href = "/";
+      window.location.href = "/login";
       return Promise.reject(refreshError);
     } finally {
       isRefreshing = false;
@@ -88,7 +88,7 @@ const handleResponseError = async (error) => {
     Cookies.remove('clientId');
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = "/";
+    window.location.href = "/login";
   }
   return Promise.reject(error);
 };
@@ -164,7 +164,7 @@ const ApiVerification = (isMicro, URLS, data, token, method = 'Post') => {
     return apiClient.post(finalURL, data, { headers });
   }
 };
-const fetchPublickey = () => kycApiClient.get(`ApiModuels/key/Publickey`);
+const fetchPublickey = () => kycApiClient.get(`api/v1/ApiModuels/key/Publickey`);
 
 
 // Fetch User Details

@@ -3,10 +3,13 @@ import Cookies from "js-cookie";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const ProtectionRoute = ({children})=>{
-    const isToken = Cookies.get('accessToken');
-    console.log('token is', isToken);
+    const isAccessToken = Cookies.get('accessToken');
+    const isRefreshToken = Cookies.get('refreshToken');
+    console.log('token is', isAccessToken, isRefreshToken);
     
-    if(!isToken || isToken === undefined || isToken === 'undefined'){
+    let isValid = !isAccessToken || !isRefreshToken || isRefreshToken === undefined || isAccessToken === undefined || isAccessToken === 'undefined' || isRefreshToken === 'undefined'
+
+    if(isValid){
         Cookies.remove("clientId");
          return <Navigate to="/login" replace />;
     }

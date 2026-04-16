@@ -1,4 +1,3 @@
-
 export async function encryptPayload(payload, publicKeyPem) {
   console.log("called", payload, publicKeyPem)
   const encoder = new TextEncoder();

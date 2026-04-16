@@ -6,6 +6,7 @@ const baseHandler = async (api, setLoading, onSuccess, onError, decrypt = false)
   if (setLoading) setLoading(true);
   try {
     const response = await api();
+    console.log('apiRequest response response', response.data)
     let data = response.data;
     if (decrypt) {
       const { privateKey } = GeneralKeys.getState();

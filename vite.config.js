@@ -10,11 +10,11 @@ export default defineConfig({
 
     server: {
         host: true,
-        port: 5173,
+        port: 3000,
         open: true,
         proxy: {
             "/api": {
-                target: "http://10.1.1.226:5001/api/v1/",
+                target: "http://10.1.1.227:5001/api/v1/",
                 changeOrigin: true,
                 secure: false,
                 rewrite: (p) => p.replace(/^\/api/, ""),
