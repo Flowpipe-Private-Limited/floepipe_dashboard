@@ -118,7 +118,7 @@
   font-family: "JetBrainsMono";
 }
 
-/* Charts Grid */
+/* Charts Grid(just testing ) */ 
 .charts-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
