@@ -34,14 +34,14 @@
 }
 
 @font-face {
-  font-family: "JetBrainsMono";
-  src: url("./assets/Fonts/JetBrainsMono-Regular.ttf") format("truetype");
+  font-family: "Konnect";
+  src: url("./assets/Fonts/KonnectRegular.otf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
-  font-family: "JetBrainsMonoSemiBold";
-  src: url("./assets/Fonts/JetBrainsMono-SemiBold.ttf") format("truetype");
+  font-family: "KonnectSemiBold";
+  src: url("./assets/Fonts/KonnectSemiBold.otf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }

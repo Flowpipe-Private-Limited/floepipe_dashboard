@@ -136,19 +136,19 @@ const MainContent = () => {
       amount: "₹ 800",
       spent: "₹ 8000",
     },
-      {
+    {
       title: "Pan Lite",
       period: "Last 7 days",
       amount: "₹ 800",
       spent: "₹ 8000",
     },
-      {
+    {
       title: "Pan Lite",
       period: "Last 7 days",
       amount: "₹ 800",
       spent: "₹ 8000",
     },
-      {
+    {
       title: "Pan Lite",
       period: "Last 7 days",
       amount: "₹ 800",
@@ -222,30 +222,49 @@ const MainContent = () => {
               <div className="star-card-boxes-maincon">
                 <p className="stat-title">Total Transactions</p>
                 <h3 className="stat-value">₹ 15,432</h3>
-                <span className="stat-sub">0.00% vs This Month</span>
+                <span className="stat-sub">
+                  This Month
+                  <span style={{ color: "var(--black)", fontWeight: 600 }}>
+                    vs
+                  </span>
+                  <span style={{ color: "var(--green)", fontWeight: 600 }}>
+                    0.00%
+                  </span>
+                </span>
               </div>
-              <div className="quick-icon-grid-main">
-                <GoArrowUpRight size={20} color="white" />
-              </div>
-              <div className="stat-card-decor">
-                <img src={Images.cardinsidelogo} />
+              <div className="stat-card-decor-overview">
+                <img className="flowblue" src={Images.fldesign} />
               </div>
             </div>
 
             <div className="stat-card">
               <div className="star-card-boxes-maincon">
-                <p className="stat-title">Product Subscribed</p>
-                <h3 className="stat-value">15,432</h3>
+                <div className="button-stat-card">
+                  <div className="head-sub-one">
+                    <p className="stat-title">Product Subscribed</p>
+                    <h3 className="stat-value">15,432</h3>
+                  </div>
+                  <button
+                    onClick={NavigateToProducts}
+                    className="outline-btn small"
+                  >
+                    More Products
+                  </button>
+                </div>
+                <span className="stat-sub">
+                  This Month
+                  <span style={{ color: "var(--black)", fontWeight: 600 }}>
+                    vs
+                  </span>
+                  <span style={{ color: "var(--green)", fontWeight: 600 }}>
+                    0.00%
+                  </span>
+                </span>
               </div>
-              <button
-                onClick={NavigateToProducts}
-                className="outline-btn small"
-              >
-                More Products
-              </button>
+
               {/* Decorative circle */}
-              <div className="stat-card-decor">
-                <img src={Images.cardinsidelogo} />
+              <div className="stat-card-decor-overview">
+                <img className="flowblue" src={Images.fldesign} />
               </div>
             </div>
 
@@ -253,35 +272,52 @@ const MainContent = () => {
               <div className="star-card-boxes-maincon">
                 <p className="stat-title">Transaction Volume</p>
                 <h3 className="stat-value">₹ 15,432</h3>
-                <span className="stat-sub">0.00% vs This Month</span>
+                <span className="stat-sub">
+                  This Month
+                  <span style={{ color: "var(--black)", fontWeight: 600 }}>
+                    vs
+                  </span>
+                  <span style={{ color: "var(--green)", fontWeight: 600 }}>
+                    0.00%
+                  </span>
+                </span>
               </div>
-
               <div>
-                <div className="quick-icon-grid-main">
-                  <GoArrowDownLeft size={20} color="white" />
-                </div>
                 <div className="right-arrow-logo"></div>
               </div>
               {/* Decorative circle */}
-              <div className="stat-card-decor">
-                <img src={Images.cardinsidelogo} />
+              <div className="stat-card-decor-overview">
+                <img className="flowblue" src={Images.fldesign} />
               </div>
             </div>
 
             <div className="stat-card">
               <div className="star-card-boxes-maincon">
-                <p className="stat-title">Product Requests</p>
-                <h3 className="stat-value">15,432</h3>
+                <div className="button-stat-card">
+                  <div className="head-sub-one">
+                    <p className="stat-title">Product Requests</p>
+                    <h3 className="stat-value">15,432</h3>
+                  </div>
+                  <button
+                    onClick={NavigateToViewRequests}
+                    className="outline-btn small"
+                  >
+                    View Requests
+                  </button>
+                </div>
+                <span className="stat-sub">
+                  This Month
+                  <span style={{ color: "var(--black)", fontWeight: 600 }}>
+                    vs
+                  </span>
+                  <span style={{ color: "var(--green)", fontWeight: 600 }}>
+                    0.00%
+                  </span>
+                </span>
               </div>
-              <button
-                onClick={NavigateToViewRequests}
-                className="outline-btn small"
-              >
-                View Requests
-              </button>
               {/* Decorative circle */}
-              <div className="stat-card-decor">
-                <img src={Images.cardinsidelogo} />
+              <div className="stat-card-decor-overview">
+                <img className="flowblue" src={Images.fldesign} />
               </div>
             </div>
           </div>
@@ -302,60 +338,67 @@ const MainContent = () => {
       </div>
 
       {/* ===== QUICK ACTIONS ===== */}
-      <h3 className="section-title-mc">Quick Actions</h3>
-      <div className="quick-action-main">
-        <div className="quick-action-column">
-          <div className="quick-actions">
-            {quickActions.map((item, idx) => (
-              <div
-                onClick={() => navigate(item.href)}
-                className="quick-card"
-                key={idx}
-              >
-                <div className="quick-icon">
-                  <img src={item.icon} alt={item.title} />
-                </div>
-                <h4>{item.title}</h4>
-                <p>Lorem ipsum dolor sit amet</p>
-                <span
+      <div className="quick-actions-bg">
+        <h3 className="section-title-mc">Quick Actions</h3>
+        <div className="quick-action-main">
+          <div className="quick-action-column">
+            <div className="quick-actions">
+              {quickActions.map((item, idx) => (
+                <div
                   onClick={() => navigate(item.href)}
-                  className="quick-link"
+                  className="quick-card"
+                  key={idx}
                 >
-                  Get started →
-                </span>
-                {/* Decorative circle */}
-                <div className="quick-card-decor"></div>
-              </div>
-            ))}
-          </div>
-
-          <div className="quick-actions">
-            {quickActionssecond.map((item, idx) => (
-              <div className="quick-card second-row" key={idx}>
-                <div className="quick-icon-litepur">
-                  <img src={item.icon} alt={item.title} />
+                  <div className="stat-card-decor-quickactions">
+                    <img className="flowblue" src={Images.fldesign} />
+                  </div>
+                  <div className="quick-icon">
+                    <img src={item.icon} alt={item.title} />
+                  </div>
+                  <h4>{item.title}</h4>
+                  <p>Lorem ipsum dolor sit amet</p>
+                  <span
+                    onClick={() => navigate(item.href)}
+                    className="quick-link"
+                  >
+                    Get started →
+                  </span>
+                  {/* Decorative circle */}
+                  <div className="quick-card-decor"></div>
                 </div>
+              ))}
+            </div>
 
-                {item.type === "stat" && (
-                  <div style={{ marginTop: 5 }}>
-                    <p className="quick-card-label-sm">{item.title}</p>
-                    <h4 className="quick-card-val-lg">{item.value}</h4>
+            <div className="quick-actions">
+              {quickActionssecond.map((item, idx) => (
+                <div className="quick-card second-row" key={idx}>
+                  <div className="graph-border-div">
+                    <div className="quick-icon-litepur">
+                      <img src={item.icon} alt={item.title} />
+                    </div>
+                    <div className="length-border-main">+2 this month</div>
                   </div>
-                )}
 
-                {item.type === "action" && (
-                  <div style={{ marginTop: 5 }}>
-                    <p className="quick-card-label-sm">{item.title}</p>
-                    <span className="quick-link-badge">Go Live</span>
-                  </div>
-                )}
-              </div>
-            ))}
+                  {item.type === "stat" && (
+                    <div style={{ marginTop: 5 }}>
+                      <p className="quick-card-label-sm">{item.title}</p>
+                      <h4 className="quick-card-val-lg">{item.value}</h4>
+                    </div>
+                  )}
+
+                  {item.type === "action" && (
+                    <div style={{ marginTop: 5 }}>
+                      <p className="quick-card-label-sm">{item.title}</p>
+                      <span className="quick-link-badge">Go Live</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="quick-action-rightsection">
-          {/* <div className="recent-activity-card">
+          <div className="quick-action-rightsection">
+            {/* <div className="recent-activity-card">
             <div className="recent-activity-header">
               <h3 className="recent-activity-title">Recent Activity</h3>
               <img
@@ -409,99 +452,7 @@ const MainContent = () => {
               </div>
             </div>
           </div> */}
-          <div className="quick-action-rightsection">
-  <div className="recent-activity-card">
-    {/* Header */}
-    <div className="recent-activity-header">
-      <h3 className="recent-activity-title">Recent Activity</h3>
-      <img
-        className="recent-activity-bell"
-        src={Images.bellicon}
-        alt="notifications"
-      />
-    </div>
-    <div className="recent-activity-list">
-      <div className="recent-activity-item">
-        <div className="activity-icon warning">
-          <FiAlertTriangle />
-        </div>
-        <div className="activity-content">
-          <p className="activity-title">API call spike detected</p>
-          <p className="activity-subtitle">
-            Weather API exceeded 80% of quota
-          </p>
-        </div>
-        <span className="activity-time">8h ago</span>
-      </div>
-      
-      <div className="recent-activity-item">
-        <div className="activity-icon success">
-          <LuKey />
-        </div>
-        <div className="activity-content">
-          <p className="activity-title">New API key created</p>
-          <p className="activity-subtitle">
-            Production key for Payment API
-          </p>
-        </div>
-        <span className="activity-time">5h ago</span>
-      </div>
-
-      <div className="recent-activity-item">
-        <div className="activity-icon info">
-          <FiCreditCard />
-        </div>
-        <div className="activity-content">
-          <p className="activity-title">Invoice generated</p>
-          <p className="activity-subtitle">
-            December billing cycle: $127.50
-          </p>
-        </div>
-        <span className="activity-time">1d ago</span>
-      </div>
-      
-      {/* Add more items to test scroll */}
-      <div className="recent-activity-item">
-        <div className="activity-icon warning">
-          <FiAlertTriangle />
-        </div>
-        <div className="activity-content">
-          <p className="activity-title">Service maintenance</p>
-          <p className="activity-subtitle">
-            Scheduled maintenance for Database API
-          </p>
-        </div>
-        <span className="activity-time">2d ago</span>
-      </div>
-      
-      <div className="recent-activity-item">
-        <div className="activity-icon success">
-          <LuKey />
-        </div>
-        <div className="activity-content">
-          <p className="activity-title">New subscription</p>
-          <p className="activity-subtitle">
-            User subscribed to Email Verification API
-          </p>
-        </div>
-        <span className="activity-time">3d ago</span>
-      </div>
-      
-      <div className="recent-activity-item">
-        <div className="activity-icon info">
-          <FiCreditCard />
-        </div>
-        <div className="activity-content">
-          <p className="activity-title">Payment received</p>
-          <p className="activity-subtitle">
-            Payment of $49.99 received from user #12345
-          </p>
-        </div>
-        <span className="activity-time">4d ago</span>
-      </div>
-    </div>
-  </div>
-</div>
+          </div>
         </div>
       </div>
       <div className="dashboard-detailed-section">
@@ -621,7 +572,10 @@ const MainContent = () => {
                 </div>
 
                 {/* Decorative shape – now on ALL cards */}
-                <div className="pan-card-decor"></div>
+                {/* <div className="pan-card-decor"></div> */}
+                <div className="stat-card-decor-panlite">
+                <img className="flowblue" src={Images.fldesign} />
+              </div>
               </div>
             ))}
           </div>
@@ -693,7 +647,11 @@ const MainContent = () => {
                     {transactionStats.map((row, idx) => (
                       <tr key={idx}>
                         <td>{row.name}</td>
-                        <td>{row.billable}</td>
+                        <td
+                          style={{ color: "var(--black)", fontWeight: "600" }}
+                        >
+                          {row.billable}
+                        </td>
                         <td>{row.success}</td>
                         <td>{row.failed}</td>
                       </tr>
@@ -714,7 +672,7 @@ const MainContent = () => {
             )}
           </div>
 
-          <div className="apps-running-card">
+          {/* <div className="apps-running-card">
             <h3>Apps Running</h3>
             <div className="small-table-wrapper-main">
               <table className="custom-table-main small">
@@ -735,6 +693,99 @@ const MainContent = () => {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div> */}
+          <div className="quick-action-rightsection">
+            <div className="recent-activity-card">
+              {/* Header */}
+              <div className="recent-activity-header">
+                <h3 className="recent-activity-title">Recent Activity</h3>
+                <img
+                  className="recent-activity-bell"
+                  src={Images.bellicon}
+                  alt="notifications"
+                />
+              </div>
+              <div className="recent-activity-list">
+                <div className="recent-activity-item">
+                  <div className="activity-icon warning">
+                    <FiAlertTriangle />
+                  </div>
+                  <div className="activity-content">
+                    <p className="activity-title">API call spike detected</p>
+                    <p className="activity-subtitle">
+                      Weather API exceeded 80% of quota
+                    </p>
+                  </div>
+                  <span className="activity-time">8h ago</span>
+                </div>
+
+                <div className="recent-activity-item">
+                  <div className="activity-icon success">
+                    <LuKey />
+                  </div>
+                  <div className="activity-content">
+                    <p className="activity-title">New API key created</p>
+                    <p className="activity-subtitle">
+                      Production key for Payment API
+                    </p>
+                  </div>
+                  <span className="activity-time">5h ago</span>
+                </div>
+
+                <div className="recent-activity-item">
+                  <div className="activity-icon info">
+                    <FiCreditCard />
+                  </div>
+                  <div className="activity-content">
+                    <p className="activity-title">Invoice generated</p>
+                    <p className="activity-subtitle">
+                      December billing cycle: $127.50
+                    </p>
+                  </div>
+                  <span className="activity-time">1d ago</span>
+                </div>
+
+                {/* Add more items to test scroll */}
+                <div className="recent-activity-item">
+                  <div className="activity-icon warning">
+                    <FiAlertTriangle />
+                  </div>
+                  <div className="activity-content">
+                    <p className="activity-title">Service maintenance</p>
+                    <p className="activity-subtitle">
+                      Scheduled maintenance for Database API
+                    </p>
+                  </div>
+                  <span className="activity-time">2d ago</span>
+                </div>
+
+                <div className="recent-activity-item">
+                  <div className="activity-icon success">
+                    <LuKey />
+                  </div>
+                  <div className="activity-content">
+                    <p className="activity-title">New subscription</p>
+                    <p className="activity-subtitle">
+                      User subscribed to Email Verification API
+                    </p>
+                  </div>
+                  <span className="activity-time">3d ago</span>
+                </div>
+
+                <div className="recent-activity-item">
+                  <div className="activity-icon info">
+                    <FiCreditCard />
+                  </div>
+                  <div className="activity-content">
+                    <p className="activity-title">Payment received</p>
+                    <p className="activity-subtitle">
+                      Payment of $49.99 received from user #12345
+                    </p>
+                  </div>
+                  <span className="activity-time">4d ago</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

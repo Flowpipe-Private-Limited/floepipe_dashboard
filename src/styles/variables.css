@@ -1,85 +1,102 @@
 :root {
-  --black: #000000;
-  --black-100: #00000099;
+  --black: #010202;
+  --black-100: #717182;
+  --border: #0102021a;
+  --green: #016630;
+  --gray-500: #364153;
+  --white-100: #f9fafb;
+  --black-1800: #3d3d3d;
+  --sweetyellow: #ccff00;
+  --main-bg: #eff3f4;
+
   --black-300: #101828;
-  --black-400: #0A0A0A;
-  --black-500: #0000001A;
-  --black-600: #0000004D;
-  --black-700: #000000CC;
-  --black-800: #0000000D;
-  --black-1000: #5C5C5C1A;
+  --black-400: #0a0a0a;
+  --black-500: #0000001a;
+  --black-600: #0000004d;
+  --black-700: #000000cc;
+  --black-800: #0000000d;
+  --black-1000: #5c5c5c1a;
   --black-1100: #00000033;
-  --black-1200: #6B7280;
+  --black-1200: #6b7280;
 
   /* white */
   --white: #ffffff;
-  --white-100: #F9FAFB;
-  --white-200: #F6F6F6;
-  --white-300: #FAF5FF;
-  --white-400: #EFEFEF;
-  --white-500: #F5F5F5;
+  --white-200: #f6f6f6;
+  --white-300: #faf5ff;
+  --white-400: #efefef;
+  --white-500: #f5f5f5;
 
   /* purplish */
-  --purple-main: #7C3AED;
-  --purple-100: #282A2C;
-  --purple-200: #7C3AED1A;
-  --purple-400: #7E48FF33;
-  --purple-500: #7C3AED80;
-  --purple-600: #CEC6E0;
-  --purple-700: #EFE7FE;
-  --purple-800: #7C3AED33;
-  --purple-900: #DDD8E8;
-  --purple-1000: #F2ECFE;
-  --purple-1100: #7E48FF1A;
-  --purple-1200: #7C3AED99;
+  --purple-main: #7c3aed;
+  --purple-100: #282a2c;
+  --purple-200: #7c3aed1a;
+  --purple-400: #7e48ff33;
+  --purple-500: #7c3aed80;
+  --purple-600: #cec6e0;
+  --purple-700: #efe7fe;
+  --purple-800: #7c3aed33;
+  --purple-900: #ddd8e8;
+  --purple-1000: #f2ecfe;
+  --purple-1100: #7e48ff1a;
+  --purple-1200: #7c3aed99;
 
   /* gray */
-  --gray-100: #6A7282;
+  --gray-100: #6a7282;
   --gray-200: #717182;
-  --gray-300: #E5E7EB;
-  --gray-400: #4B5563;
-  --gray-500: #364153;
-  --gray-600: #ECECF0;
-  --gray-700: #E2E8F0;
-  --gray-800: #CAD5E2;
-  --gray-900: #AAAAAA;
+  --gray-300: #e5e7eb;
+  --gray-400: #4b5563;
+  --gray-600: #ececf0;
+  --gray-700: #e2e8f0;
+  --gray-800: #cad5e2;
+  --gray-900: #aaaaaa;
 
   /* Green */
-  --green-100: #00C950;
-  --green-200: #00A63E;
-  --green-300: #00B95C;
-  --green-400: #15803D;
+  --green-100: #00c950;
+  --green-200: #00a63e;
+  --green-300: #00b95c;
+  --green-400: #15803d;
   --green-500: #008236;
-  --sweetyellow: #CCFF00;
-  --green-new: #0B3F4233;
-  --green-new-100: #0B3F421A;
+  --green-new: #0b3f4233;
+  --green-new-100: #0b3f421a;
 
   /* orange */
-  --orange-100: #FBFBFB;
-  --orange-200: #E17100;
-  --orange-300: #A16207;
-  --orange-400: #FDB988;
-  --orange-500: #E28725;
+  --orange-100: #fbfbfb;
+  --orange-200: #e17100;
+  --orange-300: #a16207;
+  --orange-400: #fdb988;
+  --orange-500: #e28725;
 
   /* red */
-  --red-100: #FC413D;
-  --red-200: #E7000B;
-  --red-300: #FEF2F2;
+  --red-100: #fc413d;
+  --red-200: #e7000b;
+  --red-300: #fef2f2;
 
+  /* Font Sizes */
+  --large-heading: 22px;
+  --main-heading: 20px;
+  --medium-heading: 18px;
+  --below-medium-heading: 16px;
+  --normal-text: 14px;
+  --small-text: 12px;
+  --small-text-10: 10px;
 
+  /* border-radius */
+  --border-radius-12: 12px;
+  --border-radius-8: 8px;
+  --border-radius-6: 6px;
+  --border-radius-4: 4px;
 }
 
-
-[data-theme='dark'] {
+[data-theme="dark"] {
   --black: #ffffff;
   --black-100: #ffffff99;
   --black-300: #ffffff;
   --black-400: #f5f5f5;
-  --black-500: #ffffff1A;
-  --black-600: #ffffff4D;
-  --black-700: #ffffffCC;
-  --black-800: #ffffff0D;
-  --black-1000: #ffffff1A;
+  --black-500: #ffffff1a;
+  --black-600: #ffffff4d;
+  --black-700: #ffffffcc;
+  --black-800: #ffffff0d;
+  --black-1000: #ffffff1a;
   --black-1100: #ffffff33;
   --black-1200: #9ca3af;
 
@@ -94,7 +111,7 @@
   /* purplish */
   --purple-main: #a78bfa;
   --purple-100: #1f2937;
-  --purple-200: #a78bfa1A;
+  --purple-200: #a78bfa1a;
   --purple-400: #a78bfa33;
   --purple-500: #a78bfa80;
   --purple-600: #4c1d95;
@@ -102,7 +119,7 @@
   --purple-800: #a78bfa33;
   --purple-900: #312e81;
   --purple-1000: #111827;
-  --purple-1100: #a78bfa1A;
+  --purple-1100: #a78bfa1a;
   --purple-1200: #a78bfa99;
 
   /* gray */

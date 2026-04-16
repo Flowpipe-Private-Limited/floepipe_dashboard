@@ -244,7 +244,7 @@
 
 .resend-link {
   color: var(--purple-main);
-  font-size: 12px;
+  font-size: var(--small-text);
   cursor: pointer;
   font-weight: 500;
   text-decoration: underline;
@@ -256,7 +256,7 @@
 
 .resend-timer {
   color: var(--purple-main);
-  font-size: 12px;
+  font-size: var(--small-text);
   text-decoration: underline;
 }
 
@@ -273,7 +273,7 @@
   flex-direction: column;
 }
 .forget-label {
-  font-size: 13px;
+  font-size: var(--small-text);
   font-weight: 300;
   margin-bottom: 0.7rem;
 }
@@ -285,7 +285,7 @@
   transform: translateY(-50%);
   color: #a0aec0;
   cursor: pointer;
-  font-size: 18px;
+  font-size: var(--medium-heading);
 }
 
 .password-eye-icon:hover {

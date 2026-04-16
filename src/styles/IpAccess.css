@@ -14,7 +14,7 @@
   border: 1px solid #e5e5e5;
 }
 .whitelist-title {
-  font-size: 24px;
+  font-size: var(--large-heading);
   font-weight: 700;
   margin-bottom: 20px;
 }
@@ -29,7 +29,7 @@
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: var(--normal-text);
 }
 .add-btn {
   background: #a020f0;
@@ -53,7 +53,7 @@
 }
 .note-text {
   color: #e03131;
-  font-size: 14px;
+  font-size: var(--normal-text);
 }
 .table-container {
   overflow-x: auto;

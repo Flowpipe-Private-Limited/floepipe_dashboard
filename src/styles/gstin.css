@@ -20,7 +20,7 @@
 }
 
 .HeadersTitle {
-     font-family: "JetBrainsMono";
+     font-family: "Konnect";
 
     font-weight: 500;
     font-size: 1.57143em;
@@ -29,8 +29,8 @@
     margin: 0px 0px 20px;
 }
 .HeadersContext{
-     font-family: "JetBrainsMono";
+     font-family: "Konnect";
 
-    font-size: 14px;
+    font-size: var(--normal-text);
     color: rgb(51, 51, 51);
 }

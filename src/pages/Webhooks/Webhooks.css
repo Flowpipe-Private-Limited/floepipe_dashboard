@@ -30,17 +30,17 @@
 }
 
 .webhooks-title {
-  font-size: 24px;
+  font-size: var(--large-heading);
   font-weight: 700;
   color: var(--black);
   margin: 0;
 }
 
 .webhooks-subtitle {
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--gray-200);
   margin: 4px 0 0 0;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .webhooks-actions {
@@ -85,7 +85,7 @@
 }
 
 .webhook-url {
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: #374151;
   margin-bottom: 8px;
 }
@@ -96,7 +96,7 @@
 }
 
 .status-badge {
-  font-size: 12px;
+  font-size: var(--small-text);
   padding: 4px 10px;
   border-radius: 0.8rem;
   font-weight: 500;
@@ -110,7 +110,7 @@
 }
 
 .events-badge {
-  font-size: 12px;
+  font-size: var(--small-text);
   padding: 3px 10px;
   border-radius: 0.8rem;
   border: 1px solid var(--purple-main);
@@ -179,10 +179,10 @@ input:checked + .slider:before {
 
 /* Subscribed Events */
 .webhook-subscribed-events p {
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--gray-200);
   margin-bottom: 8px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .subscribed-events-list {
@@ -196,8 +196,8 @@ input:checked + .slider:before {
   color: var(--black);
   padding: 6px 12px;
   border-radius: 6px;
-  font-size: 14px;
-  font-family: "JetBrainsMono";
+  font-size: var(--normal-text);
+  font-family: "Konnect";
 }
 
 .webhook-card-actions {
@@ -215,7 +215,7 @@ input:checked + .slider:before {
   font-weight: 500;
   cursor: pointer;
   text-align: center;
-  font-size: 15px;
+  font-size: var(--normal-text);
 }
 
 .btn-delete-icon {
@@ -242,12 +242,12 @@ input:checked + .slider:before {
 }
 
 .events-section-title {
-  font-size: 18px;
+  font-size: var(--medium-heading);
   font-weight: 600;
   color: var(--black);
   margin-top: 0;
   margin-bottom: 20px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .events-grid {
@@ -263,9 +263,9 @@ input:checked + .slider:before {
   background-color: var(--gray-600);
   padding: 10px 16px;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   color: var(--black);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .radio-circle {
@@ -330,15 +330,15 @@ input:checked + .slider:before {
 }
 
 .modal-title {
-  font-size: 18px;
+  font-size: var(--medium-heading);
   font-weight: 600;
   margin: 0;
   color: var(--black);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .modal-subtitle {
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--gray-200);
   margin-top: 4px;
 }
@@ -347,7 +347,7 @@ input:checked + .slider:before {
 .btn-close {
   border: none;
   background: transparent;
-  font-size: 18px;
+  font-size: var(--medium-heading);
   cursor: pointer;
   color: var(--black);
 }
@@ -360,19 +360,19 @@ input:checked + .slider:before {
 }
 
 .form-group {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   font-weight: 500;
   color: #374151;
   margin-bottom: 6px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .webhook {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   font-weight: 500;
   color: #374151;
   margin-bottom: 6px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .text-red {
@@ -384,9 +384,9 @@ input:checked + .slider:before {
   padding: 12px 14px;
   border-radius: 10px;
   border: 2.5px solid var(--gray-700);
-  font-size: 14px;
+  font-size: var(--normal-text);
   outline: none;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
   color: var(--black-100);
 }
 
@@ -403,12 +403,12 @@ input:checked + .slider:before {
 
 .security-note strong {
   color: var(--purple-main);
-  font-size: 16px;
-  font-family: "JetBrainsMono";
+  font-size: var(--below-medium-heading);
+  font-family: "Konnect";
 }
 
 .security-note p {
-  font-size: 14px;
+  font-size: var(--normal-text);
   margin-top: 6px;
   color: var(--black);
   line-height: 1.6;
@@ -428,10 +428,10 @@ input:checked + .slider:before {
   border-radius: 10px;
   border: 1px solid var(--purple-main);
   background: var(--white);
-  font-size: 14px;
+  font-size: var(--normal-text);
   cursor: pointer;
   color: var(--purple-main);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 
   width: 100%;
 }
@@ -442,10 +442,10 @@ input:checked + .slider:before {
   border: none;
   background: var(--purple-main);
   color: var(--white);
-  font-size: 14px;
+  font-size: var(--normal-text);
   font-weight: 500;
   cursor: pointer;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
   width: 100%;
 }
 
@@ -459,11 +459,11 @@ input:checked + .slider:before {
     align-items: flex-start;
   }
   .webhooks-title {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .webhooks-subtitle {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .webhook-card-header {
@@ -484,7 +484,7 @@ input:checked + .slider:before {
   }
 
   .event-tag {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .events-grid {
@@ -492,7 +492,7 @@ input:checked + .slider:before {
   }
 
   .event-type-item {
-    font-size: 14px;
+    font-size: var(--normal-text);
   }
 
   .webhooks-events-section {
@@ -527,7 +527,7 @@ input:checked + .slider:before {
   }
 
   .webhook-url {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .status-badge,

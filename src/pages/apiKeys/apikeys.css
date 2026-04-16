@@ -75,7 +75,7 @@
   padding: 1.5rem 1.5rem;
   text-align: center;
   margin-bottom: 1.8rem;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .add-key-btn {
@@ -116,13 +116,13 @@ table {
 .thead-header {
   background: var(--purple-700);
   color: var(--black);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .th-api {
   padding: 1rem;
   font-weight: 600;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 
 }
 
@@ -149,7 +149,7 @@ tbody tr td[colspan] {
   padding: 1.5rem;
   font-size: 0.9rem;
   color: var(--black);
-   font-family: "JetBrainsMono";
+   font-family: "Konnect";
   background: var(--white);
 }
 
@@ -171,8 +171,8 @@ tbody tr td[colspan] {
 
 .key-radio {
   color: var(--black);
-  font-family: "JetBrainsMono";
-  font-size: 13px;
+  font-family: "Konnect";
+  font-size: var(--small-text);
 }
 
 /* Hide default checkbox - keep it accessible for clicks */
@@ -243,7 +243,7 @@ tbody tr td[colspan] {
   color: var(--purple-main);
   background: transparent;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   cursor: pointer;
   font-weight: 200;
   transition: all 0.2s;
@@ -260,7 +260,7 @@ tbody tr td[colspan] {
   color: var(--white);
   border: none;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: var(--normal-text);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;

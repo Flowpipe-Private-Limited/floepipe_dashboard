@@ -1,15 +1,16 @@
 .nav-panel {
-  background-color: var(--black);
-  color: var(--white);
+  background-color: #ffffff !important;
+  color: #1f2937;
   display: flex;
   flex-direction: column;
   height: 100vh;
   transition: width 0.3s ease;
   border-top-right-radius: 2rem;
+  border-right: 1px solid #e5e7eb;
 }
 
 .nav-panel--expanded {
-  width: 230px;
+  width: 260px;
 }
 
 .nav-panel--collapsed {
@@ -19,7 +20,32 @@
 .section-title-flowpipe {
   font-weight: 700;
   font-size: 1.7rem;
-  color: var(--white);
+  color: #1f2937;
+}
+
+/* Greeting Styles */
+.sidebar-greeting {
+  padding: 1.5rem 1rem 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.greeting-main {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000;
+  line-height: 1.2;
+}
+
+.greeting-name {
+  display: block;
+}
+
+.greeting-sub {
+  font-size: 0.9rem;
+  color: var(--black-100);
+  margin-top: 4px;
 }
 
 .sidebar-item {
@@ -28,14 +54,14 @@
   align-items: center;
   flex-direction: row;
   gap: 0.6rem;
-  padding: 0.6rem;
-  border-radius: 0.4rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
   transition: all 0.2s ease;
-  color: var(--white);
-  background: var(--purple-100);
-  font-family: "JetBrainsMono";
-  font-size: 13px;
-  font-weight: 400;
+  font-size: var(--normal-text);
+  font-weight: 500;
+  color: var(--black-1800);
+  background: transparent;
+  border: none;
 }
 
 .sidebar-item-kyc {
@@ -50,8 +76,8 @@
   transition: all 0.2s ease;
   color: var(--white);
   background: var(--purple-100);
-  font-family: "JetBrainsMono";
-  font-size: 13px;
+  font-family: "Konnect";
+  font-size: var(--small-text);
   font-weight: 400;
 }
 
@@ -75,16 +101,17 @@
   position: relative;
   display: flex;
   align-items: center;
-  background: var(--purple-100);
-  border-radius: 0.4rem;
-  padding: 0.6rem;
-  transition: box-shadow 0.2s ease;
-  font-family: "JetBrainsMono";
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0.6rem 0.8rem;
+  transition: all 0.2s ease;
+  font-family: "Konnect";
 }
 
 .sidebar-search-icon {
-  color: var(--white);
-  font-size: 16px;
+  color: #9ca3af;
+  flex-shrink: 0;
 }
 
 .sidebar-search-input {
@@ -92,23 +119,24 @@
   border: none;
   outline: none;
   width: 100%;
-  color: var(--white);
-  font-size: 12px;
-  padding: 0 8px;
+  color: #1f2937;
+  font-size: 0.95rem;
+  padding: 0 10px;
 }
 
 .sidebar-search-input::placeholder {
-  color: var(--white);
+  color: #9ca3af;
 }
 
 .sidebar-search-box:focus-within {
-  box-shadow: 0 0 0 1px var(--purple-main);
+  border-color: #000;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
 }
 
 .Page-name {
   color: var(--black);
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: var(--medium-heading);
 }
 
 .Dash-header {
@@ -141,7 +169,7 @@
 }
 
 .Dash-header-title {
-  font-size: 18px;
+  font-size: var(--medium-heading);
   font-weight: 600;
   color: var(--black);
 }
@@ -159,13 +187,13 @@
   border: 1px solid var(--purple-main);
   background: transparent;
   color: var(--purple-main);
-  font-size: 14px;
+  font-size: var(--normal-text);
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .Dash-header-avatar-btn {
@@ -248,7 +276,7 @@
 }
 
 .profile-name {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   font-weight: 600;
   color: var(--purple-main);
   font-family: "Figtree";
@@ -258,7 +286,7 @@
 
 .profile-email,
 .profile-id {
-  font-size: 12px;
+  font-size: var(--small-text);
   color: var(--black-100);
   margin: 0;
   line-height: 1.4;
@@ -274,7 +302,7 @@
 .profile-menu-item {
   padding: 12px 24px;
   font-family: "Outfit", sans-serif;
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--black-100);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -299,18 +327,19 @@
 }
 
 .group-header {
-  background: var(--purple-100);
+  background: #f9fafb;
   display: flex;
   justify-content: space-between;
+  border: 1px solid #f3f4f6;
 }
 
 .group-label {
   font-weight: 600;
-  color: var(--white);
+  color: #111827;
 }
 
 .subgroup-container {
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid #e5e7eb;
   margin-top: 4px;
 }
 
@@ -326,16 +355,16 @@
   padding: 8px 12px;
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 13px;
+  color: #4b5563;
+  font-size: var(--small-text);
   cursor: pointer;
   border-radius: 6px;
   transition: all 0.2s ease;
 }
 
 .subgroup-button:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--white);
+  background: #f3f4f6;
+  color: #111827;
 }
 
 .subgroup-icon {
@@ -360,8 +389,8 @@
 }
 
 .api-endpoint-item:hover {
-  background: rgba(124, 58, 237, 0.2);
-  color: var(--white);
+  background: #f3f4f6;
+  color: #111827;
 }
 
 .api-method-badge {
@@ -388,7 +417,7 @@
 
 .api-label {
   flex: 1;
-  font-size: 12px;
+  font-size: var(--small-text);
 }
 
 .highlight-match {
@@ -406,16 +435,20 @@
 }
 
 .sidebar-item.active {
-  background: rgba(124, 58, 237, 0.2);
-  color: var(--white);
-  border-left: 3px solid var(--purple-main);
-  padding-left: calc(0.6rem - 3px);
+  background: var(--black);
+  color: var(--sweetyellow); 
+  border-left: none;
+  padding-left: 1rem;
+}
+
+.sidebar-item.active svg {
+  color: #d9f99d;
 }
 
 .api-endpoint-item.active {
-  background: rgba(124, 58, 237, 0.3) !important;
-  color: var(--white) !important;
-  border-left: 2px solid var(--purple-main) !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-left: 2px solid #000 !important;
+  color: #000 !important;
 }
 
 .mobile-sidebar-tools {
@@ -432,7 +465,7 @@
   }
 
   .Dash-header-title {
-    font-size: 16px;
+    font-size: var(--below-medium-heading);
   }
 }
 
@@ -491,7 +524,7 @@
   }
 
   .Dash-header-title {
-    font-size: 16px;
+    font-size: var(--below-medium-heading);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -518,7 +551,7 @@
 
 /* Main Content Background */
 .bg-main-content {
-  background-color: #f8f9fd;
+  background-color: var(--main-bg);
 }
 
 [data-theme='dark'] .bg-main-content {
@@ -527,61 +560,29 @@
   /* OR var(--white-100) #1f2937 (Lighter Dark) */
 }
 
-/* Sidebar Container */
+/* Remove dark mode overrides that conflict with white sidebar */
 [data-theme='dark'] .nav-panel {
-  background-color: var(--white) !important;
-  /* #111827 */
-  border-right: 1px solid var(--white-200);
-  /* Dark Border */
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
 }
 
-/* Sidebar Text & Titles */
-[data-theme='dark'] .section-title-flowpipe,
-[data-theme='dark'] .group-label,
-[data-theme='dark'] .subgroup-label,
-[data-theme='dark'] .sidebar-item span,
-[data-theme='dark'] .api-endpoint-item,
-[data-theme='dark'] .api-label,
-[data-theme='dark'] .bi-dash-lg {
-  color: var(--black) !important;
-  /* #ffffff (White) */
+[data-theme='dark'] .sidebar-greeting .greeting-main,
+[data-theme='dark'] .sidebar-greeting .greeting-sub {
+  color: inherit !important;
 }
 
-/* Sidebar Items */
 [data-theme='dark'] .sidebar-item {
-  color: var(--black) !important;
-  background-color: transparent;
-  /* Or stick with --purple-100 (#1f2937) but ensure text is white */
+  color: #4b5563 !important;
 }
 
-[data-theme='dark'] .sidebar-item:hover,
-[data-theme='dark'] .subgroup-button:hover,
-[data-theme='dark'] .api-endpoint-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--black) !important;
+[data-theme='dark'] .group-label,
+[data-theme='dark'] .subgroup-label {
+  color: #111827 !important;
 }
 
-/* Sidebar Search */
 [data-theme='dark'] .sidebar-search-box {
-  background-color: var(--white-100);
-  /* #1f2937 */
-  border: 1px solid var(--white-200);
-}
-
-[data-theme='dark'] .sidebar-search-icon,
-[data-theme='dark'] .sidebar-search-input {
-  color: var(--black);
-}
-
-[data-theme='dark'] .sidebar-search-input::placeholder {
-  color: var(--black-600);
-  /* transparent white */
-}
-
-/* Sidebar Subgroups */
-[data-theme='dark'] .subgroup-button {
-  color: var(--black-700);
-  /* slightly dimmed white */
+  background-color: #ffffff;
+  border-color: #e5e7eb;
 }
 
 /* Dashboard Header */

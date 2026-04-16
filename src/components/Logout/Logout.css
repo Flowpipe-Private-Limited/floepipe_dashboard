@@ -26,7 +26,7 @@
 }
 
 .logout-title {
-  font-size: 1.5rem;
+  font-size: var(--medium-heading);
   font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 12px;
@@ -34,7 +34,7 @@
 
 .logout-message {
   color: #4b5563;
-  font-size: 1rem;
+  font-size: var(--below-medium-heading);
   margin-bottom: 32px;
 }
 

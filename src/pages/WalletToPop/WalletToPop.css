@@ -45,10 +45,10 @@
 }
 
 .wallet-title {
-  font-size: 12px;
+  font-size: var(--small-text);
   text-transform: uppercase;
   opacity: 0.7;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
   font-weight: 200;
   letter-spacing: 0.5rem;
 }
@@ -89,11 +89,11 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
+  font-size: var(--normal-text);
   font-weight: 500;
   cursor: pointer;
   opacity: 0.9;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .wallet-action:hover {
@@ -101,7 +101,7 @@
 }
 
 .action-icon {
-  font-size: 14px;
+  font-size: var(--normal-text);
 }
 
 .add-money-card {
@@ -111,11 +111,11 @@
 }
 
 .add-money-card h3 {
-  font-size: 15px;
+  font-size: var(--normal-text);
   font-weight: 500;
   margin-bottom: 12px;
   color: var(--black);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .bhim-img {
@@ -153,12 +153,12 @@
 }
 
 .upi-app-icon {
-  font-size: 10px;
+  font-size: var(--small-text-10);
 }
 
 .currency {
   color: #9ca3af;
-  font-size: 15px;
+  font-size: var(--normal-text);
   font-weight: 400;
   margin-right: 4px;
 }
@@ -167,7 +167,7 @@
   flex: 1;
   border: none;
   outline: none;
-  font-size: 15px;
+  font-size: var(--normal-text);
   color: #374151;
   font-family: "Figtree";
 }
@@ -183,7 +183,7 @@
   border-radius: 6px;
   padding: 6px 16px;
   /* Reduced padding */
-  font-size: 13px;
+  font-size: var(--small-text);
   /* Reduced size */
   font-weight: 500;
   cursor: pointer;
@@ -220,11 +220,11 @@
 
 /* Other Ways */
 .other-ways h3 {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   font-weight: 500;
   color: var(--black);
   margin: 0px 0 20px 0;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .bank-transfer {
@@ -253,17 +253,17 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
 }
 
 .bank-left span {
-  font-family: "JetBrainsMono";
-  font-size: 14px;
+  font-family: "Konnect";
+  font-size: var(--normal-text);
   color: #374151;
 }
 
 .arrow {
-  font-size: 18px;
+  font-size: var(--medium-heading);
   color: #9ca3af;
 }
 .footer-contactHelpdesk {
@@ -313,7 +313,7 @@
   }
 
   .wallet-balance {
-    font-size: 22px;
+    font-size: var(--large-heading);
   }
 
   .wallet-balance-row {
@@ -328,7 +328,7 @@
   }
 
   .wallet-action {
-    font-size: 13px;
+    font-size: var(--small-text);
     width: 100%;
     justify-content: space-between;
     padding: 8px 0;
@@ -340,7 +340,7 @@
   }
 
   .add-money-card h3 {
-    font-size: 14px;
+    font-size: var(--normal-text);
     margin-bottom: 10px;
   }
 
@@ -356,20 +356,20 @@
   }
 
   .upi-app-icon {
-    font-size: 9px;
+    font-size: var(--small-text-10);
   }
 
   .currency {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .upi-input-row input {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .pay-btn {
     padding: 5px 14px;
-    font-size: 12px;
+    font-size: var(--small-text);
   }
 
   .amount-buttons {
@@ -380,11 +380,11 @@
     flex: 1 0 calc(50% - 3px);
     min-width: calc(50% - 3px);
     padding: 5px 10px;
-    font-size: 10px;
+    font-size: var(--small-text-10);
   }
 
   .other-ways h3 {
-    font-size: 14px;
+    font-size: var(--normal-text);
     margin: 0 0 16px 0;
   }
 
@@ -399,15 +399,15 @@
   .bank-icon {
     width: 28px;
     height: 28px;
-    font-size: 14px;
+    font-size: var(--normal-text);
   }
 
   .bank-left span {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .arrow {
-    font-size: 16px;
+    font-size: var(--below-medium-heading);
   }
 
   .footer-contactHelpdesk {
@@ -415,7 +415,7 @@
   }
 
   .ContactHelpdesk {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 }
 
@@ -446,7 +446,7 @@
   }
 
   .wallet-balance {
-    font-size: 24px;
+    font-size: var(--large-heading);
   }
 
   .add-money-card {
@@ -462,7 +462,7 @@
   }
 
   .upi-input-row input {
-    font-size: 14px;
+    font-size: var(--normal-text);
   }
 
   .pay-btn {
@@ -476,7 +476,7 @@
   }
 
   .other-ways h3 {
-    font-size: 15px;
+    font-size: var(--normal-text);
   }
 
   .bank-left span {
@@ -518,7 +518,7 @@
   }
 
   .add-money-card h3 {
-    font-size: 15px;
+    font-size: var(--normal-text);
   }
 
   .upi-input-row {
@@ -556,7 +556,7 @@
   }
 
   .wallet-title {
-    font-size: 12px;
+    font-size: var(--small-text);
     letter-spacing: 0.5rem;
   }
 
@@ -573,7 +573,7 @@
   }
 
   .wallet-action {
-    font-size: 14px;
+    font-size: var(--normal-text);
   }
 
   .add-money-card {
@@ -582,7 +582,7 @@
   }
 
   .add-money-card h3 {
-    font-size: 16px;
+    font-size: var(--below-medium-heading);
     margin-bottom: 14px;
   }
 
@@ -601,11 +601,11 @@
   }
 
   .currency {
-    font-size: 15px;
+    font-size: var(--normal-text);
   }
 
   .upi-input-row input {
-    font-size: 15px;
+    font-size: var(--normal-text);
   }
 
   .pay-btn {
@@ -619,12 +619,12 @@
 
   .amount-buttons button {
     padding: 7px 16px;
-    font-size: 12px;
+    font-size: var(--small-text);
     border-radius: 6px;
   }
 
   .other-ways h3 {
-    font-size: 16px;
+    font-size: var(--below-medium-heading);
     margin: 0 0 24px 0;
   }
 
@@ -635,7 +635,7 @@
   .bank-icon {
     width: 36px;
     height: 36px;
-    font-size: 18px;
+    font-size: var(--medium-heading);
   }
 
   .bank-left span {
@@ -643,7 +643,7 @@
   }
 
   .arrow {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .footer-contactHelpdesk {
@@ -651,7 +651,7 @@
   }
 
   .ContactHelpdesk {
-    font-size: 14px;
+    font-size: var(--normal-text);
     margin-top: 0.6rem;
   }
 }
@@ -664,12 +664,12 @@
   }
 
   .wallet-title {
-    font-size: 10px;
+    font-size: var(--small-text-10);
     letter-spacing: 0.25rem;
   }
 
   .wallet-balance {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .amount-buttons button {
@@ -695,7 +695,7 @@
   }
 
   .wallet-balance {
-    font-size: 20px;
+    font-size: var(--main-heading);
   }
 
   .wallet-card-footer {
@@ -736,12 +736,12 @@
   }
 
   .upi-input-row input {
-    font-size: 16px;
+    font-size: var(--below-medium-heading);
   }
 
   .amount-buttons button {
     padding: 12px;
-    font-size: 14px;
+    font-size: var(--normal-text);
   }
 }
 

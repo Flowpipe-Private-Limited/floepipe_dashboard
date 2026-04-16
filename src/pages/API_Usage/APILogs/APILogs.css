@@ -33,7 +33,7 @@
 
 .empty-state-illustration p {
   margin-top: 1rem;
-  font-size: 1rem;
+  font-size: var(--below-medium-heading);
   color: var(--black-300);
 }
 
@@ -137,7 +137,7 @@
   align-items: center;
   width: 100%;
   gap: 0.5rem;
-  font-size: 14px;
+  font-size: var(--normal-text);
 }
 
 .reportsempty-img {
@@ -204,7 +204,7 @@
   gap: 6px;
   padding: 8px 16px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: var(--normal-text);
   font-weight: 500;
   color: #666;
   cursor: pointer;
@@ -221,7 +221,7 @@
 }
 
 .request-mode-icon {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
 }
 
 /* Form */
@@ -243,9 +243,9 @@
 }
 
 .request-label {
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: var(--black);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
   display: flex;
   flex-direction: row;
   gap: 0.3rem;
@@ -265,12 +265,12 @@
   padding: 12px 40px 12px 16px;
   border: 1px solid #e5e5e5;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: #666;
   background: #fafafa;
   cursor: pointer;
   transition: all 0.2s;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
   box-sizing: border-box;
 }
 
@@ -310,7 +310,7 @@
 
 .request-calendar-dropdown p {
   color: #666;
-  font-size: 14px;
+  font-size: var(--normal-text);
   margin: 0;
   text-align: center;
 }
@@ -329,7 +329,7 @@
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   cursor: pointer;
   font-weight: 200;
   transition: all 0.2s;
@@ -371,7 +371,7 @@
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--black);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .requested-close {
@@ -397,7 +397,7 @@
 .requested-table thead {
   background: #f5f3ff;
   color: var(--black);
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .requested-table th {
@@ -516,7 +516,7 @@
 
   .request-mode-btn {
     padding: 6px 12px;
-    font-size: 12px;
+    font-size: var(--small-text);
   }
 
   .request-form {
@@ -525,12 +525,12 @@
   }
 
   .request-label {
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .request-date-input {
     padding: 10px 35px 10px 12px;
-    font-size: 13px;
+    font-size: var(--small-text);
   }
 
   .request-submit-btn {
@@ -548,7 +548,7 @@
   }
 
   .requested-header h3 {
-    font-size: 1rem;
+    font-size: var(--below-medium-heading);
   }
 
   .requested-close {

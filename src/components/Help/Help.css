@@ -160,7 +160,7 @@
 }
 
 .help-modal-title {
-  font-size: 22px;
+  font-size: var(--large-heading);
   font-weight: 600;
   margin: 0;
 }
@@ -195,7 +195,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 22px;
+  font-size: var(--large-heading);
   font-weight: 600;
   cursor: pointer;
 }
@@ -220,16 +220,16 @@
 }
 
 .help-questions-title {
-  font-size: 18px;
+  font-size: var(--medium-heading);
   font-weight: 600;
   color: var(--black);
   margin-bottom: 3px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .help-questions-subtitle {
   color: var(--black-700);
-  font-size: 14px;
+  font-size: var(--normal-text);
   margin-bottom: 18px;
 }
 
@@ -242,12 +242,12 @@
 .help-btn {
   padding: 10px 20px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: var(--small-text);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
   border: 1px solid transparent;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
 }
 
 .help-btn-primary {
@@ -276,11 +276,11 @@
 }
 
 .help-section-title {
-  font-size: 16px;
+  font-size: var(--below-medium-heading);
   font-weight: 600;
   color: var(--black);
   margin-bottom: 15px;
-  font-family: "JetBrainsMono";
+  font-family: "Konnect";
   text-align: left;
   width: 100%;
 }
@@ -306,7 +306,7 @@
 }
 
 .help-faq-text {
-  font-size: 14px;
+  font-size: var(--normal-text);
   font-weight: 500;
   color: #333;
   flex: 1;
@@ -421,7 +421,7 @@
 }
 
 .help-contact-text {
-  font-size: 15px;
+  font-size: var(--normal-text);
   color: #333;
   font-weight: 500;
 }
@@ -436,7 +436,7 @@
 }
 
 .help-detail-question {
-  font-size: 24px;
+  font-size: var(--large-heading);
   font-weight: 600;
   color: #111;
   margin-bottom: 20px;
@@ -445,7 +445,7 @@
 
 .help-detail-answer {
   flex: 1;
-  font-size: 15px;
+  font-size: var(--normal-text);
   color: #555;
   line-height: 1.6;
 }
@@ -498,7 +498,7 @@
 
 /* --- Live Chat Styles --- */
 .help-chat-title {
-  font-size: 22px;
+  font-size: var(--large-heading);
   font-weight: 600;
   margin: 0;
   color: var(--white);
@@ -529,7 +529,7 @@
 
 .help-chat-welcome-text {
   color: var(--white);
-  font-size: 15px;
+  font-size: var(--normal-text);
   line-height: 1.5;
   margin: 0;
   width: 70%;
@@ -550,7 +550,7 @@
   flex: 1;
   border: none;
   outline: none;
-  font-size: 15px;
+  font-size: var(--normal-text);
   color: var(--black);
   background: transparent;
 }
@@ -604,14 +604,14 @@
 }
 
 .help-messages-empty-title {
-  font-size: 22px;
+  font-size: var(--large-heading);
   font-weight: 600;
   color: #111;
   margin: 0 0 12px 0;
 }
 
 .help-messages-empty-text {
-  font-size: 14px;
+  font-size: var(--normal-text);
   color: #666;
   margin: 0 0 30px 0;
   line-height: 1.5;
@@ -625,7 +625,7 @@
   background: #f5f5f5;
   border: none;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: var(--normal-text);
   font-weight: 500;
   color: #333;
   cursor: pointer;
@@ -671,7 +671,7 @@
 }
 
 .help-nav-tab span {
-  font-size: 12px;
+  font-size: var(--small-text);
   font-weight: 500;
 }
 
@@ -757,7 +757,7 @@
 
 .help-chat-text {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--normal-text);
   line-height: 1.5;
 }
 
@@ -775,7 +775,7 @@
   border: 1px solid #e5e5e5;
   border-radius: 24px;
   padding: 12px 20px;
-  font-size: 14px;
+  font-size: var(--normal-text);
   outline: none;
   transition: border-color 0.2s;
 }
