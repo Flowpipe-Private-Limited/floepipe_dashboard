@@ -90,6 +90,7 @@ const OtpScreen = ({ navigation }) => {
       (resData)=>{
         console.log('response data',resData )
         const {success,message,clientId} = resData;
+         localStorage.setItem("clientId", clientId);
         if(success){
           // Cookies.set("token",token);
           Cookies.set("clientId",clientId);

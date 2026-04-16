@@ -11,6 +11,9 @@ const supperApiClient = axios.create({
 const kycApiClient = axios.create({
   baseURL: import.meta.env.REACT_APP_KYC_URL,
 });
+const kycApiwallettopup = axios.create({
+  baseURL: import.meta.env.REACT_APP_KYC_URL_WALLET,
+});
 
 // BBPS MICROSERVICE BASE URL
 const bbpsApiClient = axios.create({
@@ -124,9 +127,20 @@ const HandleFetchIP = (clientId) => supperApiClient.get(`client/Get/whitelist/cl
 const HandleDeleteIP = (data) => supperApiClient.post(`client/delete/whitelist/clientIp`, data);
 const HandleDeleteKey = (data) => supperApiClient.post(`client/delete/clientKeys`, data);
 
+const GetWalletBalance = (clientid) => supperApiClient.get(`/apimodule/get-wallte-balance?clientId=${clientid}`)
+const getBillingTypeApi = (clientId) => supperApiClient.get(`/client/is-monthly-pay/${clientId}`);
+const GetBillingAmountApi = (clientId, month) => supperApiClient.get(`/apimodule/billing-records/${clientId}/${month}`
+);
+// Generate Dynamic QR API
+// const GenerateDynamicQrApi = (payload) =>
+//   kycApiwallettopup.post(`/generate-dynamic-qr`, payload);
+const GenerateStaticQrApi = () => kycApiwallettopup.post(`/generate-static-qr`);
+
+
+
 const VerifyFPIN = (data) => supperApiClient.post('Client/verify-fpin', data);
 
-const SubscribeService = (payload) => supperApiClient.post("/apimodule/subscribe-service", payload);
+const SubscribeService = (payload) => supperApiClient.post("/apimodule/subscribe-service", payload); DashboardServices
 const getAllCategoriesService = () => supperApiClient.get("/apimodule/get-all-category");
 
 const getServicesByCategoryService = (categoryId) =>
@@ -205,6 +219,11 @@ export {
   HandleFetchIP,
   HandleDeleteIP,
   HandleDeleteKey,
+  GetWalletBalance,
+  getBillingTypeApi,
+  GetBillingAmountApi,
+  // GenerateDynamicQrApi,
+  GenerateStaticQrApi,
   getAnalyticsService,
   HandleRefreshToken,
   GenerateTestKeys, GetTestKeys, RemoveTestKey

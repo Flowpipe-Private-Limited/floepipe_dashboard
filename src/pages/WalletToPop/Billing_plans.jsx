@@ -14,6 +14,7 @@ import { FiEdit } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 import EnvironmentSwitch from "../../components/ui/EnvironmentSwitch/EnvironmentSwitch";
 import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebutton";
+import { GetWalletBalance } from "../../utils/Apis/api"
 
 const BillingPlans = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
@@ -30,15 +31,20 @@ const BillingPlans = () => {
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
   const getWalletBalance = async () => {
+    console.log("entered into getwalletbalance")
     setLoading(true);
     setError("");
     try {
-      const res = await axios.get(
-        `${BASE_URL}apimodule/get-wallte-balance?clientId=${CLIENT_ID}`,
-      );
-      
+      console.log("entered into getwalletbalance")
+      const CLIENT_ID = localStorage.getItem("clientId");
+      console.log("CLIENT_ID======>", CLIENT_ID)
+      // const res = await axios.get( `${BASE_URL}apimodule/get-wallte-balance?clientId=${CLIENT_ID}`,);
+      const res = await GetWalletBalance(CLIENT_ID)
+      console.log("clientid=====>", res)
+
+      console.log("Wallet API Response:", res.data);
+
       if (res.data?.success) {
         setBalance(res.data?.data?.balance);
       } else {
@@ -307,9 +313,8 @@ const BillingPlans = () => {
                   <td>{tx.date}</td>
                   <td>
                     <span
-                      className={`BillingPlans_tx-type ${
-                        tx.type === "Top-up" ? "topup" : "invoice"
-                      }`}
+                      className={`BillingPlans_tx-type ${tx.type === "Top-up" ? "topup" : "invoice"
+                        }`}
                     >
                       {tx.type}
                     </span>
