@@ -9,7 +9,7 @@
 }
 .genDiv{
     border: 2px solid rgb(145, 145, 145);
-    border-radius: 1rem;
+    border-radius: var(--border-radius-8);
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@
 }
 .genBtn{
     padding: 15px 30px;
-    border-radius: 1rem;
+    border-radius: var(--border-radius-8);
 }
 .table{
     border: 1px solid rgb(0, 0, 0);

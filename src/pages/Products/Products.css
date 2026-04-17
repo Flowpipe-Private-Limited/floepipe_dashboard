@@ -47,7 +47,7 @@
   margin-top: 0.35rem;
   background-color: var(--white);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  border-radius: 0.6rem;
+  border-radius: var(--border-radius-4);
   padding: 0.4rem;
   min-width: 160px;
   z-index: 10;
@@ -60,7 +60,7 @@
   padding: 0.45rem 0.6rem;
   font-size: 0.75rem;
   color: var(--gray-400);
-  border-radius: 0.35rem;
+   border-radius: var(--border-radius-4);
   cursor: pointer;
 }
 
@@ -71,11 +71,11 @@
 .dot {
   width: 0.8rem;
   height: 0.8rem;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
 }
 
 .dot.all {
-  background: var(--black-100);
+  background: var(--gray-200);
 }
 
 .dot.subscribed {
@@ -101,7 +101,7 @@
 /* ================= Product Card ================= */
 .product-card {
   background: var(--white);
-  border-radius: 0.6rem;
+  border-radius: var(--border-radius-4);
   padding: 0.9rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   display: flex;
@@ -137,7 +137,7 @@
   width: 2.1rem;
   height: 2.1rem;
   background-color: var(--purple-main);
-  border-radius: 0.35rem;
+   border-radius: var(--border-radius-4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,7 +188,7 @@
 /* ================= Button ================= */
 .action-btn {
   padding: 0.32rem 0.65rem;
-  border-radius: 0.35rem;
+   border-radius: var(--border-radius-4);
   font-weight: 600;
   font-size: 0.7rem;
   cursor: pointer;
@@ -235,7 +235,7 @@
   min-height: 400px;
   padding: 2rem;
   background-color: var(--white);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-8);
   margin-top: 1rem;
 }
 
@@ -555,7 +555,7 @@
   height: 45px;
   background-color: var(--white);
   border: 1px solid var(--gray-300);
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -589,7 +589,7 @@
 .scroll-arrow-btn {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   background-color: var(--white);
   border: 1px solid var(--gray-300);
   display: flex;

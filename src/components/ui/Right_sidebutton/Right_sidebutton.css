@@ -2,7 +2,7 @@
   background-color: var(--purple-main);
   color: var(--white);
   border: none;
-  border-radius: 0.6rem;
+  border-radius: var(--border-radius-4);
   padding: 10px 18px;
   font-size: var(--normal-text);
   font-weight: 500;

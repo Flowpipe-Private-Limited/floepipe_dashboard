@@ -61,7 +61,7 @@
   background: #292929;
   width: 1.7rem;
   height: 2rem;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +91,7 @@
 .login-divider-lineAn4 {
   width: clamp(40px, 4vw, 70px);
   height: 1px;
-  border-radius: 2px;
+  border-radius: var(--border-radius-4);
   border: 1px solid transparent;
 
   background:
@@ -142,7 +142,7 @@
   max-width: 380px;
   background: #181818;
   padding: 1.5rem 2.5rem;
-  border-radius: 16px;
+  border-radius: var(--border-radius-12);
   z-index: 2;
   box-shadow:
     inset 0 2px 12px rgba(38, 38, 38, 0.25),
@@ -228,7 +228,7 @@
 .fpin-box {
     width: 4rem;
     height: 4.2rem;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   background: #0f0f0f;
   border: 2px solid #2f2f2f;
   text-align: center;

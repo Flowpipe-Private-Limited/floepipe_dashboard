@@ -28,7 +28,7 @@ const StyledWrapper = styled.div`
   .loader__circle {
     width: 8px;
     height: 8px;
-    border-radius: 50%;
+    border-radius: var(--border-radius-50);
     margin: 0 4px;
     animation: loader_901 1s ease-in-out infinite;
   }

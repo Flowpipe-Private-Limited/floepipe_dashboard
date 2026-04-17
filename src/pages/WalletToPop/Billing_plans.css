@@ -41,7 +41,7 @@
 .BillingPlans_mode-toggle {
   background: var(--white-200);
   padding: 4px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   display: flex;
   gap: 4px;
 }
@@ -52,9 +52,9 @@
   padding: 6px 15px;
   font-size: var(--small-text);
   font-weight: 500;
-  color: var(--black-100);
+  color: var(--gray-200);
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,7 +77,7 @@
 .BillingPlans_stat-card {
   background: var(--white);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   border: 1px solid var(--black-500);
   min-height: 130px;
@@ -125,7 +125,7 @@
 .BillingPlans_badge {
   display: inline-block;
   padding: 3px 10px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   font-size: 11px;
   font-weight: 600;
   background: var(--green-200);
@@ -150,14 +150,14 @@
   background: var(--purple-main);
   color: var(--white);
   padding: 4px 12px;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
   font-family: "Figtree-Light";
 }
 
 .BillingPlans_progress-bar {
   height: 6px;
   background: var(--gray-300);
-  border-radius: 3px;
+   border-radius: var(--border-radius-4);
   margin-top: 12px;
   overflow: hidden;
 }
@@ -165,7 +165,7 @@
 .BillingPlans_progress-fill {
   background: var(--purple-main);
   height: 100%;
-  border-radius: 3px;
+   border-radius: var(--border-radius-4);
 }
 
 .BillingPlans_threshold-row {
@@ -191,7 +191,7 @@
 .BillingPlans_edit-link {
   display: block;
   font-size: var(--normal-text);
-  color: var(--black-100);
+  color: var(--gray-200);
   text-decoration: none;
   display: flex;
   flex-direction: row;
@@ -209,7 +209,7 @@
 /* Transactions Table */
 .BillingPlans_transactions-section {
   background: var(--white);
-  border-radius: 16px;
+  border-radius: var(--border-radius-12);
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   border: 1px solid #f3f4f6;
@@ -238,7 +238,7 @@
   background: var(--white);
   border: 1px solid var(--gray-300);
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -259,7 +259,7 @@
   top: 110%;
   right: 0;
   background: var(--white);
-  border-radius: 12px;
+  border-radius: var(--border-radius-12);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 1px solid #f3f4f6;
   width: 180px;
@@ -289,7 +289,7 @@
 
 .BillingPlans_transactions-table th {
   text-align: left;
-  color: var(--black-100);
+  color: var(--gray-200);
   font-weight: 500;
   font-size: var(--normal-text);
   padding-bottom: 8px;
@@ -331,7 +331,7 @@
 .BillingPlans_tx-type {
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: var(--border-radius-20);
   font-size: var(--small-text);
   font-weight: 500;
   border: 1px solid var(--gray-300);
@@ -341,7 +341,7 @@
 .BillingPlans_status-pill {
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 10px;
+  border-radius: var(--border-radius-10);
   font-size: var(--small-text);
   font-weight: 500;
 }
@@ -356,7 +356,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--black-100);
+  color: var(--gray-200);
   font-size: var(--below-medium-heading);
 }
 
@@ -369,7 +369,7 @@
 
 .BillingPlans_sidebar-card {
   background: var(--white);
-  border-radius: 16px;
+  border-radius: var(--border-radius-12);
   padding: 10px 24px 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   border: 1px solid #f3f4f6;
@@ -417,7 +417,7 @@
   height: 12px;
   background: #e9d5ff;
   /* Light purple */
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   flex-shrink: 0;
   margin-top: 6px;
   z-index: 2;
@@ -467,7 +467,7 @@
 .BillingPlans_timeline-date {
   margin: 0;
   font-size: var(--small-text);
-  color: var(--black-100);
+  color: var(--gray-200);
 }
 
 /* Switches */
@@ -518,11 +518,11 @@ input:checked + .BillingPlans_slider:before {
 }
 
 .BillingPlans_slider.round {
-  border-radius: 34px;
+   border-radius: var(--border-radius-12);
 }
 
 .BillingPlans_slider.round:before {
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
 }
 
 /* Recharge Input */
@@ -535,12 +535,12 @@ input:checked + .BillingPlans_slider:before {
   display: flex;
   align-items: center;
   border: 1px solid var(--gray-300);
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   padding: 6px 6px 6px 12px;
 }
 
 .BillingPlans_currency-symbol {
-  color: var(--black-100);
+  color: var(--gray-200);
   font-size: var(--normal-text);
   margin-right: 8px;
 }
@@ -562,7 +562,7 @@ input:checked + .BillingPlans_slider:before {
   color: var(--white);
   border: none;
   padding: 6px 16px;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
   font-size: var(--small-text);
   cursor: pointer;
 }
@@ -579,7 +579,7 @@ input:checked + .BillingPlans_slider:before {
   color: var(--white);
   border: none;
   padding: 6px;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
   font-size: var(--small-text);
   cursor: pointer;
 }
@@ -613,7 +613,7 @@ input:checked + .BillingPlans_slider:before {
 .BillingPlans_checkbox-row input {
   width: 16px;
   height: 16px;
-  border-radius: 4px;
+  border-radius: var(--border-radius-4);
   accent-color: var(--purple-main);
 }
 
@@ -624,7 +624,7 @@ input:checked + .BillingPlans_slider:before {
   border: 1px solid #fcd34d;
   color: #92400e;
   padding: 16px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -788,7 +788,7 @@ input:checked + .BillingPlans_slider:before {
 
   .BillingPlans_transactions-section {
     padding: 16px;
-    border-radius: 12px;
+    border-radius: var(--border-radius-12);
   }
 
   .BillingPlans_section-header {
@@ -829,7 +829,7 @@ input:checked + .BillingPlans_slider:before {
 
   .BillingPlans_sidebar-card {
     padding: 16px;
-    border-radius: 12px;
+    border-radius: var(--border-radius-12);
   }
 
   .BillingPlans_card-header-toggle h3 {

@@ -21,9 +21,7 @@
 }
 
 .kyc-input-container {
-  max-width: 1400px;
   margin: 0 auto;
-  padding: 1.5rem;
   animation: fadeIn 0.4s ease-out;
 }
 
@@ -51,7 +49,7 @@
   background: var(--white);
   padding: 8px 12px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   width: fit-content;
 }
 
@@ -81,7 +79,7 @@
 .kyc-card {
   background: var(--kyc-bg-card);
   border: 1px solid var(--kyc-border);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-8);
   padding: 2rem;
   box-shadow: var(--kyc-shadow);
   transition: all 0.3s ease;
@@ -136,7 +134,7 @@
 .kyc-label-sub {
   background: var(--kyc-border);
   padding: 2px 6px;
-  border-radius: 4px;
+  border-radius: var(--border-radius-4);
   font-size: 0.65rem;
   color: var(--kyc-text-main);
 }
@@ -145,7 +143,7 @@
   width: 100%;
   background: var(--kyc-bg-input);
   border: 2px solid transparent;
-  border-radius: 0.75rem;
+  border-radius: var(--border-radius-4);
   padding: 0.85rem 1rem;
   color: var(--kyc-text-main);
   font-size: 1rem;
@@ -179,7 +177,7 @@
   background: var(--kyc-primary);
   color: white;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: var(--border-radius-4);
   padding: 1rem;
   font-weight: 600;
   font-size: 1rem;
@@ -221,7 +219,7 @@
   font-weight: 800;
   font-size: 0.7rem;
   padding: 4px 10px;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   line-height: normal;
@@ -234,7 +232,7 @@
 .kyc-badge-pill {
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   font-size: var(--below-medium-heading);
   font-weight: 500;
   background-color: var(--white);
@@ -248,7 +246,7 @@
   gap: 0.375rem;
   padding: 0.375rem 2rem;
   border: 1px solid var(--purple-900);
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   background-color: var(--white);
   color: var(--black);
   font-size: var(--below-medium-heading);
@@ -264,14 +262,14 @@
 
 .kyc-code-block {
   background-color: var(--white-100);
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   overflow: hidden;
   font-size: 0.875rem;
   border: 1px solid #f3f4f6;
 }
 
 .kyc-syntax-highlighter-wrapper {
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   overflow: hidden;
   font-size: 0.8rem;
   background-color: #f8f9fa !important;
@@ -280,7 +278,7 @@
 .kyc-light-code-theme {
   background-color: var(--white-100) !important;
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   color: #374151;
   overflow-x: auto;
 }
@@ -292,7 +290,7 @@
 
 .kyc-status-pill {
   padding: 0.25rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   font-size: 0.9rem;
   font-weight: 500;
   background-color: var(--white);
@@ -356,7 +354,7 @@
   .kyc-title-card {
     padding: 0.5rem 1rem;
     font-size: 1.1rem;
-    border-radius: 0.5rem;
+    border-radius: var(--border-radius-4);
   }
 
   .kyc-right-section {
@@ -365,7 +363,7 @@
 
   .kyc-card {
     padding: 1rem;
-    border-radius: 0.5rem;
+    border-radius: var(--border-radius-4);
     display: flex;
     flex-wrap: wrap;
     width: -webkit-fill-available;
@@ -405,7 +403,7 @@
 
   .kyc-card-header-row {
     padding: 0.8rem;
-    border-radius: 0.5rem;
+    border-radius: var(--border-radius-4);
   }
 
   .kyc-curl {
@@ -716,7 +714,7 @@
   right: 0;
   background: var(--white);
   border: 1px solid var(--gray-300);
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   margin-top: 4px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   z-index: 50;
@@ -747,7 +745,7 @@
 .kyc-live-badge-icon {
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius:50%;
   background: var(--white);
   border: 1px solid #22c55e;
   padding: 2px;
@@ -760,7 +758,7 @@
   width: 100%;
   height: 100%;
   background: #22c55e;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   color: var(--white);
   font-size: 5px;
   display: flex;
@@ -820,7 +818,7 @@
 }
 
 .kyc-code-block {
-  border-radius: 0.75rem;
+  border-radius: var(--border-radius-4);
   overflow: hidden;
   border: 1px solid var(--kyc-border);
   background: var(--kyc-bg-card);
@@ -845,7 +843,7 @@
   background: #374151;
   color: white;
   padding: 3px 8px;
-  border-radius: 99px;
+  border-radius: var(--border-radius-100);
   text-transform: uppercase;
 }
 
@@ -856,7 +854,7 @@
   background: none;
   border: 1px solid var(--kyc-border);
   padding: 6px 12px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--kyc-text-sub);
@@ -874,7 +872,7 @@
   display: flex;
   background: var(--kyc-bg-input);
   padding: 4px;
-  border-radius: 10px;
+  border-radius: var(--border-radius-10);
   gap: 4px;
 }
 
@@ -882,7 +880,7 @@
   border: none;
   background: none;
   padding: 6px 12px;
-  border-radius: 7px;
+  border-radius: var(--border-radius-8);
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--kyc-text-sub);
@@ -903,7 +901,7 @@
   padding: 1rem;
   background: #fef2f2;
   border: 1px solid #fee2e2;
-  border-radius: 0.75rem;
+  border-radius: var(--border-radius-4);
   color: #991b1b;
   font-size: 0.875rem;
   font-weight: 500;
@@ -920,7 +918,7 @@
   background: var(--kyc-primary);
   color: white;
   padding: 0.75rem 1.5rem;
-  border-radius: 99px;
+  border-radius: var(--border-radius-100);
   font-weight: 600;
   font-size: 0.875rem;
   box-shadow: 0 10px 25px -5px rgba(147, 51, 234, 0.4);
@@ -937,7 +935,7 @@
 .kyc-ip-warning {
   background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
   border-left: 4px solid #f97316;
-  border-radius: 0.75rem;
+  border-radius: var(--border-radius-4);
   padding: 1.25rem;
   margin-bottom: 2rem;
   display: flex;
@@ -982,7 +980,7 @@
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
-  border-radius: 0.6rem;
+  border-radius: var(--border-radius-4);
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;

@@ -1,12 +1,11 @@
 .reports-container {
-  background-color: #fafbfc;
   min-height: 100vh;
 }
 
 .filter-card {
   background: var(--white);
   padding: 1.5rem;
-  border-radius: 0.8rem;
+  border-radius: var(--border-radius-6);
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 6px #8686861a;
 }
@@ -60,7 +59,7 @@
 .custom-select-trigger,
 .input-trigger {
   border: 1px solid var(--gray-300);
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius-4);
   padding: 0.6rem 0.8rem;
   font-size: 0.8rem;
   color: var(--black);
@@ -73,7 +72,7 @@
 }
 
 .input-trigger {
-  color: var(--black-100);
+  color: var(--gray-200);
 }
 
 .input-trigger.has-value {
@@ -93,7 +92,7 @@
   width: 100%;
   background: var(--white);
   border: 1px solid var(--gray-300);
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius-4);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   z-index: 20;
   margin-top: 0.25rem;
@@ -141,7 +140,7 @@
   width: 1.2rem;
   height: 1.2rem;
   border: 2px solid #d1d5db;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   position: relative;
   cursor: pointer;
 }
@@ -159,7 +158,7 @@
   width: 0.6rem;
   height: 0.6rem;
   background-color: var(--purple-main);
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
 }
 
 .run-report-container {
@@ -172,7 +171,7 @@
   background-color: var(--purple-main);
   color: var(--white);
   padding: 0.5rem 2rem;
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius-4);
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);
@@ -188,24 +187,24 @@
 .result-section {
   background: var(--white);
   padding: 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .report-set-placeholder {
-  color: var(--black-100);
+  color: var(--gray-200);
   font-size: var(--normal-text);
 }
 
 .result-placeholder {
   background-color: #f3f0ff;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   padding: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  color: var(--black-100);
+  color: var(--gray-200);
   gap: 0.5rem;
   text-align: center;
   margin-top: 1rem;
@@ -226,7 +225,7 @@
 
 .date-picker-modal {
   background: var(--white);
-  border-radius: 0.75rem;
+  border-radius: var(--border-radius-4);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   display: flex;
   overflow: hidden;
@@ -254,7 +253,7 @@
   cursor: pointer;
   font-size: 0.9rem;
   color: var(--gray-400);
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius-4);
 }
 
 .preset-btn:hover {
@@ -293,7 +292,7 @@
   font-family: "Konnect";
 
   text-align: center;
-  border-radius: 0.6rem;
+  border-radius: var(--border-radius-4);
   background: var(--white);
   border: 1.5px solid #d1d5db;
   /* default grey */
@@ -322,7 +321,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--black-100);
+  color: var(--gray-200);
   padding: 0.2rem;
 }
 
@@ -351,7 +350,7 @@
   color: var(--gray-500);
   padding: 0.4rem;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   width: 2rem;
   height: 2rem;
   display: flex;
@@ -406,7 +405,7 @@
 
 .modal-btn {
   padding: 0.45rem 1.5rem;
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius-4);
   font-weight: 600;
   cursor: pointer;
   font-size: 0.9rem;
@@ -539,10 +538,6 @@
     font-size: 0.85rem;
   }
 }
-
-/* ==========================================================================
-   Dark Mode Overrides for Reports
-   ========================================================================== */
 
 [data-theme='dark'] .reports-container {
   background-color: var(--white);

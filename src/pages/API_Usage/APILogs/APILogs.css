@@ -53,14 +53,14 @@
 
 .api-logs-table thead {
   background: var(--purple-200);
-  color: var(--black-100);
+  color: var(--gray-200);
 }
 
 .api-logs-table th {
   padding: 0.8rem 1.5rem;
   text-align: left;
   font-size: 0.875rem;
-  color: var(--black-100);
+  color: var(--gray-200);
   letter-spacing: 0.5px;
   border-bottom: 1px solid var(--green-new);
   font-family: "JetBrainsMonoSemiBold";
@@ -98,7 +98,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.3rem;
-  border-radius: 0.3rem;
+  border-radius: var(--border-radius-4);
   transition: all 0.2s ease;
 }
 
@@ -179,7 +179,7 @@
   width: 100%;
   max-width: 550px;
   background: var(--white);
-  border-radius: 0.6rem;
+  border-radius: var(--border-radius-4);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
@@ -194,7 +194,7 @@
   border-bottom: 1px solid #f0f0f0;
   width: 35%;
   margin: 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   flex-wrap: wrap;
 }
 
@@ -203,7 +203,7 @@
   align-items: center;
   gap: 6px;
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   font-size: var(--normal-text);
   font-weight: 500;
   color: #666;
@@ -232,7 +232,7 @@
   gap: 0.5rem;
   border: 1px solid var(--black-500);
   margin: 0rem 1rem 1rem;
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius-4);
 }
 
 .request-field {
@@ -264,7 +264,7 @@
   width: 100%;
   padding: 12px 40px 12px 16px;
   border: 1px solid #e5e5e5;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
   font-size: var(--normal-text);
   color: #666;
   background: #fafafa;
@@ -328,7 +328,7 @@
   background: var(--purple-main);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
   font-size: var(--below-medium-heading);
   cursor: pointer;
   font-weight: 200;
@@ -346,7 +346,7 @@
   width: 92%;
   max-width: 1200px;
   background: var(--white);
-  border-radius: 0.6rem;
+  border-radius: var(--border-radius-4);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
@@ -432,7 +432,7 @@
   color: var(--purple-main);
   border: 1px solid var(--purple-main);
   padding: 0.6rem 1.8rem;
-  border-radius: 0.45rem;
+  border-radius: var(--border-radius-4);
   font-size: 0.99rem;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -770,7 +770,7 @@
 .pagination-items-per-page select {
   padding: 0.25rem 0.5rem;
   border: 1px solid #e5e5e5;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   outline: none;
   cursor: pointer;
   background: white;
@@ -793,7 +793,7 @@
   border: 1px solid #e5e5e5;
   color: #6b7280;
   padding: 0.375rem;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -826,7 +826,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   cursor: pointer;
   font-size: 0.875rem;
   transition: all 0.2s;

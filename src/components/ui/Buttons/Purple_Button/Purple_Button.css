@@ -1,7 +1,7 @@
 .login-btn-primary {
   width: 100%;
   padding: 0.58rem;
-  border-radius: 7px;
+  border-radius: var(--border-radius-8);
   background: var(--purple-main);
   border: none;
   color: var(--white);

@@ -1,5 +1,5 @@
 :root {
-  --black: #010202;
+  /* --black: #010202;
   --black-100: #717182;
   --border: #0102021a;
   --green: #016630;
@@ -8,6 +8,34 @@
   --black-1800: #3d3d3d;
   --sweetyellow: #ccff00;
   --main-bg: #eff3f4;
+  */
+    --black: #010202;
+  --gray-200: #717182;
+  --gray-new:#7171821A;
+  --gray-sub:#71718233;
+  --gray-300: #0102021a;
+  --gray-500: #364153;
+  --green: #016630;
+  --red: #ff392b;
+  --red-100:#FF392B1A;
+  --sweetyellow: #ccff00;
+  --seetwo: #c2c2c2;
+  --black-1800: #3d3d3d;
+  --black-1900: #3d3d3d33;
+  --white: #ffffff;
+  --white-bg: #eff3f4;
+  --deesee: #dcfce7;
+  --efffive: #f59e0b;
+  --critical: #935b02;
+  --purple-main: #7c3aed;
+  --purple-200: #7c3aed1a;
+  --purple-1400: #7c3aed0d;
+  --progress: #f59e0b1a;
+  --progress-2: #9c6509;
+  --link:#7099ED;
+  --dropdown-bg:#F8F8F8;
+  --sidetabs:#EBD4FF17;
+  --search-bar:#FFFFFF26; 
 
   --black-300: #101828;
   --black-400: #0a0a0a;
@@ -71,7 +99,9 @@
   --red-200: #e7000b;
   --red-300: #fef2f2;
 
-  /* Font Sizes */
+
+   /* Font Sizes */
+  --v-large-heading:40px;
   --large-heading: 22px;
   --main-heading: 20px;
   --medium-heading: 18px;
@@ -81,8 +111,12 @@
   --small-text-10: 10px;
   --small-text-8: 8px;
 
-  /* border-radius */
+   /* border-radius */
+  --border-radius-50: 50%;
+  --border-radius-100: 100px;
+  --border-radius-20: 20px;
   --border-radius-12: 12px;
+  --border-radius-10: 10px;
   --border-radius-8: 8px;
   --border-radius-6: 6px;
   --border-radius-4: 4px;
