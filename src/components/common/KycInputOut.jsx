@@ -57,7 +57,8 @@ const KycReuseComponet = ({ data }) => {
   } = useUserkey();
 
   const { setPubKey } = GeneralKeys();
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({});      // text fields
+  const [fileData, setFileData] = useState({}); 
   const [accessToken, setAccessToken] = useState("");
   const [Publickey, setPublickey] = useState("");
   const [publickeyLoading, setPublickeyLoading] = useState(false);
@@ -81,7 +82,7 @@ const KycReuseComponet = ({ data }) => {
     } else {
       setFormData({});
     }
-
+    setFileData({});
     // Auto-populate Access Token
     if (data?.isToken) {
       const isLive = data?.apiUrl?.LiveUrl?.includes('/LIVE/') || data?.apiUrl?.URLS?.includes('/LIVE/');
@@ -104,32 +105,75 @@ const KycReuseComponet = ({ data }) => {
   const showIpWarning = currentPublicIp && !isIpWhitelisted && data?.isMicro !== "SupperAdmin";
 
 
-  const HandleChangeInput = (e) => {
-    console.log("Handle input change is trigred");
-    setApiErrormessage("");
-    const { name, value, pattern } = e.target;
+  // const HandleChangeInput = (e) => {
+  //   console.log("Handle input change is trigred");
+  //   setApiErrormessage("");
+  //   const { name, value, pattern } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+
+  //   if (pattern) {
+  //     const regex = new RegExp(pattern);
+  //     if (!regex?.test(value)) {
+  //       setErrors((prev) => ({
+  //         ...prev,
+  //         [name]: "Invalid Input format",
+  //       }));
+  //     } else {
+  //       setErrors((prev) => {
+  //         const updated = { ...prev };
+  //         delete updated[name];
+  //         console.log(updated);
+  //         return updated;
+  //       });
+  //     }
+  //   }
+  // };
+
+  const HandleChangeInput = (e) => {
+    setApiErrormessage("");
+    const { name, value, pattern, type, files } = e.target;
+
+    if (type === "file") {
+      // Store the File object; ignore for disabled inputs
+      const file = files?.[0] || null;
+      setFileData((prev) => ({ ...prev, [name]: file }));
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
     if (pattern) {
       const regex = new RegExp(pattern);
-      if (!regex?.test(value)) {
-        setErrors((prev) => ({
-          ...prev,
-          [name]: "Invalid Input format",
-        }));
+      if (!regex.test(value)) {
+        setErrors((prev) => ({ ...prev, [name]: "Invalid Input format" }));
       } else {
         setErrors((prev) => {
           const updated = { ...prev };
           delete updated[name];
-          console.log(updated);
           return updated;
         });
       }
     }
+  };
+
+  const buildPayload = (jsonFields, files) => {
+    const hasFiles = Object.values(files).some(Boolean);
+
+    if (!hasFiles) return jsonFields; // ← plain JSON path (no change)
+
+    // ← multipart path
+    const fd = new FormData();
+    // Send all JSON fields as a single "data" blob so the API can parse them
+    fd.append("data", JSON.stringify(jsonFields));
+    // Attach each file under its own field name
+    Object.entries(files).forEach(([fieldName, file]) => {
+      if (file) fd.append(fieldName, file, file.name);
+    });
+    return fd;
   };
 
   // const HandleVerificaton = async () => {
@@ -258,7 +302,8 @@ const KycReuseComponet = ({ data }) => {
       }
     }
 
-    const payloadForApi = { ...formData, ...locationData };
+    const payload = { ...formData, ...locationData };
+    const payloadForApi = buildPayload(payload, fileData);
 
     if (isEncryptedFlow) {
       // // const encrypted = await encryptPayload(payloadForApi, currentKey);
@@ -267,7 +312,7 @@ const KycReuseComponet = ({ data }) => {
 
       setLoading(true);
       await ApirequestHandler(
-        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...payloadForApi }, accessToken, data?.apiUrl?.Method || 'Post'),
+        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, payloadForApi, accessToken, data?.apiUrl?.Method || 'Post'),
         setLoading,
         (res) => {
           setApiResponse(res);
@@ -433,6 +478,39 @@ const KycReuseComponet = ({ data }) => {
                 )}
               </div>
             ))}
+
+            {data?.inputFile?.map((input, index) => (
+              <div key={index} className="kyc-input-group">
+                <div className="kyc-label">
+                  {input.replace(/([A-Z])/g, " $1").toUpperCase()}{" "}
+                  <span className="kyc-label-sub">{data?.bodyParams || 'BODY'}</span>
+                </div>
+                <input
+                  type="file"
+                  name={input}
+                  disabled={data?.isDisable}
+                  className={`kyc-input-field ${errors?.[input] ? "error" : fileData?.[input] ? "success" : ""}`}
+                  onChange={HandleChangeInput}
+                  // ← no value prop: file inputs are uncontrolled
+                />
+                {fileData?.[input] && (
+                  <p className="kyc-success-msg" style={{ fontSize: '11px', color: 'var(--color-text-success)', marginTop: '4px' }}>
+                    Selected: {fileData[input].name} ({(fileData[input].size / 1024).toFixed(1)} KB)
+                  </p>
+                )}
+                {errors?.[input] && (
+                  <p className="kyc-error-msg">
+                    <svg style={{ width: '12px', height: '12px', marginRight: '4px', verticalAlign: 'middle' }} viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors[input]}
+                  </p>
+                )}
+              </div>
+            ))}
+
+            
+
             <button
               className="kyc-submit-button"
               onClick={HandleVerificaton}

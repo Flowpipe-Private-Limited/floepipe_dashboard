@@ -32,6 +32,7 @@ import SessionManager from "../components/SessionManager/SessionManager";
 
 // Dynamic KYC Page
 import KYCServicePage from "../pages/KYC/KYCServicePage";
+import TESTUI from "../components/testUi";
 
 const AppRoute = () => {
   return (
@@ -69,6 +70,7 @@ const AppRoute = () => {
           <Route path="Recharge/:serviceId" element={<KYCServicePage />} />
           <Route path="BBPS/:serviceId" element={<KYCServicePage />} />
           <Route path="WalletToPop" element={<WalletToPop />} />
+          <Route path="testui" element={<TESTUI />} />
         </Route>
       </Routes>
     </Router>

@@ -261,24 +261,6 @@ export const SERVICES_METADATA = [
 
   // 3. Aadhaar & DigiLocker
   {
-    id: "aadhaar_masking",
-    categoryId: "AADHAAR_DIGILOCKER",
-    label: "Aadhaar Masking",
-    config: {
-      apiUrl: { Method: 'Post', URLS: "client/aadhaar/pan/maskedverify", LiveUrl: `${KYC_BASE}/internal/aadhaar/pan/maskedverify` },
-      title: { header: "Aadhaar Masking", headerTitle: "Mask Aadhaar details for security", submitButton: 'Mask Aadhaar' },
-      inputParams: ["aadhaarNumber"],
-      isToken: true,
-      isMicro: 'KYC',
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/aadhaar/pan/maskedverify' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "aadhaarNumber": "123456789012" }'`,
-      exampleResponse: apiExamples.find(e => e.name === "AADHAAR")?.examples[0]?.message || {}
-    }
-  },
-  {
     id: "digilocker_verify",
     categoryId: "AADHAAR_DIGILOCKER",
     label: "Digilocker Verify Account",
@@ -294,6 +276,25 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "mobileNumber": "9876543210" }'`,
       exampleResponse: apiExamples.find(e => e.name === "PAN")?.examples[0]?.message || {} // dummy
+    }
+  },
+  // E Aadhaar Verification (Digilocker)
+  {
+    id: "e-aadhaar_verification",
+    categoryId: "AADHAAR_DIGILOCKER",
+    label: "E Aadhaar Verification",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/aadhaar/pan/maskedverify", LiveUrl: `${KYC_BASE}/internal/aadhaar/pan/maskedverify` },
+      title: { header: "E Aadhaar Verification", headerTitle: "Verify e aadhaar verification in details", submitButton: 'Verify' },
+      inputParams: ["aadhaarNumber"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/internal/aadhaar/pan/maskedverify' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "aadhaarNumber": "123456789012" }'`,
+      exampleResponse: apiExamples.find(e => e.name === "AADHAAR")?.examples[0]?.message || {}
     }
   },
 
@@ -313,7 +314,7 @@ export const SERVICES_METADATA = [
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "accountNumber":"XXXXXX9648" "ifscCode": "SBIN0001234" }'`,
-      exampleResponse: apiExamples.find(e => e.name === "SHOP")?.examples[0]?.message || {} // dummy
+      exampleResponse: apiExamples.find(e => e.name === "BANKVALID")?.examples[0]?.message || {} // dummy
     }
   },
   {
@@ -480,7 +481,24 @@ export const SERVICES_METADATA = [
       exampleResponse: apiExamples.find(e => e.name === "PANUSINGGSTIN")?.examples[0]?.message || {} // dummy
     }
   },
-
+  {
+    id: "gstin_tax_payer",
+    categoryId: "BUSINESS_COMPANY",
+    label: "GSTIN TAX PAYER VERIFY",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/business/GstIn/TaxPayer/verify", LiveUrl: `${KYC_BASE}/internal/business/GstIn/TaxPayer/verify` },
+      title: { header: "GSTIN TAXPAYER VERIFY", headerTitle: "Gsting TAXPAYER Verify", submitButton: 'Verify' },
+      inputParams: ["gstinNumber"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/internal/business/GstIn/TaxPayer/verify' \\
+          --header 'Content-Type: application/json' \\
+          --header 'secret_token: {{secret_token}}' \\
+          --data '{ "gstinNumber": "XYZ PVT LIT"}'`,
+      exampleResponse: apiExamples.find(e => e.name === "GSTINTAXPAYER")?.examples[0]?.message || {} // dummy
+    }
+  },
   {
     id: "gstin_verify_and_track",
     categoryId: "BUSINESS_COMPANY",
@@ -745,14 +763,71 @@ export const SERVICES_METADATA = [
     categoryId: "FACE_AI",
     label: "Blur Check",
     config: {
-      apiUrl: { Method: 'Post', URLS: "client/face/blur_Check", LiveUrl: `${KYC_BASE}/face/blur_Check` },
+      apiUrl: { Method: 'Post', URLS: "client/image/blur_Check", LiveUrl: `${KYC_BASE}/image/blur_Check` },
       title: { header: "Face Match", headerTitle: "Match two faces for similarity", submitButton: 'Compare' },
       // inputParams: ["file"],
       inputFile: ["file"],
       isToken: true,
       isMicro: 'KYC',
       isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/face/blur_Check' \\
+      exampleCurl: `curl --location '${KYC_BASE}/image/blur_Check' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --form 'file=@/C:/Users/ntar3/OneDrive/Desktop/Expensive-Things-Owned-By-5_610bb04b6af3a.jpeg'`,
+      exampleResponse: apiExamples.find(e => e.name === "FACE")?.examples[0]?.message || {}
+    }
+  },
+  { //AI and Deepfake Detection
+    id: "ai_deepfake_detection",
+    categoryId: "FACE_AI",
+    label: "AI and deepfake detection",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/image/ai_deepfake_check", LiveUrl: `${KYC_BASE}/image/ai_deepfake_check` },
+      title: { header: "AI and Deepfake Detection", headerTitle: "AI and Deepfake Detection", submitButton: 'Compare' },
+      // inputParams: ["file"],
+      inputFile: ["file"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/image/ai_deepfake_check' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --form 'file=@/C:/Users/ntar3/OneDrive/Desktop/Expensive-Things-Owned-By-5_610bb04b6af3a.jpeg'`,
+      exampleResponse: apiExamples.find(e => e.name === "FACE")?.examples[0]?.message || {}
+    }
+  },
+  { //AI and Deepfake Detection
+    id: "deepfake_detection",
+    categoryId: "FACE_AI",
+    label: "deepfake detection",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/image/deepfake_check", LiveUrl: `${KYC_BASE}/image/deepfake_check` },
+      title: { header: "Deepfake Detection", headerTitle: "Image Deepfake Detection", submitButton: 'Compare' },
+      // inputParams: ["file"],
+      inputFile: ["file"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/image/deepfake_check' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --form 'file=@/C:/Users/ntar3/OneDrive/Desktop/Expensive-Things-Owned-By-5_610bb04b6af3a.jpeg'`,
+      exampleResponse: apiExamples.find(e => e.name === "FACE")?.examples[0]?.message || {}
+    }
+  },
+  { //AI and Deepfake Detection
+    id: "image_check",
+    categoryId: "FACE_AI",
+    label: "Image Check",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/image/ai_image_check", LiveUrl: `${KYC_BASE}/image/ai_image_check` },
+      title: { header: "Image check", headerTitle: "Image Check", submitButton: 'Compare' },
+      // inputParams: ["file"],
+      inputFile: ["file"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/image/ai_image_check' \\
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
         --form 'file=@/C:/Users/ntar3/OneDrive/Desktop/Expensive-Things-Owned-By-5_610bb04b6af3a.jpeg'`,
@@ -981,11 +1056,9 @@ export const SERVICES_METADATA = [
       exampleResponse: apiExamples.find(e => e.name === "MOG")?.examples[0]?.message || {}
     }
   },
-
-  // 12. Mobile numbers
   {
     id: "contact_mobile_otp",
-    categoryId: "MOBILE_NUMBER",
+    categoryId: "CONTACT_COMMUNICATION",
     label: "Mobile OTP Verification",
     config: {
       apiUrl: { Method: 'Post', URLS: "client/mobileNumber/otp_generation", LiveUrl: `${KYC_BASE}/internal/mobileNumber/otp_generation` },

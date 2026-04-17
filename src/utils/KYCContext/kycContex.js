@@ -266,9 +266,12 @@ export const apiExamples = [
       {
         statusCode: 200,
         message: {
-          success: true,
+          httpCode: 200,
+          data: {
+            result: "Clear",
+          },
           message: "Valid",
-          response: { score: 98.45, matched: true },
+          success: true,
         },
       },
     ],
@@ -685,6 +688,49 @@ export const apiExamples = [
     ],
   },
   {
+    name: "GSTINTAXPAYER",
+    examples: [
+      {
+        statusCode: 200,
+        message: {
+          httpCode: 200,
+          data: {
+            "Principal Place of Business Address": null,
+            address: {
+              building_name: "",
+              door_number: "",
+              floor_number: "",
+              lattitude: "",
+              location: "",
+              longitude: "",
+              pin_code: "",
+              state_name: "",
+              street: "",
+            },
+            centre_jurisdiction: "",
+            centre_jurisdiction_code: "",
+            constitution_of_business: "",
+            date_of_cancellation: "",
+            date_of_registration: "",
+            frequency_type: "MONTHLY",
+            gstin: "",
+            gstin_status: "Active",
+            last_updated_date: "",
+            legal_name_of_business: "",
+            nature_of_pricipal_place_of_business: "",
+            state_jurisdiction: "",
+            state_jurisdiction_code: "",
+            taxpayer_type: "",
+            trade_name: "",
+            gstinNumber: "",
+          },
+          message: "Valid",
+          success: true,
+        },
+      },
+    ],
+  },
+  {
     name: "MOP",
     examples: [
       {
@@ -822,6 +868,33 @@ export const apiExamples = [
             Subdistrict: "",
           },
           message: "",
+          success: true,
+        },
+      },
+    ],
+  },
+  {
+    name: "BANKVALID",
+    examples: [
+      {
+        statusCode: 200,
+        message: {
+          httpCode: 200,
+          data: {
+            "Account Holder Name": "",
+            "Bank Account Number": "",
+            "Bank Branch - Address": {
+              Address: "",
+              Branch: "",
+              City: "",
+              Contact: "",
+              District: "",
+              State: "",
+            },
+            "Bank Name": "",
+            "IFSC Code": "",
+          },
+          message: "Success",
           success: true,
         },
       },

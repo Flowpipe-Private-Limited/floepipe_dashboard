@@ -179,7 +179,11 @@ const ApiVerification = (isMicro, URLS, data, token, method = 'Post') => {
   }
 };
 const fetchPublickey = () => kycApiClient.get(`api/v1/ApiModuels/key/Publickey`);
-
+const handlieFileUpload = (data)=>kycApiClient.post(`/client/image/blur_Check`,data,{
+  headers:{
+    secret_token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6ImNsX3V2dkhJUGJJSWlVcVNkU0ZtZDNSUFEiLCJjbGllbnRTZWNyZXQiOiJXVEI0S1I2V2VwTXFJWlZHbzJTYUV0alZSOFdHVFJtVi04UFlvNXR1dnA5NDhXYVFwalhySjRwakUzQWg5X0R5aGtiR2kwYW5tcHM0a2lPQktrVndpZyIsImVudmlyb25tZW50IjoiTElWRSIsIlZlcnNpb25LZXkiOjQsImlhdCI6MTc3NjA1ODY0NSwiZXhwIjoxNzc5OTQ2NjQ1fQ.IsU6ROhX6Z454vq6mlPe1F_13MkPXLZsCft97hkYB1A"
+  }
+})
 
 // Fetch User Details
 
@@ -202,7 +206,7 @@ export {
 
   Register, SendOTP, VerifyOTP, ClientService, SubscribeService, DashboardServices, getAllCategoriesService, getServicesByCategoryService,
 
-  fetchPublickey,
+  fetchPublickey,handlieFileUpload,
 
   HandleGetUser,
   UpdatedUserDetails,

@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
-import {
-  HandleCreateKeys,
-} from "../../utils/Apis/api";
+import { HandleCreateKeys } from "../../utils/Apis/api";
 import Loader from "../../components/common/Loader";
 import "./apikeys.css";
 import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
 import { X, Calendar, Trash2, Download, Copy } from "lucide-react";
 import { useUserStore } from "../../Store/userStore";
 import { useUserkey } from "../../Store/userKeyStore";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import FlowpipeUnlockModal from "../../components/profile/PinVerify/FpinVerify";
 import WarningModal from "../../components/common/WarningModal";
 
@@ -52,13 +50,18 @@ const ApiKeys = () => {
   };
 
   const executeDelete = async (keyId) => {
-    if (!window.confirm("Are you sure you want to delete this key? This action cannot be undone.")) return;
+    if (
+      !window.confirm(
+        "Are you sure you want to delete this key? This action cannot be undone.",
+      )
+    )
+      return;
 
     setLoading(true);
     const payload = {
       clientId: users?.clientId,
       environment: activeTab,
-      keyId: keyId
+      keyId: keyId,
     };
 
     await ApirequestHandler(
@@ -76,7 +79,7 @@ const ApiKeys = () => {
       (err) => {
         toast.error(err);
         setLoading(false);
-      }
+      },
     );
   };
 
@@ -93,7 +96,7 @@ const ApiKeys = () => {
       environment: activeTab,
     };
 
-    console.log('ApiURL', activeTab, payload)
+    console.log("ApiURL", activeTab, payload);
 
     await ApirequestHandler(
       async () => HandleCreateKeys(payload),
@@ -124,13 +127,13 @@ const ApiKeys = () => {
     const { type, args } = pendingAction;
 
     switch (type) {
-      case 'GENERATE':
+      case "GENERATE":
         executeGenerateKey();
         break;
-      case 'DOWNLOAD':
+      case "DOWNLOAD":
         executeDownload(...args);
         break;
-      case 'DELETE':
+      case "DELETE":
         executeDelete(...args);
         break;
       default:
@@ -146,31 +149,31 @@ const ApiKeys = () => {
     if (keysExist) {
       setShowWarningModal(true);
     } else {
-      setPendingAction({ type: 'GENERATE', args: [] });
+      setPendingAction({ type: "GENERATE", args: [] });
       setShowFpinModal(true);
     }
   };
 
   const confirmRegenerate = () => {
     setShowWarningModal(false);
-    setPendingAction({ type: 'GENERATE', args: [] });
+    setPendingAction({ type: "GENERATE", args: [] });
     setShowFpinModal(true);
   };
 
   const initiateDownload = (key, clientId, accessToken) => {
-    setPendingAction({ type: 'DOWNLOAD', args: [key, clientId, accessToken] });
+    setPendingAction({ type: "DOWNLOAD", args: [key, clientId, accessToken] });
     setShowFpinModal(true);
   };
 
   const initiateDelete = (keyId) => {
-    setPendingAction({ type: 'DELETE', args: [keyId] });
+    setPendingAction({ type: "DELETE", args: [keyId] });
     setShowFpinModal(true);
   };
 
   const handleCopy = (text) => {
     navigator.clipboard.writeText(text);
     toast.success("Copied to clipboard!");
-  }
+  };
 
   return (
     <div className="api-keys-container">
@@ -198,10 +201,7 @@ const ApiKeys = () => {
         {loading ? (
           <Loader />
         ) : (
-          <button
-            className="add-key-btn"
-            onClick={initiateGenerate}
-          >
+          <button className="add-key-btn" onClick={initiateGenerate}>
             Add {activeTab} New
           </button>
         )}
@@ -218,7 +218,7 @@ const ApiKeys = () => {
               <th className="th-api">Action</th>
             </tr>
           </thead>
-          <tbody >
+          <tbody>
             {activeTab === "LIVE" ? (
               LiveClientId ? (
                 <tr>
@@ -228,12 +228,24 @@ const ApiKeys = () => {
                     {LiveSecretKey?.substring(0, 10)}*********************
                   </td>
                   <td className="td-one empty-table-text">
-                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
+                    >
                       <Download
                         size={16}
                         className="action-icon"
                         style={{ cursor: "pointer", color: "#4caf50" }}
-                        onClick={() => initiateDownload(LiveSecretKey, LiveClientId, LiveAccessToken)}
+                        onClick={() =>
+                          initiateDownload(
+                            LiveSecretKey,
+                            LiveClientId,
+                            LiveAccessToken,
+                          )
+                        }
                       />
                       <Trash2
                         size={16}
@@ -259,12 +271,24 @@ const ApiKeys = () => {
                   {TestSecretKey?.substring(0, 10)}********************
                 </td>
                 <td className="td-one empty-table-text">
-                  <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "10px",
+                      alignItems: "center",
+                    }}
+                  >
                     <Download
                       size={16}
                       className="action-icon"
                       style={{ cursor: "pointer", color: "#4caf50" }}
-                      onClick={() => initiateDownload(TestSecretKey, TestClientId, TestAccessToken)}
+                      onClick={() =>
+                        initiateDownload(
+                          TestSecretKey,
+                          TestClientId,
+                          TestAccessToken,
+                        )
+                      }
                     />
                     <Trash2
                       size={16}
