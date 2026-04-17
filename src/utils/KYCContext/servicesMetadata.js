@@ -352,7 +352,7 @@ export const SERVICES_METADATA = [
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "uanNumber": "123456789012" }'`,
-      exampleResponse: apiExamples.find(e => e.name === "PAN")?.examples[0]?.message || {} // dummy
+      exampleResponse: apiExamples.find(e => e.name === "EMPLOYUANBASIC")?.examples[0]?.message || {} // dummy
     }
   },
   {
@@ -400,14 +400,14 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: { Method: 'Post', URLS: "client/vehicle/driving_license/verify", LiveUrl: `${KYC_BASE}/vehicle/driving_license/verify` },
       title: { header: "DL Verification", headerTitle: "Verify Driving License details", submitButton: 'Verify DL' },
-      inputParams: ["dlNumber", "dob"],
+      inputParams: ["licenseNo", "DateOfBirth"],
       isToken: true,
       isMicro: 'KYC',
       isDisable: false,
       exampleCurl: `curl --location '${KYC_BASE}/vehicle/driving_license/verify' \\
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
-        --data '{ "dlNumber": "DL-1234567890123", "dob": "1990-01-01" }'`,
+        --data '{ "licenseNo": "DL-1234567890123", "DateOfBirth": "1990-01-01" }'`,
       exampleResponse: apiExamples.find(e => e.name === "DL")?.examples[0]?.message || {}
     }
   },
@@ -428,6 +428,25 @@ export const SERVICES_METADATA = [
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "image1": "base64_string", "image2": "base64_string" }'`,
+      exampleResponse: apiExamples.find(e => e.name === "FACE")?.examples[0]?.message || {}
+    }
+  },
+  {
+    id: "blur_check",
+    categoryId: "FACE_AI",
+    label: "Blur Check",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/face/blur_Check", LiveUrl: `${KYC_BASE}/face/blur_Check` },
+      title: { header: "Face Match", headerTitle: "Match two faces for similarity", submitButton: 'Compare' },
+      // inputParams: ["file"],
+      inputFile: ["file"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/face/blur_Check' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --form 'file=@/C:/Users/ntar3/OneDrive/Desktop/Expensive-Things-Owned-By-5_610bb04b6af3a.jpeg'`,
       exampleResponse: apiExamples.find(e => e.name === "FACE")?.examples[0]?.message || {}
     }
   },
@@ -489,6 +508,24 @@ export const SERVICES_METADATA = [
       exampleResponse: apiExamples.find(e => e.name === "ELEC")?.examples[0]?.message || {}
     }
   },
+  {
+    id: "gov_electricity",
+    categoryId: "GOVERNMENT_ID",
+    label: "Electricity Bill",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/government/electricity_bill", LiveUrl: `${KYC_BASE}/government/electricity_bill` },
+      title: { header: "Electricity Bill", headerTitle: "Verify Electricity Bill details", submitButton: 'Fetch Bill' },
+      inputParams: ["consumerId", "biller"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/government/electricity_bill' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "consumerId": "123456789", "biller": "TNEB" }'`,
+      exampleResponse: apiExamples.find(e => e.name === "ELEC")?.examples[0]?.message || {}
+    }
+  },
 
   // 11. Contact & Communication
   {
@@ -509,20 +546,58 @@ export const SERVICES_METADATA = [
       exampleResponse: apiExamples.find(e => e.name === "MOG")?.examples[0]?.message || {}
     }
   },
+  {
+    id: "mobile_pan",
+    categoryId: "CONTACT_COMMUNICATION",
+    label: "Mobile TO PAN",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/mobileNumber/pan/verify", LiveUrl: `${KYC_BASE}/mobileNumber/pan/verify` },
+      title: { header: "Mobile to Pan", headerTitle: "Mobile to pan Verification", submitButton: 'verify' },
+      inputParams: ["mobileNumber"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/mobileNumber/pan/verify' \\
+          --header 'Content-Type: application/json' \\
+          --header 'secret_token: {{secret_token}}' \\
+          --data '{ "mobileNumber": "9876543210" }'`,
+      exampleResponse: apiExamples.find(e => e.name === "MOP")?.examples[0]?.message || {}
+    }
+  },
+  
+  // RISK DUE DILIGENCE
+  {
+    id: "court_record_check_diy",
+    categoryId: "RISK_DUE_DILIGENCE",
+    label: "Check court record",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/diligence/court/record", LiveUrl: `${KYC_BASE}/diligence/court/record` },
+      title: { header: "check court record", headerTitle: "Check court recores history", submitButton: 'Check' },
+      inputParams: ["recordName", "address"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/diligence/court/record' \\
+          --header 'Content-Type: application/json' \\
+          --header 'secret_token: {{secret_token}}' \\
+          --data '{ "recordName": "9876543210", "address":"XYZ@gmail.com" }'`,
+      exampleResponse: apiExamples.find(e => e.name === "CHECKCOURTRECORD")?.examples[0]?.message || {}
+    }
+  },
 
   // Pre-configured for Sidebar Navigation
-  { id: "recharge_operators", config: { apiUrl: { URLS: "/Operators", LiveUrl: `${RECHARGE_BASE}/Operators` }, title: { header: "Fetch Operators", submitButton: "Fetch" }, inputParams: ["mobileNumber"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
-  { id: "recharge_plans", config: { apiUrl: { URLS: "/Plans", LiveUrl: `${RECHARGE_BASE}/Plans` }, title: { header: "Fetch Plans" }, inputParams: ["operatorcode", "circle"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
-  { id: "recharge_offers", config: { apiUrl: { URLS: "/OffersPlans", LiveUrl: `${RECHARGE_BASE}/OffersPlans` }, title: { header: "Fetch Offers" }, inputParams: ["operator_code", "mobile_no"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
-  { id: "recharge_recharge_url", config: { apiUrl: { URLS: "/RechargeURL", LiveUrl: `${RECHARGE_BASE}/RechargeURL` }, title: { header: "Recharge URL" }, inputParams: ["mobile", "amount"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
-  { id: "recharge_old_plans", config: { apiUrl: { URLS: "/OldPlans", LiveUrl: `${RECHARGE_BASE}/OldPlans` }, title: { header: "Old Plans" }, inputParams: ["mobile"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
+  // { id: "recharge_operators", config: { apiUrl: { URLS: "/Operators", LiveUrl: `${RECHARGE_BASE}/Operators` }, title: { header: "Fetch Operators", submitButton: "Fetch" }, inputParams: ["mobileNumber"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
+  // { id: "recharge_plans", config: { apiUrl: { URLS: "/Plans", LiveUrl: `${RECHARGE_BASE}/Plans` }, title: { header: "Fetch Plans" }, inputParams: ["operatorcode", "circle"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
+  // { id: "recharge_offers", config: { apiUrl: { URLS: "/OffersPlans", LiveUrl: `${RECHARGE_BASE}/OffersPlans` }, title: { header: "Fetch Offers" }, inputParams: ["operator_code", "mobile_no"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
+  // { id: "recharge_recharge_url", config: { apiUrl: { URLS: "/RechargeURL", LiveUrl: `${RECHARGE_BASE}/RechargeURL` }, title: { header: "Recharge URL" }, inputParams: ["mobile", "amount"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
+  // { id: "recharge_old_plans", config: { apiUrl: { URLS: "/OldPlans", LiveUrl: `${RECHARGE_BASE}/OldPlans` }, title: { header: "Old Plans" }, inputParams: ["mobile"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
   
-  { id: "bbps_category", config: { apiUrl: { URLS: "/billerInfo/Category", LiveUrl: `${BBPS_BASE}/billerInfo/Category` }, title: { header: "Fetch Category" }, inputParams: [], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
-  { id: "bbps_biller_info", config: { apiUrl: { URLS: "/billerInfo/Biller", LiveUrl: `${BBPS_BASE}/billerInfo/Biller` }, title: { header: "Fetch Biller Info" }, inputParams: ["billerId"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
-  { id: "bbps_bill_fetch", config: { apiUrl: { URLS: "/billFetch", LiveUrl: `${BBPS_BASE}/billFetch` }, title: { header: "Bill Fetch" }, inputParams: ["customerNumber"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
-  { id: "bbps_bill_pay", config: { apiUrl: { URLS: "/billPay", LiveUrl: `${BBPS_BASE}/billPay` }, title: { header: "Bill Pay" }, inputParams: ["billId"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
-  { id: "bbps_bill_validation", config: { apiUrl: { URLS: "/billValidation", LiveUrl: `${BBPS_BASE}/billValidation` }, title: { header: "Bill Validation" }, inputParams: ["billId"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
-  { id: "bbps_quick_pay", config: { apiUrl: { URLS: "/quickPay", LiveUrl: `${BBPS_BASE}/quickPay` }, title: { header: "Quick Pay" }, inputParams: ["mobile"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
+  // { id: "bbps_category", config: { apiUrl: { URLS: "/billerInfo/Category", LiveUrl: `${BBPS_BASE}/billerInfo/Category` }, title: { header: "Fetch Category" }, inputParams: [], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
+  // { id: "bbps_biller_info", config: { apiUrl: { URLS: "/billerInfo/Biller", LiveUrl: `${BBPS_BASE}/billerInfo/Biller` }, title: { header: "Fetch Biller Info" }, inputParams: ["billerId"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
+  // { id: "bbps_bill_fetch", config: { apiUrl: { URLS: "/billFetch", LiveUrl: `${BBPS_BASE}/billFetch` }, title: { header: "Bill Fetch" }, inputParams: ["customerNumber"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
+  // { id: "bbps_bill_pay", config: { apiUrl: { URLS: "/billPay", LiveUrl: `${BBPS_BASE}/billPay` }, title: { header: "Bill Pay" }, inputParams: ["billId"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
+  // { id: "bbps_bill_validation", config: { apiUrl: { URLS: "/billValidation", LiveUrl: `${BBPS_BASE}/billValidation` }, title: { header: "Bill Validation" }, inputParams: ["billId"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
+  // { id: "bbps_quick_pay", config: { apiUrl: { URLS: "/quickPay", LiveUrl: `${BBPS_BASE}/quickPay` }, title: { header: "Quick Pay" }, inputParams: ["mobile"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
 
   // 12. Geo & Location
   {
@@ -540,7 +615,25 @@ export const SERVICES_METADATA = [
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "pincode": "560001", "latitude": "12.9716", "longitude": "77.5946" }'`,
-      exampleResponse: apiExamples.find(e => e.name === "PAN")?.examples[0]?.message || {} // dummy
+      exampleResponse: apiExamples.find(e => e.name === "GEWPINCODE")?.examples[0]?.message || {} // dummy
+    }
+  },
+  {
+    id: "Lat_long_geo",
+    categoryId: "GEO_LOCATION",
+    label: "Longitude/Latitude Geofencing",
+    config: {
+      apiUrl: { Method: 'Post', URLS: "client/location/longLat/geofencing", LiveUrl: `${KYC_BASE}/location/longLat/geofencing` },
+      title: { header: "Longitude/Latitude Geofencing", headerTitle: "Longitude/Latitude Geofencing", submitButton: 'search' },
+      inputParams: ["latitude", "longitude"],
+      isToken: true,
+      isMicro: 'KYC',
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/longLat/geofencing' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "latitude":"12.9716", "longitude": "77.5946" }'`,
+      exampleResponse: apiExamples.find(e => e.name === "GEWLATLONG")?.examples[0]?.message || {} // dummy
     }
   },
 

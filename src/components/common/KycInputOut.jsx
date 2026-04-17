@@ -132,21 +132,103 @@ const KycReuseComponet = ({ data }) => {
     }
   };
 
-  const HandleVerificaton = async () => {
+  // const HandleVerificaton = async () => {
+  //   let locationData = {};
+  //   setApiErrormessage("");
+
+  //   const isEncryptedFlow = data?.isMicro !== "SupperAdmin";
+  //   let currentKey = Publickey;
+
+  //   if (isEncryptedFlow && !currentKey) {
+  //     setPublickeyLoading(true);
+  //     currentKey = await GetPublickey(true); // Attempt to fetch immediately and capture the result
+  //     if (!currentKey) {
+  //       setApiErrormessage("Encryption keys not loaded. Please ensure you have a stable connection.");
+  //       return;
+  //     }
+  //   }
+
+  //   if (data?.isGeoLocation) {
+  //     try {
+  //       const position = await new Promise((resolve, reject) => {
+  //         navigator.geolocation.getCurrentPosition(resolve, reject, {
+  //           enableHighAccuracy: true,
+  //           timeout: 10000,
+  //           maximumAge: 0,
+  //         });
+  //       });
+
+  //       locationData = {
+  //         latitude: position.coords.latitude,
+  //         longitude: position.coords.longitude,
+  //       };
+  //     } catch (error) {
+  //       let errorMsg = "Location access failed.";
+  //       if (error.code === error.PERMISSION_DENIED) {
+  //         errorMsg = "Location permission denied. Please allow location access to proceed.";
+  //       } else if (error.code === error.POSITION_UNAVAILABLE) {
+  //         errorMsg = "Location information is unavailable.";
+  //       } else if (error.code === error.TIMEOUT) {
+  //         errorMsg = "The request to get user location timed out.";
+  //       }
+  //       setApiErrormessage(errorMsg);
+  //       return;
+  //     }
+  //   }
+
+  //   const payloadForApi = { ...formData, ...locationData };
+
+  //   if (isEncryptedFlow) {
+  //     const encrypted = await encryptPayload(payloadForApi, currentKey);
+  //     const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
+  //     await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
+
+  //     setLoading(true);
+  //     await EncryptedApirequestHandler(
+  //       async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...encrypted, publicKeyPem }, accessToken, data?.apiUrl?.Method || 'Post'),
+  //       setLoading,
+  //       (res) => {
+  //         setApiResponse(res);
+  //         setApiErrormessage('');
+  //       },
+  //       (errorMessage) => {
+  //         setApiErrormessage(errorMessage);
+  //         setLoading(false);
+  //       }
+  //     );
+  //   } else {
+  //     setLoading(true);
+  //     await ApirequestHandler(
+  //       async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, payloadForApi, accessToken, data?.apiUrl?.Method || 'Post'),
+  //       setLoading,
+  //       (res) => {
+  //         setApiResponse(res);
+  //         setApiErrormessage('');
+  //       },
+  //       (errorMessage) => {
+  //         setApiErrormessage(errorMessage);
+  //         setLoading(false);
+  //       }
+  //     );
+  //   }
+  // };
+ 
+  
+  const HandleVerificaton = async () => { // in production use above one 
     let locationData = {};
     setApiErrormessage("");
 
     const isEncryptedFlow = data?.isMicro !== "SupperAdmin";
     let currentKey = Publickey;
 
-    if (isEncryptedFlow && !currentKey) {
-      setPublickeyLoading(true);
-      currentKey = await GetPublickey(true); // Attempt to fetch immediately and capture the result
-      if (!currentKey) {
-        setApiErrormessage("Encryption keys not loaded. Please ensure you have a stable connection.");
-        return;
-      }
-    }
+    // if (isEncryptedFlow && !currentKey) {
+    //   setPublickeyLoading(true);
+    //   currentKey = await GetPublickey(true); // Attempt to fetch immediately and capture the result
+    //   if (!currentKey) {
+    //     setApiErrormessage("Encryption keys not loaded. Please ensure you have a stable connection.");
+    //     return;
+    //   }
+    // }
 
     if (data?.isGeoLocation) {
       try {
@@ -179,13 +261,13 @@ const KycReuseComponet = ({ data }) => {
     const payloadForApi = { ...formData, ...locationData };
 
     if (isEncryptedFlow) {
-      const encrypted = await encryptPayload(payloadForApi, currentKey);
-      const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
-      await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
+      // // const encrypted = await encryptPayload(payloadForApi, currentKey);
+      // const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
+      // await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
 
       setLoading(true);
-      await EncryptedApirequestHandler(
-        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...encrypted, publicKeyPem }, accessToken, data?.apiUrl?.Method || 'Post'),
+      await ApirequestHandler(
+        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...payloadForApi }, accessToken, data?.apiUrl?.Method || 'Post'),
         setLoading,
         (res) => {
           setApiResponse(res);
