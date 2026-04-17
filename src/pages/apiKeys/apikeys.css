@@ -38,7 +38,7 @@
 .tab-btn,
 .tab-btn-two {
   padding: 0.6rem 1.8rem;
-  font-size: 0.85rem;
+  font-size: var(--small-text);
   border: none;
   background: transparent;
   color: var(--black);
@@ -82,7 +82,7 @@
   background: var(--purple-main);
   color: var(--white);
   padding: 0.4rem 2rem;
-  font-size: 0.8rem;
+  font-size: var(--small-text);;
   border-radius: var(--border-radius-4);
   border: none;
   cursor: pointer;
@@ -95,7 +95,7 @@
 
 .note-text {
   margin-top: 0.8rem;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   color: var(--purple-main);
 }
 
@@ -110,7 +110,7 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: var(--small-text);
 }
 
 .thead-header {
@@ -147,7 +147,7 @@ tbody tr td[colspan] {
 .empty-table-text {
   text-align: center;
   padding: 1.5rem;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   color: var(--black);
    font-family: "Konnect";
   background: var(--white);

@@ -28,7 +28,7 @@
   background: none;
   border: none;
   color: var(--purple-main);
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   font-weight: 600;
   cursor: pointer;
   font-family: "Konnect";
@@ -61,7 +61,7 @@
   border: 1px solid var(--gray-300);
   border-radius: var(--border-radius-4);
   padding: 0.6rem 0.8rem;
-  font-size: 0.8rem;
+  font-size: var(--small-text);;
   color: var(--black);
   background: var(--white);
   cursor: pointer;
@@ -102,7 +102,7 @@
 
 .select-option {
   padding: 0.3rem 0.8rem;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   color: var(--gray-400);
   cursor: pointer;
   transition: background 0.2s;
@@ -129,7 +129,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   color: var(--black);
   cursor: pointer;
   font-weight: 500;
@@ -251,7 +251,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   color: var(--gray-400);
   border-radius: var(--border-radius-4);
 }
@@ -328,7 +328,7 @@
 .month-label {
   font-weight: 600;
   color: var(--gray-100);
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   font-family: "Konnect";
 }
 
@@ -340,13 +340,13 @@
 }
 
 .day-label {
-  font-size: 0.75rem;
+  font-size: var(--small-text);
   color: var(--gray-100);
   margin-bottom: 0.5rem;
 }
 
 .day-cell {
-  font-size: 0.85rem;
+  font-size: var(--small-text);
   color: var(--gray-500);
   padding: 0.4rem;
   cursor: pointer;
@@ -408,7 +408,7 @@
   border-radius: var(--border-radius-4);
   font-weight: 600;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   font-family: "Konnect";
 }
 
@@ -495,7 +495,7 @@
 
   .date-display-box {
     width: 100%;
-    font-size: 0.95rem;
+    font-size: var(--normal-text);
   }
 
   /* Radios */
@@ -513,7 +513,7 @@
   .run-report-btn {
     width: 100%;
     padding: 0.6rem;
-    font-size: 0.95rem;
+    font-size: var(--normal-text);
   }
 
   /* Modal */
@@ -535,7 +535,7 @@
   .result-placeholder {
     flex-direction: column;
     gap: 0.5rem;
-    font-size: 0.85rem;
+    font-size: var(--small-text);
   }
 }
 

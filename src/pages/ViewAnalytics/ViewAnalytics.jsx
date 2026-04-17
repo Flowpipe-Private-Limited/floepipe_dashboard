@@ -82,6 +82,7 @@ const ViewAnalytics = () => {
 
   return (
     <div className="analytics-container">
+      <div className="analytic-main-container">
       <div className="analytics-header">
         <div>
           <h1>Usage Analytics</h1>
@@ -115,7 +116,6 @@ const ViewAnalytics = () => {
           />
         </div>
       </div>
-
       {/* Metrics Row */}
       <div className="metrics-row">
         <div className="metric-card">
@@ -137,6 +137,7 @@ const ViewAnalytics = () => {
           <div className="metric-value">400 calls/day</div>
         </div>
       </div>
+</div>
 
       {/* Charts Grid */}
       <div className="charts-grid">

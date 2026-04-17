@@ -5,7 +5,7 @@
   background: var(--purple-main);
   border: none;
   color: var(--white);
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   cursor: pointer;
 }
 

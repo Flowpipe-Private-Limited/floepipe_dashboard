@@ -34,7 +34,7 @@
   background: linear-gradient(to left, #a0aec0, #151b32);
 }
 .login-divider-text {
-  font-size: 0.7rem;
+  font-size: var(--small-text-10);
   color: #9ca3af;
   padding: 0 0.5rem;
 }
@@ -199,14 +199,14 @@
 .fpin-subtext {
   text-align: left;
   color: var(--white);
-  font-size: 0.65rem;
+  font-size: var(--small-text-10);
   font-weight: lighter;
   font-family: "figtree", sans-serif;
 }
 .login-title-fpin {
   text-align: left;
   color: var(--white);
-  font-size: 1.2rem;
+  font-size: var(--medium-heading);
   margin-bottom: 1.5rem;
 }
 /* ================= PIN INPUT ================= */
@@ -216,7 +216,7 @@
 
 .fpin-label {
   color: var(--white);
-  font-size: 0.85rem;
+  font-size: var(--small-text);
   margin-bottom: 0.6rem;
 }
 

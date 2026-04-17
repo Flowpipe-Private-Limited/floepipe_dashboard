@@ -11,24 +11,33 @@
   min-height: 100vh;
 }
 
+.analytic-main-container{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
+  padding: 1rem;
+  border-radius: var(--border-radius-10);
+}
+
 .analytics-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 32px;
+  margin-bottom: 1rem;
 }
 
 .analytics-header h1 {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: var(--main-heading);
+  font-weight: 500;
   color: var(--black);
-  margin-bottom: 4px;
+  font-family: 'Konnect'
 }
 
 .analytics-header p {
   font-size: var(--normal-text);
   color: var(--gray-200);
-  font-family: "Konnect";
+  font-family: "Figtree";
 }
 
 .header-actions {
@@ -93,35 +102,33 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  margin-bottom: 24px;
   font-family: "Konnect";
 }
 
 .metric-card {
   background: var(--white);
-  padding: 20px;
+  padding: 0.8rem;
   border-radius: var(--border-radius-8);
-  border: 1px solid var(--black-500);
+  border: 1px solid var(--gray-300);
 }
 
 .metric-label {
   font-size: var(--below-medium-heading);
   color: var(--gray-200);
-  margin-bottom: 8px;
-  font-family: "Konnect";
+  margin-bottom: 3px;
 }
 
 .metric-value {
   font-size: var(--below-medium-heading);
   font-weight: 600;
   color: var(--black);
-  font-family: "Konnect";
 }
 
 .charts-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .chart-card {

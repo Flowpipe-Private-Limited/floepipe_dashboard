@@ -172,18 +172,11 @@ const MainContent = () => {
 
   return (
     <div className="dashboard-container">
-      <div className="hello-main-dashboard">
-        <p className="hello-main-text">
-          Welcome,<span>Name !</span>
-        </p>
-      </div>
-
       <div className="dashboard-top">
         <div className="dash-secone">
           <div className="wallet-card-main">
             <div className="wallet-top-check">
-              <span className="wallet-label">PERSONALWALLET</span>
-              <img className="wallet-sun-icon" src={Images.FlowpipeLogo} />
+              <span className="wallet-label">WALLET BALANCE</span>
             </div>
 
             <div className="wallet-middle">
@@ -200,14 +193,14 @@ const MainContent = () => {
             </div>
 
             <div className="wallet-actions">
-              <div className="w-action" onClick={NavigateToBalance}>
+              {/* <div className="w-action" onClick={NavigateToBalance}>
                 <img
                   className="statement-icon"
                   src={Images.statement}
                   alt="View Statement"
                 />
                 <span>View Statement</span>
-              </div>
+              </div> */}
               <div
                 onClick={() => setIsSliderOpen(true)}
                 className="w-action-rupee"

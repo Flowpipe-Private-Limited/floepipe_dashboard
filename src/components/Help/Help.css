@@ -333,7 +333,7 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   background: #f8f8f8;
-  border: 1px solid #eaeaea;
+  border: 1px solid var(--gray-300);
   width: 80%;
 }
 
@@ -381,7 +381,7 @@
 }
 
 .help-contact-card {
-  border: 1px solid #eee;
+  border: 1px solid var(--gray-300);
   border-radius: var(--border-radius-12);
   padding: 18px 16px;
   background: var(--white);
@@ -766,13 +766,13 @@
   align-items: center;
   gap: 12px;
   padding: 16px 20px;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--gray-300);
   background: var(--white);
 }
 
 .help-chat-footer-input {
   flex: 1;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--gray-300);
   border-radius: var(--border-radius-12);
   padding: 12px 20px;
   font-size: var(--normal-text);
