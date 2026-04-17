@@ -19,7 +19,7 @@
 }
 
 .products-subtitle {
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   color: var(--gray-200);
   font-family: "Konnect";
 }
@@ -33,7 +33,7 @@
   border: none;
   color: var(--purple-main);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -58,7 +58,7 @@
   align-items: center;
   gap: 0.45rem;
   padding: 0.45rem 0.6rem;
-  font-size: 0.75rem;
+  font-size: var(--small-text);
   color: var(--gray-400);
    border-radius: var(--border-radius-4);
   cursor: pointer;
@@ -150,7 +150,7 @@
 }
 
 .product-title-text {
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   font-weight: 700;
   color: var(--black);
   margin-bottom: 0.2rem;
@@ -158,7 +158,7 @@
 }
 
 .product-desc {
-  font-size: 0.7rem;
+  font-size: var(--small-text-10);
   color: var(--gray-400);
   line-height: 1.4;
   margin-bottom: 0.6rem;
@@ -190,7 +190,7 @@
   padding: 0.32rem 0.65rem;
    border-radius: var(--border-radius-4);
   font-weight: 600;
-  font-size: 0.7rem;
+  font-size: var(--small-text-10);
   cursor: pointer;
   background: transparent;
   transition: all 0.2s;
@@ -260,7 +260,7 @@
 
 .no-products-message {
   color: var(--black-700);
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   line-height: 1.5;
   font-family: "Konnect";
 }
@@ -302,7 +302,7 @@
   }
 
   .product-title-text {
-    font-size: 0.9rem;
+    font-size: var(--normal-text);
   }
 
   .product-desc {
@@ -347,7 +347,7 @@
   }
 
   .products-subtitle {
-    font-size: 0.8rem;
+    font-size: var(--small-text);;
   }
 
   .filter-dropdown-container {
@@ -377,11 +377,11 @@
   }
 
   .product-title-text {
-    font-size: 0.95rem;
+    font-size: var(--normal-text);
   }
 
   .product-desc {
-    font-size: 0.7rem;
+    font-size: var(--small-text-10);
     -webkit-line-clamp: 2;
   }
 
@@ -393,13 +393,13 @@
 
   .credits-info {
     justify-content: center;
-    font-size: 0.65rem;
+    font-size: var(--small-text-10);
   }
 
   .action-btn {
     width: 100%;
     padding: 0.45rem 0.5rem;
-    font-size: 0.75rem;
+    font-size: var(--small-text);
   }
 
   .no-products-container {
@@ -412,7 +412,7 @@
   }
 
   .no-products-message {
-    font-size: 0.85rem;
+    font-size: var(--small-text);
   }
 }
 
@@ -427,13 +427,13 @@
   }
 
   .products-title-group .products-title-text {
-    font-size: 1.2rem;
+    font-size: var(--medium-heading);
     text-align: left;
 
   }
 
   .products-subtitle {
-    font-size: 0.75rem;
+    font-size: var(--small-text);
     text-align: left;
 
   }
@@ -453,12 +453,12 @@
   }
 
   .product-title-text {
-    font-size: 0.9rem;
+    font-size: var(--normal-text);
     margin-bottom: 0.15rem;
   }
 
   .product-desc {
-    font-size: 0.65rem;
+    font-size: var(--small-text-10);
     -webkit-line-clamp: 2;
     margin-bottom: 0.5rem;
   }
@@ -475,7 +475,7 @@
 
   .action-btn {
     padding: 0.4rem;
-    font-size: 0.7rem;
+    font-size: var(--small-text-10);
     min-width: auto;
   }
 
@@ -490,11 +490,11 @@
   }
 
   .no-products-title {
-    font-size: 1.2rem;
+    font-size: var(--medium-heading);
   }
 
   .no-products-message {
-    font-size: 0.8rem;
+    font-size: var(--small-text);;
   }
 }
 
@@ -505,7 +505,7 @@
   }
 
   .product-title-text {
-    font-size: 0.85rem;
+    font-size: var(--small-text);
   }
 
   .product-desc {
@@ -513,7 +513,7 @@
   }
 
   .action-btn {
-    font-size: 0.65rem;
+    font-size: var(--small-text-10);
     padding: 0.35rem;
   }
 
@@ -559,7 +559,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: var(--small-text);
   color: var(--gray-400);
   cursor: pointer;
   transition: all 0.2s;

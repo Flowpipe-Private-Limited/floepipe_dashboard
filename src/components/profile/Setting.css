@@ -19,7 +19,7 @@
 }
 
 .setting-title {
-  font-size: 1.2rem;
+  font-size: var(--medium-heading);
   margin: 0;
   font-family: "JetBrainsMonoSemiBold";
 }
@@ -42,7 +42,7 @@
 
 .setting-label {
   display: block;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   color: var(--black-700);
   margin-bottom: 0.5rem;
 }
@@ -52,7 +52,7 @@
   padding: 0.6rem 1rem;
   border: 1px solid var(--black-500);
   border-radius: var(--border-radius-4);
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   color: var(--gray-200);
   background-color: var(--orange-100);
   transition: all 0.2s;
@@ -75,7 +75,7 @@
   padding: 0.5rem 3rem;
   border: none;
   border-radius: var(--border-radius-4);
-  font-size: 0.8rem;
+  font-size: var(--small-text);;
   cursor: pointer;
   box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3);
   transition: background-color 0.2s;

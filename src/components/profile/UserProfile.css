@@ -37,7 +37,7 @@
   transition: background-color 0.3s;
   border: none;
   cursor: pointer;
-  font-size: 0.7rem;
+  font-size: var(--small-text-10);
   font-family: "Konnect";
 }
 
@@ -86,7 +86,7 @@
 
 .user-detail {
   color: var(--gray-200);
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   margin: 0.1rem 0;
 }
 
@@ -95,7 +95,7 @@
 }
 
 .kyc-badge {
-  font-size: 0.75rem;
+  font-size: var(--small-text);
   font-weight: 600;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
@@ -142,7 +142,7 @@
 .tab-button {
   flex: 1;
   padding: 0.5rem 0;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   font-weight: 500;
   border: none;
   background: transparent;
@@ -206,7 +206,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   font-weight: 500;
 }
 
@@ -241,7 +241,7 @@
   border: none;
   border-radius: var(--border-radius-4);
   background-color: var(--white-400);
-  font-size: 0.8rem;
+  font-size: var(--small-text);;
   color: var(--gray-200);
   transition: all 0.2s;
   border: 1px solid var(--black-500);
@@ -296,7 +296,7 @@
 
 .change-link-btn {
   color: var(--purple-main);
-  font-size: 0.85rem;
+  font-size: var(--small-text);
   margin-top: 0.5rem;
   background: none;
   border: none;
@@ -343,7 +343,7 @@
   background: transparent;
   padding: 0.7rem 1rem;
   width: 100%;
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   outline: none;
   border: 1px solid var(--black-500);
 }
@@ -482,7 +482,7 @@
 }
 
 .modal-label {
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   color: var(--gray-200);
   margin-bottom: -0.5rem;
   font-family: "Konnect";
@@ -493,7 +493,7 @@
   padding: 0.5rem;
   border: 1px solid var(--gray-300);
   border-radius: var(--border-radius-4);;
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   outline: none;
   transition:
     border-color 0.2s,
@@ -504,7 +504,7 @@
   width: 100%;
   padding: 0.5rem;
   border-radius: var(--border-radius-4);;
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   outline: none;
   transition:
     border-color 0.2s,
@@ -557,7 +557,7 @@
   width: fit-content;
   min-width: 120px;
   font-family: "Konnect";
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
 }
 
 .send-otp-btn:hover {

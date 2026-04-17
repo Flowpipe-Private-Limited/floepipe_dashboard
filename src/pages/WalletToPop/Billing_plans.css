@@ -700,7 +700,7 @@ input:checked + .BillingPlans_slider:before {
 .BillingPlans_close-btn {
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: var(--main-heading);
   color: #888;
   cursor: pointer;
   line-height: 1;

@@ -98,9 +98,18 @@ const sideDashboardConfig = [
   {
     label: "Dashboard",
     icon: Images.Dashboard,
-    href: "/dashboard",
-    type: "single",
+    type: "group",
     iconType: "image",
+    children: [
+      {
+        label: "OverView",
+        href: "/dashboard",
+      },
+      {
+        label: "View Analytics",
+        href: "/dashboard/viewAnalytics",
+      },
+    ],
   },
   {
     label: "My Account",
@@ -388,6 +397,10 @@ function Sidebar({ collapsed, data, onHelpClick }) {
         group?.children?.forEach((subgroup) => {
           const subgroupKey = `${group?.label}-${subgroup?.label}`;
 
+          if (subgroup?.href === location?.pathname) {
+            expandedGroup[group?.label] = true;
+          }
+
           subgroup?.children?.forEach((child) => {
             if (child?.href === location?.pathname) {
               expandedGroup[group?.label] = true;
@@ -418,70 +431,70 @@ function Sidebar({ collapsed, data, onHelpClick }) {
   // Filter groups based on search
   const filteredConfig = search
     ? sideDashboardConfig
-        .map((item) => {
-          if (item?.type === "group") {
-            const filteredChildren = (item.children || [])
-              .filter(
-                (child) =>
-                  (child?.label || "")
-                    .toLowerCase()
-                    .includes(search.toLowerCase()) ||
-                  child?.children?.some(
+      .map((item) => {
+        if (item?.type === "group") {
+          const filteredChildren = (item.children || [])
+            .filter(
+              (child) =>
+                (child?.label || "")
+                  .toLowerCase()
+                  .includes(search.toLowerCase()) ||
+                child?.children?.some(
+                  (subChild) =>
+                    (subChild?.label || "")
+                      .toLowerCase()
+                      .includes(search.toLowerCase()) ||
+                    subChild?.children?.some((leaf) =>
+                      (leaf?.label || "")
+                        .toLowerCase()
+                        .includes(search.toLowerCase()),
+                    ),
+                ),
+            )
+            .map((child) => ({
+              ...child,
+              children:
+                (child?.children || [])
+                  ?.map((subChild) => {
+                    if (subChild?.children) {
+                      return {
+                        ...subChild,
+                        children: subChild.children.filter((leaf) =>
+                          (leaf?.label || "")
+                            .toLowerCase()
+                            .includes(search.toLowerCase()),
+                        ),
+                      };
+                    }
+                    return subChild;
+                  })
+                  .filter(
                     (subChild) =>
                       (subChild?.label || "")
                         .toLowerCase()
                         .includes(search.toLowerCase()) ||
-                      subChild?.children?.some((leaf) =>
-                        (leaf?.label || "")
-                          .toLowerCase()
-                          .includes(search.toLowerCase()),
-                      ),
-                  ),
-              )
-              .map((child) => ({
-                ...child,
-                children:
-                  (child?.children || [])
-                    ?.map((subChild) => {
-                      if (subChild?.children) {
-                        return {
-                          ...subChild,
-                          children: subChild.children.filter((leaf) =>
-                            (leaf?.label || "")
-                              .toLowerCase()
-                              .includes(search.toLowerCase()),
-                          ),
-                        };
-                      }
-                      return subChild;
-                    })
-                    .filter(
-                      (subChild) =>
-                        (subChild?.label || "")
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                        (subChild?.children && subChild.children.length > 0),
-                    ) || [],
-              }))
-              .filter(
-                (child) =>
-                  (child?.children || [])?.length > 0 ||
-                  (child?.label || "")
-                    .toLowerCase()
-                    .includes(search.toLowerCase()),
-              );
+                      (subChild?.children && subChild.children.length > 0),
+                  ) || [],
+            }))
+            .filter(
+              (child) =>
+                (child?.children || [])?.length > 0 ||
+                (child?.label || "")
+                  .toLowerCase()
+                  .includes(search.toLowerCase()),
+            );
 
-            return filteredChildren.length > 0
-              ? { ...item, children: filteredChildren }
-              : null;
-          }
-          return (item?.label || "")
-            .toLowerCase()
-            .includes(search.toLowerCase())
-            ? item
+          return filteredChildren.length > 0
+            ? { ...item, children: filteredChildren }
             : null;
-        })
-        .filter(Boolean)
+        }
+        return (item?.label || "")
+          .toLowerCase()
+          .includes(search.toLowerCase())
+          ? item
+          : null;
+      })
+      .filter(Boolean)
     : sideDashboardConfig;
 
   return (
@@ -554,17 +567,14 @@ function Sidebar({ collapsed, data, onHelpClick }) {
             const Icon = item.icon;
             const isGroupOpen = openGroups[item.label] || search;
 
-            const isGroupActive = item.children?.some((subGroup) =>
-              subGroup.children?.some((api) => api.href === location.pathname),
-            );
+            const isGroupActive = item.href === location.pathname;
 
             return (
               <div key={idx} className="sidebar-group">
                 <button
                   onClick={() => toggleGroup(item.label)}
-                  className={`sidebar-item group-header ${
-                    collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"
-                  } ${isGroupActive ? "active" : ""}`}
+                  className={`sidebar-item group-header ${collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"
+                    } ${isGroupActive ? "active" : ""}`}
                 >
                   <div className="flex-items-center-gap-3">
                     {item.iconType === "image" ? (
@@ -585,9 +595,9 @@ function Sidebar({ collapsed, data, onHelpClick }) {
 
                   {!collapsed &&
                     (isGroupOpen ? (
-                      <ChevronUp size={14} />
+                      <ChevronUp size={18} />
                     ) : (
-                      <ChevronDown size={14} />
+                      <ChevronDown size={18} />
                     ))}
                 </button>
 
@@ -600,23 +610,22 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                       const isSubGroupOpen =
                         openSubGroups[subGroupKey] || search;
 
-                      const isSubGroupActive = subGroup.children?.some(
-                        (api) => api.href === location.pathname,
-                      );
+                      const isSubGroupActive =
+                        subGroup.href === location.pathname;
 
                       return (
                         <div key={subIdx} className="subgroup">
                           {/* Subgroup Button */}
                           <button
-                            onClick={() =>
-                              toggleSubGroup(item.label, subGroup.label)
-                            }
-                            className={`subgroup-button ${
-                              isSubGroupActive ? "active-subgroup-text" : ""
-                            }`}
+                            onClick={() => {
+                              if (subGroup.href) navigate(subGroup.href);
+                              toggleSubGroup(item.label, subGroup.label);
+                            }}
+                            className={`subgroup-button ${isSubGroupActive ? "active-subgroup-text" : ""
+                              }`}
                           >
                             <div className="flex-items-center-gap-2">
-                              {subGroup.iconType === "image" ? (
+                              {subGroup.icon && (subGroup.iconType === "image" ? (
                                 <img
                                   src={subGroup.icon}
                                   alt={subGroup.label}
@@ -625,12 +634,11 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                                 />
                               ) : (
                                 <SubIcon size={16} />
-                              )}
+                              ))}
 
                               <span
-                                className={`subgroup-label ${
-                                  isSubGroupActive ? "active-subgroup-text" : ""
-                                }`}
+                                className={`subgroup-label ${isSubGroupActive ? "active-subgroup-text" : ""
+                                  }`}
                               >
                                 {subGroup.label}
                               </span>
@@ -638,10 +646,9 @@ function Sidebar({ collapsed, data, onHelpClick }) {
 
                             {subGroup.children?.length > 0 && (
                               <ChevronDown
-                                size={12}
-                                className={`transition-transform ${
-                                  isSubGroupOpen ? "rotate-180" : ""
-                                }`}
+                                size={18}
+                                className={`transition-transform ${isSubGroupOpen ? "rotate-180" : ""
+                                  }`}
                               />
                             )}
                           </button>
@@ -669,9 +676,9 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                                           <span>{child.label}</span>
                                         </div>
                                         <ChevronDown
-                                            size={18}
-                                            className={`transition-transform ${isCatOpen ? "rotate-180" : "-rotate-90"}`}
-                                          />
+                                          size={18}
+                                          className={`transition-transform ${isCatOpen ? "rotate-180" : "-rotate-90"}`}
+                                        />
                                       </button>
 
                                       {isCatOpen && (

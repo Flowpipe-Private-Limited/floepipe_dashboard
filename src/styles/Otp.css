@@ -70,7 +70,7 @@
 }
 .otp-error-text {
   color: #ff0000;
-  font-size: 0.65rem;
+  font-size: var(--small-text-10);
   margin-bottom: 0.75rem;
   text-align: center;
 }
@@ -151,7 +151,7 @@
 /* Make sure error text is visible */
 .otp-error-text {
   color: #ff0000;
-  font-size: 0.7rem;
+  font-size: var(--small-text-10);
   margin-bottom: 0.75rem;
   text-align: left;
   display: block;

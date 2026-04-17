@@ -88,7 +88,7 @@
 }
 
 .kyc-title-large {
-  font-size: 2rem;
+  font-size: var(--below-medium-heading);
   font-weight: 700;
   color: var(--black);
   margin: 0 0 1rem 0;
@@ -119,14 +119,14 @@
 }
 
 .kyc-selection-title {
-  font-size: 1.2rem;
+  font-size: var(--medium-heading);
   color: var(--black);
   font-family: "JetBrainsMonoSemiBold";
 }
 
 .kyc-selection-subtitle {
   color: var(--gray-200);
-  font-size: 0.875rem;
+  font-size: var(--normal-text);
   margin: 0;
 }
 
@@ -150,14 +150,14 @@
 
 .selection-card-title {
   margin: 0 0 0.25rem 0;
-  font-size: 1.1rem;
+  font-size: var(--below-medium-heading);
   color: var(--black);
   font-family: "JetBrainsMonoSemiBold";
 }
 
 .selection-card-desc {
   color: var(--gray-200);
-  font-size: 0.875rem;
+  font-size: var(--normal-text);
   margin-bottom: 1rem;
 }
 
@@ -177,7 +177,7 @@
 }
 
 .kyc-option-card.selected {
-  border: 1px solid #7e22ce;
+  border: 1px solid var(--purple-200);
 }
 
 .checkbox-visual {
@@ -210,7 +210,7 @@
 
 .option-text p {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: var(--small-text);;
   color: var(--gray-200);
 }
 
@@ -304,7 +304,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: var(--small-text);
   margin-right: 0.5rem;
   font-family: "Konnect";
 }
@@ -318,7 +318,7 @@
 }
 
 .step-label {
-  font-size: 0.7rem;
+  font-size: var(--small-text-10);
   color: var(--black-1200);
   font-weight: 500;
   font-family: "Konnect";
@@ -358,7 +358,7 @@
 
 .field-title {
   display: block;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   font-weight: 600;
   color: #374151;
   margin-bottom: 0.5rem;
@@ -368,10 +368,10 @@
 .custom-input {
   width: 100%;
   padding: 0.55rem 1rem;
-  border: 1px solid var(--black-500);
+  border: 1px solid var(--gray-300);
   border-radius: var(--border-radius-4);;
   background-color: var(--white);
-  font-size: 0.8rem;
+  font-size: var(--small-text);;
   outline: none;
   transition: border-color 0.2s;
   color: var(--gray-200);
@@ -428,7 +428,7 @@
 
 .file-info {
   margin-top: 0.5rem;
-  font-size: 0.8rem;
+  font-size: var(--small-text);;
   color: var(--gray-200);
 }
 
@@ -475,7 +475,7 @@
   background-color: var(--white);
   padding: 2rem;
   border-radius: var(--border-radius-4);
-  border: 1px solid #f3f4f6;
+  border: 1px solid var(--gray-300);
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -500,7 +500,7 @@
 }
 
 .review-section-title {
-  font-size: 1.1rem;
+  font-size: var(--below-medium-heading);
   font-weight: 600;
   margin-bottom: 1rem;
   margin-top: 1.5rem;
@@ -517,7 +517,7 @@
 
 .review-field p {
   display: block;
-  font-size: 0.9rem;
+  font-size: var(--normal-text);
   color: var(--black-700);
   margin-bottom: 0.4rem;
 }
@@ -528,17 +528,17 @@
   background-color: var(--white-400);
   border: 1px solid transparent;
   border-radius: var(--border-radius-4);;
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   color: var(--gray-200);
   outline: none;
-  border: 1px solid var(--black-500);
+  border: 1px solid var(--gray-300);
 }
 
 .status-input {
   background-color: var(--white-400);
   color: var(--orange-500);
   font-weight: 500;
-  border: 1px solid var(--black-500);
+  border: 1px solid var(--gray-300);
 }
 
 .review-actions {
@@ -611,7 +611,7 @@
 
   .kyc-tab-btn {
     padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
+    font-size: var(--normal-text);
   }
 
   .individual-kyc-wrapper {

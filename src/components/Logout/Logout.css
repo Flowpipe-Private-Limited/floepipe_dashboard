@@ -48,7 +48,7 @@
   padding: 10px 24px;
   border-radius: var(--border-radius-8);
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: var(--normal-text);
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;

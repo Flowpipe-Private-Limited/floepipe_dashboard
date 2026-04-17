@@ -267,7 +267,7 @@
 
 .expand-arrow {
   color: var(--black-1200);
-  font-size: 18px;
+  font-size: var(--medium-heading);
 }
 
 .modal-footer {

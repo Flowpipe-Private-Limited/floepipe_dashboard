@@ -81,7 +81,7 @@
 }
 
 .fpin-subtext {
-    font-size: 0.875rem;
+    font-size: var(--normal-text);
     color: var(--gray-200);
     /* gray-500 */
     margin: 0;
@@ -95,7 +95,7 @@
 
 .fpin-instruction {
     text-align: center;
-    font-size: 0.875rem;
+    font-size: var(--normal-text);
     color: var(--gray-400);
     margin-bottom: 0.75rem;
 }
@@ -136,7 +136,7 @@
 
 .fpin-error-msg {
     color: var(--red-200);
-    font-size: 0.875rem;
+    font-size: var(--normal-text);
     text-align: center;
     margin-bottom: 1.5rem;
 }
@@ -216,7 +216,7 @@
 
 .separator-text {
     margin: 0 1rem;
-    font-size: 0.75rem;
+    font-size: var(--small-text);
     color: var(--gray-200);
     font-weight: 500;
 }
