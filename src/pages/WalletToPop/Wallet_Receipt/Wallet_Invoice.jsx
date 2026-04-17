@@ -90,7 +90,6 @@ const Wallet_Invoice = ({ amount, onBack }) => {
               <span className="table-value">+91 9876543210</span>
             </div>
           </div>
-
           <div className="invoice-section-title">Pricing Summary</div>
           <div className="invoice-table">
             <div className="invoice-table-row">
@@ -107,12 +106,10 @@ const Wallet_Invoice = ({ amount, onBack }) => {
               <span className="table-value">+{gst}</span>
             </div>
           </div>
-
           <div className="invoice-total-row">
             <span className="total-label">Total Paid</span>
             <span className="total-value">₹{total}</span>
           </div>
-
           <div className="invoice-disclaimer">
             <p>
               <strong>
