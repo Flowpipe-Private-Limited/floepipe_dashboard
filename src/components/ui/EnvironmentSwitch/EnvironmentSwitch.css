@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   background: var(--white-200);
-  border-radius: 0.8rem;
+  border-radius: var(--border-radius-6);
   padding: 6px;
 }
 

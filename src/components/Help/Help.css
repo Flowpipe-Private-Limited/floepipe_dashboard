@@ -72,7 +72,7 @@
   position: relative;
   padding: 2rem;
   margin-top: 4rem;
-  border-radius: 0.8rem;
+  border-radius: var(--border-radius-6);
   box-shadow: 0 4px 6px #0e0e0e1a;
 }
 
@@ -241,7 +241,7 @@
 
 .help-btn {
   padding: 10px 20px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   font-size: var(--small-text);
   font-weight: 500;
   cursor: pointer;
@@ -328,7 +328,7 @@
 
 .help-video-card {
   position: relative;
-  border-radius: 12px;
+  border-radius: var(--border-radius-12);
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -365,7 +365,7 @@
   width: 50px;
   height: 50px;
   background: var(--red-200);
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -382,7 +382,7 @@
 
 .help-contact-card {
   border: 1px solid #eee;
-  border-radius: 12px;
+  border-radius: var(--border-radius-12);
   padding: 18px 16px;
   background: var(--white);
   margin-bottom: 40px;
@@ -412,11 +412,11 @@
   align-items: center;
   background: var(--white-200);
   padding: 0.4rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
 }
 
 .help-contact-icon {
-  color: var(--black-100);
+  color: var(--gray-200);
   flex-shrink: 0;
 }
 
@@ -467,7 +467,7 @@
   gap: 10px;
   background: var(--white);
   border: 1px solid var(--purple-main);
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   color: var(--purple-main);
   font-weight: 500;
   cursor: pointer;
@@ -489,7 +489,7 @@
 
 .help-modal-body::-webkit-scrollbar-thumb {
   background: #d1d5db;
-  border-radius: 4px;
+  border-radius: var(--border-radius-4);
 }
 
 .help-modal-body::-webkit-scrollbar-thumb:hover {
@@ -540,7 +540,7 @@
   align-items: center;
   gap: 10px;
   background: var(--white);
-  border-radius: 12px;
+  border-radius: var(--border-radius-12);
   padding: 12px 16px;
   margin-bottom: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -624,7 +624,7 @@
   padding: 12px 20px;
   background: #f5f5f5;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   font-size: var(--normal-text);
   font-weight: 500;
   color: #333;
@@ -729,7 +729,7 @@
 .help-avatar-circle {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   background: linear-gradient(135deg, var(--purple-main) 0%, #a78bfa 100%);
   display: flex;
   align-items: center;
@@ -739,7 +739,7 @@
 .help-chat-bubble {
   max-width: 75%;
   padding: 12px 16px;
-  border-radius: 16px;
+  border-radius: var(--border-radius-12);
   word-wrap: break-word;
 }
 
@@ -773,7 +773,7 @@
 .help-chat-footer-input {
   flex: 1;
   border: 1px solid #e5e5e5;
-  border-radius: 24px;
+  border-radius: var(--border-radius-12);
   padding: 12px 20px;
   font-size: var(--normal-text);
   outline: none;
@@ -791,7 +791,7 @@
 .help-chat-footer-send {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   background: #333;
   border: none;
   display: flex;
@@ -817,7 +817,7 @@
 
 .help-chat-messages-container::-webkit-scrollbar-thumb {
   background: #d1d5db;
-  border-radius: 4px;
+  border-radius: var(--border-radius-4);
 }
 
 .help-chat-messages-container::-webkit-scrollbar-thumb:hover {

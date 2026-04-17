@@ -12,8 +12,8 @@
 /* Modal */
 .kyc-modal {
   width: 420px;
-  background: #ffffff;
-  border-radius: 16px;
+  background: var(--white);
+  border-radius: var(--border-radius-12);
   padding: 20px 22px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
@@ -26,14 +26,14 @@
 
 .kyc-subtitle {
   font-size: var(--small-text);
-  color: var(--black-100);
+  color: var(--gray-200);
   margin-bottom: 16px;
 }
 
 /* Card */
 .kyc-card {
   background: #f4f0ff;
-  border-radius: 14px;
+  border-radius: var(--border-radius-12);
   padding: 18px;
 }
 
@@ -61,7 +61,7 @@
 .step span {
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   background: #d1d5db;
   color: #fff;
   display: grid;
@@ -98,7 +98,7 @@
 .kyc-input {
   width: 100%;
   padding: 10px 12px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   border: 1px solid var(--gray-300);
   margin-bottom: 14px;
   font-size: var(--normal-text);
@@ -108,7 +108,7 @@
 .upload-box {
   border: 2px dashed #bfa9ff;
   padding: 14px;
-  border-radius: 10px;
+  border-radius: var(--border-radius-10);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -126,7 +126,7 @@
 
 .btn-outline {
   padding: 10px 22px;
-  border-radius: 10px;
+  border-radius: var(--border-radius-10);
   border: 1px solid #7c4ce4;
   background: transparent;
   color: #7c4ce4;

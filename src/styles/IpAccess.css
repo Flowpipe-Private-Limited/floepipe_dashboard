@@ -10,7 +10,7 @@
   max-width: none;
   background: var(--white);
   padding: 25px;
-  border-radius: 12px;
+  border-radius: var(--border-radius-12);
   border: 1px solid #e5e5e5;
 }
 .whitelist-title {
@@ -28,7 +28,7 @@
   flex: 1;
   padding: 10px 12px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   font-size: var(--normal-text);
 }
 .add-btn {
@@ -36,7 +36,7 @@
   color: var(--white);
   padding: 10px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   cursor: pointer;
   font-weight: 600;
 }
@@ -47,7 +47,7 @@
   border: 2px dashed #b56dff;
   background: #f8eaff;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: var(--border-radius-10);
   margin-bottom: 20px;
   text-align: center;
 }
@@ -76,20 +76,20 @@
   background: #2ecc71;
   color: var(--white);
   padding: 5px 10px;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
 }
 .status-inactive {
   background: #f1c40f;
   color: var(--white);
   padding: 5px 10px;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
 }
 delete-btn {
   background: #e63946;
   color: var(--white);
   padding: 6px 12px;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
   cursor: pointer;
 }
 .delete-btn:hover {

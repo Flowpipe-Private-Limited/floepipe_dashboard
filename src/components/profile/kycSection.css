@@ -2,7 +2,7 @@
 /* Container */
 .kyc-container {
   background-color: var(--white);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-8);
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -15,7 +15,7 @@
 
 .kyc-container-base {
   background-color: var(--white);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-8);
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -29,7 +29,7 @@
 
 .kyc-container-business {
   background-color: var(--white);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-8);
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -47,7 +47,7 @@
 
 .kyc-container-no {
   background-color: none;
-  border-radius: 1rem;
+  border-radius: var(--border-radius-8);
   min-height: 400px;
   position: relative;
 }
@@ -125,7 +125,7 @@
 }
 
 .kyc-selection-subtitle {
-  color: var(--black-100);
+  color: var(--gray-200);
   font-size: 0.875rem;
   margin: 0;
 }
@@ -134,7 +134,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--black-100);
+  color: var(--gray-200);
   padding: 0.25rem;
 }
 
@@ -145,7 +145,7 @@
 .selection-card-container {
   background-color: var(--purple-1000);
   padding: 1.2rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
 }
 
 .selection-card-title {
@@ -156,7 +156,7 @@
 }
 
 .selection-card-desc {
-  color: var(--black-100);
+  color: var(--gray-200);
   font-size: 0.875rem;
   margin-bottom: 1rem;
 }
@@ -184,7 +184,7 @@
   width: 20px;
   height: 20px;
   border: 2px solid #d1d5db;
-  border-radius: 4px;
+  border-radius: var(--border-radius-4);
   margin-right: 1rem;
   display: flex;
   align-items: center;
@@ -211,7 +211,7 @@
 .option-text p {
   margin: 0;
   font-size: 0.8rem;
-  color: var(--black-100);
+  color: var(--gray-200);
 }
 
 .kyc-footer {
@@ -262,13 +262,13 @@
 }
 
 .kyc-tab-btn.inactive {
-  color: var(--black-100);
+  color: var(--gray-200);
 }
 
 .individual-kyc-wrapper {
   background-color: #f3e8ff;
   padding: 1.2rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   font-family: "Konnect";
 }
 
@@ -298,7 +298,7 @@
 .step-circle {
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   background-color: var(--black-1200);
   color: var(--white);
   display: flex;
@@ -369,12 +369,12 @@
   width: 100%;
   padding: 0.55rem 1rem;
   border: 1px solid var(--black-500);
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   background-color: var(--white);
   font-size: 0.8rem;
   outline: none;
   transition: border-color 0.2s;
-  color: var(--black-100);
+  color: var(--gray-200);
   font-family: "Konnect";
 }
 
@@ -387,7 +387,7 @@
 .file-upload-box {
   border: 2px dashed var(--purple-1200);
   background-color: var(--purple-1100);
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   padding: 0.9rem;
   text-align: center;
   color: var(--purple-main);
@@ -403,7 +403,7 @@
 .file-upload-box-business {
   border: 2px dashed var(--purple-1200);
   background-color: var(--purple-1100);
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   padding: 0.9rem;
   text-align: center;
   color: var(--purple-main);
@@ -429,7 +429,7 @@
 .file-info {
   margin-top: 0.5rem;
   font-size: 0.8rem;
-  color: var(--black-100);
+  color: var(--gray-200);
 }
 
 /* Footer Actions */
@@ -445,7 +445,7 @@
   border: 1px solid var(--purple-main);
   color: var(--purple-main);
   padding: 0.5rem 2rem;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
@@ -457,7 +457,7 @@
   color: var(--white);
   border: none;
   padding: 0.5rem 2rem;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   font-weight: 500;
   cursor: pointer;
   min-width: 100px;
@@ -474,7 +474,7 @@
 .review-wrapper {
   background-color: var(--white);
   padding: 2rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   border: 1px solid #f3f4f6;
   animation: fadeIn 0.3s ease-in-out;
 }
@@ -527,9 +527,9 @@
   padding: 0.6rem 1rem;
   background-color: var(--white-400);
   border: 1px solid transparent;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   font-size: 0.95rem;
-  color: var(--black-100);
+  color: var(--gray-200);
   outline: none;
   border: 1px solid var(--black-500);
 }
@@ -713,7 +713,7 @@
 .kyc-tabs-wrapper {
   background-color: var(--white);
   padding: 0;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
 }
 
 .kyc-tabs-header {
@@ -727,7 +727,7 @@
   background-color: transparent;
   border: none;
   font-family: "JetBrainsMonoSemiBold";
-  color: var(--black-100);
+  color: var(--gray-200);
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: all 0.2s;

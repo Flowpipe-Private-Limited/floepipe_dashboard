@@ -1,19 +1,16 @@
 .profile-page-container {
   width: 100%;
   min-height: 100vh;
-  background-color: var(--white-100);
 }
 
 [data-theme='dark'] .profile-page-container {
-  background-color: var(--white-300);
-  /* Dark background */
 }
 
 .profile-header {
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   margin-bottom: 1rem;
   padding: 0.6rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   background: var(--white);
   border: 1px solid var(--purple-500);
   box-shadow: 0 1px 2px #8686861A;
@@ -36,7 +33,7 @@
   padding: 0.5rem 1.5rem;
   background-color: var(--purple-main);
   color: var(--white);
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   transition: background-color 0.3s;
   border: none;
   cursor: pointer;
@@ -50,7 +47,7 @@
 
 .profile-card {
   background-color: var(--white);
-  border-radius: 0.3rem;
+  border-radius: var(--border-radius-4);
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.02);
   padding: 1.5rem 2rem;
   display: flex;
@@ -70,7 +67,7 @@
 .profile-image {
   width: 8.5rem;
   height: 8.5rem;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   border: 3px solid #e9d5ff;
   object-fit: cover;
   background: var(--white);
@@ -88,7 +85,7 @@
 }
 
 .user-detail {
-  color: var(--black-100);
+  color: var(--gray-200);
   font-size: 0.95rem;
   margin: 0.1rem 0;
 }
@@ -135,7 +132,7 @@
 .tabs-group {
   display: flex;
   background-color: var(--white);
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   overflow: hidden;
   width: 100%;
   max-width: 600px;
@@ -176,7 +173,7 @@
 
 .details-card {
   background-color: var(--white);
-  border-radius: 1rem;
+  border-radius: var(--border-radius-8);
   padding: 2rem;
   box-shadow: 0 3px 3px #0E0E0E1A;
   border: none;
@@ -242,10 +239,10 @@
   width: 100%;
   padding: 0.8rem 1rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   background-color: var(--white-400);
   font-size: 0.8rem;
-  color: var(--black-100);
+  color: var(--gray-200);
   transition: all 0.2s;
   border: 1px solid var(--black-500);
 }
@@ -263,7 +260,7 @@
 .input-field.basic-details-input {
   background-color: var(--white-400);
   border-color: var(--black-500);
-  color: var(--black-100);
+  color: var(--gray-200);
   cursor: default;
 }
 
@@ -275,7 +272,7 @@
 .input-field.company-details-input {
   background-color: var(--orange-100);
   border-color: var(--black-500);
-  color: var(--black-100);
+  color: var(--gray-200);
 }
 
 .input-field.company-details-input:focus {
@@ -293,7 +290,7 @@
 /* Phone field adjustments */
 .phone-field.basic-details-input {
   background-color: transparent;
-  color: var(--black-100);
+  color: var(--gray-200);
   cursor: default;
 }
 
@@ -325,7 +322,7 @@
 .phone-input-wrapper {
   display: flex;
   background-color: var(--white-400);
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   overflow: hidden;
 }
 
@@ -335,7 +332,7 @@
   align-items: center;
   gap: 0.5rem;
   border-right: 1px solid var(--black-500);
-  color: var(--black-100);
+  color: var(--gray-200);
   font-weight: 500;
   border: 1px solid var(--black-500);
 
@@ -382,7 +379,7 @@
   padding: 0.3rem 2.5rem;
   background-color: var(--purple-main);
   color: var(--white);
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   border: none;
   font-weight: 600;
   cursor: pointer;
@@ -422,7 +419,7 @@
 
 .modal-container {
   background: var(--white);
-  border-radius: 0.75rem;
+  border-radius: var(--border-radius-4);
   width: 90%;
   max-width: 500px;
   padding: 1.5rem 2rem;
@@ -463,9 +460,9 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--black-100);
+  color: var(--gray-200);
   padding: 0.25rem;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -486,7 +483,7 @@
 
 .modal-label {
   font-size: 0.9rem;
-  color: var(--black-100);
+  color: var(--gray-200);
   margin-bottom: -0.5rem;
   font-family: "Konnect";
 }
@@ -495,7 +492,7 @@
   width: 100%;
   padding: 0.5rem;
   border: 1px solid var(--gray-300);
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   font-size: 0.95rem;
   outline: none;
   transition:
@@ -506,7 +503,7 @@
 .modal-input-phone-input {
   width: 100%;
   padding: 0.5rem;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   font-size: 0.95rem;
   outline: none;
   transition:
@@ -524,7 +521,7 @@
   display: flex;
   align-items: center;
   border: 1px solid var(--gray-300);
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
 }
 
 .country-code {
@@ -533,7 +530,7 @@
   gap: 0.5rem;
   padding: 0.5rem 1.2rem;
   border-right: 1px solid var(--gray-300);
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   background-color: var(--white);
   white-space: nowrap;
   height: 40px;
@@ -552,7 +549,7 @@
   background-color: var(--purple-main);
   color: var(--white);
   border: none;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-4);;
   padding: 0.5rem;
   font-weight: 500;
   cursor: pointer;

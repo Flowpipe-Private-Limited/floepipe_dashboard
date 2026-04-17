@@ -17,22 +17,24 @@ import Appstore from '../assets/images/Appstore.webp';
 import reportsempty from '../assets/images/reportsempty.webp';
 import cardinsidelogo from '../assets/images/cardinsidelogo.webp';
 import msgicon from '../assets/images/msgicon.png';
-import Dashboard from '../assets/images/Dashboard.png';
-import Myaccount from '../assets/images/Myaccount.png';
+import Dashboard from '../assets/images/svg/Dashboard.svg';
+import Myaccount from '../assets/images/svg/myaccount.svg';
 import Templates from '../assets/images/Templates.png';
-import product from '../assets/images/product.png';
-import reports from '../assets/images/reports.png';
-import Billingplan from '../assets/images/Billingplan.png';
+import product from '../assets/images/svg/product.svg';
+import trailcenter from '../assets/images/svg/trailcenter.svg';
+import reports from '../assets/images/svg/reports.svg';
+import Billingplan from '../assets/images/svg/billingplan.svg';
 import bhim from '../assets/images/bhim.webp';
-import API from '../assets/images/API.png';
-import Apiusage from '../assets/images/Apiusage.png';
-import whitelist from '../assets/images/whitelist.webp';
+import API from '../assets/images/svg/apikey.svg';
+import Apiusage from '../assets/images/svg/apiusage.svg';
+import whitelist from '../assets/images/svg/whitelist.svg';
+import webhooks from '../assets/images/svg/webhooks.svg';
 import Recharges from '../assets/images/Recharges.webp';
 import payouts from '../assets/images/payouts.webp';
 import kyc from '../assets/images/kyc.webp';
 import BBPS from '../assets/images/BBPS.webp';
 import TESTAnimation from "../assets/images/TESTAnimation.json";
-import testapi from '../assets/images/testapi.png';
+import testapi from '../assets/images/svg/testapi.svg';
 import copyicon from '../assets/images/copyicon.png';
 import trailimg from '../assets/images/trailimg.webp';
 import LIVEAnimation from "../assets/images/LIVEAnimation.json";
@@ -65,12 +67,14 @@ const images = {
   Myaccount,
   Templates,
   product,
+  trailcenter,
   reports,
   Billingplan,
   bhim,
   API,
   Apiusage,
   whitelist,
+  webhooks,
   Recharges,
   payouts,
   kyc,

@@ -12,7 +12,7 @@
 .page-header-card {
   background: var(--white);
   padding: 0.8rem 1.5rem;
-  border-radius: 0.6rem;
+  border-radius: var(--border-radius-4);
   margin-bottom: 1.2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
@@ -28,7 +28,7 @@
 .tabs-wrapper {
   display: inline-flex;
   background: var(--white);
-  border-radius: 0.6rem;
+  border-radius: var(--border-radius-4);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   margin-bottom: 1.5rem;
   border: 1px solid var(--purple-200);
@@ -71,7 +71,7 @@
 .add-key-box {
   border: 2px dashed var(--purple-main);
   background: #f1edff;
-  border-radius: 0.8rem;
+  border-radius: var(--border-radius-6);
   padding: 1.5rem 1.5rem;
   text-align: center;
   margin-bottom: 1.8rem;
@@ -83,7 +83,7 @@
   color: var(--white);
   padding: 0.4rem 2rem;
   font-size: 0.8rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-4);
   border: none;
   cursor: pointer;
   transition: background 0.2s;
@@ -102,7 +102,7 @@
 /* ================= Table ================= */
 .table-wrapper {
   background: var(--white);
-  border-radius: 0.8rem;
+  border-radius: var(--border-radius-6);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
 }
@@ -190,7 +190,7 @@ tbody tr td[colspan] {
 .custom-radio {
   width: 18px;
   height: 18px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   border: 2px solid #999;
   position: relative;
   transition: all 0.2s ease;
@@ -204,7 +204,7 @@ tbody tr td[colspan] {
   width: 10px;
   height: 10px;
   background: var(--purple-main);
-  border-radius: 50%;
+  border-radius: var(--border-radius-50);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -242,7 +242,7 @@ tbody tr td[colspan] {
   border: 1px solid var(--purple-main);
   color: var(--purple-main);
   background: transparent;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
   font-size: var(--below-medium-heading);
   cursor: pointer;
   font-weight: 200;
@@ -259,7 +259,7 @@ tbody tr td[colspan] {
   background: var(--purple-main);
   color: var(--white);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   font-size: var(--normal-text);
   font-weight: 600;
   cursor: pointer;

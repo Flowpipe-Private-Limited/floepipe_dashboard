@@ -2,8 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import {
-  Bell,
-  HelpCircle,
   User,
   Search,
   FileText,
@@ -14,7 +12,6 @@ import {
   Briefcase,
   Zap,
   Moon,
-  Sun,
   CreditCard,
   Building2,
   BadgeCheck,
@@ -26,22 +23,18 @@ import {
   MapPin,
   ShieldAlert,
   Stethoscope,
-  MoreHorizontal
+  MoreHorizontal,
 } from "lucide-react";
-
 import flowpipeLogo from "../../assets/images/FlowpipeLogo.png";
 import { useUserStore } from "../../Store/userStore";
 import Images from "../../Images/Images";
 import Help from "../../components/Help/Help";
-import { RxPlusCircled } from "react-icons/rx";
-import { IoCodeSlashSharp } from "react-icons/io5";
 import { HiOutlineBell } from "react-icons/hi";
 import Cookies from "js-cookie";
 import {
   SERVICES_METADATA,
-  KYC_CATEGORIES
+  KYC_CATEGORIES,
 } from "../../utils/KYCContext/servicesMetadata";
-
 import "./Dashboard.css";
 import Logout from "../../components/Logout/Logout";
 import FlowpipeUnlockModal from "../../components/profile/PinVerify/FpinVerify";
@@ -61,7 +54,7 @@ const LucideIcons = {
   MapPin,
   ShieldAlert,
   Stethoscope,
-  MoreHorizontal
+  MoreHorizontal,
 };
 
 // Helper to group services by category for the sidebar
@@ -69,7 +62,7 @@ const generateKycSidebarItems = () => {
   const groups = {};
 
   // Group metadata by categoryId
-  SERVICES_METADATA.forEach(service => {
+  SERVICES_METADATA.forEach((service) => {
     if (!groups[service.categoryId]) {
       groups[service.categoryId] = [];
     }
@@ -77,26 +70,28 @@ const generateKycSidebarItems = () => {
       label: service?.label,
       href: `/dashboard/KYC/${service.id}`,
       method: service.config.apiUrl.Method,
-      type: "service"
+      type: "service",
     });
   });
 
-  const kycCategories = Object.keys(groups).map(catId => {
+  const kycCategories = Object.keys(groups).map((catId) => {
     const category = KYC_CATEGORIES[catId];
     return {
       label: category?.label,
       type: "category",
-      children: groups[catId]
+      children: groups[catId],
     };
   });
 
-  return [{
-    label: "KYC",
-    icon: Images.kyc || FileText,
-    type: "subgroup",
-    iconType: "image",
-    children: kycCategories
-  }];
+  return [
+    {
+      label: "KYC",
+      icon: Images.kyc || FileText,
+      type: "subgroup",
+      iconType: "image",
+      children: kycCategories,
+    },
+  ];
 };
 
 const sideDashboardConfig = [
@@ -122,6 +117,13 @@ const sideDashboardConfig = [
     iconType: "image",
   },
   {
+    label: "Trail Center",
+    icon: Images.trailcenter,
+    // href: "/dashboard/Products",
+    type: "single",
+    iconType: "image",
+  },
+  {
     label: "Reports",
     icon: Images.reports,
     href: "/dashboard/Reports",
@@ -130,7 +132,7 @@ const sideDashboardConfig = [
   },
   {
     label: "Test API",
-    icon: Images.Apiusage || FileText,
+    icon: Images.testapi || FileText,
     type: "group",
     iconType: "image",
     children: [
@@ -220,20 +222,6 @@ const sideDashboardConfig = [
           },
         ],
       },
-      // InstantPay Group
-      // {
-      //   label: "InstantPay",
-      //   icon: Images.InstantPay || Zap,
-      //   type: "subgroup",
-      //   iconType: "image",
-      //   children: [
-      //     {
-      //       label: "InstantBill Pay",
-      //       href: "/dashboard/InstantPayVerification",
-      //       method: "POST",
-      //     },
-      //   ],
-      // },
     ],
   },
   {
@@ -252,7 +240,7 @@ const sideDashboardConfig = [
   },
   {
     label: "API Usage",
-    icon: Images.testapi,
+    icon: Images.Apiusage,
     href: "/dashboard/APIUsage",
     type: "single",
     iconType: "image",
@@ -266,7 +254,7 @@ const sideDashboardConfig = [
   },
   {
     label: "Webhooks",
-    icon: Images.whitelist,
+    icon: Images.webhooks,
     href: "/dashboard/Webhooks",
     type: "single",
     iconType: "image",
@@ -293,10 +281,6 @@ export default function DashboardPage() {
         setCollapsed(false);
       }
     };
-
-    // Optional: Auto-collapse on resize to mobile
-    // window.addEventListener('resize', handleResize);
-    // return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Theme Logic
@@ -306,19 +290,19 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="h-screen w-full flex bg-[#000] relative">
+    <div className="dashboard-container-main">
       {/* Mobile Overlay */}
       <div
         className={`mobile-dashboard-overlay ${!collapsed ? "active" : ""}`}
         onClick={() => setCollapsed(true)}
       />
 
-      <Sidebar 
-        collapsed={collapsed} 
-        data={users} 
-        onHelpClick={() => setShowHelp(true)} 
+      <Sidebar
+        collapsed={collapsed}
+        data={users}
+        onHelpClick={() => setShowHelp(true)}
       />
-      <div className="flex-1 flex flex-col relative w-full overflow-hidden">
+      <div className="main-layout">
         <Header
           onToggle={() => setCollapsed(!collapsed)}
           onNavigate={(path, options) => navigate(path, options)}
@@ -326,7 +310,7 @@ export default function DashboardPage() {
           onHelpClick={() => setShowHelp(true)}
           onLogoutClick={() => setShowLogout(true)}
         />
-        <main className="flex-1 overflow-y-auto p-6 bg-main-content">
+        <main className="main-content-area">
           <Outlet />
         </main>
         {showHelp && <Help onClose={() => setShowHelp(false)} />}
@@ -334,10 +318,8 @@ export default function DashboardPage() {
           isOpen={showLogout}
           onClose={() => setShowLogout(false)}
           onConfirm={() => {
-            // Handle logout logic here, e.g., clear localStorage, tokens
-            // For now, navigating to login
-            Cookies.remove('clientId');
-            Cookies.remove('token');
+            Cookies.remove("clientId");
+            Cookies.remove("token");
             setShowLogout(false);
             navigate("/login");
           }}
@@ -362,7 +344,7 @@ function Sidebar({ collapsed, data, onHelpClick }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ✅ Ctrl + K Global Search Shortcut
+  // Ctrl + K Global Search Shortcut
   useEffect(() => {
     const handleKey = (e) => {
       if (e.ctrlKey && e.key.toLowerCase() === "k") {
@@ -393,10 +375,8 @@ function Sidebar({ collapsed, data, onHelpClick }) {
     }));
   };
 
-  // ✅ Auto-expand sidebar when location changes (especially useful after search)
+  // Auto-expand sidebar when location changes
   useEffect(() => {
-    // Only auto-expand if not currently searching (to avoid focus loss) 
-    // or if search was just cleared
     if (search) return;
 
     let expandedGroup = {};
@@ -407,15 +387,13 @@ function Sidebar({ collapsed, data, onHelpClick }) {
       if (group?.type === "group") {
         group?.children?.forEach((subgroup) => {
           const subgroupKey = `${group?.label}-${subgroup?.label}`;
-          
+
           subgroup?.children?.forEach((child) => {
-            // Case 1: Direct link in subgroup
             if (child?.href === location?.pathname) {
               expandedGroup[group?.label] = true;
               expandedSubGroup[subgroupKey] = true;
             }
-            
-            // Case 2: Link inside a Category (KYC nested structure)
+
             if (child?.children) {
               child?.children?.forEach((api) => {
                 if (api?.href === location?.pathname) {
@@ -431,59 +409,79 @@ function Sidebar({ collapsed, data, onHelpClick }) {
     });
 
     if (Object.keys(expandedGroup).length > 0) setOpenGroups(expandedGroup);
-    if (Object.keys(expandedSubGroup).length > 0) setOpenSubGroups(expandedSubGroup);
-    if (Object.keys(expandedKycCat).length > 0) setOpenKycCategories(expandedKycCat);
+    if (Object.keys(expandedSubGroup).length > 0)
+      setOpenSubGroups(expandedSubGroup);
+    if (Object.keys(expandedKycCat).length > 0)
+      setOpenKycCategories(expandedKycCat);
   }, [location?.pathname, search]);
 
-  // ✅ Filter groups based on search
+  // Filter groups based on search
   const filteredConfig = search
     ? sideDashboardConfig
-      .map((item) => {
-        if (item?.type === "group") {
-          const filteredChildren = (item.children || [])
-            .filter(
-              (child) =>
-                (child?.label || "").toLowerCase().includes(search.toLowerCase()) ||
-                child?.children?.some((subChild) =>
-                  (subChild?.label || "").toLowerCase().includes(search.toLowerCase()) ||
-                  subChild?.children?.some((leaf) =>
-                    (leaf?.label || "").toLowerCase().includes(search.toLowerCase())
-                  )
-                ),
-            )
-            .map((child) => ({
-              ...child,
-              children:
-                (child?.children || [])?.map(subChild => {
-                  if (subChild?.children) {
-                    return {
-                      ...subChild,
-                      children: subChild.children.filter(leaf =>
-                        (leaf?.label || "").toLowerCase().includes(search.toLowerCase())
-                      )
-                    };
-                  }
-                  return subChild;
-                }).filter(subChild =>
-                  (subChild?.label || "").toLowerCase().includes(search.toLowerCase()) ||
-                  (subChild?.children && subChild.children.length > 0)
-                ) || [],
-            }))
-            .filter(
-              (child) =>
-                (child?.children || [])?.length > 0 ||
-                (child?.label || "").toLowerCase().includes(search.toLowerCase()),
-            );
+        .map((item) => {
+          if (item?.type === "group") {
+            const filteredChildren = (item.children || [])
+              .filter(
+                (child) =>
+                  (child?.label || "")
+                    .toLowerCase()
+                    .includes(search.toLowerCase()) ||
+                  child?.children?.some(
+                    (subChild) =>
+                      (subChild?.label || "")
+                        .toLowerCase()
+                        .includes(search.toLowerCase()) ||
+                      subChild?.children?.some((leaf) =>
+                        (leaf?.label || "")
+                          .toLowerCase()
+                          .includes(search.toLowerCase()),
+                      ),
+                  ),
+              )
+              .map((child) => ({
+                ...child,
+                children:
+                  (child?.children || [])
+                    ?.map((subChild) => {
+                      if (subChild?.children) {
+                        return {
+                          ...subChild,
+                          children: subChild.children.filter((leaf) =>
+                            (leaf?.label || "")
+                              .toLowerCase()
+                              .includes(search.toLowerCase()),
+                          ),
+                        };
+                      }
+                      return subChild;
+                    })
+                    .filter(
+                      (subChild) =>
+                        (subChild?.label || "")
+                          .toLowerCase()
+                          .includes(search.toLowerCase()) ||
+                        (subChild?.children && subChild.children.length > 0),
+                    ) || [],
+              }))
+              .filter(
+                (child) =>
+                  (child?.children || [])?.length > 0 ||
+                  (child?.label || "")
+                    .toLowerCase()
+                    .includes(search.toLowerCase()),
+              );
 
-          return filteredChildren.length > 0
-            ? { ...item, children: filteredChildren }
+            return filteredChildren.length > 0
+              ? { ...item, children: filteredChildren }
+              : null;
+          }
+          return (item?.label || "")
+            .toLowerCase()
+            .includes(search.toLowerCase())
+            ? item
             : null;
-        }
-        return (item?.label || "").toLowerCase().includes(search.toLowerCase())
-          ? item
-          : null;
-      })
-      .filter(Boolean)
+        })
+        .filter(Boolean)
     : sideDashboardConfig;
 
   return (
@@ -494,14 +492,16 @@ function Sidebar({ collapsed, data, onHelpClick }) {
         <div className="sidebar-greeting">
           <h2 className="greeting-main">
             Welcome back, <br />
-            <span className="greeting-name">{data?.full_name || data?.name || "Kushal"}!</span>
+            <span className="greeting-name">
+              {data?.full_name || data?.name || "Kushal"}!
+            </span>
           </h2>
           <p className="greeting-sub">Manage payments here.</p>
         </div>
       )}
 
       {collapsed && (
-        <div className="h-16 flex items-center justify-center border-b border-gray-100">
+        <div className="sidebar-logo-container">
           <img src={flowpipeLogo} width={32} alt="Logo" />
         </div>
       )}
@@ -521,7 +521,7 @@ function Sidebar({ collapsed, data, onHelpClick }) {
         </div>
       )}
 
-      <nav className="flex-1 p-2 space-y-2.5 text-sm overflow-y-auto">
+      <nav className="sidebar-nav-container">
         {filteredConfig.map((item, idx) => {
           /* ================= SINGLE ITEMS ================= */
           if (item.type === "single") {
@@ -537,7 +537,8 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                   <img
                     src={item.icon}
                     alt={item.label}
-                    className="sidebar-icon-img"
+                    /* ✅ Active = #ccff00, Default = black */
+                    className={`sidebar-icon-img ${isActive ? "sidebar-icon-active" : "sidebar-icon-default"}`}
                   />
                 ) : (
                   <item.icon size={18} />
@@ -561,15 +562,17 @@ function Sidebar({ collapsed, data, onHelpClick }) {
               <div key={idx} className="sidebar-group">
                 <button
                   onClick={() => toggleGroup(item.label)}
-                  className={`sidebar-item group-header ${collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"
-                    } ${isGroupActive ? "active" : ""}`}
+                  className={`sidebar-item group-header ${
+                    collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"
+                  } ${isGroupActive ? "active" : ""}`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex-items-center-gap-3">
                     {item.iconType === "image" ? (
                       <img
                         src={item.icon}
                         alt={item.label}
-                        className="sidebar-icon-img"
+                        /* ✅ Active = #ccff00, Default = black */
+                        className={`sidebar-icon-img ${isGroupActive ? "sidebar-icon-active" : "sidebar-icon-default"}`}
                       />
                     ) : (
                       <Icon size={18} />
@@ -608,23 +611,26 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                             onClick={() =>
                               toggleSubGroup(item.label, subGroup.label)
                             }
-                            className={`subgroup-button ${isSubGroupActive ? "text-purple-400" : ""
-                              }`}
+                            className={`subgroup-button ${
+                              isSubGroupActive ? "active-subgroup-text" : ""
+                            }`}
                           >
-                            <div className="flex items-center gap-2">
+                            <div className="flex-items-center-gap-2">
                               {subGroup.iconType === "image" ? (
                                 <img
                                   src={subGroup.icon}
                                   alt={subGroup.label}
-                                  className="subgroup-icon"
+                                  /* ✅ Active = #ccff00, Default = black */
+                                  className={`subgroup-icon ${isSubGroupActive ? "subgroup-icon-active" : "subgroup-icon-default"}`}
                                 />
                               ) : (
                                 <SubIcon size={16} />
                               )}
 
                               <span
-                                className={`subgroup-label ${isSubGroupActive ? "text-purple-400" : ""
-                                  }`}
+                                className={`subgroup-label ${
+                                  isSubGroupActive ? "active-subgroup-text" : ""
+                                }`}
                               >
                                 {subGroup.label}
                               </span>
@@ -633,8 +639,9 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                             {subGroup.children?.length > 0 && (
                               <ChevronDown
                                 size={12}
-                                className={`transition-transform ${isSubGroupOpen ? "rotate-180" : ""
-                                  }`}
+                                className={`transition-transform ${
+                                  isSubGroupOpen ? "rotate-180" : ""
+                                }`}
                               />
                             )}
                           </button>
@@ -645,37 +652,56 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                               {subGroup.children.map((child, childIdx) => {
                                 // Render Category Dropdown
                                 if (child.children) {
-                                  const isCatOpen = openKycCategories[child.label] || search;
+                                  const isCatOpen =
+                                    openKycCategories[child.label] || search;
                                   return (
-                                    <li key={childIdx} className="category-dropdown-wrapper">
+                                    <li
+                                      key={childIdx}
+                                      className="category-dropdown-wrapper"
+                                    >
                                       <button
-                                        onClick={() => toggleKycCategory(child.label)}
+                                        onClick={() =>
+                                          toggleKycCategory(child.label)
+                                        }
                                         className="category-toggle-btn"
                                       >
-                                        <div className="flex items-center gap-2">
-                                          <ChevronDown
-                                            size={12}
-                                            className={`transition-transform ${isCatOpen ? "rotate-180" : "-rotate-90"}`}
-                                          />
+                                        <div className="flex-items-center-gap-2">
                                           <span>{child.label}</span>
                                         </div>
+                                        <ChevronDown
+                                            size={18}
+                                            className={`transition-transform ${isCatOpen ? "rotate-180" : "-rotate-90"}`}
+                                          />
                                       </button>
 
                                       {isCatOpen && (
                                         <ul className="nested-endpoints">
                                           {child.children.map((api, apiIdx) => {
-                                            const isApiActive = location.pathname === api.href;
+                                            const isApiActive =
+                                              location.pathname === api.href;
                                             return (
                                               <li
                                                 key={apiIdx}
-                                                onClick={() => navigate(api.href)}
+                                                onClick={() =>
+                                                  navigate(api.href)
+                                                }
                                                 className={`cursor-pointer border-l border-gray-300 py-1.5 hover:bg-white/10 hover:text-white api-endpoint-item ${isApiActive ? "active" : ""}`}
                                               >
-                                                <span className="text-gray-300 bi bi-dash-lg"></span>
+                                                <span className="sidebar-dash-icon"></span>
                                                 <div className="api-method-badge">
-                                                  <span className={api.method === "GET" ? "method-get" : "method-post"}>{api.method}</span>
+                                                  <span
+                                                    className={
+                                                      api.method === "GET"
+                                                        ? "method-get"
+                                                        : "method-post"
+                                                    }
+                                                  >
+                                                    {api.method}
+                                                  </span>
                                                 </div>
-                                                <span className="api-label">{api.label}</span>
+                                                <span className="api-label">
+                                                  {api.label}
+                                                </span>
                                               </li>
                                             );
                                           })}
@@ -685,19 +711,30 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                                   );
                                 }
 
-                                // Render standard endpoint if not categorized
-                                const isApiActive = location.pathname === child.href;
+                                // Render standard endpoint
+                                const isApiActive =
+                                  location.pathname === child.href;
                                 return (
                                   <li
                                     key={childIdx}
                                     onClick={() => navigate(child.href)}
                                     className={`cursor-pointer border-l border-gray-300 py-1.5 hover:bg-white/10 hover:text-white api-endpoint-item ${isApiActive ? "active" : ""}`}
                                   >
-                                    <span className="text-gray-300 bi bi-dash-lg"></span>
+                                    <span className="text-gray-300"></span>
                                     <div className="api-method-badge">
-                                      <span className={child.method === "GET" ? "method-get" : "method-post"}>{child.method}</span>
+                                      <span
+                                        className={
+                                          child.method === "GET"
+                                            ? "method-get"
+                                            : "method-post"
+                                        }
+                                      >
+                                        {child.method}
+                                      </span>
                                     </div>
-                                    <span className="api-label">{child.label}</span>
+                                    <span className="api-label">
+                                      {child.label}
+                                    </span>
                                   </li>
                                 );
                               })}
@@ -773,44 +810,33 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
   return (
     <header className="Dash-header">
       <div className="Dash-header-left">
-        <button onClick={onToggle} className="Dash-header-menu-btn">
+        {/* <button onClick={onToggle} className="Dash-header-menu-btn">
           <Menu size={18} />
-        </button>
-        <h1 className="Dash-header-title">{pageTitle}</h1>
+        </button> */}
+        <div className="Dash-search-container">
+          <Search size={18} className="Dash-search-icon" />
+          <input
+            type="text"
+            placeholder="Search for anything..."
+            className="Dash-search-input"
+          />
+        </div>
       </div>
 
       <div className="Dash-header-right">
-        <button
-          onClick={() => onNavigate("Billing_plans")}
-          className="Dash-header-btn"
-        >
-          <RxPlusCircled size={24} />
-          Balance
-        </button>
-
-        <button className="Dash-header-btn">
-          <IoCodeSlashSharp size={20} />
-          Developers API
-        </button>
-
-        <button
-          className="Dash-header-btn Dash-header-help-btn"
-          onClick={onHelpClick}
-        >
-          <HelpCircle size={20} />
-          <span>Help</span>
-        </button>
-
-        <button className="Dash-header-btn">
-          <HiOutlineBell size={20} />
-          <span>Updates</span>
+        <button className="Dash-notif-btn">
+          <HiOutlineBell size={24} />
         </button>
 
         <button
           className="Dash-header-avatar-btn"
           onClick={() => setIsProfileOpen(!isProfileOpen)}
         >
-          <User size={18} />
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+            alt="User avatar"
+            className="Dash-header-avatar-img"
+          />
         </button>
 
         {isProfileOpen && (
@@ -841,23 +867,16 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
               </div>
               <div className="profile-divider"></div>
 
-              <div
-                className="profile-menu-item"
-                style={{ justifyContent: "space-between" }}
-                onClick={toggleTheme}
-              >
-                <div className="flex items-center gap-2">
+              <div className="profile-menu-item-spaced" onClick={toggleTheme}>
+                <div className="flex-items-center-gap-2">
                   {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
                   <span>{theme === "light" ? "Dark Mode" : "Light Mode"}</span>
                 </div>
-                {/* Simple Toggle Switch UI */}
                 <div
-                  className={`w-8 h-4 flex items-center bg-gray-300 rounded-full p-1 duration-300 cursor-pointer ${theme === "dark" ? "bg-purple-600" : ""
-                    }`}
+                  className={`theme-toggle-switch ${theme === "dark" ? "dark-active" : ""}`}
                 >
                   <div
-                    className={`bg-white w-3 h-3 rounded-full shadow-md transform duration-300 ${theme === "dark" ? "translate-x-4" : ""
-                      }`}
+                    className={`theme-toggle-thumb ${theme === "dark" ? "shifted" : ""}`}
                   ></div>
                 </div>
               </div>
@@ -874,7 +893,7 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
               </div>
               <div className="profile-divider"></div>
               <div
-                className="profile-menu-item logout"
+                className="profile-menu-item-logout"
                 onClick={() => {
                   onLogoutClick();
                   setIsProfileOpen(false);

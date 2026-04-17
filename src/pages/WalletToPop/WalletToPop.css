@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  background: #fff;
+  background: var(--white);
   z-index: 9999;
 
   display: flex;
@@ -41,7 +41,7 @@
     #4c1d95 60%,
     #5b21b6 100%
   );
-  border-radius: 16px;
+  border-radius: var(--border-radius-12);
   padding: 24px;
   color: var(--white);
   height: 215px;
@@ -120,7 +120,7 @@
 }
 
 .add-money-card {
-  border-radius: 12px;
+  border-radius: var(--border-radius-12);
   padding: 16px;
   border: 1px solid var(--black-500);
 }
@@ -143,7 +143,7 @@
   display: flex;
   align-items: center;
   border: 1px solid var(--gray-300);
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   padding: 6px 6px 6px 10px;
   /* Reduced padding */
   transition: all 0.2s ease;
@@ -160,7 +160,7 @@
   /* Reduced size */
   height: 20px;
   background: #f3f4f6;
-  border-radius: 4px;
+  border-radius: var(--border-radius-4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,7 +195,7 @@
   background: var(--purple-main);
   color: var(--white);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius-6);
   padding: 6px 16px;
   /* Reduced padding */
   font-size: var(--small-text);
@@ -220,7 +220,7 @@
   background: var(--purple-main);
   color: var(--white);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--border-radius-4);
   padding: 6px 12px;
   font-size: 11px;
   font-family: sans-serif;
@@ -267,7 +267,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   font-size: var(--below-medium-heading);
 }
 
@@ -351,7 +351,7 @@
 
   .add-money-card {
     padding: 14px;
-    border-radius: 10px;
+    border-radius: var(--border-radius-10);
   }
 
   .add-money-card h3 {
@@ -593,7 +593,7 @@
 
   .add-money-card {
     padding: 22px;
-    border-radius: 14px;
+    border-radius: var(--border-radius-12);
   }
 
   .add-money-card h3 {
@@ -635,7 +635,7 @@
   .amount-buttons button {
     padding: 7px 16px;
     font-size: var(--small-text);
-    border-radius: 6px;
+    border-radius: var(--border-radius-6);
   }
 
   .other-ways h3 {
