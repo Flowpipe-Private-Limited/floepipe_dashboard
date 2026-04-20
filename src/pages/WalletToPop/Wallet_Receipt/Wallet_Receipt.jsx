@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Wallet_Receipt.css";
 import { HiOutlineArrowLeft, HiOutlineDownload } from "react-icons/hi";
 import { LuEye } from "react-icons/lu";
 import { IoCheckmarkCircle } from "react-icons/io5";
 
 const Wallet_Receipt = ({ transactionDetails, onBack, onViewInvoice }) => {
+
+  const handleBalanceUpdate = async() => {
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+
+  useEffect(()=>{
+    if(transactionDetails?.paymentStatus){
+      handleBalanceUpdate()
+    }
+  },[])
+
   return (
     <div className="receipt-container">
       <div className="success-header">
@@ -73,6 +88,7 @@ const Wallet_Receipt = ({ transactionDetails, onBack, onViewInvoice }) => {
       </div>
     </div>
   );
+
 };
 
 export default Wallet_Receipt;

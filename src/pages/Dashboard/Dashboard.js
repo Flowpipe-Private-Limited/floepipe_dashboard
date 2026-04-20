@@ -24,6 +24,7 @@ import {
   ShieldAlert,
   Stethoscope,
   MoreHorizontal,
+    Sun,
 } from "lucide-react";
 import flowpipeLogo from "../../assets/images/FlowpipeLogo.png";
 import { useUserStore } from "../../Store/userStore";

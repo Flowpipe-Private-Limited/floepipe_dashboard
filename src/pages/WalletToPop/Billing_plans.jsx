@@ -15,7 +15,7 @@ import { MdClose } from "react-icons/md";
 import EnvironmentSwitch from "../../components/ui/EnvironmentSwitch/EnvironmentSwitch";
 import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebutton";
 import Popup from "../../components/ui/Popup/Popup";
-import { GetWalletBalance } from "../../utils/Apis/api"
+import { GetWalletBalance } from "../../utils/Apis/api";
 
 const BillingPlans = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
@@ -35,16 +35,16 @@ const BillingPlans = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const getWalletBalance = async () => {
-    console.log("entered into getwalletbalance")
+    console.log("entered into getwalletbalance");
     setLoading(true);
     setError("");
     try {
-      console.log("entered into getwalletbalance")
+      console.log("entered into getwalletbalance");
       const CLIENT_ID = localStorage.getItem("clientId");
-      console.log("CLIENT_ID======>", CLIENT_ID)
+      console.log("CLIENT_ID======>", CLIENT_ID);
       // const res = await axios.get( `${BASE_URL}apimodule/get-wallte-balance?clientId=${CLIENT_ID}`,);
-      const res = await GetWalletBalance(CLIENT_ID)
-      console.log("clientid=====>", res)
+      const res = await GetWalletBalance(CLIENT_ID);
+      console.log("clientid=====>", res);
 
       console.log("Wallet API Response:", res.data);
 
@@ -316,8 +316,9 @@ const BillingPlans = () => {
                   <td>{tx.date}</td>
                   <td>
                     <span
-                      className={`BillingPlans_tx-type ${tx.type === "Top-up" ? "topup" : "invoice"
-                        }`}
+                      className={`BillingPlans_tx-type ${
+                        tx.type === "Top-up" ? "topup" : "invoice"
+                      }`}
                     >
                       {tx.type}
                     </span>
@@ -452,13 +453,16 @@ const BillingPlans = () => {
 
       <Popup
         isOpen={isSliderOpen}
-        onClose={() => setIsSliderOpen(false)}
+        onClose={() => {
+          setIsSliderOpen(false);
+        }}
         title={popupTitle}
         hideHeader={hideHeader}
       >
         <WalletToPop
           setPopupTitle={setPopupTitle}
           setHideHeader={setHideHeader}
+          Balance={balance}
           onClose={() => setIsSliderOpen(false)}
         />
       </Popup>

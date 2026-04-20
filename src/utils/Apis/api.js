@@ -189,6 +189,8 @@ const handlieFileUpload = (data)=>kycApiClient.post(`/client/image/blur_Check`,d
 
 const HandleGetOtp = (data) => kycApiClient.post('mobileNumber/mobileOtp', data);
 const HandleVerifyOtp = (data) => kycApiClient.post('mobileNumber/mobileotpVerify', data);
+const HandleQrResponse = (data) => kycApiClient.post('ApiModuels/generate-dynamic-qr', data);
+const HandleQrPaymentResponse = (data) => kycApiClient.get(`ApiModuels/generate-dynamic-qr/${data}`);
 
 // const HandleFetchIP = (data) => kycApiClient.get(`IP/Getipwhitelist/${data?.MerchatID}`);
 
@@ -212,7 +214,7 @@ export {
   UpdatedUserDetails,
 
   VerifyFPIN,
-
+  HandleQrPaymentResponse,
   HandleGetOtp,
   HandleVerifyOtp,
   ApiVerification,
@@ -220,6 +222,7 @@ export {
   HandleFetchAllKeys,
 
   HandleCreateIP,
+    HandleQrResponse,
   HandleFetchIP,
   HandleDeleteIP,
   HandleDeleteKey,
