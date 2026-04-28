@@ -153,17 +153,17 @@ export const SERVICES_METADATA = [
     categoryId: "PAN_SERVICES",
     label: "Know FatherName WITH PAN",
     config: {
-      apiUrl: { Method: 'Post', URLS: "client/pan/panName/DobVerify", LiveUrl: `${KYC_BASE}/internal/pan/panName/DobVerify` },
+      apiUrl: { Method: 'Post', URLS: "client/pan/know/fatherName", LiveUrl: `${KYC_BASE}/internal/pan/know/fatherName` },
       title: { header: "KNOW FATHER NAME WITH PAN", headerTitle: "Know Father Name with pan Number", submitButton: 'submit pan' },
       inputParams: ["panNumber"],
       isToken: true,
       isMicro: 'KYC',
       isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/pan/panName/DobVerify' \\
+      exampleCurl: `curl --location '${KYC_BASE}/internal/pan/know/fatherName' \\
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "panNumber": "ABCDE1234F"}'`,
-      exampleResponse: apiExamples.find(e => e.name === "NM")?.examples[0]?.message || {}
+      exampleResponse: apiExamples.find(e => e.name === "PANFN")?.examples[0]?.message || {}
     }
   },
   {
@@ -745,16 +745,17 @@ export const SERVICES_METADATA = [
     categoryId: "FACE_AI",
     label: "Face Match",
     config: {
-      apiUrl: { Method: 'Post', URLS: "client/face/match", LiveUrl: `${KYC_BASE}/internal/face/match` },
+      apiUrl: { Method: 'Post', URLS: "client/face/facematch", LiveUrl: `${KYC_BASE}/internal/face/facematch` },
       title: { header: "Face Match", headerTitle: "Match two faces for similarity", submitButton: 'Compare' },
-      inputParams: ["image1", "image2"],
+      inputFile: ["userImages", "aadhaarImages"],
+      isBase64:true,
       isToken: true,
       isMicro: 'KYC',
       isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/face/match' \\
+      exampleCurl: `curl --location '${KYC_BASE}/internal/face/facematch' \\
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
-        --data '{ "image1": "base64_string", "image2": "base64_string" }'`,
+        --data '{ "userImage": "base64_string", "aadhaarImage": "base64_string" }'`,
       exampleResponse: apiExamples.find(e => e.name === "FACE")?.examples[0]?.message || {}
     }
   },

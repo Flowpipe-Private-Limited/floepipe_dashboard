@@ -21,7 +21,6 @@ const OtpScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const {token,mobileNumber} = location.state;
-  console.log('OTP Screen verify', location.state);
 
   if (!token || !mobileNumber) {
     console.log("Token or mobile number missing, redirecting to login");

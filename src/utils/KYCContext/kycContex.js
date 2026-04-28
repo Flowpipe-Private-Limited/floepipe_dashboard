@@ -104,6 +104,31 @@ export const apiExamples = [
     ],
   },
   {
+    name: "PANFN",
+    examples: [
+      {
+        statusCode: 200,
+        message: {
+          httpCode: 200,
+          data: {
+            additional_check: [],
+            category: "",
+            client_id: "",
+            dob: "",
+            dob_check: false,
+            dob_verified: false,
+            father_name: "",
+            full_name: "",
+            less_info: false,
+            pan_number: "",
+          },
+          message: "Valid",
+          success: true,
+        },
+      },
+    ],
+  },
+  {
     name: "FCV",
     examples: [
       {
