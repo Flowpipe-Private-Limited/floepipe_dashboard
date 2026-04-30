@@ -73,16 +73,22 @@ const KycReuseComponet = ({ data }) => {
   );
 
   useEffect(() => {
-    if (data?.isDisable && data?.inputParams && data?.Inputvalues) {
-      const initialFormData = {};
+    const initialFormData = {};
+    if (data?.inputParams) {
       data.inputParams.forEach((param, index) => {
-        initialFormData[param] = data.Inputvalues[index];
+        initialFormData[param] = (data?.isDisable && data?.Inputvalues) ? (data.Inputvalues[index] || "") : "";
       });
-      setFormData(initialFormData);
-    } else {
-      setFormData({});
     }
-    setFileData({});
+    setFormData(initialFormData);
+
+    const initialFileData = {};
+    if (data?.inputFile) {
+      data.inputFile.forEach((param) => {
+        initialFileData[param] = null;
+      });
+    }
+    setFileData(initialFileData);
+
     // Auto-populate Access Token
     if (data?.isToken) {
       const isLive = data?.apiUrl?.LiveUrl?.includes('/LIVE/') || data?.apiUrl?.URLS?.includes('/LIVE/');
@@ -395,6 +401,51 @@ const KycReuseComponet = ({ data }) => {
     }
   }, [data]); // Re-check when service changes
 
+  const generateDynamicCurl = () => {
+    const method = data?.apiUrl?.Method?.toUpperCase() || "POST";
+    const tokenHeader = data?.isToken ? `\n--header 'secret_token: ${accessToken || "{{secret_token}}"}'` : "";
+    
+    let curl = `curl --location '${data?.apiUrl?.LiveUrl || ""}' \\${tokenHeader}`;
+
+    // For GET requests, filter out empty values to keep URL clean.
+    // For POST, keep empty values to show the expected JSON schema.
+    let activeFormData = { ...formData };
+    if (method === "GET") {
+      activeFormData = Object.fromEntries(
+        Object.entries(formData).filter(([_, v]) => v !== "")
+      );
+    }
+    
+    // Check if there are any files defined in config
+    const hasFiles = data?.inputFile && data.inputFile.length > 0;
+
+    if (method === "GET") {
+      const queryParams = new URLSearchParams(activeFormData).toString();
+      const urlWithParams = queryParams ? `${data?.apiUrl?.LiveUrl}?${queryParams}` : data?.apiUrl?.LiveUrl;
+      curl = `curl --location '${urlWithParams}' \\${tokenHeader}`;
+    } else if (hasFiles) {
+      // Multipart form data
+      Object.entries(activeFormData).forEach(([key, value]) => {
+        if (value !== "") {
+          curl += ` \\\n--form '${key}="${value}"'`;
+        }
+      });
+      (data?.inputFile || []).forEach((key) => {
+        const file = fileData[key];
+        const fileName = file ? file.name : "your_file.jpg";
+        curl += ` \\\n--form '${key}=@"/path/to/${fileName}"'`;
+      });
+    } else {
+      // JSON payload
+      const payloadStr = JSON.stringify(activeFormData);
+      if (Object.keys(activeFormData).length > 0) {
+        curl += ` \\\n--header 'Content-Type: application/json' \\\n--data '${payloadStr}'`;
+      }
+    }
+    
+    return curl;
+  };
+
   return (
     <div className="kyc-input-container">
       {showCopyTip && <div className="kyc-copy-tip">✓ Copied to clipboard</div>}
@@ -456,7 +507,7 @@ const KycReuseComponet = ({ data }) => {
                   pattern={data?.regexValues?.[index]}
                   value={
                     data?.isDisable
-                      ? data?.Inputvalues[index]
+                      ? data?.Inputvalues?.[index] || ""
                       : formData?.[input] || ""
                   }
                   disabled={data?.isDisable}
@@ -613,7 +664,7 @@ const KycReuseComponet = ({ data }) => {
                 <button
                   className="kyc-copy-btn-outline"
                   onClick={() =>
-                    handleCopy(data?.exampleCurl || selectedExampleCode)
+                    handleCopy(generateDynamicCurl())
                   }
                 >
                   <img className="copyicon" src={Images.copyicon} alt="copy" />
@@ -634,7 +685,7 @@ const KycReuseComponet = ({ data }) => {
                 }}
                 wrapLongLines={true}
               >
-                {data?.exampleCurl || EXResponse.AadhaarNumberCurl}
+                {generateDynamicCurl()}
               </SyntaxHighlighter>
             </div>
           </div>
