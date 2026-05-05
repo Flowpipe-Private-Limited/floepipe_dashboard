@@ -34,7 +34,7 @@
 .empty-state-illustration p {
   margin-top: 1rem;
   font-size: var(--below-medium-heading);
-  color: var(--black-300);
+  color: var(--black);
 }
 
 /* ================= API Logs Table ================= */
@@ -368,14 +368,14 @@
 
 .requested-header h3 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: var(--main-heading);
   font-weight: 600;
   color: var(--black);
   font-family: "Konnect";
 }
 
 .requested-close {
-  font-size: 1.6rem;
+  font-size: var(--large-heading);
   cursor: pointer;
   color: var(--purple-main);
 }
@@ -552,7 +552,7 @@
   }
 
   .requested-close {
-    font-size: 1.4rem;
+    font-size: var(--large-heading);
   }
 
   .requested-table-wrapper {

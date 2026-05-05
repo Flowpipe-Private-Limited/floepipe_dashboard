@@ -3,13 +3,13 @@
 }
 .page-header-card {
   background: var(--white);
-  padding: 0.5rem 1.5rem;
-  border-radius: var(--border-radius-4);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-12);
   margin-bottom: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 .page-title {
-  font-size: 1.25rem;
+  font-size: var(--main-heading)rem;
   font-weight: 700;
   color: #111;
   margin: 0;
@@ -20,40 +20,38 @@
   background: var(--white);
   border-radius: var(--border-radius-4);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
   border: 1px solid var(--purple-200);
 }
 .tab-btn {
-  border-right: 1px solid var(--purple-200);
-  padding: 0.55rem 1.4rem;
-  font-size: var(--small-text);
-  font-weight: 500;
+  font-size: var(--below-medium-text);
+  font-weight: 400;
   color: var(--black);
   cursor: pointer;
   transition: all 0.25s ease;
   white-space: nowrap;
-  font-family: "JetBrainsMonoSemiBold";
+  padding: 0.6rem 2.8rem;
+  font-family: "Figtree";
 }
 
 .tab-active {
-  background-color: var(--purple-main);
-  color: var(--white);
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.35);
+  background-color: var(--black);
+  color: var(--sweetyellow);
+  font-weight: 500;
 }
 
 /* Individual active styles */
 .active-logs {
-  background-color: var(--purple-main);
-  color: var(--white);
+  background-color: var(--black);
+  color: var(--sweetyellow);
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
 }
 
 .active-transactions {
-  background-color: var(--purple-main);
-  color: var(--white);
+  background-color: var(--black);
+  color: var(--sweetyellow);
   border-top-left-radius: 0rem;
   border-bottom-left-radius: 0rem;
   border-top-right-radius: 0rem;
@@ -61,12 +59,71 @@
 }
 
 .active-product {
-  background-color: var(--purple-main);
-  color: var(--white);
+  background-color: var(--black);
+  color: var(--sweetyellow);
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   border-top-left-radius: 0rem;
   border-bottom-left-radius: 0rem;
+}
+
+.request-logs-main {
+  background: var(--white);
+  margin-bottom: 1.3rem;
+  padding: 0.8rem;
+  border-radius: var(--border-radius-8);
+  border: 1px solid var(--gray-300);
+}
+.api-log-text {
+  font-size: var(--main-heading);
+  font-weight: 500;
+  color: var(--black);
+  margin: 0;
+  font-family: "Konnect-Medium";
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.request-button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+  align-items: center;
+}
+.request-btn {
+  font-size: var(--normal-text);
+  font-weight: 400;
+  color: var(--black);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  padding: 0.45rem 1.8rem;
+  font-family: "Figtree";
+  background-color: var(--black);
+  color: var(--sweetyellow);
+  border-radius: var(--border-radius-8);
+}
+.requested-btn {
+  font-size: var(--normal-text);
+  font-weight: 400;
+  color: var(--black);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  padding: 0.4rem 1.8rem;
+  font-family: "Figtree";
+  border: 1px solid var(--black);
+  border-radius: var(--border-radius-8);
+}
+.tab-content-area {
+  background: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  border-radius: var(--border-radius-8);
+  border: 1px solid var(--gray-300);
 }
 
 @media (max-width: 640px) {
@@ -78,6 +135,6 @@
     flex: 1;
     text-align: center;
     padding: 0.55rem 0.5rem;
-    font-size: var(--small-text);;
+    font-size: var(--small-text);
   }
 }

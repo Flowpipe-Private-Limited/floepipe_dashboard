@@ -5,6 +5,7 @@ import "./Billing_plans.css";
 import { LuTestTube } from "react-icons/lu";
 import { BsLightningCharge } from "react-icons/bs";
 import { LuDownload } from "react-icons/lu";
+import { MdCurrencyRupee } from "react-icons/md";
 import Images from "../../Images/Images";
 import { LuCircleAlert } from "react-icons/lu";
 import { FaArrowTrendUp } from "react-icons/fa6";
@@ -16,6 +17,7 @@ import EnvironmentSwitch from "../../components/ui/EnvironmentSwitch/Environment
 import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebutton";
 import Popup from "../../components/ui/Popup/Popup";
 import { GetWalletBalance } from "../../utils/Apis/api";
+import images from "../../Images/Images";
 
 const BillingPlans = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
@@ -195,8 +197,11 @@ const BillingPlans = () => {
       <div className="BillingPlans_stats-row">
         <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
+            <div className="stat-card-decor-billingplans">
+              <img className="flowblue" src={images.fldesign} />
+            </div>
             <div className="BillingPlans_stat-icon">
-              <LuCreditCard size={20} color="#155DFC" />
+              <LuCreditCard size={18} color="var(--white)" />
             </div>
             <p className="BillingPlans_stat-label">Current Plan</p>
           </div>
@@ -206,9 +211,12 @@ const BillingPlans = () => {
           </div>
         </div>
         <div className="BillingPlans_stat-card">
+             <div className="stat-card-decor-billingplans">
+              <img className="flowblue" src={images.fldesign} />
+            </div>
           <div className="BillingPlans_stat-header">
             <div className="BillingPlans_stat-icon">
-              <HiOutlineBolt size={20} color="#00A63E" />
+              <HiOutlineBolt size={18} color="var(--white)" />
             </div>
             <p className="BillingPlans_stat-label">Plan Status</p>
           </div>
@@ -218,12 +226,15 @@ const BillingPlans = () => {
           </div>
         </div>
         <div className="BillingPlans_stat-card">
+             <div className="stat-card-decor-billingplans">
+              <img className="flowblue" src={images.fldesign} />
+            </div>
           <div className="BillingPlans_stat-header">
             <div
-              style={{ color: "#00A63E" }}
+              style={{ color: "var(--white)" }}
               className="BillingPlans_stat-icon"
             >
-              ₹{" "}
+              <MdCurrencyRupee size={18} color="var(--white)" />
             </div>
             <p className="BillingPlans_stat-label">Available Balance</p>
           </div>
@@ -233,9 +244,12 @@ const BillingPlans = () => {
           </div>
         </div>
         <div className="BillingPlans_stat-card">
+             <div className="stat-card-decor-billingplans">
+              <img className="flowblue" src={images.fldesign} />
+            </div>
           <div className="BillingPlans_stat-header">
             <div className="BillingPlans_stat-icon">
-              <FaArrowTrendUp size={20} color="#155DFC" />
+              <FaArrowTrendUp size={18} color="var(--white)" />
             </div>
             <p className="BillingPlans_stat-label">API Usage</p>
           </div>
@@ -250,9 +264,12 @@ const BillingPlans = () => {
           </div>
         </div>
         <div className="BillingPlans_stat-card">
+             <div className="stat-card-decor-billingplans">
+              <img className="flowblue" src={images.fldesign} />
+            </div>
           <div className="BillingPlans_stat-header">
             <div className="BillingPlans_stat-icon">
-              <LuCircleAlert size={20} color="#E17100" />
+              <LuCircleAlert size={18} color="var(--white)" />
             </div>
             <p className="BillingPlans_stat-label">Alert Threshold</p>
           </div>
@@ -260,11 +277,11 @@ const BillingPlans = () => {
             <div className="money-info">
               <h3>₹5,000</h3>
               <span className="BillingPlans_info-icon">
-                <LuCircleAlert size={20} color="#99A1AF" />
+                <LuCircleAlert size={18} color="var(--white)" />
               </span>
             </div>
             <a href="#" className="BillingPlans_edit-link">
-              Edit threshold <FiEdit size={20} color="#00000099" />
+              Edit threshold <FiEdit size={18} color="#00000099" />
             </a>
           </div>
         </div>
@@ -313,7 +330,7 @@ const BillingPlans = () => {
             <tbody>
               {transactions.map((tx, idx) => (
                 <tr key={idx}>
-                  <td>{tx.date}</td>
+                  <td style={{ color: "var(--gray-200)" }}>{tx.date}</td>
                   <td>
                     <span
                       className={`BillingPlans_tx-type ${
@@ -323,7 +340,7 @@ const BillingPlans = () => {
                       {tx.type}
                     </span>
                   </td>
-                  <td>{tx.mode}</td>
+                  <td style={{ color: "var(--gray-200)" }}>{tx.mode}</td>
                   <td>{tx.amount}</td>
                   <td>
                     <span className="BillingPlans_status-pill completed">
@@ -394,7 +411,7 @@ const BillingPlans = () => {
                 <span className="BillingPlans_slider round"></span>
               </div>
             </div>
-            <p className="BillingPlans_card-sub">Add Money via UPIppp</p>
+            <p className="BillingPlans_card-sub">Add Money via UPI</p>
             <div className="BillingPlans_recharge-input-group">
               <div className="BillingPlans_input-wrapper">
                 <span className="BillingPlans_currency-img">
@@ -423,7 +440,7 @@ const BillingPlans = () => {
             </div>
             <div className="BillingPlans_usage-alerts">
               <div className="BillingPlans_card-header-toggle">
-                <h4 style={{ fontFamily: "JetBrainsMono" }}>Usage Alerts</h4>
+                <h4 className="usage-alert">Usage Alerts</h4>
                 <div
                   className="BillingPlans_switch"
                   onClick={() => setUsageAlerts(!usageAlerts)}

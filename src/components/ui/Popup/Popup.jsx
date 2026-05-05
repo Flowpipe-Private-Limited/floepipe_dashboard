@@ -12,7 +12,7 @@ const Popup = ({ isOpen, onClose, title, children, hideHeader = false }) => {
           <div className="popup-header">
             <h2 className="popup-title">{title}</h2>
             <button className="popup-close-btn" onClick={onClose}>
-              <MdClose color="#7C3AED" size={28} />
+              <MdClose color="var(--purple-main)" size={28} />
             </button>
           </div>
         )}

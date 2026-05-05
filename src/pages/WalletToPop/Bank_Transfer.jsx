@@ -31,7 +31,7 @@ const Bank_Transfer = ({ onBack }) => {
     <div className="bank-transfer-container">
       <div className="bank-transfer-header">
         <button className="back-btn" onClick={onBack}>
-          <HiOutlineArrowLeft size={22} color="#111827" />
+          <HiOutlineArrowLeft size={22} color="var(--purple-main)" />
         </button>
       </div>
 

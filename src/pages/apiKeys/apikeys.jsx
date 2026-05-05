@@ -233,12 +233,13 @@ const ApiKeys = () => {
                         display: "flex",
                         gap: "10px",
                         alignItems: "center",
+                        justifyContent:'center'
                       }}
                     >
                       <Download
                         size={16}
                         className="action-icon"
-                        style={{ cursor: "pointer", color: "#4caf50" }}
+                        style={{ cursor: "pointer", color:"var(--green)" }}
                         onClick={() =>
                           initiateDownload(
                             LiveSecretKey,
@@ -250,7 +251,7 @@ const ApiKeys = () => {
                       <Trash2
                         size={16}
                         className="action-icon"
-                        style={{ cursor: "pointer", color: "#ff4d4d" }}
+                        style={{ cursor: "pointer", color: "var(--red)" }}
                         onClick={() => initiateDelete(LiveSecretKey)}
                       />
                     </div>
@@ -276,12 +277,13 @@ const ApiKeys = () => {
                       display: "flex",
                       gap: "10px",
                       alignItems: "center",
+                      justifyContent:'center'
                     }}
                   >
                     <Download
                       size={16}
                       className="action-icon"
-                      style={{ cursor: "pointer", color: "#4caf50" }}
+                      style={{ cursor: "pointer", color: "var(green)" }}
                       onClick={() =>
                         initiateDownload(
                           TestSecretKey,
@@ -293,7 +295,7 @@ const ApiKeys = () => {
                     <Trash2
                       size={16}
                       className="action-icon"
-                      style={{ cursor: "pointer", color: "#ff4d4d" }}
+                      style={{ cursor: "pointer", color: "var(--red)" }}
                       onClick={() => initiateDelete(TestSecretKey)}
                     />
                   </div>

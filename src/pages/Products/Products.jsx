@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { FileCheck, Layers, ChevronRight, Cookie } from "lucide-react";
 import "./Products.css";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { IoSearchOutline } from "react-icons/io5";
+import { LuFilter } from "react-icons/lu";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import Cookies from 'js-cookie';
 import {
@@ -10,12 +12,14 @@ import {
   ClientService,
   SubscribeService,
 } from "../../utils/Apis/api";
+import { CiFilter } from "react-icons/ci";
 const Products = () => {
   const [filter, setFilter] = useState("All Products");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   const scrollContainerRef = useRef(null);
 
@@ -152,6 +156,11 @@ const Products = () => {
     fetchCategories();
   }, []);
   const filteredProducts = products.filter((p) => {
+    const searchMatched = p.title
+      ?.toLowerCase()
+      .includes(searchText.trim().toLowerCase());
+    if (!searchMatched) return false;
+
     if (filter === "All Products") return true;
     if (filter === "Subscribed") return p.status === "Subscribed";
     if (filter === "Pending Approvals") return p.status === "Pending";
@@ -170,7 +179,16 @@ const Products = () => {
 
   return (
     <div className="products-container">
-      <div className="category-slider-section">
+    
+      <div className="products-header">
+        <div>
+          <div className="products-title-text">Products</div>
+          <p className="products-subtitle">
+            Products are available for Subscription
+          </p>
+        </div>
+      </div>
+        <div className="category-slider-section">
         <div className="category-scroll-wrapper" ref={scrollContainerRef}>
           {categories.map((cat) => (
             <div
@@ -199,24 +217,30 @@ const Products = () => {
           <ChevronRight size={20} />
         </button>
       </div>
-      <div className="products-header">
-        <div>
-          <div className="products-title-text">Products</div>
-          <p className="products-subtitle">
-            Products are available for Subscription
-          </p>
+      <div className="products-tools-row">
+        <div className="products-search-box">
+          <IoSearchOutline size={24} className="products-search-icon" />
+          <input
+            type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder="Search"
+            className="products-search-input"
+          />
         </div>
 
         <div className="filter-dropdown-container">
           <button
             className="filter-toggle-btn"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            aria-label="Open filters"
           >
-            {filter} <IoMdArrowDropdown size={22} />
+            <CiFilter size={20} />
           </button>
 
           {isDropdownOpen && (
             <ul className="dropdown-menu">
+              <li className="dropdown-menu-title">Filters</li>
               <li className="dropdown-item" onClick={() => handleFilterSelect("All Products")}>
                 <span className="dot all"></span> All Products
               </li>

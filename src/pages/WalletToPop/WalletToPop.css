@@ -1,16 +1,14 @@
 .wallet-modal-content {
-  padding: 24px;
+  padding: 1rem 1rem 0rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 0.5rem;
 }
 
 .wallet-balance-section {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--gray-300);
 }
 
 .balance-info {
@@ -28,7 +26,7 @@
 .balance-amount {
   font-size: var(--large-heading);
   font-weight: 700;
-  color: var(--black-300);
+  color: var(--black);
   margin: 0;
 }
 
@@ -38,6 +36,8 @@
   align-items: center;
   gap: 4px;
   cursor: pointer;
+      border-left: 1px solid var(--gray-300);
+    padding-left: 1rem;
 }
 
 .alert-icon-box {
@@ -62,17 +62,30 @@
 }
 
 .amount-input-section {
-  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.amount-section-table {
+  border: 1px solid var(--gray-300);
+  padding: 1rem;
+  border-radius: var(--border-radius-8);
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .amount-input-box {
   display: flex;
   align-items: center;
   border: 1px solid var(--gray-300);
-  border-radius: var(--border-radius-12);
-  padding: 12px 16px;
+  border-radius: var(--border-radius-8);
+  padding: 10px 16px;
   background: var(--white);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .amount-input-box:focus-within {
@@ -92,12 +105,12 @@
   outline: none;
   font-size: var(--main-heading);
   font-weight: 500;
-  color: var(--black-300);
+  color: var(--black);
   background: transparent;
 }
 
 .amount-input-box input::placeholder {
-  color: var(--gray-300);
+  color: var(--gray-200);
 }
 
 .quick-select-section {
@@ -107,9 +120,10 @@
 }
 
 .quick-label {
-  font-size: var(--small-text);
-  font-weight: 500;
-  color: var(--black-1200);
+  font-size: var(--normal-text);
+  font-weight: 400;
+  color: var(--gray-200);
+  font-family: "Konnect-Regular";
 }
 
 .quick-amounts {
@@ -118,20 +132,16 @@
 }
 
 .quick-btn {
-  flex: 1;
   padding: 8px;
   background: var(--purple-main);
   color: var(--white);
   border: none;
   border-radius: var(--border-radius-8);
   font-size: var(--small-text);
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
   transition: opacity 0.2s;
-}
-
-.quick-btn:hover {
-  opacity: 0.9;
+  font-family: "Figtree";
 }
 
 .quick-btn.active {
@@ -144,7 +154,7 @@
   padding: 10px 14px;
   background: var(--purple-1000);
   border: 1px solid var(--purple-main);
-  border-radius: var(--border-radius-12);
+  border-radius: var(--border-radius-8);
 }
 
 .info-icon {
@@ -164,19 +174,20 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+      border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-8);
+    padding: 1rem;
 }
 
 .payment-summary-section h3 {
   font-size: var(--below-medium-heading);
-  font-weight: 600;
-  color: var(--black-300);
+  font-weight: 500;
+  color: var(--black);
   margin: 0;
+  font-family: "Konnect-Medium"
 }
 
 .summary-card {
-  border: 1px solid var(--gray-300);
-  border-radius: var(--border-radius-12);
-  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -196,13 +207,13 @@
   border-top: 1px solid var(--gray-300);
   font-size: var(--below-medium-heading);
   font-weight: 600;
-  color: var(--black-300);
+  color: var(--black);
 }
 
 .proceed-pay-btn {
   margin-top: 4px;
   background: var(--black);
-  color: #CCFF00;
+  color: var(--sweetyellow);
   /* Matching Image 2 sweetyellow feel */
   border: none;
   border-radius: var(--border-radius-8);
@@ -223,9 +234,17 @@
 
 .other-payment-ways h3 {
   font-size: var(--medium-heading);
-  font-weight: 600;
-  color: var(--black-300);
+  font-weight: 500;
+  color: var(--black);
   margin-bottom: 12px;
+  font-family: "Konnect-Medium";
+}
+
+.enter-amount-label {
+  font-size: var(--medium-heading);
+  font-weight: 500;
+  color: var(--black);
+  font-family: "Konnect-Medium";
 }
 
 .payment-method-item {
@@ -233,8 +252,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  border-radius: var(--border-radius-12);
-  border: 1px solid var(--gray-300);
+  border-bottom: 1px solid var(--gray-300);
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -270,25 +288,26 @@
   font-size: var(--medium-heading);
 }
 
-.modal-footer {
-  margin-top: 8px;
+.modalnew-footer {
+  margin-top: 4rem;
   display: flex;
   justify-content: center;
+  border-top: 1px solid var(--gray-300);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.contact-helpdesk {
-  font-size: var(--normal-text);
+.contactnew-helpdesk {
+  font-size: var(--below-medium-heading);
   font-weight: 500;
   color: var(--purple-main);
   text-decoration: none;
   transition: color 0.2s;
+  text-align: center;
+  padding: 0.8rem;
 }
 
-.contact-helpdesk:hover {
-  color: var(--purple-600);
-}
-
-/* Scan & Pay Styles */
 .scan-pay-container {
   padding: 32px;
   display: flex;
@@ -300,7 +319,7 @@
 .scan-title {
   font-size: 24px;
   font-weight: 700;
-  color: var(--black-300);
+  color: var(--black);
   margin-bottom: 8px;
 }
 
@@ -324,7 +343,7 @@
 .qr-img {
   width: 100%;
   max-width: 220px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
 }
 
 .payment-amount-display {
@@ -340,7 +359,7 @@
 .amt-value {
   font-size: 32px;
   font-weight: 700;
-  color: var(--black-300);
+  color: var(--black);
 }
 
 .waiting-status {
@@ -373,15 +392,15 @@
 }
 
 .qr-expiry-info {
-  background: #FEF2F2;
-  border: 1px solid #FECACA;
-  border-radius: 8px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--border-radius-8);
   padding: 8px 16px;
 }
 
 .expiry-text {
   font-size: var(--small-text);
-  color: #DC2626;
+  color: #dc2626;
   font-weight: 500;
 }
 

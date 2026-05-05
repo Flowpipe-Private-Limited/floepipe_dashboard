@@ -11,15 +11,13 @@ import Scan_Pay from "./Scan_Pay";
 import Wallet_Receipt from "./Wallet_Receipt/Wallet_Receipt";
 import Wallet_Invoice from "./Wallet_Receipt/Wallet_Invoice";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
-import { HandleQrPaymentResponse, HandleQrResponse } from "../../utils/Apis/api";
+import {
+  HandleQrPaymentResponse,
+  HandleQrResponse,
+} from "../../utils/Apis/api";
 import { connectSocket, disconnectSocket } from "../../utils/socket";
 
-const WalletToPop = ({
-  setPopupTitle,
-  setHideHeader,
-  Balance,
-  onClose,
-}) => {
+const WalletToPop = ({ setPopupTitle, setHideHeader, Balance, onClose }) => {
   const CLIENT_ID = localStorage.getItem("clientId");
   const [amount, setAmount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -183,25 +181,25 @@ const WalletToPop = ({
   // };
 
   const handleClose = () => {
-  if (currentView === "SCAN_PAY") {
-    disconnectSocket();
+    if (currentView === "SCAN_PAY") {
+      disconnectSocket();
 
-    setPaymentStatus("FAILED");
+      setPaymentStatus("FAILED");
 
-    setTransactionDetails({
-      id: orderId,
-      amount,
-      gst,
-      dateTime: new Date().toLocaleString(),
-      status: "FAILED"
-    });
+      setTransactionDetails({
+        id: orderId,
+        amount,
+        gst,
+        dateTime: new Date().toLocaleString(),
+        status: "FAILED",
+      });
 
-    setCurrentView("RECEIPT");
-    return;
-  }
+      setCurrentView("RECEIPT");
+      return;
+    }
 
-  onClose();
-};
+    onClose();
+  };
 
   const handleBankTransferClick = () => {
     setCurrentView("BANK");
@@ -255,72 +253,75 @@ const WalletToPop = ({
         </div>
         <div className="set-alert">
           <div className="alert-icon-box">
-            <LuClock size={20} color="#7C3AED" />
+            <LuClock size={20} color="var(--purple-main)" />
           </div>
           <span className="alert-text">Set Alert</span>
         </div>
       </div>
 
-      <div className="amount-input-section">
-        <div className="amount-input-box">
-          <span className="rupee-symbol">₹</span>
-          <input
-            type="number"
-            placeholder="0"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
-        </div>
-      </div>
-
-      <div className="quick-select-section">
-        <p className="quick-label">Quick Select</p>
-        <div className="quick-amounts">
-          {quickAmounts.map((amt) => (
-            <button
-              key={amt}
-              className={`quick-btn ${Number(amount) === amt ? "active" : ""}`}
-              onClick={() => setAmount(amt)}
-            >
-              ₹ {amt}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="info-box">
-        <div className="info-icon">
-          <LuInfo size={16} />
-        </div>
-        <p className="info-text">
-          Wallet balance will be used for API consumption. Charges are deducted
-          automatically based on your usage.
-        </p>
-      </div>
-
-      {amount > 0 && (
-        <div className="payment-summary-section">
-          <h3>Payment Summary</h3>
-          <div className="summary-card">
-            <div className="summary-row">
-              <span>Amount</span>
-              <span>₹{amount}</span>
-            </div>
-            <div className="summary-row">
-              <span>GST (18%)</span>
-              <span>+₹{gst}</span>
-            </div>
-            <div className="summary-total">
-              <span>Total Payable</span>
-              <span>₹{total}</span>
-            </div>
-            <button className="proceed-pay-btn" onClick={handleTopUp}>
-              Proceed to Pay
-            </button>
+      <div className="amount-section-table">
+        <div className="amount-input-section">
+          <label className="enter-amount-label">Enter Amount (₹)</label>
+          <div className="amount-input-box">
+            <span className="rupee-symbol">₹</span>
+            <input
+              type="number"
+              placeholder="0"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
           </div>
         </div>
-      )}
 
+        <div className="quick-select-section">
+          <p className="quick-label">Quick Select</p>
+          <div className="quick-amounts">
+            {quickAmounts.map((amt) => (
+              <button
+                key={amt}
+                className={`quick-btn ${Number(amount) === amt ? "active" : ""}`}
+                onClick={() => setAmount(amt)}
+              >
+                ₹ {amt}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="info-box">
+          <div className="info-icon">
+            <LuInfo size={16} />
+          </div>
+          <p className="info-text">
+            Wallet balance will be used for API consumption. Charges are
+            deducted automatically based on your usage.
+          </p>
+        </div>
+
+   
+      </div>
+           {amount > 0 && (
+          <div className="payment-summary-section">
+            <h3>Payment Summary</h3>
+            <div className="summary-card">
+              <div className="summary-row">
+                <span>Amount</span>
+                <span style={{color:'var(--black)',fontWeight:'400'}}>₹{amount}</span>
+              </div>
+              <div className="summary-row">
+                <span>GST (18%)</span>
+                <span style={{color:'var(--black)',fontWeight:'400'}}>+₹{gst}</span>
+              </div>
+              <div className="summary-total">
+                <span>Total Payable</span>
+                <span style={{color:'var(--black)',fontWeight:'400'}}>₹{total}</span>
+              </div>
+              <button className="proceed-pay-btn" onClick={handleTopUp}>
+                Proceed to Pay
+              </button>
+            </div>
+          </div>
+        )}
       {!amount && (
         <div className="other-payment-ways">
           <h3>Other ways to add Money</h3>
@@ -330,7 +331,7 @@ const WalletToPop = ({
           >
             <div className="method-left">
               <div className="method-icon-box bank">
-                <AiOutlineBank size={20} color="#7C3AED" />
+                <AiOutlineBank size={20} color="var(--purple-main)" />
               </div>
               <span className="method-name">Bank Transfer</span>
             </div>
@@ -341,8 +342,8 @@ const WalletToPop = ({
         </div>
       )}
 
-      <div className="modal-footer">
-        <a href="#" className="contact-helpdesk">
+      <div className="modalnew-footer">
+        <a href="#" className="contactnew-helpdesk">
           Contact Helpdesk
         </a>
       </div>

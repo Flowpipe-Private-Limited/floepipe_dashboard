@@ -5,9 +5,9 @@
 .filter-card {
   background: var(--white);
   padding: 1.5rem;
-  border-radius: var(--border-radius-6);
+  border-radius: var(--border-radius-12);
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 6px #8686861a;
+  border: 1px solid var(--gray-300);
 }
 
 .filter-header {
@@ -18,10 +18,11 @@
 }
 
 .filter-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1f2937;
+  font-size: var(--main-heading);
+  font-weight: 500;
+  color: var(--black);
   margin: 0;
+  font-family: "Konnect-Medium";
 }
 
 .clear-all-btn {
@@ -29,16 +30,16 @@
   border: none;
   color: var(--purple-main);
   font-size: var(--normal-text);
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
-  font-family: "Konnect";
+  font-family: "Figtree";
 }
 
 .filter-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  row-gap: 2rem;
+  row-gap: 1rem;
 }
 
 .form-group {
@@ -48,21 +49,20 @@
 }
 
 .label {
-  font-size: 0.86rem;
-  color: var(--purple-main);
-  font-weight: 600;
+  font-size: var(--below-medium-heading);
+  color: var(--black);
+  font-weight: 500;
   margin-bottom: 0.5rem;
-  letter-spacing: 0.5px;
-  font-family: "Konnect";
+  font-family: "Konnect-Medium";
 }
 
 .custom-select-trigger,
 .input-trigger {
   border: 1px solid var(--gray-300);
-  border-radius: var(--border-radius-4);
+  border-radius: var(--border-radius-8);
   padding: 0.6rem 0.8rem;
-  font-size: var(--small-text);;
-  color: var(--black);
+  font-size: var(--normal-text);
+  color: var(--gray-200);
   background: var(--white);
   cursor: pointer;
   display: flex;
@@ -71,18 +71,18 @@
   width: 100%;
 }
 
-.input-trigger {
+.custom-select-trigger::placeholder {
   color: var(--gray-200);
 }
 
 .input-trigger.has-value {
-  color: #111;
+  color: var(--gray-200);
 }
 
 .custom-select-trigger:focus,
 .input-trigger:focus {
   outline: none;
-  border-color: #a78bfa;
+  border-color: var(--purple-main);
 }
 
 .select-dropdown-menu {
@@ -109,7 +109,7 @@
 }
 
 .select-option:hover {
-  background-color: #f3f4f6;
+  background-color: var(--purple-200);
 }
 
 .select-option.selected {
@@ -139,7 +139,7 @@
   appearance: none;
   width: 1.2rem;
   height: 1.2rem;
-  border: 2px solid #d1d5db;
+  border: 2px solid var(--black);
   border-radius: var(--border-radius-50);
   position: relative;
   cursor: pointer;
@@ -168,20 +168,15 @@
 }
 
 .run-report-btn {
-  background-color: var(--purple-main);
-  color: var(--white);
+  background-color: var(--black);
+  color: var(--sweetyellow);
   padding: 0.5rem 2rem;
   border-radius: var(--border-radius-4);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);
   transition: background 0.2s;
-  font-family: "Konnect";
+  font-family: "Figtree";
   font-size: var(--normal-text);
-}
-
-.run-report-btn:hover {
-  background-color: #6d28d9;
 }
 
 .result-section {
@@ -197,9 +192,9 @@
 }
 
 .result-placeholder {
-  background-color: #f3f0ff;
-  border-radius: var(--border-radius-4);
-  padding: 1rem;
+  background-color: var(--white-100);
+  border-radius: var(--border-radius-12);
+  padding: 1.8rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -236,13 +231,13 @@
 
 .presets-sidebar {
   width: 200px;
-  background-color: #fcfcfc;
-  border-right: 1px solid #f3f4f6;
+  border-right: 1px solid var(--gray-300);
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  font-family: "Konnect";
+  font-weight: 400;
+  font-family: "Konnect-Regular";
 }
 
 .preset-btn {
@@ -261,9 +256,9 @@
 }
 
 .preset-btn.active {
-  background-color: #f5f3ff;
+  background-color: var(--purple-200);
   color: var(--purple-main);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .active-preset-highlight {
@@ -277,6 +272,7 @@
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  font-family: "Konnect-Regular";
 }
 
 .date-inputs-row {
@@ -289,14 +285,12 @@
   flex: 1;
   padding: 0.5rem 1rem;
   font-size: var(--below-medium-heading);
-  font-family: "Konnect";
-
+  font-family: "Konnect-Medium";
   text-align: center;
-  border-radius: var(--border-radius-4);
+  border-radius: var(--border-radius-8);
   background: var(--white);
-  border: 1.5px solid #d1d5db;
-  /* default grey */
-  color: #374151;
+  border: 1.5px solid var(--gray-300);
+  color: var(--gray-500);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
 }
 
@@ -326,10 +320,10 @@
 }
 
 .month-label {
-  font-weight: 600;
-  color: var(--gray-100);
-  font-size: var(--normal-text);
-  font-family: "Konnect";
+  font-weight: 500;
+  color: var(--black);
+  font-size: var(--below-medium-text);
+  font-family: "Konnect-Medium";
 }
 
 .calendar-grid {
@@ -341,7 +335,7 @@
 
 .day-label {
   font-size: var(--small-text);
-  color: var(--gray-100);
+  color: var(--black);
   margin-bottom: 0.5rem;
 }
 
@@ -406,10 +400,10 @@
 .modal-btn {
   padding: 0.45rem 1.5rem;
   border-radius: var(--border-radius-4);
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   font-size: var(--normal-text);
-  font-family: "Konnect";
+  font-family: "Figtree";
 }
 
 .modal-btn.cancel {
@@ -464,7 +458,6 @@
 }
 
 @media (max-width: 767px) {
-
   /* Page spacing */
   .reports-container {
     padding: 0rem;
@@ -539,120 +532,120 @@
   }
 }
 
-[data-theme='dark'] .reports-container {
+[data-theme="dark"] .reports-container {
   background-color: var(--white);
   /* Dark background */
 }
 
-[data-theme='dark'] .filter-card,
-[data-theme='dark'] .result-section {
+[data-theme="dark"] .filter-card,
+[data-theme="dark"] .result-section {
   background-color: var(--white-100);
   /* Slightly lighter dark */
   color: var(--black);
   /* White text */
 }
 
-[data-theme='dark'] .filter-title {
+[data-theme="dark"] .filter-title {
   color: var(--black);
 }
 
-[data-theme='dark'] .label {
+[data-theme="dark"] .label {
   color: var(--purple-main);
 }
 
-[data-theme='dark'] .custom-select-trigger,
-[data-theme='dark'] .input-trigger {
+[data-theme="dark"] .custom-select-trigger,
+[data-theme="dark"] .input-trigger {
   background-color: var(--white);
   /* Darker input bg */
   border-color: var(--gray-500);
   color: var(--black);
 }
 
-[data-theme='dark'] .select-dropdown-menu {
+[data-theme="dark"] .select-dropdown-menu {
   background-color: var(--white-100);
   border-color: var(--gray-500);
 }
 
-[data-theme='dark'] .select-option {
+[data-theme="dark"] .select-option {
   color: var(--black);
 }
 
-[data-theme='dark'] .select-option:hover {
+[data-theme="dark"] .select-option:hover {
   background-color: var(--white-200);
 }
 
-[data-theme='dark'] .select-option.selected {
+[data-theme="dark"] .select-option.selected {
   background-color: var(--purple-800);
   color: var(--white);
 }
 
-[data-theme='dark'] .radio-label {
+[data-theme="dark"] .radio-label {
   color: var(--black);
 }
 
-[data-theme='dark'] .report-set-placeholder {
+[data-theme="dark"] .report-set-placeholder {
   color: var(--black-600);
 }
 
-[data-theme='dark'] .result-placeholder {
+[data-theme="dark"] .result-placeholder {
   background-color: var(--white-200);
   color: var(--black);
 }
 
 /* Date Picker Modal Dark Mode */
-[data-theme='dark'] .date-picker-modal {
+[data-theme="dark"] .date-picker-modal {
   background-color: var(--white-100);
 }
 
-[data-theme='dark'] .presets-sidebar {
+[data-theme="dark"] .presets-sidebar {
   background-color: var(--white);
   border-right-color: var(--gray-500);
 }
 
-[data-theme='dark'] .preset-btn {
+[data-theme="dark"] .preset-btn {
   color: var(--black);
 }
 
-[data-theme='dark'] .preset-btn:hover {
+[data-theme="dark"] .preset-btn:hover {
   background-color: var(--white-200);
 }
 
-[data-theme='dark'] .preset-btn.active {
+[data-theme="dark"] .preset-btn.active {
   background-color: var(--purple-800);
   color: var(--white);
 }
 
-[data-theme='dark'] .date-display-box {
+[data-theme="dark"] .date-display-box {
   background-color: var(--white);
   border-color: var(--gray-500);
   color: var(--black);
 }
 
-[data-theme='dark'] .month-label {
+[data-theme="dark"] .month-label {
   color: var(--black);
 }
 
-[data-theme='dark'] .nav-btn {
+[data-theme="dark"] .nav-btn {
   color: var(--black);
 }
 
-[data-theme='dark'] .day-label {
+[data-theme="dark"] .day-label {
   color: var(--gray-400);
 }
 
-[data-theme='dark'] .day-cell {
+[data-theme="dark"] .day-cell {
   color: var(--black);
 }
 
-[data-theme='dark'] .day-cell:not(.empty):hover {
+[data-theme="dark"] .day-cell:not(.empty):hover {
   background-color: var(--white-200);
 }
 
-[data-theme='dark'] .modal-footer {
+[data-theme="dark"] .modal-footer {
   border-top-color: var(--gray-500);
 }
 
-[data-theme='dark'] .modal-btn.cancel {
+[data-theme="dark"] .modal-btn.cancel {
   background-color: transparent;
   border-color: var(--purple-main);
   color: var(--purple-main);

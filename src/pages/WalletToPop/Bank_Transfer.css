@@ -31,7 +31,7 @@
 .bank-transfer-title {
     font-size: var(--main-heading);
     font-weight: 600;
-    color: var(--black-300);
+    color: var(--black);
     margin: 0;
 }
 
@@ -74,7 +74,7 @@
 .bank-name {
     font-size: var(--below-medium-heading);
     font-weight: 600;
-    color: var(--black-300);
+    color: var(--black);
 }
 
 .copy-btn-main {
@@ -82,7 +82,7 @@
     border: none;
     cursor: pointer;
     padding: 4px;
-    border-radius: 4px;
+    border-radius: var(--border-radius-4);
     display: flex;
     align-items: center;
     justify-content: center;

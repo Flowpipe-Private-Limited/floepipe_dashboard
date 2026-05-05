@@ -1,16 +1,15 @@
 .page-header-card-reports-main {
   background: var(--white);
-  border-radius: var(--border-radius-4);
   margin-bottom: 1.3rem;
-  padding: 0.6rem 1rem;
-  border-radius: var(--border-radius-4);
-  border: 1px solid var(--purple-500);
-  box-shadow: 0 1px 2px #8686861A;
+  padding: 0.8rem;
+  border-radius: var(--border-radius-8);
+  border: 1px solid var(--gray-300);
 }
 
 .page-title-main {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--black-700);
+  font-size: var(--main-heading);
+  font-weight: 500;
+  color: var(--black);
   margin: 0;
+  font-family: "Konnect-Medium";
 }

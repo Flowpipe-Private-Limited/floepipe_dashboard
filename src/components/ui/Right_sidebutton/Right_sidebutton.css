@@ -1,20 +1,17 @@
 .btn-primary {
-  background-color: var(--purple-main);
-  color: var(--white);
+  background-color: var(--black);
+  color: var(--sweetyellow);
   border: none;
-  border-radius: var(--border-radius-4);
-  padding: 10px 18px;
-  font-size: var(--normal-text);
+  border-radius: var(--border-radius-8);
+  padding: 10px 24px;
+  min-width: 130px;
+  font-size: var(--below-medium-heading);
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
-  font-family: "Konnect";
+  font-family: "Figtree";
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-}
-
-.btn-primary:hover {
-  background-color: #6d28d9;
+  gap: 0.55rem;
 }

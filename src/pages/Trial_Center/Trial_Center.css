@@ -13,7 +13,7 @@
 }
 
 .Trail-products-title-group .Trail-products-title-text {
-  font-size: 1.4rem;
+  font-size: var(--large-heading);
   font-weight: 700;
   color: var(--black);
   margin-bottom: 0.15rem;

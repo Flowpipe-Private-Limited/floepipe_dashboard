@@ -3,41 +3,100 @@
 }
 
 .products-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  color: var(--black);
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: var(--black);
+    background: var(--white);
+    padding: 1rem;
+    border-radius: var(--border-radius-8);
+    border:1px solid var(--gray-300)
 }
 
-.products-title-group .products-title-text {
-  font-size: 1.4rem;
-  font-weight: 700;
+.products-title-group  {
+  font-size: var(--main-heading);
+  font-weight: 500;
   color: var(--black);
   margin-bottom: 0.15rem;
+  font-family: "Konnect-Medium";
+}
+
+.products-title-text{
+    font-size: var(--main-heading);
+  font-weight: 500;
+  color: var(--black);
+  font-family: "Konnect-Medium";
 }
 
 .products-subtitle {
   font-size: var(--normal-text);
   color: var(--gray-200);
-  font-family: "Konnect";
+  font-family: "Figtree";
 }
 
 .filter-dropdown-container {
   position: relative;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .filter-toggle-btn {
-  background: none;
-  border: none;
-  color: var(--purple-main);
-  font-weight: 600;
-  font-size: var(--normal-text);
+  width: 40px;
+  height: 40px;
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-6);
+  color: var(--black);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.filter-toggle-btn:hover {
+  border-color: var(--black-1200);
+}
+
+.products-tools-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+  justify-content: flex-end;
+}
+
+.products-search-box {
+  height: 40px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-8);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6rem 0rem 1rem;
+  background: var(--white);
+}
+
+.products-search-icon {
+  color: var(--gray-900);
+  flex-shrink: 0;
+  font-size: var(--medium-heading);
+  width: 1.2rem;
+}
+
+.products-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: var(--normal-text);
+  color: var(--black);
+  font-family: "Figtree";
+}
+
+.products-search-input::placeholder {
+  color: var(--gray-200);
 }
 
 .dropdown-menu {
@@ -51,6 +110,13 @@
   padding: 0.4rem;
   min-width: 160px;
   z-index: 10;
+}
+
+.dropdown-menu-title {
+  font-size: var(--small-text);
+  color: var(--gray-200);
+  padding: 0.3rem 0.6rem;
+  font-family: "Figtree";
 }
 
 .dropdown-item {
@@ -101,7 +167,7 @@
 /* ================= Product Card ================= */
 .product-card {
   background: var(--white);
-  border-radius: var(--border-radius-4);
+  border-radius: var(--border-radius-12);
   padding: 0.9rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   display: flex;
@@ -150,15 +216,15 @@
 }
 
 .product-title-text {
-  font-size: var(--normal-text);
-  font-weight: 700;
+  font-size: var(--below-medium-heading);
+  font-weight: 500;
   color: var(--black);
   margin-bottom: 0.2rem;
-  font-family: "JetBrainsMonoSemiBold";
+  font-family: "Konnect-Medium";
 }
 
 .product-desc {
-  font-size: var(--small-text-10);
+  font-size: var(--small-text);
   color: var(--gray-400);
   line-height: 1.4;
   margin-bottom: 0.6rem;
@@ -166,7 +232,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  font-family: "Konnect";
+  font-family: "Figtree";
 
 }
 
@@ -188,13 +254,13 @@
 /* ================= Button ================= */
 .action-btn {
   padding: 0.32rem 0.65rem;
-   border-radius: var(--border-radius-4);
+   border-radius: var(--border-radius-8);
   font-weight: 600;
-  font-size: var(--small-text-10);
+  font-size: var(--normal-text);
   cursor: pointer;
   background: transparent;
   transition: all 0.2s;
-  font-family: "Konnect";
+  font-family: "Figtree";
 
 }
 
@@ -246,23 +312,22 @@
 
 .no-products-icon {
   font-size: 4rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   opacity: 0.7;
 }
 
 .no-products-title {
   font-size: var(--medium-heading);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--black);
-  margin-bottom: 0.5rem;
-  font-family: "JetBrainsMonoSemiBold";
+  font-family: "Konnect-Medium";
 }
 
 .no-products-message {
   color: var(--black-700);
   font-size: var(--normal-text);
   line-height: 1.5;
-  font-family: "Konnect";
+  font-family: "Figtree";
 }
 
 
@@ -343,7 +408,7 @@
   }
 
   .products-title-group .products-title-text {
-    font-size: 1.3rem;
+    font-size: var(--main-heading);
   }
 
   .products-subtitle {
@@ -354,9 +419,17 @@
     align-self: center;
   }
 
-  .filter-toggle-btn {
+  .products-tools-row {
     width: 100%;
-    justify-content: center;
+  }
+
+  .products-search-box {
+    height: 46px;
+  }
+
+  .filter-toggle-btn {
+    width: 46px;
+    height: 46px;
   }
 
   .dropdown-menu {
@@ -408,7 +481,7 @@
   }
 
   .no-products-title {
-    font-size: 1.3rem;
+    font-size: var(--main-heading);
   }
 
   .no-products-message {
@@ -527,7 +600,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   position: relative;
 }
 
@@ -559,7 +632,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--small-text);
+  font-size: var(--normal-text);
   color: var(--gray-400);
   cursor: pointer;
   transition: all 0.2s;
@@ -567,23 +640,21 @@
   border-left: 4px solid transparent;
   white-space: nowrap;
   transition: all 0.25s ease;
-  font-family: "Konnect";
+  font-family: "Konnect-Regular";
 }
 
 .category-item.active {
-  background-color: var(--purple-main);
+  background-color: var(--black);
   color: var(--white);
-  border-color: var(--purple-main);
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 10px rgba(139, 92, 246, 0.2);
+  transform: translateY(-1px) scale(1.02);
 }
-
+.category-item.active:hover{
+  color: var(--white);
+}
 .category-item:hover {
-  border-color: var(--purple-main);
-  color: var(--purple-main);
-  background-color: #f5f3ff;
+  border-color: var(--black);
+  color: var(--black);
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .scroll-arrow-btn {

@@ -11,22 +11,20 @@
 }
 
 .add-ip-section {
-  background-color: var(--purple-700);
-  border: 2px dashed var(--purple-main);
-  border-radius: var(--border-radius-4);
+  background-color: var(--white);
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--border-radius-12);
   padding: 1.5rem;
-  font-family: "Konnect";
 }
 
 .input-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  font-family: "Konnect";
 }
 .ip-input {
   width: 100%;
-  border-radius: var(--border-radius-4);;
+  border-radius: var(--border-radius-8);;
   border: 1px solid var(--gray-300);
   padding: 0.5rem 1rem;
   font-size: var(--normal-text);
@@ -34,30 +32,29 @@
   transition: all 0.2s;
   box-sizing: border-box;
   color: var(--black);
-}
-
-.ip-input:focus {
-  border-color: var(--purple-main);
+  font-family: "Figtree";
 }
 
 .add-ip-btn {
-  border-radius: var(--border-radius-4);;
-  background-color: var(--purple-main);
+  border-radius: var(--border-radius-8);;
+  background-color: var(--black);
   padding: 0.5rem 1.5rem;
   font-size: var(--normal-text);
   font-weight: 600;
-  color: var(--white);
+  color: var(--sweetyellow);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
   width: 100%;
+  font-family: "Figtree";
+
 }
 
 .note-text {
   margin-top: 0.5rem;
   font-size: var(--small-text);
-  color: var(--purple-main);
+  color: var(--gray-200);
 }
 
 .error-text {
@@ -74,7 +71,6 @@
   box-shadow:
     0 1px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  font-family: "Konnect";
 }
 
 .whitelist-table {
@@ -84,16 +80,16 @@
 }
 
 .whitelist-table thead {
-  background-color: var(--purple-700);
+  background-color: var(--white-100);
   color: var(--purple-main);
 }
 
 .whitelist-table th {
   padding: 0.75rem 1rem;
   text-align: left;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--black);
-  font-family: "Konnect";
+  font-family: "Konnect-Medium";
 }
 
 .whitelist-table td {
@@ -136,6 +132,98 @@
   text-align: center;
   color: var(--gray-200);
 }
+/* New Styles for Enhanced Security UX */
+.ip-detection-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-radius: var(--border-radius-8);
+  margin-bottom: 1.5rem;
+  font-size: var(--normal-text);
+  font-family: "JetBrainsMono";
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.ip-detection-banner.not-whitelisted {
+  background-color: #fff7ed;
+  border: 1px solid #fdba74;
+  color: #9a3412;
+}
+
+.ip-detection-banner.whitelisted {
+  background-color: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+.add-detected-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  background-color: var(--black);
+  color: var(--sweetyellow);
+  border: none;
+  border-radius: var(--border-radius-4);
+  font-size: var(--small-text);;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: "Figtree";
+}
+
+.add-detected-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status-badge {
+  padding: 0.35rem 0.75rem;
+  background-color: #dcfce7;
+  color: var(--green);
+  border-radius: 9999px;
+  font-size: var(--small-text);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.delete-ip-btn {
+  color: var(--red);
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: var(--border-radius-4);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-ip-btn:hover {
+  background-color: #fecaca;
+  color: #b91c1c;
+  transform: scale(1.1);
+}
+
+.current-tag {
+  background-color: #e0e7ff;
+  color: #4338ca;
+  font-size: var(--small-text-10);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--border-radius-4);;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1px solid #c7d2fe;
+}
+
+.flex { display: flex; }
+.items-center { align-items: center; }
+.gap-2 { gap: 0.5rem; }
+.justify-between { justify-content: space-between; }
+.not-whitelisted { background-color: #fff7ed; }
+.whitelisted { background-color: #f0fdf4; }
 
 @media (min-width: 768px) {
   .input-grid {
@@ -208,99 +296,3 @@
   }
 }
 
-/* New Styles for Enhanced Security UX */
-.ip-detection-banner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.25rem;
-  border-radius: var(--border-radius-4);
-  margin-bottom: 1.5rem;
-  font-size: var(--normal-text);
-  font-family: "JetBrainsMono";
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-.ip-detection-banner.not-whitelisted {
-  background-color: #fff7ed;
-  border: 1px solid #fdba74;
-  color: #9a3412;
-}
-
-.ip-detection-banner.whitelisted {
-  background-color: #f0fdf4;
-  border: 1px solid #86efac;
-  color: #166534;
-}
-
-.add-detected-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.85rem;
-  background-color: #ea580c;
-  color: white;
-  border: none;
-  border-radius: var(--border-radius-4);
-  font-size: var(--small-text);;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.add-detected-btn:hover:not(:disabled) {
-  background-color: #c2410c;
-  transform: translateY(-1px);
-}
-
-.add-detected-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.status-badge {
-  padding: 0.35rem 0.75rem;
-  background-color: #dcfce7;
-  color: #15803d;
-  border-radius: 9999px;
-  font-size: var(--small-text);
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.delete-ip-btn {
-  color: #ef4444;
-  background-color: #fee2e2;
-  border: 1px solid #fecaca;
-  cursor: pointer;
-  padding: 0.4rem;
-  border-radius: var(--border-radius-4);
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.delete-ip-btn:hover {
-  background-color: #fecaca;
-  color: #b91c1c;
-  transform: scale(1.1);
-}
-
-.current-tag {
-  background-color: #e0e7ff;
-  color: #4338ca;
-  font-size: var(--small-text-10);
-  padding: 0.15rem 0.45rem;
-  border-radius: var(--border-radius-4);;
-  font-weight: 700;
-  text-transform: uppercase;
-  border: 1px solid #c7d2fe;
-}
-
-.flex { display: flex; }
-.items-center { align-items: center; }
-.gap-2 { gap: 0.5rem; }
-.justify-between { justify-content: space-between; }
-.not-whitelisted { background-color: #fff7ed; }
-.whitelisted { background-color: #f0fdf4; }

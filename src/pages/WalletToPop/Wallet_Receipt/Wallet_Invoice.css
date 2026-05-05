@@ -43,7 +43,7 @@
 .invoice-brand-text h1 {
     font-size: var(--large-heading);
     font-weight: 800;
-    color: var(--black-300);
+    color: var(--black);
     margin: 0;
     line-height: 1;
 }
@@ -84,7 +84,7 @@
 .invoice-section-title {
     font-size: var(--below-medium-heading);
     font-weight: 700;
-    color: var(--black-300);
+    color: var(--black);
     margin: 16px 0 12px 0;
 }
 
@@ -109,7 +109,7 @@
 .table-value {
     font-size: var(--small-text);
     font-weight: 500;
-    color: var(--black-300);
+    color: var(--black);
 }
 
 .status-badge {
@@ -133,20 +133,20 @@
 .total-label {
     font-size: var(--below-medium-heading);
     font-weight: 600;
-    color: var(--black-300);
+    color: var(--black);
 }
 
 .total-value {
     font-size: var(--main-heading);
     font-weight: 800;
-    color: var(--black-300);
+    color: var(--black);
 }
 
 .invoice-disclaimer {
     margin-top: 24px;
     padding: 12px;
     background: var(--white-100);
-    border-radius: 8px;
+    border-radius: var(--border-radius-8);
 }
 
 .invoice-disclaimer p {
@@ -190,7 +190,7 @@
 .footer-logo span {
     font-size: var(--below-medium-heading);
     font-weight: 800;
-    color: var(--black-300);
+    color: var(--black);
 }
 
 .invoice-actions {

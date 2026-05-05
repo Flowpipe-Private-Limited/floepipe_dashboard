@@ -232,7 +232,7 @@
 }
 
 .kyc-title {
-  font-size: 1.25rem;
+  font-size: var(--main-heading)rem;
   margin: 0;
   color: var(--black);
   font-family: "JetBrainsMonoSemiBold";
@@ -492,7 +492,7 @@
 }
 
 .review-header {
-  font-size: 1.3rem;
+  font-size: var(--main-heading);
   color: var(--black);
   font-family: "JetBrainsMonoSemiBold";
   border-bottom: 1px solid var(--black-500);
@@ -676,7 +676,7 @@
   }
 
   .kyc-title-large {
-    font-size: 1.75rem;
+    font-size: var(--large-heading);
   }
 
   .file-upload-box {

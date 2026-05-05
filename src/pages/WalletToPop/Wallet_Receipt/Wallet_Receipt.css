@@ -38,7 +38,7 @@
 .success-title {
     font-size: var(--medium-heading);
     font-weight: 700;
-    color: var(--black-300);
+    color: var(--black);
     margin: 0;
 }
 
@@ -57,7 +57,7 @@
 .transaction-details-section h3 {
     font-size: var(--small-text);
     font-weight: 600;
-    color: var(--black-300);
+    color: var(--black);
     margin: 0;
 }
 
@@ -113,7 +113,7 @@
 .update-title {
     font-size: var(--normal-text);
     font-weight: 700;
-    color: var(--black-300);
+    color: var(--black);
 }
 
 .update-value {

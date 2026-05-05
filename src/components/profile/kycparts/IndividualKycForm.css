@@ -32,7 +32,7 @@
 
 /* Card */
 .kyc-card {
-  background: #f4f0ff;
+  background: var(--white);
   border-radius: var(--border-radius-12);
   padding: 18px;
 }

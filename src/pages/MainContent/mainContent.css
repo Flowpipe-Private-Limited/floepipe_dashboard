@@ -22,9 +22,10 @@
 
 .section-title-mc {
   font-size: var(--main-heading);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--black);
   margin-bottom: 10px;
+  font-family: "Konnect-Medium";
 }
 
 .quick-actions-bg {
@@ -51,18 +52,6 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
-
-/* .quick-card-decor {
-  position: absolute;
-  top: -27px;
-  right: -22px;
-  width: 60px;
-  height: 60px;
-  background: rgba(124, 58, 237, 0.08);
-  border-radius: 55%;
-  pointer-events: none;
-  z-index: 0;
-} */
 
 .quick-action-rightsection {
   display: flex;
@@ -192,14 +181,14 @@
   font-family: "Figtree";
   justify-content: center;
   border: 1px solid var(--white);
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   padding: 0.4rem 0.8rem;
 }
 
 .wallet-label {
   font-size: var(--normal-text);
   text-transform: uppercase;
-  font-family: "Konnect";
+  font-family: "Konnect-Regular";
   font-weight: 400;
   letter-spacing: 0.23rem;
 }
@@ -280,7 +269,7 @@
   font-size: var(--normal-text);
   color: var(--gray-200);
   margin-bottom: 4px;
-  font-family: "Konnect";
+  font-family: "Konnect-Regular";
 }
 
 .stat-value {
@@ -451,15 +440,17 @@
 }
 
 .quick-card h4 {
-  font-size: var(--normal-text);
+  font-size: var(--below-medium-heading);
   font-weight: 500;
   color: var(--gray-200);
-  font-family: "Konnect";
+  font-family: "Konnect-Medium";
 }
 
 .quick-card p {
   font-size: var(--small-text-10);
   color: var(--gray-200);
+  font-family: "Figtree";
+  font-weight: 400;
 }
 
 .quick-card.second-row {
@@ -541,9 +532,9 @@
 
 .recent-activity-title {
   font-size: var(--medium-heading);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--black);
-  font-family: "Konnect";
+  font-family: "Konnect-Medium";
 }
 
 .recent-activity-bell {
@@ -672,8 +663,9 @@
 
 .chart-header h3 {
   font-size: var(--main-heading);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--black);
+  font-family: "Konnect-Medium";
 }
 
 .chart-controls {
@@ -708,6 +700,7 @@
   outline: none;
   background-color: var(--white);
   min-width: 120px;
+  font-family: "Konnect-Regular";
 }
 
 .toggle-group {
@@ -826,13 +819,13 @@
 
 .pan-card-header h4 {
   font-size: var(--normal-text);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--black);
-  font-family: "Konnect";
+  font-family: "Konnect-Medium";
 }
 
 .pan-card-header span {
-  font-size: 11px;
+  font-size: var(--small-text);
   color: var(--gray-200);
 }
 
@@ -852,13 +845,13 @@
 
 .stat-val {
   font-size: var(--normal-text);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--black);
-  font-family: "Konnect";
+  font-family: "Konnect-Regular";
 }
 
 .stat-lbl {
-  font-size: var(--small-text-10);
+  font-size: var(--small-text);
   color: var(--gray-200);
   margin-top: 2px;
 }
@@ -891,8 +884,9 @@
 .table-header-row h3,
 .apps-running-card h3 {
   font-size: var(--main-heading);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--black);
+  font-family: "Konnect-Medium";
 }
 
 .apps-running-card h3 {
@@ -1079,7 +1073,7 @@
   }
 
   .hello-main-text {
-    font-size: 1.25rem;
+    font-size: var(--main-heading)rem;
   }
 
   .dashboard-top {
@@ -1174,7 +1168,7 @@
   }
 
   .activity-time {
-    font-size: 11px;
+    font-size: var(--small-text);
   }
 
   .dashboard-detailed-section {
@@ -1280,7 +1274,7 @@
   }
 
   .hello-main-text {
-    font-size: 1.4rem;
+    font-size: var(--large-heading);
   }
 
   .dashboard-top {
@@ -1417,7 +1411,7 @@
   }
 
   .hello-main-text {
-    font-size: 1.25rem;
+    font-size: var(--main-heading)rem;
   }
 
   .dashboard-top {
@@ -1512,7 +1506,7 @@
   }
 
   .activity-time {
-    font-size: 11px;
+    font-size: var(--small-text);
   }
 
   .dashboard-detailed-section {
@@ -1618,7 +1612,7 @@
   }
 
   .hello-main-text {
-    font-size: 1.25rem;
+    font-size: var(--main-heading)rem;
   }
 
   .dashboard-top {
@@ -1713,7 +1707,7 @@
   }
 
   .activity-time {
-    font-size: 11px;
+    font-size: var(--small-text);
   }
 
   .dashboard-detailed-section {

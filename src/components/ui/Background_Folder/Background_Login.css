@@ -232,7 +232,7 @@
   background: #0f0f0f;
   border: 2px solid #2f2f2f;
   text-align: center;
-  font-size: 1.3rem;
+  font-size: var(--main-heading);
   color: var(--white);
   outline: none;
 }

@@ -1,5 +1,5 @@
 /* ================= Container ================= */
-[data-theme='dark'] .api-keys-container {
+[data-theme="dark"] .api-keys-container {
   min-height: 100vh;
   background: var(--purple-100);
 }
@@ -18,7 +18,7 @@
 }
 
 .page-title {
-  font-size: 1.25rem;
+  font-size: var(--main-heading)rem;
   font-weight: 700;
   color: #111;
   margin: 0;
@@ -31,66 +31,67 @@
   border-radius: var(--border-radius-4);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   margin-bottom: 1.5rem;
-  border: 1px solid var(--purple-200);
-
+  border: 1px solid var(--gray-300);
 }
 
 .tab-btn,
 .tab-btn-two {
-  padding: 0.6rem 1.8rem;
-  font-size: var(--small-text);
+  padding: 0.6rem 2.5rem;
+  font-size: var(--normal-text);
   border: none;
   background: transparent;
   color: var(--black);
   cursor: pointer;
   transition: all 0.25s ease;
-  font-family: "JetBrainsMonoSemiBold";
+  font-family: "Figtree";
 }
 
 .tab-btn.active {
-  background: var(--purple-main);
-  color: var(--white);
-  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.4);
+  background: var(--black);
+  color: var(--sweetyellow);
   border-top-right-radius: 0rem;
   border-bottom-right-radius: 0rem;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+  font-family: "Figtree";
+  padding: 0.6rem 2.5rem;
+  font-size: var(--normal-text);
+
 }
 
 .tab-btn-two.active {
-  background: var(--purple-main);
-  color: var(--white);
-  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.4);
+  background: var(--black);
+  color: var(--sweetyellow);
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   border-top-left-radius: 0rem;
   border-bottom-left-radius: 0rem;
+  font-family: "Figtree";
+  padding: 0.6rem 2.5rem;
+  font-size: var(--normal-text);
+
 }
 
 /* ================= Add Key Box ================= */
 .add-key-box {
-  border: 2px dashed var(--purple-main);
-  background: #f1edff;
-  border-radius: var(--border-radius-6);
+  border: 2px dashed var(--gray-300);
+  background: var(--white);
+  border-radius: var(--border-radius-8);
   padding: 1.5rem 1.5rem;
   text-align: center;
   margin-bottom: 1.8rem;
-  font-family: "Konnect";
 }
 
 .add-key-btn {
-  background: var(--purple-main);
-  color: var(--white);
+  background: var(--black);
+  color: var(--sweetyellow);
   padding: 0.4rem 2rem;
-  font-size: var(--small-text);;
+  font-size: var(--small-text);
   border-radius: var(--border-radius-4);
   border: none;
   cursor: pointer;
   transition: background 0.2s;
-}
-
-.add-key-btn:hover {
-  background: #6d28d9;
+  font-family: "Figtree";
 }
 
 .note-text {
@@ -105,7 +106,10 @@
   border-radius: var(--border-radius-6);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
+    border-top-left-radius: var(--border-radius-12);
+  border-top-right-radius: var(--border-radius-12);
 }
+
 
 table {
   width: 100%;
@@ -114,21 +118,26 @@ table {
 }
 
 .thead-header {
-  background: var(--purple-700);
+  background: var(--white-100);
   color: var(--black);
-  font-family: "Konnect";
+  font-family: "Konnect-Medium";
+  border: 1px solid var(--gray-300);
+    border-top-left-radius: var(--border-radius-8);
+  border-top-right-radius: var(--border-radius-8);
 }
 
 .th-api {
   padding: 1rem;
-  font-weight: 600;
-  font-family: "Konnect";
-
+  font-weight: 500;
+  font-family: "Konnect-Medium";
+  border-top-left-radius: var(--border-radius-8);
+  border-top-right-radius: var(--border-radius-8);
+  font-size: var(--normal-text);
 }
 
 .td-one {
   padding: 1rem;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--gray-300);
 }
 
 tbody tr:hover {
@@ -138,9 +147,10 @@ tbody tr:hover {
 /* ================= Empty Row (No Keys Found) ================= */
 tbody tr td[colspan] {
   text-align: center;
-  color: var(--black);
+  color: var(--gray-200);
   padding: 1.5rem;
-  font-family: "JetBrainsMonoSemiBold";
+  font-family: "Figtree";
+  font-weight: 400;
 }
 
 /* ================= Empty Table State ================= */
@@ -149,7 +159,7 @@ tbody tr td[colspan] {
   padding: 1.5rem;
   font-size: var(--normal-text);
   color: var(--black);
-   font-family: "Konnect";
+  font-family: "Figtree";
   background: var(--white);
 }
 

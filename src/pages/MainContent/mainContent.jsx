@@ -46,20 +46,24 @@ const MainContent = () => {
   const quickActions = [
     {
       title: "View API Keys",
+      subtext:"Manage your API credentials",
       icon: Images.Apikey,
       href: "/dashboard/apiKeys",
     },
     {
       title: "Integration Guide",
+      subtext:"Step-by-step documentation",
       icon: Images.Integrationguide,
     },
     {
       title: "View Analytics",
+      subtext:"Step-by-step documentation",
       icon: Images.viewanalytics,
       href: "/dashboard/viewAnalytics",
     },
     {
       title: "Start Free Trial",
+      subtext:"Test enterprise features",
       icon: Images.startfree,
       href: "/dashboard/Trial_Center",
     },
@@ -349,7 +353,7 @@ const MainContent = () => {
                     <img src={item.icon} alt={item.title} />
                   </div>
                   <h4>{item.title}</h4>
-                  <p>Lorem ipsum dolor sit amet</p>
+                  <p>Manage your API credentials</p>
                   <span
                     onClick={() => navigate(item.href)}
                     className="quick-link"

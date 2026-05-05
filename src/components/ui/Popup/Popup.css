@@ -17,7 +17,7 @@
   background: var(--white);
   border-radius: var(--border-radius-12);
   width: 100%;
-  max-width: 500px;
+  max-width: 750px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -38,17 +38,18 @@
 }
 
 .popup-header {
-  padding: 20px 24px;
+  padding: 1rem 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--gray-300);
+  box-shadow: 2px 2px 3px #0000000A;
 }
 
 .popup-title {
-  font-size: var(--large-heading);
-  font-weight: 600;
-  color: var(--black-300);
+  font-size: var(--main-heading);
+  font-weight: 500;
+  color: var(--black);
   margin: 0;
 }
 

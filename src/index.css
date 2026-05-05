@@ -34,14 +34,26 @@
 }
 
 @font-face {
-  font-family: "Konnect";
+  font-family: "Konnect-Regular";
   src: url("./assets/Fonts/KonnectRegular.otf") format("truetype");
-  font-weight: 700;
+  font-weight: 400;
   font-style: normal;
 }
 @font-face {
-  font-family: "KonnectSemiBold";
+  font-family: "Konnect-Medium";
+  src: url("./assets/Fonts/KonnectMedium.otf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Konnect-SemiBold";
   src: url("./assets/Fonts/KonnectSemiBold.otf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Konnect-Bold";
+  src: url("./assets/Fonts/KonnectBold.otf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
@@ -49,6 +61,13 @@
 /* ===== Apply globally ===== */
 body, #root {
   font-family: "Figtree";
+  margin: 0;
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body, #root {
+  font-family: "Konnect";
   margin: 0;
   color: var(--white);
   -webkit-font-smoothing: antialiased;

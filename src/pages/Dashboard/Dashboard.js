@@ -127,13 +127,6 @@ const sideDashboardConfig = [
     iconType: "image",
   },
   {
-    label: "Trail Center",
-    icon: Images.trailcenter,
-    // href: "/dashboard/Products",
-    type: "single",
-    iconType: "image",
-  },
-  {
     label: "Reports",
     icon: Images.reports,
     href: "/dashboard/Reports",

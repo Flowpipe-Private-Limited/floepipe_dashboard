@@ -46,7 +46,7 @@
 
 .section-title-flowpipe {
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: var(--large-heading);
   color: #1f2937;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .greeting-main {
-  font-size: 1.5rem;
+  font-size: var(--large-heading);
   font-weight: 600;
   color: var(--black);
   line-height: 1.2;
@@ -537,7 +537,7 @@
   background: transparent;
   border: none;
   color: var(--black-1800);
-  font-size: 11px;
+  font-size: var(--small-text);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -600,7 +600,7 @@
 .method-get {
   color: #935b02;
   /* Brownish-gold like in image */
-  font-size: 13px;
+  font-size: var(--normal-text);
   font-weight: 600;
   margin-right: 4px;
 }
@@ -608,7 +608,7 @@
 .method-post {
   color: #935b02;
   /* Brownish-gold like in image */
-  font-size: 13px;
+  font-size: var(--normal-text);
   font-weight: 600;
   margin-right: 4px;
 }
@@ -858,15 +858,15 @@
 
 .active-subgroup-text {
   background: #000000 !important;
-  color: #ccff00 !important;
+  color: var(--sweetyellow) !important;
 }
 
 .active-subgroup-text .subgroup-label {
-  color: #ccff00 !important;
+  color: var(--sweetyellow) !important;
 }
 
 .active-subgroup-text svg {
-  color: #ccff00 !important;
+  color: var(--sweetyellow) !important;
 }
 
 .theme-toggle-switch {
@@ -882,7 +882,7 @@
 }
 
 .theme-toggle-switch.dark-active {
-  background-color: #7c3aed;
+  background-color: var(--purple-main);
 }
 
 .theme-toggle-thumb {

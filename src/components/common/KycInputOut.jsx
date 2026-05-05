@@ -579,6 +579,7 @@ const KycReuseComponet = ({ data }) => {
             {/* URL Display */}
             <div className="kyc-custom-select-container">
               <div className="kyc-custom-select-trigger" style={{ cursor: "default" }}>
+                <div className="kyc-link-row">
                 <div className="kyc-lottie-icon-wrapper">
                   <Lottie
                     animationData={Images.LIVEAnimation}
@@ -590,6 +591,7 @@ const KycReuseComponet = ({ data }) => {
                 <span className="selected-value">
                   {data?.apiUrl?.LiveUrl}
                 </span>
+                </div>
                 <button
                   className="kyc-copy-btn-small"
                   onClick={() => handleCopy(data?.apiUrl?.LiveUrl)}
@@ -652,10 +654,10 @@ const KycReuseComponet = ({ data }) => {
                       setApiResponse(null);
                       setSelectedExampleCode(data?.exampleResponse || {});
                     }}
-                  >
-                    200
+                  > Response
+                    
                   </button>
-                  {[400, 403, 404, 429, 500, 503].map((code) => (
+                  {[200, 400, 403, 404, 429, 500, 503].map((code) => (
                     <button
                       key={code}
                       className={`kyc-status-pill kyc-status-${code} ${selectedExampleCode?.httpCode === code ? 'active' : ''}`}
