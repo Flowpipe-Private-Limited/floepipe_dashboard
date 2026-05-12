@@ -5,6 +5,7 @@ import { VerifyFPIN } from '../../../utils/Apis/api';
 import { ApirequestHandler, EncryptedApirequestHandler } from '../../../utils/Apis/apiRequestHandler';
 import { toTitleCase } from '../../../utils/simpleHellperFn';
 import './FpinVerify.css';
+import Cookies from "js-cookie";
 
 
 // ⚛️ Updated Flowpipe Unlock Modal Component
@@ -94,7 +95,7 @@ const FlowpipeUnlockModal = ({ onClose, isVisible, IsValidPIN }) => {
 
         try {
             await ApirequestHandler(
-                async () => await VerifyFPIN({ FPIN: fullPin, clientID: users?.clientId }),
+                async () => await VerifyFPIN({ FPIN: fullPin, clientID: Cookies.get("clientId") }),
                 null,
                 (res) => {
                     if (res?.success) {

@@ -29,7 +29,6 @@ const WhiteListIP = () => {
   const ipRegex =/^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/;
 
   useEffect(() => {
-    fetchWhitelistIPs();
     detectCurrentIp();
   }, []);
 

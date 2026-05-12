@@ -18,10 +18,12 @@ import { LuTestTube } from "react-icons/lu";
 import { BsLightningCharge } from "react-icons/bs";
 import EnvironmentSwitch from "../../components/ui/EnvironmentSwitch/EnvironmentSwitch";
 import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebutton";
+import { useUserkey } from "../../Store/userKeyStore";
 import images from "../../Images/Images";
 
 const ViewAnalytics = () => {
   const [environment, setEnvironment] = useState("sandbox");
+  const { userApiCount } = useUserkey();
 
   // API Calls Over Time Data
   const apiCallsData = [
@@ -37,20 +39,20 @@ const ViewAnalytics = () => {
   // API Cost Breakdown Data
   const costBreakdownData = [
     { name: "Mon", cost: 700 },
-    { name: "Tue", cost: 650 },
+    { name: "Tue", cost: 7560 },
     { name: "Wed", cost: 850 },
-    { name: "Thu", cost: 750 },
+    { name: "Thu", cost: 7750 },
     { name: "Fri", cost: 900 },
-    { name: "Sat", cost: 600 },
+    { name: "Sat", cost: 7900 },
     { name: "Sun", cost: 720 },
   ];
 
   // Payment Volume Trend Data
   const paymentVolumeData = [
     { name: "May", value: 80000 },
-    { name: "Sep", value: 95000 },
+    { name: "Sep", value: 165000 },
     { name: "Jan", value: 110000 },
-    { name: "May", value: 125000 },
+    { name: "July", value: 8546 },
     { name: "Oct", value: 142000 },
   ];
 
@@ -124,7 +126,7 @@ const ViewAnalytics = () => {
               <img className="flowblue" src={images.fldesign} />
             </div>
             <div className="metric-label">Total Requests</div>
-            <div className="metric-value">10,908</div>
+            <div className="metric-value">{userApiCount?.apiCount || 0}</div>
           </div>
           <div className="metric-card">
               <div className="stat-card-decor-Viewanalytics-2">
@@ -132,7 +134,11 @@ const ViewAnalytics = () => {
             </div>
             <div className="metric-label">Avg Success Rate</div>
             <div style={{ color: "#00A63E" }} className="metric-value">
-              97%
+              {`${(
+                (userApiCount?.successApiCount / userApiCount?.apiCount) *
+                100 || 0
+              ).toFixed(2)}
+              %`}
             </div>
           </div>
           <div className="metric-card">

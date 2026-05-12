@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./mainContent.css";
 import { GoArrowUpRight, GoArrowDownLeft } from "react-icons/go";
 import Images from "../../Images/Images";
@@ -22,12 +22,183 @@ import { FiAlertTriangle, FiCreditCard } from "react-icons/fi";
 import { LuKey } from "react-icons/lu";
 import { LuCodeXml } from "react-icons/lu";
 import WalletToPop from "../WalletToPop/WalletToPop";
+import { useUserkey } from "../../Store/userKeyStore";
+import { GeneralKeys } from "../../Store/PubliPriviteKey";
+import { encryptPayload } from "../../utils/helper";
+import Cookies from "js-cookie";
+import {
+  fetchPublickey,
+  getProductsData,
+  getRecentCallData,
+  getTransactionsData,
+} from "../../utils/Apis/api";
+import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 
 const MainContent = () => {
   const [showBalance, setShowBalance] = useState(false);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [isProduction, setIsProduction] = useState(false);
+  const [transactionData, setTransactionData] = useState({});
+    const [Publickey, setPublickey] = useState("");
+    const [slider, setSlider] = useState("");
+  // const [recentCallData, setRecentCallData] = useState([]);
+  const [productData, setProductData] = useState({});
   const navigate = useNavigate();
+  const whitelistIps = useUserkey((state) => state.whitelistIps);
+  const TestAccessToken = useUserkey((state) => state.TestAccessToken);
+  const LiveAccessToken = useUserkey((state) => state.LiveAccessToken);
+  const fetchRecentCallData = useUserkey((state) => state.fetchRecentCallData);
+  const fetchUserApiCount = useUserkey((state) => state.fetchUserApiCount);
+  const userApiCount = useUserkey((state) => state.userApiCount);
+  const publicKey = GeneralKeys((state) => state.publicKey);
+  const privateKey = GeneralKeys((state) => state.privateKey);
+  const recentCallData = useUserkey((state) => state.recentCallData);
+  const walletBalance = useUserkey((state) => state.walletBalance);
+  const clientId = Cookies.get("clientId");
+
+  console.log(
+    "walletBalance and recentCallData =====>>",
+    walletBalance,
+    recentCallData,
+  );
+
+  useEffect(() => {
+    getUserApiCount();
+  }, [LiveAccessToken, TestAccessToken, Publickey]);
+
+  const getUserApiCount = async () => {
+    try {
+      const accesstoken = LiveAccessToken || TestAccessToken;
+
+      if (accesstoken && publicKey && Publickey) {
+        console.log("Token available, calling API", publicKey);
+        const data = {
+          clientId: Cookies.get("clientId"),
+        };
+        const encryptedPayload = await encryptPayload(data, Publickey);
+        console.log("encryptedPayload ===>>", encryptedPayload);
+        fetchUserApiCount(accesstoken, encryptedPayload, publicKey);
+      }
+    } catch (error) {
+      console.log("error ====>", error);
+    }
+  };
+
+  const getPublickey = async () =>{
+    await ApirequestHandler(
+        async () => fetchPublickey(),
+        null,
+        (res) => {
+          const { publicKey } = res;
+          console.log('publickey is this :', publicKey);
+          setPublickey(publicKey);
+          resolve(publicKey);
+        },
+        (errMessage) => {
+          setPublickeyError("Failed to load encryption keys.");
+          setPublickeyLoading(false);
+          resolve(null);
+        }
+      );
+  }
+
+  useEffect(() => {
+    fetchProductsData();
+    fetchTransactionData();
+    getPublickey()
+  }, []);
+
+  useEffect(() => {
+    const clientId = Cookies.get("clientId");
+    fetchRecentCallData(clientId);
+  }, []);
+
+  // const fetchRecentCallData = async () => {
+  //   const clientId = Cookies.get("clientId");
+  //   try {
+  //     await ApirequestHandler(
+  //       () => getRecentCallData(clientId),
+  //       null,
+  //       (res) => {
+  //         console.log("res of recent calls in dashboard ======>>>>", res);
+  //         if (res.success) {
+  //           const result = res?.data;
+  //           const formattedData = result?.filter((item) => {
+  //             return item?.type == "DEBIT";
+  //           });
+  //           const slicedData = formattedData?.slice(0, 10);
+  //           setRecentCallData(slicedData);
+  //         } else {
+  //           setRecentCallData([]);
+  //         }
+  //       },
+  //       (err) => {
+  //         console.log(err);
+  //       },
+  //     );
+  //   } catch (error) {
+  //     console.log("error while getting transaction data ===>>", error);
+  //   }
+  // };
+
+  const fetchProductsData = async () => {
+    const payload = {
+      clientId: Cookies.get("clientId"),
+    };
+    try {
+      await ApirequestHandler(
+        () => getProductsData(payload),
+        null,
+        (res) => {
+          console.log("res of products in dashboard ======>>>>", res);
+          if (res.success) {
+            setProductData(res?.data);
+          } else {
+            setProductData({});
+          }
+        },
+        (err) => {
+          console.log(err);
+        },
+      );
+    } catch (error) {
+      console.log("error while getting transaction data ===>>", error);
+    }
+  };
+
+  const fetchTransactionData = async () => {
+    const currentDate = new Date();
+
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const year = currentDate.getFullYear();
+
+    const formatted = `${month} ${year}`;
+
+    console.log("formatted ====>>", formatted);
+    const payload = {
+      clientId: Cookies.get("clientId"),
+      month: formatted,
+    };
+    try {
+      await ApirequestHandler(
+        () => getTransactionsData(payload),
+        null,
+        (res) => {
+          console.log("res in dashboard ======>>>>", res);
+          if (res.success) {
+            setTransactionData(res?.data);
+          } else {
+            setTransactionData({});
+          }
+        },
+        (err) => {
+          console.log(err);
+        },
+      );
+    } catch (error) {
+      console.log("error while getting transaction data ===>>", error);
+    }
+  };
 
   const NavigateToBalance = () => {
     navigate("/dashboard/Billing_Plans");
@@ -46,24 +217,24 @@ const MainContent = () => {
   const quickActions = [
     {
       title: "View API Keys",
-      subtext:"Manage your API credentials",
+      subtext: "Manage your API credentials",
       icon: Images.Apikey,
       href: "/dashboard/apiKeys",
     },
     {
       title: "Integration Guide",
-      subtext:"Step-by-step documentation",
+      subtext: "Step-by-step documentation",
       icon: Images.Integrationguide,
     },
     {
       title: "View Analytics",
-      subtext:"Step-by-step documentation",
+      subtext: "Step-by-step documentation",
       icon: Images.viewanalytics,
       href: "/dashboard/viewAnalytics",
     },
     {
       title: "Start Free Trial",
-      subtext:"Test enterprise features",
+      subtext: "Test enterprise features",
       icon: Images.startfree,
       href: "/dashboard/Trial_Center",
     },
@@ -174,6 +345,15 @@ const MainContent = () => {
     { name: "Live App", keys: 3, products: 3 },
   ];
 
+  const navigationGuide = (item) => {
+    if (item?.title?.toLowerCase() == "integration guide") {
+      // window.location.href = "http://localhost:5173/"
+      window.open("http://localhost:5173/", "_blank");
+    } else {
+      navigate(item?.href);
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-top">
@@ -185,7 +365,7 @@ const MainContent = () => {
 
             <div className="wallet-middle">
               <span className="wallet-dots">
-                {showBalance ? "₹ 1,50,000" : "*******"}
+                {showBalance ? Number(walletBalance).toFixed(2) : "*******"}
               </span>
               <span
                 className="wallet-eye-icon"
@@ -218,7 +398,9 @@ const MainContent = () => {
             <div className="stat-card">
               <div className="star-card-boxes-maincon">
                 <p className="stat-title">Total Transactions</p>
-                <h3 className="stat-value">₹ 15,432</h3>
+                <h3 className="stat-value">
+                  {transactionData?.totalCount || 0}
+                </h3>
                 <span className="stat-sub">
                   This Month
                   <span style={{ color: "var(--black)", fontWeight: 600 }}>
@@ -239,7 +421,9 @@ const MainContent = () => {
                 <div className="button-stat-card">
                   <div className="head-sub-one">
                     <p className="stat-title">Product Subscribed</p>
-                    <h3 className="stat-value">15,432</h3>
+                    <h3 className="stat-value">
+                      {productData?.subscribedCount}
+                    </h3>
                   </div>
                   <button
                     onClick={NavigateToProducts}
@@ -268,7 +452,7 @@ const MainContent = () => {
             <div className="stat-card">
               <div className="star-card-boxes-maincon">
                 <p className="stat-title">Transaction Volume</p>
-                <h3 className="stat-value">₹ 15,432</h3>
+                <h3 className="stat-value">{`₹ ${transactionData?.totalAmount || 0}`}</h3>
                 <span className="stat-sub">
                   This Month
                   <span style={{ color: "var(--black)", fontWeight: 600 }}>
@@ -293,7 +477,7 @@ const MainContent = () => {
                 <div className="button-stat-card">
                   <div className="head-sub-one">
                     <p className="stat-title">Product Requests</p>
-                    <h3 className="stat-value">15,432</h3>
+                    <h3 className="stat-value">{productData?.pendingCount}</h3>
                   </div>
                   <button
                     onClick={NavigateToViewRequests}
@@ -342,7 +526,7 @@ const MainContent = () => {
             <div className="quick-actions">
               {quickActions.map((item, idx) => (
                 <div
-                  onClick={() => navigate(item.href)}
+                  onClick={() => navigationGuide(item)}
                   className="quick-card"
                   key={idx}
                 >
@@ -355,7 +539,7 @@ const MainContent = () => {
                   <h4>{item.title}</h4>
                   <p>Manage your API credentials</p>
                   <span
-                    onClick={() => navigate(item.href)}
+                    onClick={() => navigationGuide(item)}
                     className="quick-link"
                   >
                     Get started →
@@ -379,7 +563,13 @@ const MainContent = () => {
                   {item.type === "stat" && (
                     <div style={{ marginTop: 5 }}>
                       <p className="quick-card-label-sm">{item.title}</p>
-                      <h4 className="quick-card-val-lg">{item.value}</h4>
+                      <h4 className="quick-card-val-lg">
+                        {item.extra == "simple"
+                          ? whitelistIps?.length
+                          : item?.extra == "sparkline"
+                            ? userApiCount?.apiCount
+                            : userApiCount?.apiStore}
+                      </h4>
                     </div>
                   )}
 
@@ -483,8 +673,8 @@ const MainContent = () => {
                   </select>
                 </div>
                 <div className="toggle-group">
-                  <button className="toggle-btn active">Production</button>
-                  <button className="toggle-btn">Test</button>
+                  <button className={`toggle-btn ${slider ? "" : "active"}`} onClick={()=>{setSlider(false)}}>Production</button>
+                  <button className={`toggle-btn ${slider ? "active" : ""}`} onClick={()=>{setSlider(true)}}>Test</button>
                 </div>
               </div>
             </div>
@@ -540,7 +730,7 @@ const MainContent = () => {
 
           {/* CARDS LIST */}
           <div className="pan-lite-cards-container">
-            {panLiteData.map((item, index) => (
+            {recentCallData.map((item, index) => (
               <div className="pan-lite-card" key={index}>
                 <div className="pan-icon-box">
                   <LuCodeXml
@@ -552,7 +742,7 @@ const MainContent = () => {
 
                 <div className="pan-card-content">
                   <div className="pan-card-header">
-                    <h4>{item.title}</h4>
+                    <h4>{item.serviceName || item?.serviceId}</h4>
                     <span>{item.period}</span>
                   </div>
 
@@ -562,8 +752,9 @@ const MainContent = () => {
                       <span className="stat-lbl">Amount</span>
                     </div>
                     <div className="stat-block">
-                      <span className="stat-val">{item.spent}</span>
-                      <span className="stat-lbl">Money spent</span>
+                      <span className="stat-val">{item.status}</span>
+                      {/* <span className="stat-lbl">Money spent</span> */}
+                      <span className="stat-lbl">Status</span>
                     </div>
                   </div>
                 </div>
@@ -571,8 +762,8 @@ const MainContent = () => {
                 {/* Decorative shape – now on ALL cards */}
                 {/* <div className="pan-card-decor"></div> */}
                 <div className="stat-card-decor-panlite">
-                <img className="flowblue" src={Images.fldesign} />
-              </div>
+                  <img className="flowblue" src={Images.fldesign} />
+                </div>
               </div>
             ))}
           </div>
@@ -641,16 +832,16 @@ const MainContent = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {transactionStats.map((row, idx) => (
+                    {userApiCount?.apisData?.map((row, idx) => (
                       <tr key={idx}>
-                        <td>{row.name}</td>
+                        <td>{row.service}</td>
                         <td
                           style={{ color: "var(--black)", fontWeight: "600" }}
                         >
-                          {row.billable}
+                          {row.totalCount}
                         </td>
-                        <td>{row.success}</td>
-                        <td>{row.failed}</td>
+                        <td>{row.successCount}</td>
+                        <td>{row.failedCount}</td>
                       </tr>
                     ))}
                   </tbody>

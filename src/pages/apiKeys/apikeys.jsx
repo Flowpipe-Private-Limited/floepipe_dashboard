@@ -22,7 +22,6 @@ const ApiKeys = () => {
   const LiveSecretKey = useUserkey((state) => state.LiveSecretKey);
   const LiveClientId = useUserkey((state) => state.LiveClientId);
   const LiveAccessToken = useUserkey((state) => state.LiveAccessToken);
-  const fetchUserskeys = useUserkey((state) => state.fetchUserskeys);
   const updateLiveKeys = useUserkey((state) => state.updateLiveKeys);
   const updateTestKeys = useUserkey((state) => state.updateTestKeys);
 
@@ -31,10 +30,6 @@ const ApiKeys = () => {
   const [showFpinModal, setShowFpinModal] = useState(false);
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
-
-  useEffect(() => {
-    fetchUserskeys();
-  }, []);
 
   // Action Executors
   const executeDownload = (key, clientId, accessToken) => {

@@ -39,6 +39,11 @@ import {
 import "./Dashboard.css";
 import Logout from "../../components/Logout/Logout";
 import FlowpipeUnlockModal from "../../components/profile/PinVerify/FpinVerify";
+import { useUserkey } from "../../Store/userKeyStore";
+import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import { getTransactionsData, HandleApiCount } from "../../utils/Apis/api";
+import { GeneralKeys } from "../../Store/PubliPriviteKey";
+import { generateFrontendKeyPair } from "../../utils/helper";
 
 const LucideIcons = {
   FileText,
@@ -270,13 +275,18 @@ export default function DashboardPage() {
   const [showLogout, setShowLogout] = useState(false);
   const users = useUserStore((state) => state.users);
   const fetchUsers = useUserStore((state) => state.fetchUsers);
+  const fetchWhitelistIPs = useUserkey((state) => state.fetchWhitelistIPs);
   const isLocked = useUserStore((state) => state.isLocked);
   const setIsLocked = useUserStore((state) => state.setIsLocked);
+  const setPubKey = GeneralKeys((state) => state.setPubKey);
   const navigate = useNavigate("");
+  const fetchUserskeys = useUserkey((state) => state.fetchUserskeys);
 
   useEffect(() => {
     fetchUsers();
-
+    fetchWhitelistIPs();
+    fetchUserskeys();
+    setKeys();
     const handleResize = () => {
       if (window.innerWidth < 1024) {
         setCollapsed(true);
@@ -285,6 +295,11 @@ export default function DashboardPage() {
       }
     };
   }, []);
+
+  const setKeys = async() =>{
+     const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
+      await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
+  }
 
   // Theme Logic
   useEffect(() => {
@@ -499,9 +514,7 @@ function Sidebar({ collapsed, data, onHelpClick }) {
         <div className="sidebar-greeting">
           <h2 className="greeting-main">
             Welcome back, <br />
-            <span className="greeting-name">
-              {data?.full_name || data?.name || "Kushal"}!
-            </span>
+            <span className="greeting-name">{data?.fullName || "Bro"}!</span>
           </h2>
           <p className="greeting-sub">Manage payments here.</p>
         </div>

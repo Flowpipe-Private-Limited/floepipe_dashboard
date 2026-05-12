@@ -48,10 +48,10 @@ export default function ProfilePage() {
         />
         <div className="profile-info">
           <h3 className="user-name">
-            {toTitleCase(users?.name || "Guest User")}{" "}
+            {toTitleCase(users?.fullName || "Guest User")}{" "}
           </h3>
           <p className="user-detail">{users?.email || "N/A"}</p>
-          <p className="user-detail">{users?.mobileNumber || "N/A"}</p>
+          <p className="user-detail">{users?.mobile || "N/A"}</p>
         </div>
       </div>
 
@@ -161,7 +161,7 @@ function BasicDetails() {
         firstName: first,
         lastName: last,
         email: users?.email || "",
-        mobileNumber: users?.mobileNumber || "",
+        mobileNumber: users?.mobile || "",
         companyDetails: {
           businessName: users?.companyDetails?.businessName || "",
           addressLine1: users?.companyDetails?.addressLine1 || "",
