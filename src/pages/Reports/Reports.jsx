@@ -306,7 +306,7 @@ const Reports = () => {
             )}
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <p className="label">APP Name</p>
             <div
               className="custom-select-trigger"
@@ -331,7 +331,7 @@ const Reports = () => {
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
 
           <div className="form-group">
             <p className="label">Status</p>
@@ -374,7 +374,7 @@ const Reports = () => {
             />
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <p className="label">Charge Type</p>
             <div className="radio-group">
               <p className="radio-label">
@@ -396,7 +396,7 @@ const Reports = () => {
                 <input type="radio" name="env" /> Production
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="run-report-container">
