@@ -271,14 +271,14 @@ const KycReuseComponet = ({ data }) => {
     const isEncryptedFlow = data?.isMicro !== "SupperAdmin";
     let currentKey = Publickey;
 
-    // if (isEncryptedFlow && !currentKey) {
-    //   setPublickeyLoading(true);
-    //   currentKey = await GetPublickey(true); // Attempt to fetch immediately and capture the result
-    //   if (!currentKey) {
-    //     setApiErrormessage("Encryption keys not loaded. Please ensure you have a stable connection.");
-    //     return;
-    //   }
-    // }
+    if (isEncryptedFlow && !currentKey) {
+      setPublickeyLoading(true);
+      currentKey = await GetPublickey(true); // Attempt to fetch immediately and capture the result
+      if (!currentKey) {
+        setApiErrormessage("Encryption keys not loaded. Please ensure you have a stable connection.");
+        return;
+      }
+    }
 
     if (data?.isGeoLocation) {
       try {
@@ -312,13 +312,13 @@ const KycReuseComponet = ({ data }) => {
     const payloadForApi = buildPayload(payload, fileData);
 
     if (isEncryptedFlow) {
-      // // const encrypted = await encryptPayload(payloadForApi, currentKey);
-      // const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
-      // await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
+      const encrypted = await encryptPayload(payloadForApi, currentKey);
+      const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
+      await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
 
       setLoading(true);
-      await ApirequestHandler(
-        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, payloadForApi, accessToken, data?.apiUrl?.Method || 'Post'),
+      await EncryptedApirequestHandler(
+        async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...encrypted, publicKeyPem }, accessToken, data?.apiUrl?.Method || 'Post'),
         setLoading,
         (res) => {
           setApiResponse(res);

@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
   PieChart,
@@ -18,296 +16,382 @@ import { LuTestTube } from "react-icons/lu";
 import { BsLightningCharge } from "react-icons/bs";
 import EnvironmentSwitch from "../../components/ui/EnvironmentSwitch/EnvironmentSwitch";
 import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebutton";
+import Cookies from "js-cookie";
+import { getAnalyticsService } from "../../utils/Apis/api";
+
+// Custom tick renderer for API Cost Breakdown to stack Month and Day labels or handle long names
+const CustomXAxisTick = ({ x, y, payload }) => {
+  if (!payload || !payload.value) return null;
+  const parts = payload.value.split(" ");
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <line x1={0} y1={0} x2={0} y2={6} stroke="#E5E7EB" />
+      <text x={0} y={12} textAnchor="middle" className="chart-axis-text">
+        <tspan x={0} dy="6" fill="#9CA3AF" fontWeight="400">
+          {parts[0]}
+        </tspan>
+        {parts[1] && (
+          <tspan x={0} dy="16" fill="#000000" fontWeight="600">
+            {parts[1]}
+          </tspan>
+        )}
+      </text>
+    </g>
+  );
+};
 
 const ViewAnalytics = () => {
-    const [environment, setEnvironment] = useState("test");
-  
-  // API Calls Over Time Data
-  const apiCallsData = [
-    { name: "Sun", value: 25000 },
-    { name: "Mon", value: 32000 },
-    { name: "Tue", value: 28000 },
-    { name: "Wed", value: 35000 },
-    { name: "Thu", value: 38000 },
-    { name: "Fri", value: 33000 },
-    { name: "Sat", value: 30000 },
-  ];
+  const [environment, setEnvironment] = useState("test");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [services, setServices] = useState([]);
+  const [dailyStats, setDailyStats] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
-  // API Cost Breakdown Data
-  const costBreakdownData = [
-    { name: "Mon", cost: 700 },
-    { name: "Tue", cost: 650 },
-    { name: "Wed", cost: 850 },
-    { name: "Thu", cost: 750 },
-    { name: "Fri", cost: 900 },
-    { name: "Sat", cost: 600 },
-    { name: "Sun", cost: 720 },
-  ];
+  useEffect(() => {
+    const fetchAnalytics = async () => {
+      try {
+        const res = await getAnalyticsService();
+        console.log("API Response:", res.data);
+        if (res?.data?.success) {
+          const rawData = res.data.data;
+          const rawDailyStats = res.data.dailyStats || [];
+          const currentClientId = Cookies.get("clientId") || localStorage.getItem("clientId");
 
-  // Payment Volume Trend Data
-  const paymentVolumeData = [
-    { name: "May", value: 80000 },
-    { name: "Sep", value: 95000 },
-    { name: "Jan", value: 110000 },
-    { name: "May", value: 125000 },
-    { name: "Oct", value: 142000 },
-  ];
+          let clientServices = [];
+          let clientDailyStats = [];
 
-  // Error Tracking Data
-  const errorTrackingData = [
-    { name: "API Errors", value: 245, color: "#EF4444" },
-    { name: "Payment Fails", value: 180, color: "#F97316" },
-    { name: "Timeouts", value: 156, color: "#F59E0B" },
-    { name: "Auth Errors", value: 98, color: "#EAB308" },
-  ];
+          if (currentClientId) {
+            const clientRecord = rawData.find(c => c.clientId === currentClientId);
+            if (clientRecord) {
+              clientServices = clientRecord.services || [];
+            } else {
+              // Fallback to all services if specific client not found in reports yet
+              clientServices = rawData.flatMap(c => c.services || []);
+            }
+            clientDailyStats = rawDailyStats.filter(item => item.clientId === currentClientId);
+            if (clientDailyStats.length === 0) {
+              clientDailyStats = rawDailyStats;
+            }
+          } else {
+            clientServices = rawData.flatMap(c => c.services || []);
+            clientDailyStats = rawDailyStats;
+          }
 
-  // Usage by Endpoint Data
-  const endpointUsageData = [
-    { name: "users", value: 3492, color: "#8B5CF6" },
-    { name: "payments", value: 2871, color: "#3B82F6" },
-    { name: "webhooks", value: 1654, color: "#F59E0B" },
-    { name: "transactions", value: 1203, color: "#10B981" },
-  ];
+          setServices(clientServices);
+          setDailyStats(clientDailyStats);
+        }
+      } catch (error) {
+        console.error("Error fetching analytics in ViewAnalytics:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Average Response Time Data
-  const responseTimeData = [
-    { name: "Mon", value: 120 },
-    { name: "Tue", value: 115 },
-    { name: "Wed", value: 135 },
-    { name: "Thu", value: 125 },
-    { name: "Fri", value: 145 },
-    { name: "Sat", value: 110 },
-    { name: "Sun", value: 118 },
-  ];
+    fetchAnalytics();
+  }, []);
+
+  // Compute overall header metrics
+  const totalRequests = services.reduce((sum, s) => sum + (s.totalCount || s.count || 0), 0);
+  const totalSuccess = services.reduce((sum, s) => sum + (s.successCount || 0), 0);
+  const totalFailed = services.reduce((sum, s) => sum + (s.failedCount || 0), 0);
+  const avgSuccessRate = totalRequests > 0 ? Math.round((totalSuccess / totalRequests) * 100) : 100;
+
+  // Extract unique categories for filtering dropdown
+  const uniqueCategories = [...new Set(services.map(s => s.category).filter(Boolean))];
+
+  // Filter services by selected product/category
+  const filteredServices = selectedCategory === "all"
+    ? services
+    : services.filter(s => s.category === selectedCategory);
+
+  // Generate list of last 7 calendar days dynamically
+  const last7DaysList = (() => {
+    const days = [];
+    const options = { month: "short", day: "2-digit" };
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      days.push(d.toLocaleDateString("en-US", options)); // e.g. "May 13"
+    }
+    return days;
+  })();
+
+  // 1. API Cost Breakdown Data (₹1.5 per call cost calculation) grouped by day
+  const costBreakdownData = last7DaysList.map(dayName => {
+    // Filter stats matching this day and selected category
+    const dailyRecords = dailyStats.filter(item => {
+      const isDayMatch = item.date === dayName;
+      const isCategoryMatch = selectedCategory === "all" || item.category === selectedCategory;
+      return isDayMatch && isCategoryMatch;
+    });
+
+    const totalCostForDay = dailyRecords.reduce((sum, item) => sum + (item.cost || 0), 0);
+
+    return {
+      name: dayName,
+      cost: Math.round(totalCostForDay),
+    };
+  });
+
+  // 2. Error Tracking Data (Failed Count per service/endpoint)
+  const hasErrors = services.some(s => (s.failedCount || 0) > 0);
+  const errorTrackingData = hasErrors
+    ? services
+        .filter(s => (s.failedCount || 0) > 0)
+        .map((s, index) => {
+          const colors = ["#000000", "#8B5CF6", "#CCFF00", "#6C727F", "#00A63E", "#FF4D4D"];
+          return {
+            name: s.service,
+            value: s.failedCount || 0,
+            color: colors[index % colors.length],
+          };
+        })
+    : [{ name: "No Errors", value: 0, color: "#00A63E" }];
+
+  // 3. Usage by Endpoint Data (Percentage usage per service/endpoint)
+  const endpointUsageData = totalRequests > 0
+    ? services
+        .map((s, index) => {
+          const colors = ["#8B5CF6", "#000000", "#6C727F", "#CCFF00", "#00A63E", "#FF4D4D"];
+          const percentage = Math.round(((s.totalCount || s.count || 0) / totalRequests) * 100);
+          return {
+            name: s.service,
+            value: percentage,
+            color: colors[index % colors.length],
+          };
+        })
+        .filter(item => item.value > 0)
+    : [{ name: "No Data", value: 100, color: "#E5E7EB" }];
+
+  // 4. Top Endpoint Data (Highest volume endpoints)
+  const sortedServices = [...services].sort((a, b) => (b.totalCount || b.count || 0) - (a.totalCount || a.count || 0));
+  const maxCallsOfTop = sortedServices[0]?.totalCount || sortedServices[0]?.count || 1;
+
+  const topEndpointsData = sortedServices.length > 0
+    ? sortedServices.slice(0, 5).map((s, index) => {
+        const colors = ["#000000", "#8B5CF6", "#CCFF00", "#6C727F", "#00A63E"];
+        const countValue = s.totalCount || s.count || 0;
+        const widthPercentage = maxCallsOfTop > 0 ? `${(countValue / maxCallsOfTop) * 100}%` : "0%";
+        return {
+          path: s.service,
+          count: countValue.toLocaleString(),
+          width: widthPercentage,
+          color: colors[index % colors.length],
+        };
+      })
+    : [{ path: "No endpoints found", count: "0", width: "0%", color: "#E5E7EB" }];
+
+  if (loading) {
+    return (
+      <div className="analytics-container" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
+        <div style={{ textAlign: "center" }}>
+          <div className="spinner-border" role="status" style={{ width: "3.5rem", height: "3.5rem", color: "#8B5CF6", borderWidth: "4px" }}>
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p style={{ marginTop: "1.2rem", color: "#6C727F", fontFamily: "Figtree", fontSize: "16px", fontWeight: "500" }}>
+            Loading usage statistics...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="analytics-container">
       <div className="analytic-main-container">
-      <div className="analytics-header">
-        <div>
-          <h1>Usage Analytics</h1>
-          <p>Track your performance and usage patterns</p>
-        </div>
-        <div className="header-actions">
-          <div className="test-live">
-            {/* <button className="btn-text active">
-              {" "}
-              <LuTestTube />
-              Test
-            </button>
-            <button className="btn-link ">
-              <BsLightningCharge />
-              Link
-            </button> */}
-            <EnvironmentSwitch
-              value={environment}
-              onChange={setEnvironment}
-              left={{ label: "Test", value: "sandbox", icon: <LuTestTube /> }}
-              right={{
-                label: "Link",
-                value: "prod",
-                icon: <BsLightningCharge />,
-              }}
+        <div className="analytics-header">
+          <div>
+            <h1>Usage Analytics</h1>
+            <p>Track your performance and usage patterns</p>
+          </div>
+          <div className="header-actions">
+            <div className="test-live">
+              <EnvironmentSwitch
+                value={environment}
+                onChange={setEnvironment}
+                left={{ label: "Test", value: "sandbox", icon: <LuTestTube /> }}
+                right={{
+                  label: "Link",
+                  value: "prod",
+                  icon: <BsLightningCharge />,
+                }}
+              />
+            </div>
+            <Right_sidebutton
+              onClick={() => setIsModalOpen(true)}
+              TextonButton={"Add"}
             />
           </div>
-          <Right_sidebutton
-            onClick={() => setIsModalOpen(true)}
-            TextonButton={"Add"}
-          />
         </div>
-      </div>
-      {/* Metrics Row */}
-      <div className="metrics-row">
-        <div className="metric-card">
-          <div className="metric-label">Total Requests</div>
-          <div className="metric-value">10,908</div>
-        </div>
-        <div className="metric-card">
-          <div className="metric-label">Avg Success Rate</div>
-          <div style={{ color: "#00A63E" }} className="metric-value">
-            97%
+
+        {/* Metrics Row */}
+        <div className="metrics-row">
+          <div className="metric-card">
+            <div className="metric-label">Total Requests</div>
+            <div className="metric-value">{totalRequests.toLocaleString()}</div>
+          </div>
+          <div className="metric-card">
+            <div className="metric-label">Avg Success Rate</div>
+            <div style={{ color: avgSuccessRate >= 90 ? "#00A63E" : "#8B5CF6" }} className="metric-value">
+              {avgSuccessRate}%
+            </div>
+          </div>
+          <div className="metric-card">
+            <div className="metric-label">Avg Latency</div>
+            <div className="metric-value">34ms</div>
+          </div>
+          <div className="metric-card">
+            <div className="metric-label">Peak Usage</div>
+            <div className="metric-value">400 calls/day</div>
           </div>
         </div>
-        <div className="metric-card">
-          <div className="metric-label">Avg Latency</div>
-          <div className="metric-value">34ms</div>
-        </div>
-        <div className="metric-card">
-          <div className="metric-label">Peak Usage</div>
-          <div className="metric-value">400 calls/day</div>
-        </div>
       </div>
-</div>
 
       {/* Charts Grid */}
       <div className="charts-grid">
-        {/* API Calls Over Time */}
-        <div className="chart-card large">
-          <div className="chart-header-analytics">
-            <div>
-              <h3>API Calls Over Time</h3>
-              <h2 className="lasthours">Last 7 hours</h2>
-            </div>
-            <div>
-              <p className="chart-subtitle">456.2K </p>
-              <span className="trend-text">+5.2% vs last week</span>
-            </div>
-          </div>
-          <ResponsiveContainer width="100%" height={200} style={{fontSize:'14px'}}>
-            <LineChart data={apiCallsData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="name" stroke="#999" />
-              <YAxis stroke="#999" />
-              <Tooltip />
-              <defs>
-                <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.05} />
-                </linearGradient>
-              </defs>
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#3B82F6"
-                strokeWidth={2}
-                dot={false}
-                fill="url(#colorValue)"
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* API Cost Breakdown */}
-        <div className="chart-card large">
-          <div className="chart-header-analytics">
-            <div>
-              <h3>API Cost Breakdown</h3>
-              <h2 className="lasthours">Last 7 hours</h2>
-            </div>
-            <div>
-              <p className="chart-subtitle">456.2K </p>
-              <span className="trend-text">+5.2% vs last week</span>
-            </div>
-          </div>
-          <ResponsiveContainer width="100%" height={200} style={{fontSize:'14px'}}>
-            <BarChart data={costBreakdownData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="name" stroke="#999" />
-              <YAxis stroke="#999" />
-              <Tooltip />
-              <Bar dataKey="cost" fill="#8B5CF6" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Payment Volume Trend */}
+        {/* API Cost Breakdown Card */}
         <div className="chart-card">
-          <div className="chart-header-analytics">
+          <div className="chart-header-container">
             <div>
-              <h3>Payment Volume Trend</h3>
-              <h2 className="lasthours">Last 6 months</h2>
+              <h3 className="chart-title">API Cost Breakdown</h3>
+              <p className="chart-subtitle-faint">Calculated breakdown based on usage</p>
             </div>
-            <div>
-              <p className="chart-subtitle">₹12.4L</p>
-              <span className="trend-text">+15.8% vs last week</span>
-            </div>
-          </div>
-          <ResponsiveContainer width="100%" height={180} style={{fontSize:'14px'}}>
-            <LineChart data={paymentVolumeData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="name" stroke="#999" />
-              <YAxis stroke="#999" />
-              <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#00D9A5"
-                strokeWidth={2}
-                dot={{ fill: "#00D9A5", r: 4 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Error Tracking */}
-        <div className="chart-card">
-          <div className="chart-header-analytics">
-            <div>
-              <h3>Error Tracking</h3>
-              <h2 className="lasthours">Last 30 days</h2>
-            </div>
-            <div>
-              <p className="chart-subtitle">₹12.4L</p>
-              <span style={{ color: "red" }} className="trend-text">
-                +15.8% vs last week
-              </span>
-            </div>
-          </div>
-          <div className="error-chart-container">
-            <ResponsiveContainer width="50%" height={180}>
-              <PieChart>
-                <Pie
-                  data={errorTrackingData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={45}
-                  outerRadius={70}
-                  paddingAngle={2}
-                  dataKey="value"
+            <div className="dropdown-container">
+              <span className="dropdown-label">Category Filter</span>
+              <div className="dropdown-wrapper">
+                <select
+                  className="dropdown-select"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
                 >
-                  {errorTrackingData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  <option value="all">All Products</option>
+                  {uniqueCategories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
                   ))}
-                </Pie>
-              </PieChart>
+                </select>
+                <span className="dropdown-arrow">&#9662;</span>
+              </div>
+            </div>
+          </div>
+          <div className="chart-body-container">
+            <ResponsiveContainer width="100%" height={240}>
+              <BarChart
+                data={costBreakdownData}
+                margin={{ top: 15, right: 10, left: -25, bottom: 15 }}
+              >
+                <CartesianGrid vertical={false} stroke="#ECECF0" />
+                <XAxis
+                  dataKey="name"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={<CustomXAxisTick />}
+                  interval={0}
+                />
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  stroke="#9CA3AF"
+                  fontSize={11}
+                  domain={[0, "auto"]}
+                />
+                <Tooltip cursor={{ fill: "rgba(0,0,0,0.03)" }} />
+                <Bar dataKey="cost" fill="#000000" barSize={14} radius={[2, 2, 0, 0]} />
+              </BarChart>
             </ResponsiveContainer>
-            <div className="error-legend">
+          </div>
+        </div>
+
+        {/* Error Tracking Card */}
+        <div className="chart-card">
+          <div className="chart-header-container">
+            <div>
+              <h3 className="chart-title">Error Tracking</h3>
+              <p className="chart-subtitle-faint">Tracking failed transactions by API endpoint</p>
+            </div>
+            <div className="chart-header-right-stats">
+              <div className="stat-big-value">{totalFailed}</div>
+              <div
+                className="stat-percentage-change"
+                style={{ color: totalFailed > 0 ? "#FF4D4D" : "#00A63E" }}
+              >
+                {totalRequests > 0 ? ((totalFailed / totalRequests) * 100).toFixed(1) : 0}% failure rate
+              </div>
+            </div>
+          </div>
+          <div className="chart-body-container error-section-flex">
+            <div className="donut-chart-wrapper">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={errorTrackingData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={55}
+                    outerRadius={75}
+                    paddingAngle={4}
+                    dataKey="value"
+                  >
+                    {errorTrackingData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="error-legend-container">
               {errorTrackingData.map((error, index) => (
-                <div key={index} className="legend-item">
-                  <span
-                    className="legend-dot"
-                    style={{ backgroundColor: error.color }}
-                  ></span>
-                  <span className="legend-label">{error.name}</span>
-                  <span className="legend-value">{error.value}</span>
+                <div key={index} className="legend-row-item">
+                  <div className="legend-left-col">
+                    <span
+                      className="legend-bullet"
+                      style={{ backgroundColor: error.color }}
+                    ></span>
+                    <span className="legend-text-name">{error.name}</span>
+                  </div>
+                  <span className="legend-text-value">{error.value}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Usage by Endpoint */}
+        {/* Usage by Endpoint Card */}
         <div className="chart-card">
-          <div className="chart-header-analytics">
-            <h3>Usage by Endpoint</h3>
+          <div className="chart-header-container">
+            <div>
+              <h3 className="chart-title">Usage by Endpoint</h3>
+              <p className="chart-subtitle-faint">Percentage distribution of volume</p>
+            </div>
           </div>
-          <div className="endpoint-chart-container">
-            <ResponsiveContainer width="45%" height={180}>
-              <PieChart>
-                <Pie
-                  data={endpointUsageData}
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={70}
-                  dataKey="value"
-                  label={false}
-                >
-                  {endpointUsageData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="endpoint-legend">
+          <div className="chart-body-container endpoint-section-flex">
+            <div className="pie-chart-wrapper">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={endpointUsageData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={75}
+                    dataKey="value"
+                  >
+                    {endpointUsageData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="endpoint-grid-legend">
               {endpointUsageData.map((endpoint, index) => (
-                <div key={index} className="legend-item-horizontal">
+                <div key={index} className="grid-legend-item">
                   <span
-                    className="legend-dot"
+                    className="legend-bullet"
                     style={{ backgroundColor: endpoint.color }}
                   ></span>
-                  <span className="legend-label-horizontal">
-                    {endpoint.name} {Math.round((endpoint.value / 9220) * 100)}%
+                  <span className="grid-legend-text">
+                    {endpoint.name}: {endpoint.value}%
                   </span>
                 </div>
               ))}
@@ -315,83 +399,32 @@ const ViewAnalytics = () => {
           </div>
         </div>
 
-        {/* Top Endpoints */}
+        {/* Top Endpoint Card */}
         <div className="chart-card">
-          <div className="chart-header-analytics">
-            <h3>Top Endpoints</h3>
-          </div>
-          <div className="top-endpoints">
-            <div className="endpoint-item">
-              <div className="endpoint-info">
-                <span className="endpoint-path">/api/payments</span>
-                <div className="endpoint-bar">
-                  <div
-                    className="endpoint-bar-fill"
-                    style={{ width: "85%", backgroundColor: "#3B82F6" }}
-                  ></div>
-                </div>
-              </div>
-              <span className="endpoint-count">1,247</span>
-            </div>
-            <div className="endpoint-item">
-              <div className="endpoint-info">
-                <span className="endpoint-path">/api/users</span>
-                <div className="endpoint-bar">
-                  <div
-                    className="endpoint-bar-fill"
-                    style={{ width: "65%", backgroundColor: "#8B5CF6" }}
-                  ></div>
-                </div>
-              </div>
-              <span className="endpoint-count">892</span>
-            </div>
-            <div className="endpoint-item">
-              <div className="endpoint-info">
-                <span className="endpoint-path">/api/transactions</span>
-                <div className="endpoint-bar">
-                  <div
-                    className="endpoint-bar-fill"
-                    style={{ width: "50%", backgroundColor: "#10B981" }}
-                  ></div>
-                </div>
-              </div>
-              <span className="endpoint-count">656</span>
-            </div>
-            <div className="endpoint-item">
-              <div className="endpoint-info">
-                <span className="endpoint-path">/api/webhooks</span>
-                <div className="endpoint-bar">
-                  <div
-                    className="endpoint-bar-fill"
-                    style={{ width: "35%", backgroundColor: "#F59E0B" }}
-                  ></div>
-                </div>
-              </div>
-              <span className="endpoint-count">252</span>
+          <div className="chart-header-container">
+            <div>
+              <h3 className="chart-title">Top Endpoint</h3>
             </div>
           </div>
-        </div>
-
-        {/* Average Response Time */}
-        <div className="chart-card full-width">
-          <div className="chart-header-analytics">
-            <h3>Average Response Time</h3>
+          <div className="chart-body-container progress-list-wrapper">
+            {topEndpointsData.map((endpoint, index) => (
+              <div key={index} className="progress-row-item">
+                <div className="progress-row-header">
+                  <span className="endpoint-path-text">{endpoint.path}</span>
+                  <span className="endpoint-count-text">{endpoint.count}</span>
+                </div>
+                <div className="progress-track-bar">
+                  <div
+                    className="progress-fill-bar"
+                    style={{
+                      width: endpoint.width,
+                      backgroundColor: endpoint.color,
+                    }}
+                  ></div>
+                </div>
+              </div>
+            ))}
           </div>
-          <ResponsiveContainer width="100%" height={200}>
-            <LineChart data={responseTimeData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="name" stroke="#999" />
-              <YAxis stroke="#999" />
-              <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#3B82F6"
-                strokeWidth={2}
-                dot={{ fill: "#3B82F6", r: 4 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
         </div>
       </div>
     </div>

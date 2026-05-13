@@ -342,7 +342,7 @@ export const SERVICES_METADATA = [
     categoryId: "BUSINESS_COMPANY",
     label: "CIN Verification",
     config: {
-      apiUrl: { Method: 'Post', URLS: "client/business/Cin/verify", LiveUrl: `${KYC_BASE}/internal/business/Cin/verify` },
+      apiUrl: { Method: 'Post', URLS: "api/v1/client/business/Cin/verify", LiveUrl: `${KYC_BASE}/internal/business/Cin/verify` },
       title: { header: "CIN Verification", headerTitle: "Verify Corporate Identification Number", submitButton: 'Verify CIN' },
       inputParams: ["CIN"],
       isToken: true,
@@ -432,7 +432,7 @@ export const SERVICES_METADATA = [
     categoryId: "BUSINESS_COMPANY",
     label: "VERIFY DIN",
     config: {
-      apiUrl: { Method: 'Post', URLS: "client/business/din/verify", LiveUrl: `${KYC_BASE}/internal/business/din/verify` },
+      apiUrl: { Method: 'Post', URLS: "api/v1/client/business/din/verify", LiveUrl: `${KYC_BASE}/internal/business/din/verify` },
       title: { header: "VEFIFY DIN", headerTitle: "Verify DIN", submitButton: ' Verify din' },
       inputParams: ["dinNumber"],
       isToken: true,
