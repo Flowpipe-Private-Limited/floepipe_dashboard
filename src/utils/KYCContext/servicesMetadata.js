@@ -153,17 +153,17 @@ export const SERVICES_METADATA = [
     categoryId: "PAN_SERVICES",
     label: "Know FatherName WITH PAN",
     config: {
-      apiUrl: { Method: 'Post', URLS: "client/pan/panName/DobVerify", LiveUrl: `${KYC_BASE}/internal/pan/panName/DobVerify` },
+      apiUrl: { Method: 'Post', URLS: "client/pan/know/fatherName", LiveUrl: `${KYC_BASE}/internal/pan/know/fatherName` },
       title: { header: "KNOW FATHER NAME WITH PAN", headerTitle: "Know Father Name with pan Number", submitButton: 'submit pan' },
       inputParams: ["panNumber"],
       isToken: true,
       isMicro: 'KYC',
       isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/pan/panName/DobVerify' \\
+      exampleCurl: `curl --location '${KYC_BASE}/internal/pan/know/fatherName' \\
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "panNumber": "ABCDE1234F"}'`,
-      exampleResponse: apiExamples.find(e => e.name === "NM")?.examples[0]?.message || {}
+      exampleResponse: apiExamples.find(e => e.name === "PANFN")?.examples[0]?.message || {}
     }
   },
   {
@@ -342,7 +342,7 @@ export const SERVICES_METADATA = [
     categoryId: "BUSINESS_COMPANY",
     label: "CIN Verification",
     config: {
-      apiUrl: { Method: 'Post', URLS: "client/business/Cin/verify", LiveUrl: `${KYC_BASE}/internal/business/Cin/verify` },
+      apiUrl: { Method: 'Post', URLS: "api/v1/client/business/Cin/verify", LiveUrl: `${KYC_BASE}/internal/business/Cin/verify` },
       title: { header: "CIN Verification", headerTitle: "Verify Corporate Identification Number", submitButton: 'Verify CIN' },
       inputParams: ["CIN"],
       isToken: true,
@@ -432,7 +432,7 @@ export const SERVICES_METADATA = [
     categoryId: "BUSINESS_COMPANY",
     label: "VERIFY DIN",
     config: {
-      apiUrl: { Method: 'Post', URLS: "client/business/din/verify", LiveUrl: `${KYC_BASE}/internal/business/din/verify` },
+      apiUrl: { Method: 'Post', URLS: "api/v1/client/business/din/verify", LiveUrl: `${KYC_BASE}/internal/business/din/verify` },
       title: { header: "VEFIFY DIN", headerTitle: "Verify DIN", submitButton: ' Verify din' },
       inputParams: ["dinNumber"],
       isToken: true,
@@ -745,16 +745,17 @@ export const SERVICES_METADATA = [
     categoryId: "FACE_AI",
     label: "Face Match",
     config: {
-      apiUrl: { Method: 'Post', URLS: "client/face/match", LiveUrl: `${KYC_BASE}/internal/face/match` },
+      apiUrl: { Method: 'Post', URLS: "client/face/facematch", LiveUrl: `${KYC_BASE}/internal/face/facematch` },
       title: { header: "Face Match", headerTitle: "Match two faces for similarity", submitButton: 'Compare' },
-      inputParams: ["image1", "image2"],
+      inputFile: ["userImages", "aadhaarImages"],
+      isBase64:true,
       isToken: true,
       isMicro: 'KYC',
       isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/face/match' \\
+      exampleCurl: `curl --location '${KYC_BASE}/internal/face/facematch' \\
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
-        --data '{ "image1": "base64_string", "image2": "base64_string" }'`,
+        --data '{ "userImage": "base64_string", "aadhaarImage": "base64_string" }'`,
       exampleResponse: apiExamples.find(e => e.name === "FACE")?.examples[0]?.message || {}
     }
   },
@@ -1114,18 +1115,18 @@ export const SERVICES_METADATA = [
   },
 
   // Pre-configured for Sidebar Navigation
-  // { id: "recharge_operators", config: { apiUrl: { URLS: "/Operators", LiveUrl: `${RECHARGE_BASE}/Operators` }, title: { header: "Fetch Operators", submitButton: "Fetch" }, inputParams: ["mobileNumber"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
-  // { id: "recharge_plans", config: { apiUrl: { URLS: "/Plans", LiveUrl: `${RECHARGE_BASE}/Plans` }, title: { header: "Fetch Plans" }, inputParams: ["operatorcode", "circle"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
-  // { id: "recharge_offers", config: { apiUrl: { URLS: "/OffersPlans", LiveUrl: `${RECHARGE_BASE}/OffersPlans` }, title: { header: "Fetch Offers" }, inputParams: ["operator_code", "mobile_no"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
-  // { id: "recharge_recharge_url", config: { apiUrl: { URLS: "/RechargeURL", LiveUrl: `${RECHARGE_BASE}/RechargeURL` }, title: { header: "Recharge URL" }, inputParams: ["mobile", "amount"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
-  // { id: "recharge_old_plans", config: { apiUrl: { URLS: "/OldPlans", LiveUrl: `${RECHARGE_BASE}/OldPlans` }, title: { header: "Old Plans" }, inputParams: ["mobile"], isMicro: 'RECHARGE', isDisable: false, exampleResponse: {} } },
+  { id: "recharge_operators", config: { apiUrl: { Method: "Post", URLS: "/Operators", LiveUrl: `${RECHARGE_BASE}/Operators` }, title: { header: "Fetch Operators", headerTitle: "Fetch mobile operator details", submitButton: "Fetch Operators" }, inputParams: ["mobileNumber"], Inputvalues: ["9876543210"], isToken: true, isMicro: 'RECHARGE', isDisable: true, exampleCurl: `curl --location '${RECHARGE_BASE}/Operators' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobileNumber": "9876543210" }'`, exampleResponse: {} } },
+  { id: "recharge_plans", config: { apiUrl: { Method: "Post", URLS: "/Plans", LiveUrl: `${RECHARGE_BASE}/Plans` }, title: { header: "Fetch Plans", headerTitle: "Fetch recharge plans", submitButton: "Fetch Plans" }, inputParams: ["operatorcode", "circle"], Inputvalues: ["AT", "1"], isToken: true, isMicro: 'RECHARGE', isDisable: true, exampleCurl: `curl --location '${RECHARGE_BASE}/Plans' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "operatorcode": "AT", "circle": "1" }'`, exampleResponse: {} } },
+  { id: "recharge_offers", config: { apiUrl: { Method: "Post", URLS: "/OffersPlans", LiveUrl: `${RECHARGE_BASE}/OffersPlans` }, title: { header: "Fetch Offers", headerTitle: "Fetch special offers", submitButton: "Fetch Offers" }, inputParams: ["operator_code", "mobile_no"], Inputvalues: ["AT", "9876543210"], isToken: true, isMicro: 'RECHARGE', isDisable: true, exampleCurl: `curl --location '${RECHARGE_BASE}/OffersPlans' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "operator_code": "AT", "mobile_no": "9876543210" }'`, exampleResponse: {} } },
+  { id: "recharge_recharge_url", config: { apiUrl: { Method: "Post", URLS: "/RechargeURL", LiveUrl: `${RECHARGE_BASE}/RechargeURL` }, title: { header: "Recharge URL", headerTitle: "Initiate Recharge", submitButton: "Recharge" }, inputParams: ["mobile", "amount"], Inputvalues: ["9876543210", "100"], isToken: true, isMicro: 'RECHARGE', isDisable: true, exampleCurl: `curl --location '${RECHARGE_BASE}/RechargeURL' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobile": "9876543210", "amount": "100" }'`, exampleResponse: {} } },
+  { id: "recharge_old_plans", config: { apiUrl: { Method: "Post", URLS: "/OldPlans", LiveUrl: `${RECHARGE_BASE}/OldPlans` }, title: { header: "Old Plans", headerTitle: "Fetch old plans", submitButton: "Fetch Old Plans" }, inputParams: ["mobile"], Inputvalues: ["9876543210"], isToken: true, isMicro: 'RECHARGE', isDisable: true, exampleCurl: `curl --location '${RECHARGE_BASE}/OldPlans' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobile": "9876543210" }'`, exampleResponse: {} } },
   
-  // { id: "bbps_category", config: { apiUrl: { URLS: "/billerInfo/Category", LiveUrl: `${BBPS_BASE}/billerInfo/Category` }, title: { header: "Fetch Category" }, inputParams: [], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
-  // { id: "bbps_biller_info", config: { apiUrl: { URLS: "/billerInfo/Biller", LiveUrl: `${BBPS_BASE}/billerInfo/Biller` }, title: { header: "Fetch Biller Info" }, inputParams: ["billerId"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
-  // { id: "bbps_bill_fetch", config: { apiUrl: { URLS: "/billFetch", LiveUrl: `${BBPS_BASE}/billFetch` }, title: { header: "Bill Fetch" }, inputParams: ["customerNumber"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
-  // { id: "bbps_bill_pay", config: { apiUrl: { URLS: "/billPay", LiveUrl: `${BBPS_BASE}/billPay` }, title: { header: "Bill Pay" }, inputParams: ["billId"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
-  // { id: "bbps_bill_validation", config: { apiUrl: { URLS: "/billValidation", LiveUrl: `${BBPS_BASE}/billValidation` }, title: { header: "Bill Validation" }, inputParams: ["billId"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
-  // { id: "bbps_quick_pay", config: { apiUrl: { URLS: "/quickPay", LiveUrl: `${BBPS_BASE}/quickPay` }, title: { header: "Quick Pay" }, inputParams: ["mobile"], isMicro: 'BBPS', isDisable: true, exampleResponse: {} } },
+  { id: "bbps_category", config: { apiUrl: { Method: "Get", URLS: "/billerInfo/Category", LiveUrl: `${BBPS_BASE}/billerInfo/Category` }, title: { header: "Fetch Category", headerTitle: "Fetch all BBPS categories", submitButton: "Fetch Category" }, inputParams: [], Inputvalues: [], isToken: true, isMicro: 'BBPS', isDisable: true, exampleCurl: `curl --location '${BBPS_BASE}/billerInfo/Category' \\\n--header 'secret_token: {{secret_token}}'`, exampleResponse: {} } },
+  { id: "bbps_biller_info", config: { apiUrl: { Method: "Get", URLS: "/billerInfo/Biller", LiveUrl: `${BBPS_BASE}/billerInfo/Biller` }, title: { header: "Fetch Biller Info", headerTitle: "Fetch biller information", submitButton: "Fetch Biller Info" }, inputParams: ["billerId"], Inputvalues: ["XYZ"], isToken: true, isMicro: 'BBPS', isDisable: true, exampleCurl: `curl --location '${BBPS_BASE}/billerInfo/Biller?billerId=XYZ' \\\n--header 'secret_token: {{secret_token}}'`, exampleResponse: {} } },
+  { id: "bbps_bill_fetch", config: { apiUrl: { Method: "Get", URLS: "/billFetch", LiveUrl: `${BBPS_BASE}/billFetch` }, title: { header: "Bill Fetch", headerTitle: "Fetch bill details", submitButton: "Fetch Bill" }, inputParams: ["customerNumber"], Inputvalues: ["9876543210"], isToken: true, isMicro: 'BBPS', isDisable: true, exampleCurl: `curl --location '${BBPS_BASE}/billFetch?customerNumber=9876543210' \\\n--header 'secret_token: {{secret_token}}'`, exampleResponse: {} } },
+  { id: "bbps_bill_pay", config: { apiUrl: { Method: "Post", URLS: "/billPay", LiveUrl: `${BBPS_BASE}/billPay` }, title: { header: "Bill Pay", headerTitle: "Pay a fetched bill", submitButton: "Pay Bill" }, inputParams: ["billId"], Inputvalues: ["BILL123"], isToken: true, isMicro: 'BBPS', isDisable: true, exampleCurl: `curl --location '${BBPS_BASE}/billPay' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "billId": "BILL123" }'`, exampleResponse: {} } },
+  { id: "bbps_bill_validation", config: { apiUrl: { Method: "Post", URLS: "/billValidation", LiveUrl: `${BBPS_BASE}/billValidation` }, title: { header: "Bill Validation", headerTitle: "Validate bill details", submitButton: "Validate Bill" }, inputParams: ["billId"], Inputvalues: ["BILL123"], isToken: true, isMicro: 'BBPS', isDisable: true, exampleCurl: `curl --location '${BBPS_BASE}/billValidation' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "billId": "BILL123" }'`, exampleResponse: {} } },
+  { id: "bbps_quick_pay", config: { apiUrl: { Method: "Post", URLS: "/quickPay", LiveUrl: `${BBPS_BASE}/quickPay` }, title: { header: "Quick Pay", headerTitle: "Quickly pay a bill", submitButton: "Quick Pay" }, inputParams: ["mobile"], Inputvalues: ["9876543210"], isToken: true, isMicro: 'BBPS', isDisable: true, exampleCurl: `curl --location '${BBPS_BASE}/quickPay' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobile": "9876543210" }'`, exampleResponse: {} } },
 
   // 12. Geo & Location
   {

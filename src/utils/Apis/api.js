@@ -208,7 +208,8 @@ const ApiVerification = (isMicro, URLS, data, token, method = "Post") => {
     return apiClient.post(finalURL, data, { headers });
   }
 };
-const fetchPublickey = () => kycClient.get(`api/v1/ApiModuels/key/Publickey`);
+const fetchPublickey = () =>
+  kycApiClient.get(`api/v1/ApiModuels/key/Publickey`);
 const handlieFileUpload = (data) =>
   kycApiClient.post(`/client/image/blur_Check`, data, {
     headers: {

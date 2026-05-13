@@ -26,454 +26,508 @@ export const ERROR_RESPONSES = {
 
 export const apiExamples = [
   {
-    name: "PAN",
-    examples: [
+    "name": "PAN",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            PAN: "ABCDE1234F",
-            Name: "RAM BABU",
-            PAN_Status: "VALID",
-            PAN_Holder_Type: "Person",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "PAN": "ABCDE1234F",
+            "Name": "RAM BABU",
+            "PAN_Status": "VALID",
+            "PAN_Holder_Type": "Person"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "PAN_DIRECTOR",
-    examples: [
+    "name": "PAN_DIRECTOR",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: { din: "ABCDEXXXXXXXX", name: "RAM" },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "din": "ABCDEXXXXXXXX",
+            "name": "RAM"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "PAN_TO_GST",
-    examples: [
+    "name": "PAN_TO_GST",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: { gstin: "ABCDXXXXXXXX", authStatus: "", stateCd: "" },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "gstin": "ABCDXXXXXXXX",
+            "authStatus": "",
+            "stateCd": ""
+          }
+        }
+      }
+    ]
   },
   {
-    name: "PTA",
-    examples: [
+    "name": "PTA",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            code: 200,
-            message: "Data Found Successfully.",
-            result: { aadhaar: "53XXXXXXXX11" },
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "code": 200,
+            "message": "Data Found Successfully.",
+            "result": {
+              "aadhaar": "53XXXXXXXX11"
+            }
+          }
+        }
+      }
+    ]
   },
   {
-    name: "NM",
-    examples: [
+    "name": "NM",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            firstName: "SAI BABA",
-            secondName: "RAM BABU",
-            result: 100,
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "firstName": "SAI BABA",
+            "secondName": "RAM BABU",
+            "result": 100
+          }
+        }
+      }
+    ]
   },
   {
-    name: "FCV",
-    examples: [
+    "name": "PANFN",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            card_number: "7854XXXXXXXX8569",
-            is_valid: true,
-            issuer_info: {
-              Brand: "visa",
-              Category: "platinum/Business",
-              CountryName: "India",
-              Issuer: "Sbi Cards And Payment Services, Ltd.",
-              Type: "Credit/Debit",
-              isoCode2: "In",
-              isoCode3: "Ind",
-            },
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "additional_check": [],
+            "category": "",
+            "client_id": "",
+            "dob": "",
+            "dob_check": false,
+            "dob_verified": false,
+            "father_name": "",
+            "full_name": "",
+            "less_info": false,
+            "pan_number": ""
+          }
+        }
+      }
+    ]
   },
   {
-    name: "BIN",
-    examples: [
+    "name": "FCV",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            Brand: "visa",
-            Category: "platinum/Business",
-            CountryName: "India",
-            Issuer: "Sbi Cards And Payment Services, Ltd.",
-            Type: "Credit/Debit",
-            isoCode2: "In",
-            isoCode3: "Ind",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "card_number": "7854XXXXXXXX8569",
+            "is_valid": true,
+            "issuer_info": {
+              "Brand": "visa",
+              "Category": "platinum/Business",
+              "CountryName": "India",
+              "Issuer": "Sbi Cards And Payment Services, Ltd.",
+              "Type": "Credit/Debit",
+              "isoCode2": "In",
+              "isoCode3": "Ind"
+            }
+          }
+        }
+      }
+    ]
   },
   {
-    name: "AVI",
-    examples: [
+    "name": "BIN",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "DigiLocker link generate successfully.",
-          transId: "TS-1766728568969",
-          ts_trans_id: "PX-PBJ-340999",
-          link: "https://www.truthscreen.com/eaadhaarDigilocker/dgl_auth_validate/MzY5MzAwMw==",
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "Brand": "visa",
+            "Category": "platinum/Business",
+            "CountryName": "India",
+            "Issuer": "Sbi Cards And Payment Services, Ltd.",
+            "Type": "Credit/Debit",
+            "isoCode2": "In",
+            "isoCode3": "Ind"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "AVS",
-    examples: [
+    "name": "AVI",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            success: true,
-            message: "Aadhaar retrieved and verified successfully",
-            data: {
-              status: 1,
-              msg: "Digilocker status API",
-              data: {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "transId": "TS-1766728568969",
+            "ts_trans_id": "PX-PBJ-340999",
+            "link": "https://www.truthscreen.com/eaadhaarDigilocker/dgl_auth_validate/MzY5MzAwMw=="
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "AVS",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "success": true,
+            "message": "Aadhaar retrieved and verified successfully",
+            "data": {
+              "status": 1,
+              "msg": "Digilocker status API",
+              "data": {
                 "DV-ABC-123456": {
-                  final_status: "Completed",
-                  msg: [
+                  "final_status": "Completed",
+                  "msg": [
                     {
-                      doc_type: "ADHAR",
-                      doc_name: "Aadhaar Card",
-                      data: {
-                        name: "Ravi Kumar",
-                        dob: "01-01-1995",
-                        aadhar_number: "xxxxxxxx1234",
-                        gender: "M",
-                        address: {
-                          city: "Mumbai Suburban",
-                          state: "Maharashtra",
-                          pc: "400069",
-                        },
-                      },
-                    },
-                  ],
-                },
-              },
-            },
-          },
-        },
-      },
-    ],
+                      "doc_type": "ADHAR",
+                      "doc_name": "Aadhaar Card",
+                      "data": {
+                        "name": "Ravi Kumar",
+                        "dob": "01-01-1995",
+                        "aadhar_number": "xxxxxxxx1234",
+                        "gender": "M",
+                        "address": {
+                          "city": "Mumbai Suburban",
+                          "state": "Maharashtra",
+                          "pc": "400069"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
   },
   {
-    name: "MOG",
-    examples: [
+    "name": "MOG",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            message: "OTP sent to 91XXXXXX78",
-            success: "Otp sent to Your Mobile Number 91XXXXXX78",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "message": "OTP sent to 91XXXXXX78",
+            "success": "Otp sent to Your Mobile Number 91XXXXXX78"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "MOV",
-    examples: [
+    "name": "MOV",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            message: "Mobile Number 91XXXXXX78 is Verified with OTP 23XX",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "message": "Mobile Number 91XXXXXX78 is Verified with OTP 23XX"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "GST",
-    examples: [
+    "name": "GST",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          data: {
-            gstinNumber: "11AAAAA1111A1Z1",
-            companyName: "ABC PRIVATE LIMITED",
-            taxpayer_type: "Regular",
-            primary_business_address: {
-              city: "Demo City",
-              pincode: "123456",
-              full_address:
-                "Demo Building, 12345, Demo Street, Demo Location, Demo District, DemoState - 123456",
-            },
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "gstinNumber": "11AAAAA1111A1Z1",
+            "companyName": "ABC PRIVATE LIMITED",
+            "taxpayer_type": "Regular",
+            "primary_business_address": {
+              "city": "Demo City",
+              "pincode": "123456",
+              "full_address": "Demo Building, 12345, Demo Street, Demo Location, Demo District, DemoState - 123456"
+            }
+          }
+        }
+      }
+    ]
   },
   {
-    name: "FACE",
-    examples: [
+    "name": "FACE",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          httpCode: 200,
-          data: {
-            result: "Clear",
-          },
-          message: "Valid",
-          success: true,
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "result": "Clear"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "SHOP",
-    examples: [
+    "name": "SHOP",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            registrationNumber: "registrationNumber",
-            shop_name: "GOODWILL ENTERPRISES",
-            status: "Active",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "registrationNumber": "registrationNumber",
+            "shop_name": "GOODWILL ENTERPRISES",
+            "status": "Active"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "CIN",
-    examples: [
+    "name": "CIN",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: {
-            CompanyCharge: [],
-            MasterDirector: [],
-            active_compliance: "ACTIVE Compliant",
-            activity_code: "62",
-            activity_description:
-              "Computer programming, consultancy and related activities",
-            address_books_of_account_paper_maintained: "-",
-            address_city: "",
-            address_country: "India",
-            address_line1: null,
-            address_line2: null,
-            address_pincode: "",
-            address_state: "Telangana",
-            api_status: "2",
-            authorised_capital: "",
-            cin: "XXXXXXXXXXXXXXX5856",
-            class_of_company: "Private",
-            company_category: "Company limited by shares",
-            company_charge_new_status: "0",
-            company_charges_status: "0",
-            company_name: "ABC PRIVATE LIMITED",
-            company_pan: "XXXXXXX5M",
-            company_status: "Active",
-            company_sub_category: "government company",
-            company_type: "1",
-            company_updated_date: "2020-04-14 18:20:55",
-            country_of_incorporation: "Indian",
-            created: "2020-02-21 10:16:58",
-            created_by: null,
-            date_of_annual_return_filing: null,
-            date_of_balance_sheet: "2020-03-31",
-            date_of_incorporation: "2020-06-24",
-            date_of_last_agm: "2020-09-30",
-            defaulting_status: null,
-            description_of_main_division:
-              "COMPUTER PROGRAMMING, CONSULTANCYAND RELATEDACTIVITIES",
-            details: null,
-            director_status: "0",
-            email_id: "XYZ@gmail.com",
-            end_date_for_accounts_solvency_filed: null,
-            end_date_for_annual_returned_filed: null,
-            fax: null,
-            foreign_company_with_share_capital: null,
-            global_location_number: null,
-            id: "",
-            index_charges_status: null,
-            index_of_charges_status: "0",
-            is_gstin_pan_sync: "1",
-            is_lei_sync: "0",
-            is_redis_sync: "20",
-            line_of_business: null,
-            listing_status: null,
-            lot: null,
-            main_division_of_business: null,
-            master_id: null,
-            migrate_status: null,
-            modified: "2024-04-14 18:20:55",
-            modified_by: null,
-            no_of_members: "",
-            no_of_patterns: null,
-            no_of_present_directors: "0",
-            number_of_designated_partners: null,
-            other_address: null,
-            paid_up_capital: "100000",
-            previous_company_firm_details: null,
-            previous_firm: null,
-            product_services: null,
-            registered_address: "",
-            registered_office: null,
-            registration_no: "",
-            roc_code: "",
-            roc_id: null,
-            signatory_document_status: null,
-            signatory_modified: null,
-            status: "1",
-            sum_of_active_charges: null,
-            sum_of_satisfied_sharges: null,
-            suspended_at_stock_exchange: null,
-            suspended_stock_exchange: "N",
-            telephone: null,
-            total_obligation_of_contribution: null,
-            type_of_company: null,
-            type_of_office: null,
-            update_btn_info: "2",
-            update_status: null,
-            website: null,
-            whether_listed_or_not: "No",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "CompanyCharge": [],
+            "MasterDirector": [],
+            "active_compliance": "ACTIVE Compliant",
+            "activity_code": "62",
+            "activity_description": "Computer programming, consultancy and related activities",
+            "address_books_of_account_paper_maintained": "-",
+            "address_city": "",
+            "address_country": "India",
+            "address_line1": null,
+            "address_line2": null,
+            "address_pincode": "",
+            "address_state": "Telangana",
+            "api_status": "2",
+            "authorised_capital": "",
+            "cin": "XXXXXXXXXXXXXXX5856",
+            "class_of_company": "Private",
+            "company_category": "Company limited by shares",
+            "company_charge_new_status": "0",
+            "company_charges_status": "0",
+            "company_name": "ABC PRIVATE LIMITED",
+            "company_pan": "XXXXXXX5M",
+            "company_status": "Active",
+            "company_sub_category": "government company",
+            "company_type": "1",
+            "company_updated_date": "2020-04-14 18:20:55",
+            "country_of_incorporation": "Indian",
+            "created": "2020-02-21 10:16:58",
+            "created_by": null,
+            "date_of_annual_return_filing": null,
+            "date_of_balance_sheet": "2020-03-31",
+            "date_of_incorporation": "2020-06-24",
+            "date_of_last_agm": "2020-09-30",
+            "defaulting_status": null,
+            "description_of_main_division": "COMPUTER PROGRAMMING, CONSULTANCYAND RELATEDACTIVITIES",
+            "details": null,
+            "director_status": "0",
+            "email_id": "XYZ@gmail.com",
+            "end_date_for_accounts_solvency_filed": null,
+            "end_date_for_annual_returned_filed": null,
+            "fax": null,
+            "foreign_company_with_share_capital": null,
+            "global_location_number": null,
+            "id": "",
+            "index_charges_status": null,
+            "index_of_charges_status": "0",
+            "is_gstin_pan_sync": "1",
+            "is_lei_sync": "0",
+            "is_redis_sync": "20",
+            "line_of_business": null,
+            "listing_status": null,
+            "lot": null,
+            "main_division_of_business": null,
+            "master_id": null,
+            "migrate_status": null,
+            "modified": "2024-04-14 18:20:55",
+            "modified_by": null,
+            "no_of_members": "",
+            "no_of_patterns": null,
+            "no_of_present_directors": "0",
+            "number_of_designated_partners": null,
+            "other_address": null,
+            "paid_up_capital": "100000",
+            "previous_company_firm_details": null,
+            "previous_firm": null,
+            "product_services": null,
+            "registered_address": "",
+            "registered_office": null,
+            "registration_no": "",
+            "roc_code": "",
+            "roc_id": null,
+            "signatory_document_status": null,
+            "signatory_modified": null,
+            "status": "1",
+            "sum_of_active_charges": null,
+            "sum_of_satisfied_sharges": null,
+            "suspended_at_stock_exchange": null,
+            "suspended_stock_exchange": "N",
+            "telephone": null,
+            "total_obligation_of_contribution": null,
+            "type_of_company": null,
+            "type_of_office": null,
+            "update_btn_info": "2",
+            "update_status": null,
+            "website": null,
+            "whether_listed_or_not": "No"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "EMPLOYUANBASIC",
-    examples: [
+    "name": "EMPLOYUANBASIC",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          httpCode: 200,
-          data: {
-            uan: "",
-            result: [
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "uan": "",
+            "result": [
               {
-                DateOfExitEpf: "",
-                Doj: "",
+                "DateOfExitEpf": "",
+                "Doj": "",
                 "Establishment Name": "",
-                MemberId: "",
+                "MemberId": "",
                 "father or Husband Name": "",
-                name: "",
-                uan: "",
-              },
-            ],
-          },
-          message: "Valid",
-          success: true,
-        },
-      },
-    ],
+                "name": "",
+                "uan": ""
+              }
+            ]
+          }
+        }
+      }
+    ]
   },
   {
-    name: "CINBASECOMPANYSEARCH",
-    examples: [
+    "name": "CINBASECOMPANYSEARCH",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: [
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": [
             {
-              cin: "",
-              company_name: "XYZ PRIVATE LIMITED",
-            },
-          ],
-        },
-      },
-    ],
+              "cin": "",
+              "company_name": "XYZ PRIVATE LIMITED"
+            }
+          ]
+        }
+      }
+    ]
   },
   {
-    name: "COMPANYSEARCH",
-    examples: [
+    "name": "COMPANYSEARCH",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: [
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": [
             {
-              id: "12327498",
-              cin: "XXXXXXXXXXXXXX856",
-              city: "",
-              email: "XYZ@gmail.com",
-              state: "Telangana",
-              status: "Active",
-              country: "India",
-              pincode: "",
-              address1: "",
-              address2: null,
-              company_name: "ABC PRIVATE LIMITED",
-              directorDetail: [],
-              date_of_incorporation: "",
-            },
-          ],
-        },
-      },
-    ],
+              "id": "12327498",
+              "cin": "XXXXXXXXXXXXXX856",
+              "city": "",
+              "email": "XYZ@gmail.com",
+              "state": "Telangana",
+              "status": "Active",
+              "country": "India",
+              "pincode": "",
+              "address1": "",
+              "address2": null,
+              "company_name": "ABC PRIVATE LIMITED",
+              "directorDetail": [],
+              "date_of_incorporation": ""
+            }
+          ]
+        }
+      }
+    ]
   },
   {
-    name: "UDAM",
-    examples: [
+    "name": "UDAM",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: {
-            udyamdata: {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "udyamdata": {
               "DIC Name": "HYDERABAD",
               "Date of Commencement of Production/Business": "28/08/2022",
               "Date of Incorporation": "28/08/2022",
@@ -482,725 +536,813 @@ export const apiExamples = [
                 {
                   "Classification Date": "23/09/2023",
                   "Classification Year": "2023-24",
-                  "Enterprise Type": "Micro",
-                },
+                  "Enterprise Type": "Micro"
+                }
               ],
               "MSME-DFO": "HYDERABAD",
               "Major Activity": "Services",
               "Name of Enterprise": "XYZ SERVICES",
               "National Industry Classification Code(S)": [
                 {
-                  Activity: "Services",
-                  Date: "23/09/2023",
+                  "Activity": "Services",
+                  "Date": "23/09/2023",
                   "Nic 2 Digit": "",
                   "Nic 4 Digit": "",
-                  "Nic 5 Digit": "",
-                },
+                  "Nic 5 Digit": ""
+                }
               ],
               "Official address of Enterprise": {
-                Block: "0",
-                City: "Hyderabad",
-                District: "HYDERABAD",
-                Email: "XYZ@gmail.com",
+                "Block": "0",
+                "City": "Hyderabad",
+                "District": "HYDERABAD",
+                "Email": "XYZ@gmail.com",
                 "Flat/Door/Block No": "",
-                Mobile: "XXXXXXXX42",
+                "Mobile": "XXXXXXXX42",
                 "Name of Premises/ Building": "",
-                Pin: "",
+                "Pin": "",
                 "Road/Street/Lane": "",
-                State: "TELANGANA",
-                "Village/Town": "",
+                "State": "TELANGANA",
+                "Village/Town": ""
               },
               "Organisation Type": "Proprietary",
               "Social Category": "",
               "Type of Enterprise": "",
               "Unit(s) Details": [
                 {
-                  Block: "0",
-                  Building: "",
-                  City: "Hyderabad",
-                  District: "HYDERABAD",
-                  Flat: "",
-                  Pin: "",
-                  Road: "",
-                  SN: 1,
-                  State: "TELANGANA",
-                  Unit_Name: "",
-                  "Village/Town": "",
-                },
-              ],
+                  "Block": "0",
+                  "Building": "",
+                  "City": "Hyderabad",
+                  "District": "HYDERABAD",
+                  "Flat": "",
+                  "Pin": "",
+                  "Road": "",
+                  "SN": 1,
+                  "State": "TELANGANA",
+                  "Unit_Name": "",
+                  "Village/Town": ""
+                }
+              ]
             },
-            udyam: "",
-          },
-        },
-      },
-    ],
+            "udyam": ""
+          }
+        }
+      }
+    ]
   },
   {
-    name: "DIN",
-    examples: [
+    "name": "DIN",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: {
-            address: "",
-            companyDetail: [
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "address": "",
+            "companyDetail": [
               {
-                cin: "XXXXXXXXXX6856",
-                company_address: "",
-                company_category: "",
-                company_name: "XYZ PRIVATE LIMITED",
-                date_of_incorporation: "2024-06-24",
-                email_id: "ABC@gmail.com",
-                last_updated: "",
-                roc_code: "",
-                status: "Active",
-              },
+                "cin": "XXXXXXXXXX6856",
+                "company_address": "",
+                "company_category": "",
+                "company_name": "XYZ PRIVATE LIMITED",
+                "date_of_incorporation": "2024-06-24",
+                "email_id": "ABC@gmail.com",
+                "last_updated": "",
+                "roc_code": "",
+                "status": "Active"
+              }
             ],
-            din: "",
-            name: "",
-          },
-        },
-      },
-    ],
+            "din": "",
+            "name": ""
+          }
+        }
+      }
+    ]
   },
   {
-    name: "GSTIN",
-    examples: [
+    "name": "GSTIN",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: {
-            AdministrativeOffice: "",
-            AnnualAggregateTurnover: "",
-            ConstitutionOfBusiness: "Private Limited Company",
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "AdministrativeOffice": "",
+            "AnnualAggregateTurnover": "",
+            "ConstitutionOfBusiness": "Private Limited Company",
             "Date of Cancellation": "NA",
             "Date of registration": "01/03/2021",
             "GSTIN / UIN Status": "Active",
             "GSTIN/ UIN": "",
-            GrossTotalIncome: "",
+            "GrossTotalIncome": "",
             "Legal Name of Business": "XYZ PRIVATE LIMITED",
-            NatureOfBusinessActivities: "Supplier of Services",
-            NatureOfCoreBusinessActivity: "",
-            OtherOffice: "",
-            PercentageOfTaxPaymentInCash: "NA",
+            "NatureOfBusinessActivities": "Supplier of Services",
+            "NatureOfCoreBusinessActivity": "",
+            "OtherOffice": "",
+            "PercentageOfTaxPaymentInCash": "NA",
             "Taxpayer Type": "Regular",
             "Trade Name": "XYZ PRIVATE LIMITED",
-            WhetherAadhaarAuthenticated: "Yes",
+            "WhetherAadhaarAuthenticated": "Yes",
             "WhetherE-KYCVerified": "Not Applicable",
-            field_visit_conducted: "No",
-            filingData: {
-              GSTR1: [
+            "field_visit_conducted": "No",
+            "filingData": {
+              "GSTR1": [
                 {
-                  DateOfFiling: "22/04/2024",
-                  FinancialYear: "2023-2024",
-                  ModeOfFiling: "ONLINE",
-                  ReturnType: "GSTR1",
-                  Status: "Filed",
-                  TaxPeriod: "March",
-                },
-              ],
+                  "DateOfFiling": "22/04/2024",
+                  "FinancialYear": "2023-2024",
+                  "ModeOfFiling": "ONLINE",
+                  "ReturnType": "GSTR1",
+                  "Status": "Filed",
+                  "TaxPeriod": "March"
+                }
+              ]
             },
-            goods_n_service: {
-              goods: null,
-              services: [],
+            "goods_n_service": {
+              "goods": null,
+              "services": []
             },
-            placeOfBusinessData: [],
-            proprietor_name: [],
-          },
-        },
-      },
-    ],
+            "placeOfBusinessData": [],
+            "proprietor_name": []
+          }
+        }
+      }
+    ]
   },
   {
-    name: "PANUSINGGSTIN",
-    examples: [
+    "name": "PANUSINGGSTIN",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: {
-            GSTIN: "",
-            LastUpdate: "",
-            Name: "XYZ PRIVATE LIMITED",
-            NameOnTheCard: "  XYZ PRIVATE LIMITED",
-            PanNumber: "XXXXXXXX1C",
-            STATUS: "Active",
-            StatusDescription: "Existing and Valid",
-            panHolderStatusType: "Company",
-            source_id: "",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "GSTIN": "",
+            "LastUpdate": "",
+            "Name": "XYZ PRIVATE LIMITED",
+            "NameOnTheCard": "  XYZ PRIVATE LIMITED",
+            "PanNumber": "XXXXXXXX1C",
+            "STATUS": "Active",
+            "StatusDescription": "Existing and Valid",
+            "panHolderStatusType": "Company",
+            "source_id": ""
+          }
+        }
+      }
+    ]
   },
   {
-    name: "GSTINVIEWTRACK",
-    examples: [
+    "name": "GSTINVIEWTRACK",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: [
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": [
             {
-              address: "",
-              addressMatchPercentage: 100,
-              advocateName: null,
-              bothMatchPercentage: null,
-              caseActType: null,
-              caseCourtDetails: "",
-              caseId: "",
-              caseSection: null,
-              case_code: "",
-              case_disposed_date: "",
-              category: "Criminal",
-              courtDistid: "2",
-              courtId: null,
-              courtStateid: "29",
-              data_source: "DC",
-              fatherPercentage: null,
-              flagged_address: 1,
-              id: "",
-              link: "",
-              name: "",
-              nameMatchPercentage: "",
-              partyAddress_highlighted: "",
-              partyDistid: "2",
-              partyDistname: "hyderabad",
-              partyFather: null,
-              partyId: "",
-              partyName_highlighted: "",
-              partyStateid: "29",
-              partyStatename: "telangana",
-              partyType: "Petitioner",
-              query_type: "",
-              rank: 1,
-              registration_year: "2017",
-              score: 96.97,
-              solr_source: "",
-              stageOfCase: "hearing",
-              weightedPercentage: 96.97,
-            },
-          ],
-        },
-      },
-    ],
+              "address": "",
+              "addressMatchPercentage": 100,
+              "advocateName": null,
+              "bothMatchPercentage": null,
+              "caseActType": null,
+              "caseCourtDetails": "",
+              "caseId": "",
+              "caseSection": null,
+              "case_code": "",
+              "case_disposed_date": "",
+              "category": "Criminal",
+              "courtDistid": "2",
+              "courtId": null,
+              "courtStateid": "29",
+              "data_source": "DC",
+              "fatherPercentage": null,
+              "flagged_address": 1,
+              "id": "",
+              "link": "",
+              "name": "",
+              "nameMatchPercentage": "",
+              "partyAddress_highlighted": "",
+              "partyDistid": "2",
+              "partyDistname": "hyderabad",
+              "partyFather": null,
+              "partyId": "",
+              "partyName_highlighted": "",
+              "partyStateid": "29",
+              "partyStatename": "telangana",
+              "partyType": "Petitioner",
+              "query_type": "",
+              "rank": 1,
+              "registration_year": "2017",
+              "score": 96.97,
+              "solr_source": "",
+              "stageOfCase": "hearing",
+              "weightedPercentage": 96.97
+            }
+          ]
+        }
+      }
+    ]
   },
   {
-    name: "GSTINTAXPAYER",
-    examples: [
+    "name": "GSTINTAXPAYER",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          httpCode: 200,
-          data: {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
             "Principal Place of Business Address": null,
-            address: {
-              building_name: "",
-              door_number: "",
-              floor_number: "",
-              lattitude: "",
-              location: "",
-              longitude: "",
-              pin_code: "",
-              state_name: "",
-              street: "",
+            "address": {
+              "building_name": "",
+              "door_number": "",
+              "floor_number": "",
+              "lattitude": "",
+              "location": "",
+              "longitude": "",
+              "pin_code": "",
+              "state_name": "",
+              "street": ""
             },
-            centre_jurisdiction: "",
-            centre_jurisdiction_code: "",
-            constitution_of_business: "",
-            date_of_cancellation: "",
-            date_of_registration: "",
-            frequency_type: "MONTHLY",
-            gstin: "",
-            gstin_status: "Active",
-            last_updated_date: "",
-            legal_name_of_business: "",
-            nature_of_pricipal_place_of_business: "",
-            state_jurisdiction: "",
-            state_jurisdiction_code: "",
-            taxpayer_type: "",
-            trade_name: "",
-            gstinNumber: "",
-          },
-          message: "Valid",
-          success: true,
-        },
-      },
-    ],
+            "centre_jurisdiction": "",
+            "centre_jurisdiction_code": "",
+            "constitution_of_business": "",
+            "date_of_cancellation": "",
+            "date_of_registration": "",
+            "frequency_type": "MONTHLY",
+            "gstin": "",
+            "gstin_status": "Active",
+            "last_updated_date": "",
+            "legal_name_of_business": "",
+            "nature_of_pricipal_place_of_business": "",
+            "state_jurisdiction": "",
+            "state_jurisdiction_code": "",
+            "taxpayer_type": "",
+            "trade_name": "",
+            "gstinNumber": ""
+          }
+        }
+      }
+    ]
   },
   {
-    name: "MOP",
-    examples: [
+    "name": "MOP",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: [
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": [
             {
-              address: "",
-              addressMatchPercentage: 100,
-              advocateName: null,
-              bothMatchPercentage: null,
-              caseActType: null,
-              caseCourtDetails: "",
-              caseId: "",
-              caseSection: null,
-              case_code: "",
-              case_disposed_date: "",
-              category: "Criminal",
-              courtDistid: "2",
-              courtId: null,
-              courtStateid: "29",
-              data_source: "DC",
-              fatherPercentage: null,
-              flagged_address: 1,
-              id: "",
-              link: "",
-              name: "",
-              nameMatchPercentage: "",
-              partyAddress_highlighted: "",
-              partyDistid: "2",
-              partyDistname: "hyderabad",
-              partyFather: null,
-              partyId: "",
-              partyName_highlighted: "",
-              partyStateid: "29",
-              partyStatename: "telangana",
-              partyType: "Petitioner",
-              query_type: "",
-              rank: 1,
-              registration_year: "2017",
-              score: 96.97,
-              solr_source: "",
-              stageOfCase: "hearing",
-              weightedPercentage: 96.97,
-            },
-          ],
-        },
-      },
-    ],
+              "address": "",
+              "addressMatchPercentage": 100,
+              "advocateName": null,
+              "bothMatchPercentage": null,
+              "caseActType": null,
+              "caseCourtDetails": "",
+              "caseId": "",
+              "caseSection": null,
+              "case_code": "",
+              "case_disposed_date": "",
+              "category": "Criminal",
+              "courtDistid": "2",
+              "courtId": null,
+              "courtStateid": "29",
+              "data_source": "DC",
+              "fatherPercentage": null,
+              "flagged_address": 1,
+              "id": "",
+              "link": "",
+              "name": "",
+              "nameMatchPercentage": "",
+              "partyAddress_highlighted": "",
+              "partyDistid": "2",
+              "partyDistname": "hyderabad",
+              "partyFather": null,
+              "partyId": "",
+              "partyName_highlighted": "",
+              "partyStateid": "29",
+              "partyStatename": "telangana",
+              "partyType": "Petitioner",
+              "query_type": "",
+              "rank": 1,
+              "registration_year": "2017",
+              "score": 96.97,
+              "solr_source": "",
+              "stageOfCase": "hearing",
+              "weightedPercentage": 96.97
+            }
+          ]
+        }
+      }
+    ]
   },
   {
-    name: "UDYAM",
-    examples: [
+    "name": "UDYAM",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            udyam: "UDYAM-XXXXXXXX",
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "udyam": "UDYAM-XXXXXXXX",
             "Name of Enterprise": "Dummy Enterprise Pvt Ltd",
-            Mobile: "9999999999",
-          },
-        },
-      },
-    ],
+            "Mobile": "9999999999"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "BPD",
-    examples: [
+    "name": "BPD",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            name: "SAI BABA",
-            status: "VALID",
-            account_no: "3864XXXXXXX",
-            ifsc: "SBINXXXXXXX",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "name": "SAI BABA",
+            "status": "VALID",
+            "account_no": "3864XXXXXXX",
+            "ifsc": "SBINXXXXXXX"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "IFSC",
-    examples: [
+    "name": "IFSC",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            BRANCH: "Demo Branch",
-            ADDRESS: "123 Demo Street",
-            CITY: "Demo City",
-            BANK: "Demo Bank Ltd",
-            IFSC: "DMBC0001234",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "BRANCH": "Demo Branch",
+            "ADDRESS": "123 Demo Street",
+            "CITY": "Demo City",
+            "BANK": "Demo Bank Ltd",
+            "IFSC": "DMBC0001234"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "GEWPINCODE",
-    examples: [
+    "name": "GEWPINCODE",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          httpCode: 200,
-          data: {
-            District: "",
-            Pincode: "",
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "District": "",
+            "Pincode": "",
             "Post Office": "",
-            State: "",
-            Subdistrict: "",
-          },
-          message: "",
-          success: true,
-        },
-      },
-    ],
+            "State": "",
+            "Subdistrict": ""
+          }
+        }
+      }
+    ]
   },
   {
-    name: "GEWLATLONG",
-    examples: [
+    "name": "GEWLATLONG",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          httpCode: 200,
-          data: {
-            District: "",
-            Pincode: "",
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "District": "",
+            "Pincode": "",
             "Post Office": "",
-            State: "",
-            Subdistrict: "",
-          },
-          message: "",
-          success: true,
-        },
-      },
-    ],
+            "State": "",
+            "Subdistrict": ""
+          }
+        }
+      }
+    ]
   },
   {
-    name: "BANKVALID",
-    examples: [
+    "name": "BANKVALID",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          httpCode: 200,
-          data: {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
             "Account Holder Name": "",
             "Bank Account Number": "",
             "Bank Branch - Address": {
-              Address: "",
-              Branch: "",
-              City: "",
-              Contact: "",
-              District: "",
-              State: "",
+              "Address": "",
+              "Branch": "",
+              "City": "",
+              "Contact": "",
+              "District": "",
+              "State": ""
             },
             "Bank Name": "",
-            "IFSC Code": "",
+            "IFSC Code": ""
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "PCG",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "District": "Agra",
+            "Pincode": "282003",
+            "State": "UTTAR PRADESH"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "IB",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "result": "Clear"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "AIC",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "ai_generated": 0.01
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "DIC",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "deepfake": 0.01
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "ADIC",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "ai_generated": 0.01,
+            "deepfake": 0.01
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "FO",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "Mobile": "918688571181",
+            "Operator": "Reliance Jio",
+            "OpCode": "11",
+            "Circle": "Andhra Pradesh"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "FP",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "Operator": "RELIANCE JIO",
+            "Circle": "AP",
+            "RDATA": {
+              "Popular Plans": []
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "RP",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "status": "VALID",
+            "success": true,
+            "message": "Transaction Successful",
+            "account_no": "3864XXXXXXX"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "BillerInfo",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "billerName": "XXXX XXXX",
+            "billerCategory": "Credit Card",
+            "billerStatus": "ACTIVE"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "BillFetch",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "billAmount": "XXXXXX",
+            "customerName": "XXXXXXXX XXXXXXX",
+            "dueDate": "XXXX-XX-XX"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "BillPay",
+    "examples": [
+      {
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "responseReason": "Successful",
+            "txnRefId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "InstantPay",
+    "examples": [
+      {
+        "status": "Transaction Successful",
+        "data": {
+          "externalRef": "XXXXXXXXXXXX",
+          "txnValue": "4.00",
+          "payer": {
+            "name": "Sample Store"
           },
-          message: "Success",
-          success: true,
+          "payee": {
+            "name": "Instantpay India Ltd"
+          }
         },
-      },
-    ],
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {}
+        }
+      }
+    ]
   },
   {
-    name: "PCG",
-    examples: [
+    "name": "VoterID",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            District: "Agra",
-            Pincode: "282003",
-            State: "UTTAR PRADESH",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "voterid_number": "ABC1234567",
+            "full_name": "JOHN DOE",
+            "dob": "01-01-1990",
+            "gender": "M"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "IB",
-    examples: [
+    "name": "DL",
+    "examples": [
       {
-        statusCode: 200,
-        message: { success: true, data: { result: "Clear" } },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "dl_number": "SS-01-20230001234",
+            "name": "RAVI KUMAR",
+            "dob": "15-05-1985",
+            "expiry": "2040-01-01"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "AIC",
-    examples: [
+    "name": "Passport",
+    "examples": [
       {
-        statusCode: 200,
-        message: { success: true, data: { ai_generated: 0.01 } },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "passport_number": "A1234567",
+            "name": "AMIT SHARMA",
+            "dob": "20-10-1992",
+            "type": "P"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "DIC",
-    examples: [
-      { statusCode: 200, message: { success: true, data: { deepfake: 0.01 } } },
-    ],
-  },
-  {
-    name: "ADIC",
-    examples: [
+    "name": "RC",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: { ai_generated: 0.01, deepfake: 0.01 },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "rc_number": "TN-01-AB-1234",
+            "owner_name": "SURESH BABU",
+            "model": "MARUTI SWIFT",
+            "fuel": "PETROL"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "FO",
-    examples: [
+    "name": "Utility",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: {
-            Mobile: "918688571181",
-            Operator: "Reliance Jio",
-            OpCode: "11",
-            Circle: "Andhra Pradesh",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "bill_status": "PAID",
+            "customer_name": "MAHESH REDDY",
+            "amount": "1250.00",
+            "due_date": "2024-05-10"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "FP",
-    examples: [
+    "name": "RC_CHALLAN",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          data: {
-            Operator: "RELIANCE JIO",
-            Circle: "AP",
-            RDATA: { "Popular Plans": [] },
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "challan_number": "DL12345678",
+            "amount": "500",
+            "status": "PENDING",
+            "date": "2024-03-01"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "RP",
-    examples: [
+    "name": "IEC",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            status: "VALID",
-            success: true,
-            message: "Transaction Successful",
-            account_no: "3864XXXXXXX",
-          },
-        },
-      },
-    ],
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "iec_number": "0123456789",
+            "company_name": "EXIM CORP",
+            "status": "ACTIVE"
+          }
+        }
+      }
+    ]
   },
   {
-    name: "BillerInfo",
-    examples: [
+    "name": "BANK_STATEMENT",
+    "examples": [
       {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            billerName: "XXXX XXXX",
-            billerCategory: "Credit Card",
-            billerStatus: "ACTIVE",
-          },
-        },
-      },
-    ],
-  },
-  {
-    name: "BillFetch",
-    examples: [
-      {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            billAmount: "XXXXXX",
-            customerName: "XXXXXXXX XXXXXXX",
-            dueDate: "XXXX-XX-XX",
-          },
-        },
-      },
-    ],
-  },
-  {
-    name: "BillPay",
-    examples: [
-      {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            responseReason: "Successful",
-            txnRefId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-          },
-        },
-      },
-    ],
-  },
-  {
-    name: "InstantPay",
-    examples: [
-      {
-        status: "Transaction Successful",
-        data: {
-          externalRef: "XXXXXXXXXXXX",
-          txnValue: "4.00",
-          payer: { name: "Sample Store" },
-          payee: { name: "Instantpay India Ltd" },
-        },
-      },
-    ],
-  },
-  {
-    name: "VoterID",
-    examples: [
-      {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            voterid_number: "ABC1234567",
-            full_name: "JOHN DOE",
-            dob: "01-01-1990",
-            gender: "M",
-          },
-        },
-      },
-    ],
-  },
-  {
-    name: "DL",
-    examples: [
-      {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            dl_number: "SS-01-20230001234",
-            name: "RAVI KUMAR",
-            dob: "15-05-1985",
-            expiry: "2040-01-01",
-          },
-        },
-      },
-    ],
-  },
-  {
-    name: "Passport",
-    examples: [
-      {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            passport_number: "A1234567",
-            name: "AMIT SHARMA",
-            dob: "20-10-1992",
-            type: "P",
-          },
-        },
-      },
-    ],
-  },
-  {
-    name: "RC",
-    examples: [
-      {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            rc_number: "TN-01-AB-1234",
-            owner_name: "SURESH BABU",
-            model: "MARUTI SWIFT",
-            fuel: "PETROL",
-          },
-        },
-      },
-    ],
-  },
-  {
-    name: "Utility",
-    examples: [
-      {
-        statusCode: 200,
-        message: {
-          success: true,
-          response: {
-            bill_status: "PAID",
-            customer_name: "MAHESH REDDY",
-            amount: "1250.00",
-            due_date: "2024-05-10",
-          },
-        },
-      },
-    ],
-  },
-  {
-    name: "RC_CHALLAN",
-    examples: [
-      {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            challan_number: "DL12345678",
-            amount: "500",
-            status: "PENDING",
-            date: "2024-03-01",
-          },
-        },
-      },
-    ], // dummy for future update
-  },
-  {
-    name: "IEC",
-    examples: [
-      {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            iec_number: "0123456789",
-            company_name: "EXIM CORP",
-            status: "ACTIVE",
-          },
-        },
-      },
-    ], // dummy for future update
-  },
-  {
-    name: "BANK_STATEMENT",
-    examples: [
-      {
-        statusCode: 200,
-        message: {
-          success: true,
-          message: "Valid",
-          response: {
-            account_number: "1234567890",
-            transactions: [
-              { date: "2024-03-01", type: "CR", amount: "1000.00" },
-            ],
-          },
-        },
-      },
-    ], // dummy for future update
-  },
+        "statusCode": 200,
+        "message": {
+          "httpCode": 200,
+          "success": true,
+          "message": "Valid",
+          "data": {
+            "account_number": "1234567890",
+            "transactions": [
+              {
+                "date": "2024-03-01",
+                "type": "CR",
+                "amount": "1000.00"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
 ];
 const validationPatterns = [
   {
@@ -1824,10 +1966,9 @@ export const BBPSCategory = {
   isDisable: true,
   exampleCurl: `curl --location '${BBPS_BASE}/billerInfo/Credit%20Card' \\
     --header 'secret_token: {{secret_token}}'`,
-  exampleResponse:
-    apiExamples.find((e) => e.name === "BillerInfo")?.examples[0]?.message ||
-    {},
+  exampleResponse: apiExamples.find((e) => e.name === "BillerInfo")?.examples[0]?.message || {},
 };
+
 export const BBPSBillerInfo = {
   apiUrl: {
     Method: "Get",
@@ -1850,6 +1991,7 @@ export const BBPSBillerInfo = {
     apiExamples.find((e) => e.name === "BillerInfo")?.examples[0]?.message ||
     {},
 };
+
 export const BBPSBillFetch = {
   apiUrl: {
     Method: "Get",
@@ -1876,6 +2018,7 @@ export const BBPSBillFetch = {
   exampleResponse:
     apiExamples.find((e) => e.name === "BillFetch")?.examples[0]?.message || {},
 };
+
 export const BBPSBillPay = {
   apiUrl: {
     Method: "POST",
@@ -1905,6 +2048,7 @@ export const BBPSBillPay = {
   exampleResponse:
     apiExamples.find((e) => e.name === "BillPay")?.examples[0]?.message || {},
 };
+
 export const BBPSBillValidation = {
   apiUrl: {
     Method: "POST",
@@ -1933,6 +2077,7 @@ export const BBPSBillValidation = {
   exampleResponse:
     apiExamples.find((e) => e.name === "BillFetch")?.examples[0]?.message || {},
 };
+
 export const BBPSBillQuickPay = {
   apiUrl: {
     Method: "POST",
@@ -1963,6 +2108,7 @@ export const BBPSBillQuickPay = {
     apiExamples.find((e) => e.name === "InstantPay")?.examples[0]?.message ||
     {},
 };
+
 export const InstantBillPay = {
   apiUrl: {
     Method: "POST",
