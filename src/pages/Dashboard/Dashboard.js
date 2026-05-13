@@ -260,13 +260,13 @@ const sideDashboardConfig = [
     type: "single",
     iconType: "image",
   },
-  {
-    label: "Webhooks",
-    icon: Images.webhooks,
-    href: "/dashboard/Webhooks",
-    type: "single",
-    iconType: "image",
-  },
+  // {
+  //   label: "Webhooks",
+  //   icon: Images.webhooks,
+  //   href: "/dashboard/Webhooks",
+  //   type: "single",
+  //   iconType: "image",
+  // },
 ];
 
 export default function DashboardPage() {

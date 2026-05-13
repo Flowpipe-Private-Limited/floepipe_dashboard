@@ -10,11 +10,11 @@ export default defineConfig({
 
     server: {
         host: true,
-        port: 3000,
+        port: 5173,
         open: true,
         proxy: {
             "/api": {
-                target: "http://10.1.1.226:5000/api/v1/",
+                target: "http://10.1.1.91:5000/api/v1/",
                 changeOrigin: true,
                 secure: false,
                 rewrite: (p) => p.replace(/^\/api/, ""),
@@ -39,3 +39,4 @@ export default defineConfig({
     },
     envPrefix: 'REACT_APP_',
 })
+
