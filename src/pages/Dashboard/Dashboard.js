@@ -246,13 +246,13 @@ const sideDashboardConfig = [
     type: "single",
     iconType: "image",
   },
-  {
-    label: "API Usage",
-    icon: Images.Apiusage,
-    href: "/dashboard/APIUsage",
-    type: "single",
-    iconType: "image",
-  },
+  // {
+  //   label: "API Usage",
+  //   icon: Images.Apiusage,
+  //   href: "/dashboard/APIUsage",
+  //   type: "single",
+  //   iconType: "image",
+  // },
   {
     label: "Whitelist IP",
     icon: Images.whitelist,
