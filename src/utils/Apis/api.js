@@ -239,10 +239,12 @@ const HandleApiCount = (accesstoken, encryptedPayload, encrypt) =>
 
 // const HandleFetchIP = (data) => kycApiClient.get(`IP/Getipwhitelist/${data?.MerchatID}`);
 
-// const HandleCreateIP = (data) => kycApiClient.post(`IP/WhiteListIP`, data);
+const getAnalyticsService = (clientId) =>
+  kycApiClient.get(`/inhouse/analytics/Analyticalreports${clientId ? `?clientId=${clientId}` : ''}`);
 
-const getAnalyticsService = () =>
-  kycApiClient.get("/inhouse/analytics/Analyticalreports");
+const getLast7DaysHits = (clientId) => supperApiClient.get(`/analytics/last-7-days/${clientId}`);
+
+const getApiErrorCount = (clientId) => kycApiClient.post(`analytics/ApiErrorCount`, { clientId });
 
 //
 const GenerateTestKeys = () => {
@@ -287,9 +289,9 @@ export {
   GetBillingAmountApi,
   getTransactionsData,
   getRecentCallData,
-  // GenerateDynamicQrApi,
-  GenerateStaticQrApi,
   getAnalyticsService,
+  getLast7DaysHits,
+  getApiErrorCount,
   HandleRefreshToken,
   GenerateTestKeys,
   GetTestKeys,

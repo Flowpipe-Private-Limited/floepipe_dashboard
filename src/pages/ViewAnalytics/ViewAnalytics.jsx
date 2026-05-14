@@ -17,7 +17,12 @@ import { BsLightningCharge } from "react-icons/bs";
 import EnvironmentSwitch from "../../components/ui/EnvironmentSwitch/EnvironmentSwitch";
 import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebutton";
 import Cookies from "js-cookie";
-import { getAnalyticsService } from "../../utils/Apis/api";
+import {
+  getAnalyticsService,
+  getLast7DaysHits,
+  getApiErrorCount,
+} from "../../utils/Apis/api";
+import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 
 // Custom tick renderer for API Cost Breakdown to stack Month and Day labels or handle long names
 const CustomXAxisTick = ({ x, y, payload }) => {
@@ -47,63 +52,104 @@ const ViewAnalytics = () => {
   const [dailyStats, setDailyStats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [hitsData, setHitsData] = useState([]);
+  const [errorData, setErrorData] = useState([]);
 
-  useEffect(() => {
-    const fetchAnalytics = async () => {
-      try {
-        const res = await getAnalyticsService();
-        console.log("API Response:", res.data);
-        if (res?.data?.success) {
-          const rawData = res.data.data;
-          const rawDailyStats = res.data.dailyStats || [];
-          const currentClientId = Cookies.get("clientId") || localStorage.getItem("clientId");
+  const fetchAnalytics = async () => {
+    try {
+      const currentClientId =
+        Cookies.get("clientId") || localStorage.getItem("clientId");
+      const [res, hitsRes, errorRes] = await Promise.all([
+        getAnalyticsService(currentClientId),
+        getLast7DaysHits(currentClientId).catch(() => ({
+          data: { success: false },
+        })),
+        getApiErrorCount(currentClientId).catch(() => ({
+          data: { success: false },
+        })),
+      ]);
 
-          let clientServices = [];
-          let clientDailyStats = [];
+      console.log("Analytics Response:", res.data);
+      console.log("Hits Response:", hitsRes?.data);
+      console.log("Errors Response:", errorRes?.data);
 
-          if (currentClientId) {
-            const clientRecord = rawData.find(c => c.clientId === currentClientId);
-            if (clientRecord) {
-              clientServices = clientRecord.services || [];
-            } else {
-              // Fallback to all services if specific client not found in reports yet
-              clientServices = rawData.flatMap(c => c.services || []);
-            }
-            clientDailyStats = rawDailyStats.filter(item => item.clientId === currentClientId);
-            if (clientDailyStats.length === 0) {
-              clientDailyStats = rawDailyStats;
-            }
+      if (res?.data?.success) {
+        const rawData = res.data.data;
+        const rawDailyStats = res.data.dailyStats || [];
+
+        let clientServices = [];
+        let clientDailyStats = [];
+
+        if (currentClientId) {
+          const clientRecord = rawData.find(
+            (c) => c.clientId === currentClientId,
+          );
+          if (clientRecord) {
+            clientServices = clientRecord.services || [];
           } else {
-            clientServices = rawData.flatMap(c => c.services || []);
+            clientServices = rawData.flatMap((c) => c.services || []);
+          }
+          clientDailyStats = rawDailyStats.filter(
+            (item) => item.clientId === currentClientId,
+          );
+          if (clientDailyStats.length === 0) {
             clientDailyStats = rawDailyStats;
           }
-
-          setServices(clientServices);
-          setDailyStats(clientDailyStats);
+        } else {
+          clientServices = rawData.flatMap((c) => c.services || []);
+          clientDailyStats = rawDailyStats;
         }
-      } catch (error) {
-        console.error("Error fetching analytics in ViewAnalytics:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
+        setServices(clientServices);
+        setDailyStats(clientDailyStats);
+      }
+
+      if (hitsRes?.data?.success) {
+        setHitsData(hitsRes.data.data || []);
+      }
+
+      // errorRes structure is typically { data: { statusCode: 200, data: [...], message: "..." } }
+      // or similar standard API response
+      if (errorRes?.data?.statusCode === 200 || errorRes?.data?.success) {
+        setErrorData(errorRes.data.data || []);
+      }
+    } catch (error) {
+      console.error("Error fetching analytics in ViewAnalytics:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchAnalytics();
   }, []);
 
   // Compute overall header metrics
-  const totalRequests = services.reduce((sum, s) => sum + (s.totalCount || s.count || 0), 0);
-  const totalSuccess = services.reduce((sum, s) => sum + (s.successCount || 0), 0);
-  const totalFailed = services.reduce((sum, s) => sum + (s.failedCount || 0), 0);
-  const avgSuccessRate = totalRequests > 0 ? Math.round((totalSuccess / totalRequests) * 100) : 100;
+  const totalRequests = services.reduce(
+    (sum, s) => sum + (s.totalCount || s.count || 0),
+    0,
+  );
+  const totalSuccess = services.reduce(
+    (sum, s) => sum + (s.successCount || 0),
+    0,
+  );
+  const totalFailed = services.reduce(
+    (sum, s) => sum + (s.failedCount || 0),
+    0,
+  );
+  const avgSuccessRate =
+    totalRequests > 0 ? Math.round((totalSuccess / totalRequests) * 100) : 100;
 
   // Extract unique categories for filtering dropdown
-  const uniqueCategories = [...new Set(services.map(s => s.category).filter(Boolean))];
+  const uniqueCategories = [
+    ...new Set(services.map((s) => s.category).filter(Boolean)),
+  ];
 
   // Filter services by selected product/category
-  const filteredServices = selectedCategory === "all"
-    ? services
-    : services.filter(s => s.category === selectedCategory);
+  const filteredServices =
+    selectedCategory === "all"
+      ? services
+      : services.filter((s) => s.category === selectedCategory);
 
   // Generate list of last 7 calendar days dynamically
   const last7DaysList = (() => {
@@ -117,79 +163,134 @@ const ViewAnalytics = () => {
     return days;
   })();
 
-  // 1. API Cost Breakdown Data (₹1.5 per call cost calculation) grouped by day
-  const costBreakdownData = last7DaysList.map(dayName => {
-    // Filter stats matching this day and selected category
-    const dailyRecords = dailyStats.filter(item => {
-      const isDayMatch = item.date === dayName;
-      const isCategoryMatch = selectedCategory === "all" || item.category === selectedCategory;
-      return isDayMatch && isCategoryMatch;
-    });
-
-    const totalCostForDay = dailyRecords.reduce((sum, item) => sum + (item.cost || 0), 0);
-
-    return {
-      name: dayName,
-      cost: Math.round(totalCostForDay),
-    };
-  });
-
-  // 2. Error Tracking Data (Failed Count per service/endpoint)
-  const hasErrors = services.some(s => (s.failedCount || 0) > 0);
-  const errorTrackingData = hasErrors
-    ? services
-        .filter(s => (s.failedCount || 0) > 0)
-        .map((s, index) => {
-          const colors = ["#000000", "#8B5CF6", "#CCFF00", "#6C727F", "#00A63E", "#FF4D4D"];
+  // 1. API Hit Counts Data
+  const hitCountsData =
+    hitsData.length > 0
+      ? hitsData.map((item) => {
+          const dayNum = item.date ? item.date.split("-")[2] : "";
           return {
-            name: s.service,
-            value: s.failedCount || 0,
-            color: colors[index % colors.length],
+            name: `${item.day} ${dayNum}`,
+            hits: item.hits || 0,
           };
         })
-    : [{ name: "No Errors", value: 0, color: "#00A63E" }];
+      : last7DaysList.map((dayName) => ({
+          name: dayName,
+          hits: 0,
+        }));
+
+  // 2. Error Tracking Data (Success vs Failed transactions)
+  const errTotalSuccess = errorData.reduce(
+    (sum, s) => sum + (s.successCount || 0),
+    0,
+  );
+  const errTotalFailed = errorData.reduce(
+    (sum, s) => sum + (s.failedCount || 0),
+    0,
+  );
+
+  const errorTrackingData = [
+    { name: "Success", value: errTotalSuccess, color: "#00A63E" },
+    { name: "Failed", value: errTotalFailed, color: "#FF4D4D" },
+  ].filter((item) => item.value > 0);
+
+  if (errorTrackingData.length === 0) {
+    errorTrackingData.push({ name: "No Data", value: 100, color: "#E5E7EB" });
+  }
 
   // 3. Usage by Endpoint Data (Percentage usage per service/endpoint)
-  const endpointUsageData = totalRequests > 0
-    ? services
-        .map((s, index) => {
-          const colors = ["#8B5CF6", "#000000", "#6C727F", "#CCFF00", "#00A63E", "#FF4D4D"];
-          const percentage = Math.round(((s.totalCount || s.count || 0) / totalRequests) * 100);
+  const endpointUsageData =
+    totalRequests > 0
+      ? services
+          .map((s, index) => {
+            const colors = [
+              "#8B5CF6",
+              "#000000",
+              "#6C727F",
+              "#CCFF00",
+              "#00A63E",
+              "#FF4D4D",
+            ];
+            const percentage = Math.round(
+              ((s.totalCount || s.count || 0) / totalRequests) * 100,
+            );
+            return {
+              name: s.service,
+              value: percentage,
+              color: colors[index % colors.length],
+            };
+          })
+          .filter((item) => item.value > 0)
+      : [{ name: "No Data", value: 100, color: "#E5E7EB" }];
+
+  // 4. Top Endpoint Data (Highest volume endpoints)
+  const sortedServices = [...services].sort(
+    (a, b) => (b.totalCount || b.count || 0) - (a.totalCount || a.count || 0),
+  );
+  const maxCallsOfTop =
+    sortedServices[0]?.totalCount || sortedServices[0]?.count || 1;
+
+  const topEndpointsData =
+    sortedServices.length > 0
+      ? sortedServices.slice(0, 5).map((s, index) => {
+          const colors = [
+            "#000000",
+            "#8B5CF6",
+            "#CCFF00",
+            "#6C727F",
+            "#00A63E",
+          ];
+          const countValue = s.totalCount || s.count || 0;
+          const widthPercentage =
+            maxCallsOfTop > 0 ? `${(countValue / maxCallsOfTop) * 100}%` : "0%";
           return {
-            name: s.service,
-            value: percentage,
+            path: s.service,
+            count: countValue.toLocaleString(),
+            width: widthPercentage,
             color: colors[index % colors.length],
           };
         })
-        .filter(item => item.value > 0)
-    : [{ name: "No Data", value: 100, color: "#E5E7EB" }];
-
-  // 4. Top Endpoint Data (Highest volume endpoints)
-  const sortedServices = [...services].sort((a, b) => (b.totalCount || b.count || 0) - (a.totalCount || a.count || 0));
-  const maxCallsOfTop = sortedServices[0]?.totalCount || sortedServices[0]?.count || 1;
-
-  const topEndpointsData = sortedServices.length > 0
-    ? sortedServices.slice(0, 5).map((s, index) => {
-        const colors = ["#000000", "#8B5CF6", "#CCFF00", "#6C727F", "#00A63E"];
-        const countValue = s.totalCount || s.count || 0;
-        const widthPercentage = maxCallsOfTop > 0 ? `${(countValue / maxCallsOfTop) * 100}%` : "0%";
-        return {
-          path: s.service,
-          count: countValue.toLocaleString(),
-          width: widthPercentage,
-          color: colors[index % colors.length],
-        };
-      })
-    : [{ path: "No endpoints found", count: "0", width: "0%", color: "#E5E7EB" }];
+      : [
+          {
+            path: "No endpoints found",
+            count: "0",
+            width: "0%",
+            color: "#E5E7EB",
+          },
+        ];
 
   if (loading) {
     return (
-      <div className="analytics-container" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
+      <div
+        className="analytics-container"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "80vh",
+        }}
+      >
         <div style={{ textAlign: "center" }}>
-          <div className="spinner-border" role="status" style={{ width: "3.5rem", height: "3.5rem", color: "#8B5CF6", borderWidth: "4px" }}>
+          <div
+            className="spinner-border"
+            role="status"
+            style={{
+              width: "3.5rem",
+              height: "3.5rem",
+              color: "#8B5CF6",
+              borderWidth: "4px",
+            }}
+          >
             <span className="visually-hidden">Loading...</span>
           </div>
-          <p style={{ marginTop: "1.2rem", color: "#6C727F", fontFamily: "Figtree", fontSize: "16px", fontWeight: "500" }}>
+          <p
+            style={{
+              marginTop: "1.2rem",
+              color: "#6C727F",
+              fontFamily: "Figtree",
+              fontSize: "16px",
+              fontWeight: "500",
+            }}
+          >
             Loading usage statistics...
           </p>
         </div>
@@ -233,7 +334,10 @@ const ViewAnalytics = () => {
           </div>
           <div className="metric-card">
             <div className="metric-label">Avg Success Rate</div>
-            <div style={{ color: avgSuccessRate >= 90 ? "#00A63E" : "#8B5CF6" }} className="metric-value">
+            <div
+              style={{ color: avgSuccessRate >= 90 ? "#00A63E" : "#8B5CF6" }}
+              className="metric-value"
+            >
               {avgSuccessRate}%
             </div>
           </div>
@@ -250,12 +354,14 @@ const ViewAnalytics = () => {
 
       {/* Charts Grid */}
       <div className="charts-grid">
-        {/* API Cost Breakdown Card */}
+        {/* API Hit Counts Card */}
         <div className="chart-card">
           <div className="chart-header-container">
             <div>
-              <h3 className="chart-title">API Cost Breakdown</h3>
-              <p className="chart-subtitle-faint">Calculated breakdown based on usage</p>
+              <h3 className="chart-title">API Hit Counts</h3>
+              <p className="chart-subtitle-faint">
+                Total API calls over the last 7 days
+              </p>
             </div>
             <div className="dropdown-container">
               <span className="dropdown-label">Category Filter</span>
@@ -266,8 +372,10 @@ const ViewAnalytics = () => {
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
                   <option value="all">All Products</option>
-                  {uniqueCategories.map(cat => (
-                    <option key={cat} value={cat}>{cat}</option>
+                  {uniqueCategories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
                   ))}
                 </select>
                 <span className="dropdown-arrow">&#9662;</span>
@@ -277,7 +385,7 @@ const ViewAnalytics = () => {
           <div className="chart-body-container">
             <ResponsiveContainer width="100%" height={240}>
               <BarChart
-                data={costBreakdownData}
+                data={hitCountsData}
                 margin={{ top: 15, right: 10, left: -25, bottom: 15 }}
               >
                 <CartesianGrid vertical={false} stroke="#ECECF0" />
@@ -296,7 +404,12 @@ const ViewAnalytics = () => {
                   domain={[0, "auto"]}
                 />
                 <Tooltip cursor={{ fill: "rgba(0,0,0,0.03)" }} />
-                <Bar dataKey="cost" fill="#000000" barSize={14} radius={[2, 2, 0, 0]} />
+                <Bar
+                  dataKey="hits"
+                  fill="#000000"
+                  barSize={14}
+                  radius={[2, 2, 0, 0]}
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -307,15 +420,23 @@ const ViewAnalytics = () => {
           <div className="chart-header-container">
             <div>
               <h3 className="chart-title">Error Tracking</h3>
-              <p className="chart-subtitle-faint">Tracking failed transactions by API endpoint</p>
+              <p className="chart-subtitle-faint">
+                Success vs Failed transactions
+              </p>
             </div>
             <div className="chart-header-right-stats">
-              <div className="stat-big-value">{totalFailed}</div>
+              <div className="stat-big-value">{errTotalFailed}</div>
               <div
                 className="stat-percentage-change"
-                style={{ color: totalFailed > 0 ? "#FF4D4D" : "#00A63E" }}
+                style={{ color: errTotalFailed > 0 ? "#FF4D4D" : "#00A63E" }}
               >
-                {totalRequests > 0 ? ((totalFailed / totalRequests) * 100).toFixed(1) : 0}% failure rate
+                {errTotalSuccess + errTotalFailed > 0
+                  ? (
+                      (errTotalFailed / (errTotalSuccess + errTotalFailed)) *
+                      100
+                    ).toFixed(1)
+                  : 0}
+                % failure rate
               </div>
             </div>
           </div>
@@ -361,7 +482,9 @@ const ViewAnalytics = () => {
           <div className="chart-header-container">
             <div>
               <h3 className="chart-title">Usage by Endpoint</h3>
-              <p className="chart-subtitle-faint">Percentage distribution of volume</p>
+              <p className="chart-subtitle-faint">
+                Percentage distribution of volume
+              </p>
             </div>
           </div>
           <div className="chart-body-container endpoint-section-flex">
