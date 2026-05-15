@@ -92,12 +92,9 @@ const MainContent = () => {
           const { publicKey } = res;
           console.log('publickey is this :', publicKey);
           setPublickey(publicKey);
-          resolve(publicKey);
         },
         (errMessage) => {
-          setPublickeyError("Failed to load encryption keys.");
-          setPublickeyLoading(false);
-          resolve(null);
+        console.log("error ===>>", errMessage)
         }
       );
   }

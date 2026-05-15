@@ -4,6 +4,20 @@ import moment from "moment";
 import "./Reports.css";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
+import {
+  ApirequestHandler,
+  EncryptedApirequestHandler,
+} from "../../utils/Apis/apiRequestHandler";
+import {
+  fetchPublickey,
+  HandleCreateReportResponse,
+  HandleGetProducts,
+  HandlegetReports,
+} from "../../utils/Apis/api";
+import Cookies from "js-cookie";
+import { GeneralKeys } from "../../Store/PubliPriviteKey";
+import { useUserkey } from "../../Store/userKeyStore";
+import { encryptPayload } from "../../utils/helper";
 
 const DateRangePicker = ({ isOpen, onClose, onApply }) => {
   const [startDate, setStartDate] = useState(moment().startOf("month"));
@@ -13,34 +27,100 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
   const [rightMonth, setRightMonth] = useState(
     moment().add(1, "month").startOf("month"),
   );
+  const today = moment().endOf("day");
+
+  const getValidEndDate = (date) => {
+    return date.isAfter(today) ? today : date;
+  };
 
   const [selectingStart, setSelectingStart] = useState(true);
 
   if (!isOpen) return null;
 
+  // const presets = [
+  //   {
+  //     label: "Today",
+  //     action: () => {
+  //       setRange(moment(), moment());
+  //     },
+  //   },
+  //   {
+  //     label: "Yesterday",
+  //     action: () => {
+  //       setRange(moment().subtract(1, "days"), moment().subtract(1, "days"));
+  //     },
+  //   },
+  //   {
+  //     label: "Last 7 Days",
+  //     action: () => {
+  //       setRange(moment().subtract(6, "days"), moment());
+  //     },
+  //   },
+  //   {
+  //     label: "This Week",
+  //     action: () => {
+  //       setRange(moment().startOf("week"), moment().endOf("week"));
+  //     },
+  //   },
+  //   {
+  //     label: "Last Week",
+  //     action: () => {
+  //       setRange(
+  //         moment().subtract(1, "week").startOf("week"),
+  //         moment().subtract(1, "week").endOf("week"),
+  //       );
+  //     },
+  //   },
+  //   {
+  //     label: "Last 30 Days",
+  //     action: () => {
+  //       setRange(moment().subtract(29, "days"), moment());
+  //     },
+  //   },
+  //   {
+  //     label: "This Month",
+  //     action: () => {
+  //       setRange(moment().startOf("month"), moment().endOf("month"));
+  //     },
+  //   },
+  //   {
+  //     label: "Last Month",
+  //     action: () => {
+  //       setRange(
+  //         moment().subtract(1, "month").startOf("month"),
+  //         moment().subtract(1, "month").endOf("month"),
+  //       );
+  //     },
+  //   },
+  // ];
+
   const presets = [
     {
       label: "Today",
       action: () => {
-        setRange(moment(), moment());
+        setRange(today, today);
       },
     },
     {
       label: "Yesterday",
       action: () => {
-        setRange(moment().subtract(1, "days"), moment().subtract(1, "days"));
+        const yesterday = moment().subtract(1, "days");
+        setRange(yesterday, yesterday);
       },
     },
     {
       label: "Last 7 Days",
       action: () => {
-        setRange(moment().subtract(6, "days"), moment());
+        setRange(moment().subtract(6, "days"), today);
       },
     },
     {
       label: "This Week",
       action: () => {
-        setRange(moment().startOf("week"), moment().endOf("week"));
+        setRange(
+          moment().startOf("week"),
+          getValidEndDate(moment().endOf("week")),
+        );
       },
     },
     {
@@ -55,13 +135,16 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
     {
       label: "Last 30 Days",
       action: () => {
-        setRange(moment().subtract(29, "days"), moment());
+        setRange(moment().subtract(29, "days"), today);
       },
     },
     {
       label: "This Month",
       action: () => {
-        setRange(moment().startOf("month"), moment().endOf("month"));
+        setRange(
+          moment().startOf("month"),
+          getValidEndDate(moment().endOf("month")),
+        );
       },
     },
     {
@@ -87,7 +170,27 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
     preset.action();
   };
 
+  // const handleDayClick = (day) => {
+  //   if (activePreset !== "Custom") setActivePreset("Custom");
+
+  //   if (selectingStart) {
+  //     setStartDate(day);
+  //     setEndDate(day);
+  //     setSelectingStart(false);
+  //   } else {
+  //     if (day.isBefore(startDate)) {
+  //       setStartDate(day);
+  //       setSelectingStart(false);
+  //     } else {
+  //       setEndDate(day);
+  //       setSelectingStart(true);
+  //     }
+  //   }
+  // };
   const handleDayClick = (day) => {
+    // Prevent future dates
+    if (day.isAfter(today, "day")) return;
+
     if (activePreset !== "Custom") setActivePreset("Custom");
 
     if (selectingStart) {
@@ -95,13 +198,11 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
       setEndDate(day);
       setSelectingStart(false);
     } else {
-      if (day.isBefore(startDate)) {
-        setStartDate(day);
-        setSelectingStart(false);
-      } else {
-        setEndDate(day);
-        setSelectingStart(true);
-      }
+      // Prevent selecting end date before start date
+      if (day.isBefore(startDate, "day")) return;
+
+      setEndDate(day);
+      setSelectingStart(true);
     }
   };
   const renderCalendar = (monthMoment) => {
@@ -113,28 +214,74 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
       days.push(<div key={`empty-${i}`} className="day-cell empty"></div>);
     }
 
+    // for (let d = 1; d <= daysInMonth; d++) {
+    //   const currentDay = moment(monthMoment).date(d);
+    //   const isSelected =
+    //     currentDay.isSame(startDate, "day") ||
+    //     currentDay.isSame(endDate, "day");
+    //   const isInRange =
+    //     currentDay.isAfter(startDate, "day") &&
+    //     currentDay.isBefore(endDate, "day");
+    //   const isStart = currentDay.isSame(startDate, "day");
+    //   const isEnd = currentDay.isSame(endDate, "day");
+
+    //   let classes = "day-cell";
+    //   if (isInRange) classes += " in-range";
+    //   if (isStart) classes += " range-start";
+    //   if (isEnd) classes += " range-end";
+    //   if (isStart || isEnd) classes += " selected";
+
+    //   days.push(
+    //     <div
+    //       key={d}
+    //       className={classes}
+    //       onClick={() => handleDayClick(currentDay)}
+    //     >
+    //       {d}
+    //     </div>,
+    //   );
+    // }
+
     for (let d = 1; d <= daysInMonth; d++) {
       const currentDay = moment(monthMoment).date(d);
+
+      // Disable future dates
+      const isFutureDate = currentDay.isAfter(today, "day");
+
+      // Disable previous dates while selecting end date
+      const isBeforeStart =
+        !selectingStart && currentDay.isBefore(startDate, "day");
+
+      const isDisabled = isFutureDate || isBeforeStart;
+
       const isSelected =
         currentDay.isSame(startDate, "day") ||
         currentDay.isSame(endDate, "day");
+
       const isInRange =
         currentDay.isAfter(startDate, "day") &&
         currentDay.isBefore(endDate, "day");
+
       const isStart = currentDay.isSame(startDate, "day");
       const isEnd = currentDay.isSame(endDate, "day");
 
       let classes = "day-cell";
+
       if (isInRange) classes += " in-range";
       if (isStart) classes += " range-start";
       if (isEnd) classes += " range-end";
       if (isStart || isEnd) classes += " selected";
+      if (isDisabled) classes += " disabled";
 
       days.push(
         <div
           key={d}
           className={classes}
-          onClick={() => handleDayClick(currentDay)}
+          onClick={() => {
+            if (!isDisabled) {
+              handleDayClick(currentDay);
+            }
+          }}
         >
           {d}
         </div>,
@@ -142,6 +289,14 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
     }
     return days;
   };
+
+  const isLeftNextDisabled = moment(leftMonth)
+    .add(1, "month")
+    .isSame(rightMonth, "month");
+
+  const isRightPrevDisabled = moment(rightMonth)
+    .subtract(1, "month")
+    .isSame(leftMonth, "month");
 
   return (
     <div className="modal-overlay">
@@ -174,7 +329,6 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
             </div>
             <div className="date-display-box">
               {endDate.format("MMM D, YYYY")}
-              {endDate.format("MMM D,YYY")}
             </div>
           </div>
           <div className="calendars-wrapper">
@@ -188,10 +342,24 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
                 >
                   <ChevronLeft size={20} />
                 </button>
+
                 <span className="month-label">
                   {leftMonth.format("MMMM YYYY")}
                 </span>
-                <div></div>
+
+                <button
+                  className="nav-btn"
+                  onClick={() => {
+                    const nextLeft = moment(leftMonth).add(1, "month");
+
+                    // Prevent overlap
+                    if (!nextLeft.isSame(rightMonth, "month")) {
+                      setLeftMonth(nextLeft);
+                    }
+                  }}
+                >
+                  <ChevronRight size={20} />
+                </button>
               </div>
               <div className="calendar-grid">
                 {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
@@ -204,15 +372,34 @@ const DateRangePicker = ({ isOpen, onClose, onApply }) => {
             </div>
             <div className="single-calendar">
               <div className="calendar-header">
-                <div></div>
+                <button
+                  className="nav-btn"
+                  onClick={() => {
+                    const prevRight = moment(rightMonth).subtract(1, "month");
+
+                    // Prevent overlap
+                    if (!prevRight.isSame(leftMonth, "month")) {
+                      setRightMonth(prevRight);
+                    }
+                  }}
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
                 <span className="month-label">
                   {rightMonth.format("MMMM YYYY")}
                 </span>
+
                 <button
                   className="nav-btn"
-                  onClick={() =>
-                    setRightMonth(moment(rightMonth).add(1, "month"))
-                  }
+                  onClick={() => {
+                    const nextRight = moment(rightMonth).add(1, "month");
+
+                    // Prevent future month navigation
+                    if (nextRight.isSameOrBefore(moment(), "month")) {
+                      setRightMonth(nextRight);
+                    }
+                  }}
                 >
                   <ChevronRight size={20} />
                 </button>
@@ -253,21 +440,142 @@ const Reports = () => {
   const [selectedStatus, setSelectedStatus] = useState("Select option");
   const [duration, setDuration] = useState("Select Duration");
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-  const productsList = [
-    "All Products",
-    "Pan Lite",
-    "Driving License Advance",
-    "GST Verification Lite",
-    "Aadhaar based e-sign",
-    "Pan Advance",
-    "Face Match",
-  ];
-  const appsList = ["Test app", "Live app"];
-  const statusList = ["All", "Success", "Failure"];
+  const [productsList, setProductsList] = useState([]);
+  const [reportsList, setReportsList] = useState([]);
+  const [tempSelectedRange, setTempSelectedRange] = useState("all");
+  const [selectedRange, setSelectedRange] = useState("all");
+  const [Publickey, setPublickey] = useState("");
+  const publicKey = GeneralKeys((state) => state.publicKey);
+  const privateKey = GeneralKeys((state) => state.privateKey);
+  const TestAccessToken = useUserkey((state) => state.TestAccessToken);
+  const LiveAccessToken = useUserkey((state) => state.LiveAccessToken);
+
+  useEffect(() => {
+    getProducts();
+    getPublickey();
+  }, []);
+
+  useEffect(() => {
+    if (Publickey) {
+      getAllReports(selectedRange);
+    }
+  }, [Publickey]);
+
+  const getPublickey = async () => {
+    await ApirequestHandler(
+      async () => fetchPublickey(),
+      null,
+      (res) => {
+        const { publicKey } = res;
+        console.log("publickey is this :", publicKey);
+        setPublickey(publicKey);
+      },
+      (errMessage) => {
+        console.log("error");
+      },
+    );
+  };
+
+  const getAllReports = async (range = "all") => {
+    const payload = {
+      client: Cookies.get("clientId"),
+      date: range,
+    };
+    const accesstoken = LiveAccessToken || TestAccessToken;
+    if (Publickey) {
+      const encryptedPayload = await encryptPayload(payload, Publickey);
+      await EncryptedApirequestHandler(
+        () => HandlegetReports(encryptedPayload, accesstoken, publicKey),
+        null,
+        (res) => {
+          console.log("res in getting reports =====>>>", res);
+          if (res.success) {
+            const reportData = res?.data;
+            setReportsList(reportData);
+          } else {
+            setReportsList([]);
+          }
+        },
+        (err) => {
+          console.log(err);
+        },
+      );
+    }
+  };
+
+  const getProducts = async () => {
+    await ApirequestHandler(
+      () => HandleGetProducts(),
+      null,
+      (res) => {
+        console.log("res in products =====>>>", res);
+        if (res.success) {
+          const prodData = res?.data;
+          const neededData = prodData.map((item) => ({
+            serviceId: item.serviceId,
+            serviceName: item.serviceName,
+          }));
+          console.log("neededData ====>>>", neededData);
+          const modifiedNeededData = [
+            { serviceId: "ALLPRODUCTS", serviceName: "All Products" },
+            ...neededData,
+          ];
+          setProductsList(modifiedNeededData);
+        } else {
+          setProductsList([]);
+        }
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
+  };
+  // const appsList = ["Test app", "Live app"];
+  // const statusList = ["All", "Success", "Failure"];
 
   const handleDateApply = (start, end) => {
     setDuration(`${start.format("DD/MM/YYYY")} - ${end.format("DD/MM/YYYY")}`);
     setIsDatePickerOpen(false);
+  };
+
+  const handleStoreRecord = async () => {
+    const payload = {
+      client: Cookies.get("clientId"),
+      duration: duration,
+      service: selectedProduct,
+    };
+    const accesstoken = LiveAccessToken || TestAccessToken;
+    const encryptedPayload = await encryptPayload(payload, Publickey);
+    await EncryptedApirequestHandler(
+      () =>
+        HandleCreateReportResponse(encryptedPayload, accesstoken, publicKey),
+      null,
+      (res) => {
+        console.log("res in creating reports =====>>>", res);
+        if (res.success) {
+          getAllReports();
+        } else {
+          console.log("some thing went wrong");
+        }
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
+  };
+
+  const handleApplyFilter = () => {
+    setSelectedRange(tempSelectedRange);
+    getAllReports(tempSelectedRange);
+  };
+
+  const handleRangeChange = (e) => {
+    setSelectedRange(e.target.value);
+  };
+
+  const handleClear = () => {
+    setDuration("Duration");
+    setSelectedProduct("Select option");
   };
 
   return (
@@ -276,7 +584,9 @@ const Reports = () => {
       <div className="filter-card">
         <div className="filter-header">
           <h2 className="filter-title">Filter By</h2>
-          <button className="clear-all-btn">Clear All</button>
+          <button className="clear-all-btn" onClick={handleClear}>
+            Clear All
+          </button>
         </div>
 
         <div className="filter-grid">
@@ -290,16 +600,16 @@ const Reports = () => {
             </div>
             {productsOpen && (
               <div className="select-dropdown-menu">
-                {productsList.map((item) => (
+                {productsList.map((item, i) => (
                   <div
-                    key={item}
+                    key={i}
                     className="select-option"
                     onClick={() => {
-                      setSelectedProduct(item);
+                      setSelectedProduct(item.serviceName);
                       setProductsOpen(false);
                     }}
                   >
-                    {item}
+                    {item.serviceName}
                   </div>
                 ))}
               </div>
@@ -333,7 +643,7 @@ const Reports = () => {
             )}
           </div> */}
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <p className="label">Status</p>
             <div
               className="custom-select-trigger"
@@ -357,7 +667,7 @@ const Reports = () => {
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
 
           <div className="form-group">
             <p className="label">Duration</p>
@@ -400,16 +710,85 @@ const Reports = () => {
         </div>
 
         <div className="run-report-container">
-          <button className="run-report-btn">Run Report</button>
+          <button className="run-report-btn" onClick={handleStoreRecord}>
+            Run Report
+          </button>
         </div>
       </div>
 
       <div className="page-header-card">
-        <h2 className="filter-title">Result Set</h2>
+        <div className="table-header">
+          <div className="filter-title">Result Set</div>
+          <div className="range-filter-container">
+            <select
+              className="range-select"
+              value={tempSelectedRange}
+              onChange={(e) => setTempSelectedRange(e.target.value)}
+            >
+              <option value="all">All</option>
+              <option value="last7days">Last 7 Days</option>
+              <option value="last30days">Last 30 Days</option>
+            </select>
+
+            <button className="apply-filter-btn" onClick={handleApplyFilter}>
+              Apply
+            </button>
+          </div>
+        </div>
         <div className="result-placeholder">
-          <FileText size={24} color="#00000099" />
-          <div className="report-set-placeholder">
-            Search/Filter parameters and "Run report" to generate the result set
+          <div className="report-table-wrapper">
+            {reportsList && reportsList.length > 0 ? (
+              <table className="report-table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>REPORT NAME</th>
+                    <th>GENERATED AT</th>
+                    <th>STATUS</th>
+                    <th></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {reportsList.map((report, i) => {
+                    return (
+                      <tr key={i}>
+                        <td>{i + 1 || "Transactions"}</td>
+
+                        <td className="report-name">
+                          {report?.reportName || "N/A"}
+                        </td>
+
+                        <td>{report?.generatedAt || "08 Sep 2025,11:23 AM"}</td>
+
+                        <td>
+                          <span
+                            className={`status-badge ${
+                              report?.status?.toLowerCase() || "completed"
+                            }`}
+                          >
+                            {report?.status || "Completed"}
+                          </span>
+                        </td>
+
+                        <td className="action-cell">
+                          <button className="action-btn">⋮</button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            ) : (
+              <div className="empty-placeholder">
+                <FileText size={24} color="#00000099" />
+
+                <p>
+                  Search/Filter parameters and "Run report" to generate the
+                  result set
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

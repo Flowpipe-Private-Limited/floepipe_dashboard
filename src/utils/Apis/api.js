@@ -147,6 +147,8 @@ const HandleDeleteIP = (data) =>
   supperApiClient.post(`client/delete/whitelist/clientIp`, data);
 const HandleDeleteKey = (data) =>
   supperApiClient.post(`client/delete/clientKeys`, data);
+const HandleGetProducts = () =>
+  supperApiClient.get(`apimodule/get-all-services`);
 
 const GetWalletBalance = (clientid) =>
   supperApiClient.get(`/apimodule/get-wallte-balance?clientId=${clientid}`);
@@ -209,7 +211,7 @@ const ApiVerification = (isMicro, URLS, data, token, method = "Post") => {
   }
 };
 const fetchPublickey = () =>
-  kycApiClient.get(`api/v1/ApiModuels/key/Publickey`);
+  kycClient.get(`/api/v1/ApiModuels/key/Publickey`);
 const handlieFileUpload = (data) =>
   kycApiClient.post(`/client/image/blur_Check`, data, {
     headers: {
@@ -228,6 +230,22 @@ const HandleQrResponse = (data) =>
   kycApiClient.post("ApiModuels/generate-dynamic-qr", data);
 const HandleQrPaymentResponse = (data) =>
   kycApiClient.get(`ApiModuels/generate-dynamic-qr/${data}`);
+const HandleCreateReportResponse = (data, accesstoken, key) =>
+  kycApiClient.post(
+    `report/create`,
+    { ...data, publicKeyPem: key },
+    {
+      headers: { secret_token: accesstoken },
+    },
+  );
+const HandlegetReports = (data, accesstoken, key) =>
+  kycApiClient.post(
+    `report/getallReports`,
+    { ...data, publicKeyPem: key },
+    {
+      headers: { secret_token: accesstoken },
+    },
+  );
 const HandleApiCount = (accesstoken, encryptedPayload, encrypt) =>
   kycApiClient.post(
     `analytics/ApiCallCount`,
@@ -240,11 +258,15 @@ const HandleApiCount = (accesstoken, encryptedPayload, encrypt) =>
 // const HandleFetchIP = (data) => kycApiClient.get(`IP/Getipwhitelist/${data?.MerchatID}`);
 
 const getAnalyticsService = (clientId) =>
-  kycApiClient.get(`/inhouse/analytics/Analyticalreports${clientId ? `?clientId=${clientId}` : ''}`);
+  kycApiClient.get(
+    `/inhouse/analytics/Analyticalreports${clientId ? `?clientId=${clientId}` : ""}`,
+  );
 
-const getLast7DaysHits = (clientId) => supperApiClient.get(`/analytics/last-7-days/${clientId}`);
+const getLast7DaysHits = (clientId) =>
+  supperApiClient.get(`/analytics/last-7-days/${clientId}`);
 
-const getApiErrorCount = (clientId) => kycApiClient.post(`analytics/ApiErrorCount`, { clientId });
+const getApiErrorCount = (clientId) =>
+  kycApiClient.post(`analytics/ApiErrorCount`, { clientId });
 
 //
 const GenerateTestKeys = () => {
@@ -285,6 +307,9 @@ export {
   HandleDeleteIP,
   HandleDeleteKey,
   GetWalletBalance,
+  HandlegetReports,
+  HandleGetProducts,
+  HandleCreateReportResponse,
   getBillingTypeApi,
   GetBillingAmountApi,
   getTransactionsData,
