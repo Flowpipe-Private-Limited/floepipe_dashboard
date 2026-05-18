@@ -16,7 +16,7 @@ import { MdClose } from "react-icons/md";
 import EnvironmentSwitch from "../../components/ui/EnvironmentSwitch/EnvironmentSwitch";
 import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebutton";
 import Popup from "../../components/ui/Popup/Popup";
-import { GetWalletBalance } from "../../utils/Apis/api";
+import { GetWalletBalance, GetWalletHistory } from "../../utils/Apis/api";
 import images from "../../Images/Images";
 
 const BillingPlans = () => {
@@ -29,7 +29,8 @@ const BillingPlans = () => {
   const [environment, setEnvironment] = useState("test");
   const [popupTitle, setPopupTitle] = useState("Add Money");
   const [hideHeader, setHideHeader] = useState(false);
-
+  const [transactions, setTransactions] = useState([]);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
   // Wallet Logic State
   const CLIENT_ID = "CID_1766992391408";
   const BASE_URL = import.meta.env.REACT_APP_SUPPERADMIN_URL;
@@ -62,9 +63,40 @@ const BillingPlans = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     getWalletBalance();
+  }, []);
+  const getTopupHistory = async () => {
+    console.log("entered into getTopupHistory");
+
+    try {
+      const CLIENT_ID = localStorage.getItem("clientId");
+
+      console.log("CLIENT_ID in gettopup history======>", CLIENT_ID);
+
+      // const res = await axios.get(
+      //   `http://10.1.1.226:5000/api/v1/apimodule/topup-history?clientId=${CLIENT_ID}&range=120days&page=1&limit=20`
+      // );
+
+      // console.log("Topup History Response:", res.data);
+      const res = await GetWalletHistory(CLIENT_ID);
+
+      console.log("Topup History Response:", res.data);
+      if (res.data?.success) {
+        const allTransactions = (res.data?.data || []).sort(
+          (a, b) =>
+            new Date(b.transactionDate) - new Date(a.transactionDate)
+        );
+
+        setTransactions(allTransactions);
+        setFilteredTransactions(allTransactions);
+      }
+    } catch (err) {
+      console.error("Error fetching topup history:", err.response || err);
+    }
+  };
+  useEffect(() => {
+    getTopupHistory();
   }, []);
 
   const handleTopUp = async () => {
@@ -103,70 +135,106 @@ const BillingPlans = () => {
     }
   };
 
-  const transactions = [
-    {
-      date: "Dec 21, 2024",
-      type: "Top-up",
-      mode: "UPI",
-      amount: "₹2,450",
-      status: "Completed",
-      invoice: true,
-    },
-    {
-      date: "Dec 22, 2024",
-      type: "Invoice",
-      mode: "Auto-debit",
-      amount: "₹2,450",
-      status: "Completed",
-      invoice: true,
-    },
-    {
-      date: "Dec 23, 2024",
-      type: "Invoice",
-      mode: "Net Banking",
-      amount: "₹2,450",
-      status: "Completed",
-      invoice: true,
-    },
-    {
-      date: "Dec 24, 2024",
-      type: "Top-up",
-      mode: "Credit Card",
-      amount: "₹2,450",
-      status: "Completed",
-      invoice: true,
-    },
-    {
-      date: "Dec 25, 2024",
-      type: "Invoice",
-      mode: "Auto-debit",
-      amount: "₹2,450",
-      status: "Completed",
-      invoice: true,
-    },
-    {
-      date: "Dec 26, 2024",
-      type: "Top-up",
-      mode: "UPI",
-      amount: "₹2,450",
-      status: "Completed",
-      invoice: true,
-    },
-  ];
+  // const transactions = [
+  //   {
+  //     date: "Dec 21, 2024",
+  //     type: "Top-up",
+  //     mode: "UPI",
+  //     amount: "₹2,450",
+  //     status: "Completed",
+  //     invoice: true,
+  //   },
+  //   {
+  //     date: "Dec 22, 2024",
+  //     type: "Invoice",
+  //     mode: "Auto-debit",
+  //     amount: "₹2,450",
+  //     status: "Completed",
+  //     invoice: true,
+  //   },
+  //   {
+  //     date: "Dec 23, 2024",
+  //     type: "Invoice",
+  //     mode: "Net Banking",
+  //     amount: "₹2,450",
+  //     status: "Completed",
+  //     invoice: true,
+  //   },
+  //   {
+  //     date: "Dec 24, 2024",
+  //     type: "Top-up",
+  //     mode: "Credit Card",
+  //     amount: "₹2,450",
+  //     status: "Completed",
+  //     invoice: true,
+  //   },
+  //   {
+  //     date: "Dec 25, 2024",
+  //     type: "Invoice",
+  //     mode: "Auto-debit",
+  //     amount: "₹2,450",
+  //     status: "Completed",
+  //     invoice: true,
+  //   },
+  //   {
+  //     date: "Dec 26, 2024",
+  //     type: "Top-up",
+  //     mode: "UPI",
+  //     amount: "₹2,450",
+  //     status: "Completed",
+  //     invoice: true,
+  //   },
+  // ];
 
   const dateOptions = [
     "Last 120 days",
-    "Last 60 days",
     "Last 30 days",
-    "Last 7 days",
-    "Custom",
+    "Last 7 days"
   ];
-
   const handleDateSelect = (option) => {
     setSelectedDateRange(option);
     setDateDropdownOpen(false);
-  };
 
+    const now = new Date();
+
+    let days = 30;
+
+    if (option === "Last 7 days") {
+      days = 7;
+    } else if (option === "Last 120 days") {
+      days = 120;
+    }
+
+    const filtered = transactions.filter((tx) => {
+      if (!tx.transactionDate) return false;
+
+      const transactionDate = new Date(tx.transactionDate);
+
+      // remove time difference issue
+      transactionDate.setHours(0, 0, 0, 0);
+      now.setHours(0, 0, 0, 0);
+
+      const diffTime = now - transactionDate;
+
+      const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+      return diffDays >= 0 && diffDays <= days;
+    });
+
+    setFilteredTransactions(filtered);
+  };
+  // const handleDateSelect = (option) => {
+  //   setSelectedDateRange(option);
+  //   setDateDropdownOpen(false);
+  // };
+
+  const handleDownloadInvoice = async (tx) => {
+    try {
+
+    } catch (error) {
+      console.error("Invoice download failed", error);
+    }
+  };
   return (
     <div className="BillingPlans_page">
       <div className="BillingPlans_wrapper">
@@ -176,7 +244,7 @@ const BillingPlans = () => {
             <p>Manage balance, plans, and payment history</p>
           </div>
           <div className="BillingPlans_header-right">
-            <EnvironmentSwitch
+            {/* <EnvironmentSwitch
               value={environment}
               onChange={setEnvironment}
               left={{ label: "Test", value: "sandbox", icon: <LuTestTube /> }}
@@ -185,7 +253,7 @@ const BillingPlans = () => {
                 value: "prod",
                 icon: <BsLightningCharge />,
               }}
-            />
+            /> */}
             <Right_sidebutton
               onClick={() => setIsSliderOpen(true)}
               TextonButton={"Add Balance"}
@@ -195,7 +263,7 @@ const BillingPlans = () => {
       </div>
 
       <div className="BillingPlans_stats-row">
-        <div className="BillingPlans_stat-card">
+        {/* <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
             <div className="stat-card-decor-billingplans">
               <img className="flowblue" src={images.fldesign} />
@@ -209,11 +277,11 @@ const BillingPlans = () => {
             <h3>Pro Plan</h3>
             <span className="BillingPlans_badge yellow">Prepaid</span>
           </div>
-        </div>
-        <div className="BillingPlans_stat-card">
-             <div className="stat-card-decor-billingplans">
-              <img className="flowblue" src={images.fldesign} />
-            </div>
+        </div> */}
+        {/* <div className="BillingPlans_stat-card">
+          <div className="stat-card-decor-billingplans">
+            <img className="flowblue" src={images.fldesign} />
+          </div>
           <div className="BillingPlans_stat-header">
             <div className="BillingPlans_stat-icon">
               <HiOutlineBolt size={18} color="var(--white)" />
@@ -224,11 +292,11 @@ const BillingPlans = () => {
             <h3>On going</h3>
             <span className="BillingPlans_badge">Active</span>
           </div>
-        </div>
+        </div> */}
         <div className="BillingPlans_stat-card">
-             <div className="stat-card-decor-billingplans">
-              <img className="flowblue" src={images.fldesign} />
-            </div>
+          <div className="stat-card-decor-billingplans">
+            <img className="flowblue" src={images.fldesign} />
+          </div>
           <div className="BillingPlans_stat-header">
             <div
               style={{ color: "var(--white)" }}
@@ -244,9 +312,9 @@ const BillingPlans = () => {
           </div>
         </div>
         <div className="BillingPlans_stat-card">
-             <div className="stat-card-decor-billingplans">
-              <img className="flowblue" src={images.fldesign} />
-            </div>
+          <div className="stat-card-decor-billingplans">
+            <img className="flowblue" src={images.fldesign} />
+          </div>
           <div className="BillingPlans_stat-header">
             <div className="BillingPlans_stat-icon">
               <FaArrowTrendUp size={18} color="var(--white)" />
@@ -264,9 +332,9 @@ const BillingPlans = () => {
           </div>
         </div>
         <div className="BillingPlans_stat-card">
-             <div className="stat-card-decor-billingplans">
-              <img className="flowblue" src={images.fldesign} />
-            </div>
+          <div className="stat-card-decor-billingplans">
+            <img className="flowblue" src={images.fldesign} />
+          </div>
           <div className="BillingPlans_stat-header">
             <div className="BillingPlans_stat-icon">
               <LuCircleAlert size={18} color="var(--white)" />
@@ -328,27 +396,33 @@ const BillingPlans = () => {
               </tr>
             </thead>
             <tbody>
-              {transactions.map((tx, idx) => (
+              {filteredTransactions?.map((tx, idx) => (
                 <tr key={idx}>
-                  <td style={{ color: "var(--gray-200)" }}>{tx.date}</td>
                   <td>
-                    <span
-                      className={`BillingPlans_tx-type ${
-                        tx.type === "Top-up" ? "topup" : "invoice"
-                      }`}
-                    >
-                      {tx.type}
+                    {new Date(tx.transactionDate).toLocaleDateString("en-IN")}
+                  </td>
+
+                  <td>
+                    <span className="BillingPlans_tx-type topup">
+                      {tx.type || "Top-up"}
                     </span>
                   </td>
-                  <td style={{ color: "var(--gray-200)" }}>{tx.mode}</td>
-                  <td>{tx.amount}</td>
+
+                  <td>{tx.paymentMode || "UPI"}</td>
+
+                  <td>₹{tx.amount}</td>
+
                   <td>
                     <span className="BillingPlans_status-pill completed">
-                      {tx.status}
+                      {tx.status || "Completed"}
                     </span>
                   </td>
+
                   <td>
-                    <button className="BillingPlans_download-btn">
+                    <button
+                      className="BillingPlans_download-btn"
+                      onClick={() => handleDownloadInvoice(tx)}
+                    >
                       <LuDownload color="black" size={20} />
                     </button>
                   </td>
@@ -359,7 +433,7 @@ const BillingPlans = () => {
         </div>
 
         <div className="BillingPlans_sidebar-section">
-          <div className="BillingPlans_sidebar-card BillingPlans_plan-history">
+          {/* <div className="BillingPlans_sidebar-card BillingPlans_plan-history">
             <h3>Plan History</h3>
             <div className="BillingPlans_history-timeline">
               <div className="BillingPlans_timeline-item">
@@ -385,7 +459,7 @@ const BillingPlans = () => {
                 <div className="BillingPlans_timeline-dot"></div>
                 {/* Last item might not need a line if we want it to stop, but the image shows a continuous feel or just connecting. 
                        Usually the line connects FROM this dot downwards. The last one doesn't need a line going down. */}
-                <div className="BillingPlans_timeline-content">
+          {/* <div className="BillingPlans_timeline-content">
                   <div className="BillingPlans_timeline-header-row">
                     <div className="BillingPlans_plan-name-group">
                       <h4>Plus</h4>
@@ -458,7 +532,7 @@ const BillingPlans = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */} */
         </div>
       </div>
 

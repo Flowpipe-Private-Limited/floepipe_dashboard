@@ -20,7 +20,7 @@ const OtpScreen = ({ navigation }) => {
   const [Loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const {token,mobileNumber} = location.state;
+  const { token, mobileNumber } = location.state;
 
   if (!token || !mobileNumber) {
     console.log("Token or mobile number missing, redirecting to login");
@@ -81,26 +81,26 @@ const OtpScreen = ({ navigation }) => {
     setLoading(true);
     setErrorMessage("");
 
-    const dataToSend = {otp: finalOtp, "channel": "MOBILE" }
-    
+    const dataToSend = { otp: finalOtp, "channel": "MOBILE" }
+
     await ApirequestHandler(
-      async()=> await VerifyOTP(dataToSend,token),  // Token is updated in header verifyOTP section
+      async () => await VerifyOTP(dataToSend, token),  // Token is updated in header verifyOTP section
       setLoading,
-      (resData)=>{
-        console.log('response data',resData )
-        const {success,message,clientId} = resData;
-         localStorage.setItem("clientId", clientId);
-        if(success){
+      (resData) => {
+        console.log('response data', resData)
+        const { success, message, clientId } = resData;
+        localStorage.setItem("clientId", clientId);
+        if (success) {
           // Cookies.set("token",token);
-          Cookies.set("clientId",clientId);
+          Cookies.set("clientId", clientId);
           navigate("/dashboard")
-        }else{
+        } else {
           setErrorMessage(message || "Invalid OTP");
         }
         setLoading(false)
       },
-      (errMessage)=>{
-        console.log('OTPVerify ERROR:',errMessage);
+      (errMessage) => {
+        console.log('OTPVerify ERROR:', errMessage);
         setLoading(false);
       }
     )
@@ -152,8 +152,25 @@ const OtpScreen = ({ navigation }) => {
                     onChange={(e) => handleInput(e.target.value, index)}
                     onFocus={() => handleFocus(index)}
                     onBlur={() => handleBlur(index)}
+
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleSubmit();
+                      }
+                    }}
+
                     className={`otp-input-box ${getBorderColorClass(index)}`}
                   />
+                  // <input
+                  //   key={index}
+                  //   ref={(ref) => (inputRefs.current[index] = ref)}
+                  //   value={value}
+                  //   maxLength={1}
+                  //   onChange={(e) => handleInput(e.target.value, index)}
+                  //   onFocus={() => handleFocus(index)}
+                  //   onBlur={() => handleBlur(index)}
+                  //   className={`otp-input-box ${getBorderColorClass(index)}`}
+                  // />
                 ),
               )}
             </div>

@@ -48,7 +48,7 @@ const Login = () => {
       identifier: formData?.mobileNumber,
       channel: "MOBILE",
       // clientId
-      module:'API_MODULE'
+      module: 'API_MODULE'
     }
     await ApirequestHandler(
       async () => await SendOTP(dataToSend),
@@ -58,7 +58,7 @@ const Login = () => {
         console.log('Response Data', resdata)
         if (success) {
           console.log('Received token:', accessToken);
-          navigate("/otpVerify", { state: { token:accessToken, mobileNumber: formData?.mobileNumber } })
+          navigate("/otpVerify", { state: { token: accessToken, mobileNumber: formData?.mobileNumber } })
         } else {
           setErrorMessage(message || "Login failed");
         }
@@ -88,12 +88,17 @@ const Login = () => {
               placeholder=" "
               // onChange={(e) => HandleFromChange(e)}
               onChange={HandleFromChange}
-              onKeyPress={(e) => {
-                // Prevent non-numeric key presses
-                if (!/[0-9]/.test(e.key)) {
-                  e.preventDefault();
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  GetOtp();
                 }
               }}
+              // onKeyPress={(e) => {
+              //   // Prevent non-numeric key presses
+              //   if (!/[0-9]/.test(e.key)) {
+              //     e.preventDefault();
+              //   }
+              // }}
               pattern="[0-9]*"
               className="peer block w-full px-4 py-3 rounded-lg bg-zinc-900 border border-[#424D64] text-white placeholder-transparent
                focus:outline-none focus:ring-1 focus:ring-[#424D64]"
