@@ -33,7 +33,7 @@ const BillingPlans = () => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   // Wallet Logic State
   const CLIENT_ID = "CID_1766992391408";
-  const BASE_URL = import.meta.env.REACT_APP_SUPPERADMIN_URL;
+  const BASE_URL = import.meta.env.x;
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

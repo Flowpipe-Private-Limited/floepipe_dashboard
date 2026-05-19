@@ -152,6 +152,17 @@ const HandleGetProducts = () =>
 
 const GetWalletBalance = (clientid) =>
   supperApiClient.get(`/apimodule/get-wallte-balance?clientId=${clientid}`);
+
+ const GetWalletHistory = (
+  clientId,
+  range = "120days",
+  page = 1,
+  limit = 20
+) =>
+  supperApiClient.get(
+    `/apimodule/topup-history?clientId=${clientId}&range=${range}&page=${page}&limit=${limit}`
+  );
+
 const getBillingTypeApi = (clientId) =>
   supperApiClient.get(`/client/is-monthly-pay/${clientId}`);
 const GetBillingAmountApi = (clientId, month) =>
@@ -307,6 +318,7 @@ export {
   HandleDeleteIP,
   HandleDeleteKey,
   GetWalletBalance,
+  GetWalletHistory,
   HandlegetReports,
   HandleGetProducts,
   HandleCreateReportResponse,
