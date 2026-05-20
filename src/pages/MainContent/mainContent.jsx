@@ -73,13 +73,13 @@ const MainContent = () => {
   const fetchServiceNameData = analytics((state) => state.fetchServiceNameData);
   const publicKey = GeneralKeys((state) => state.publicKey);
   const privateKey = GeneralKeys((state) => state.privateKey);
-  const recentCallData = useUserkey((state) => state.recentCallData);
+  const recentCallData = analytics((state) => state.recentCallData);
   const walletBalance = useUserkey((state) => state.walletBalance);
   const serviceNameData = analytics((state) => state.serviceNameData);
 
   const clientId = Cookies.get("clientId");
 
-  console.log("walletBalance and recentCallData =====>>", serviceNameData);
+  console.log("walletBalance and recentCallData =====>>", recentCallData);
 
   useEffect(() => {
     getUserApiCount();
