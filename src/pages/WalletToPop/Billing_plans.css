@@ -231,8 +231,8 @@
 /* Layout Grid */
 .BillingPlans_content-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  /* gap: 1rem; */
 }
 
 /* Transactions Table */

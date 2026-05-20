@@ -8,7 +8,6 @@ import {
   HandleApiCount,
   HandleGetProducts,
 } from "../utils/Apis/api";
-import { generateFrontendKeyPair } from "../utils/helper";
 
 export const analytics = create((set, get) => ({
   userApiCount: "",
@@ -16,7 +15,6 @@ export const analytics = create((set, get) => ({
   serviceNameData: [],
 
   fetchUserApiCount: async (accesstoken, encryptedPayload, publicKey) => {
-    const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
     set({ loading: true, error: null });
     await EncryptedApirequestHandler(
       async () => HandleApiCount(accesstoken, encryptedPayload, publicKey),

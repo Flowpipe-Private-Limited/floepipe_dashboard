@@ -139,56 +139,56 @@ const BillingPlans = () => {
     }
   };
 
-  // const transactions = [
-  //   {
-  //     date: "Dec 21, 2024",
-  //     type: "Top-up",
-  //     mode: "UPI",
-  //     amount: "₹2,450",
-  //     status: "Completed",
-  //     invoice: true,
-  //   },
-  //   {
-  //     date: "Dec 22, 2024",
-  //     type: "Invoice",
-  //     mode: "Auto-debit",
-  //     amount: "₹2,450",
-  //     status: "Completed",
-  //     invoice: true,
-  //   },
-  //   {
-  //     date: "Dec 23, 2024",
-  //     type: "Invoice",
-  //     mode: "Net Banking",
-  //     amount: "₹2,450",
-  //     status: "Completed",
-  //     invoice: true,
-  //   },
-  //   {
-  //     date: "Dec 24, 2024",
-  //     type: "Top-up",
-  //     mode: "Credit Card",
-  //     amount: "₹2,450",
-  //     status: "Completed",
-  //     invoice: true,
-  //   },
-  //   {
-  //     date: "Dec 25, 2024",
-  //     type: "Invoice",
-  //     mode: "Auto-debit",
-  //     amount: "₹2,450",
-  //     status: "Completed",
-  //     invoice: true,
-  //   },
-  //   {
-  //     date: "Dec 26, 2024",
-  //     type: "Top-up",
-  //     mode: "UPI",
-  //     amount: "₹2,450",
-  //     status: "Completed",
-  //     invoice: true,
-  //   },
-  // ];
+  const transactionsn = [
+    {
+      date: "Dec 21, 2024",
+      type: "Top-up",
+      mode: "UPI",
+      amount: "₹2,450",
+      status: "Completed",
+      invoice: true,
+    },
+    {
+      date: "Dec 22, 2024",
+      type: "Invoice",
+      mode: "Auto-debit",
+      amount: "₹2,450",
+      status: "Completed",
+      invoice: true,
+    },
+    {
+      date: "Dec 23, 2024",
+      type: "Invoice",
+      mode: "Net Banking",
+      amount: "₹2,450",
+      status: "Completed",
+      invoice: true,
+    },
+    {
+      date: "Dec 24, 2024",
+      type: "Top-up",
+      mode: "Credit Card",
+      amount: "₹2,450",
+      status: "Completed",
+      invoice: true,
+    },
+    {
+      date: "Dec 25, 2024",
+      type: "Invoice",
+      mode: "Auto-debit",
+      amount: "₹2,450",
+      status: "Completed",
+      invoice: true,
+    },
+    {
+      date: "Dec 26, 2024",
+      type: "Top-up",
+      mode: "UPI",
+      amount: "₹2,450",
+      status: "Completed",
+      invoice: true,
+    },
+  ];
 
   const dateOptions = [
     "Last 120 days",
@@ -400,7 +400,7 @@ const BillingPlans = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredTransactions?.map((tx, idx) => (
+              {transactionsn?.map((tx, idx) => (
                 <tr key={idx}>
                   <td>
                     {new Date(tx.transactionDate).toLocaleDateString("en-IN")}
@@ -550,7 +550,7 @@ const BillingPlans = () => {
                 </div>
               </div>
             </div>
-          </div> */} */
+          </div> */} 
         </div>
       </div>
 

@@ -23,6 +23,7 @@ import {
   getApiErrorCount,
 } from "../../utils/Apis/api";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import images from "../../Images/Images";
 
 // Custom tick renderer for API Cost Breakdown to stack Month and Day labels or handle long names
 const CustomXAxisTick = ({ x, y, payload }) => {
@@ -329,10 +330,16 @@ const ViewAnalytics = () => {
         {/* Metrics Row */}
         <div className="metrics-row">
           <div className="metric-card">
+            <div className="stat-card-decor-analytics">
+              <img className="flowblue" src={images.fldesign} alt="" />
+            </div>
             <div className="metric-label">Total Requests</div>
             <div className="metric-value">{totalRequests.toLocaleString()}</div>
           </div>
           <div className="metric-card">
+            <div className="stat-card-decor-analytics">
+              <img className="flowblue" src={images.fldesign} alt="" />
+            </div>
             <div className="metric-label">Avg Success Rate</div>
             <div
               style={{ color: avgSuccessRate >= 90 ? "#00A63E" : "#8B5CF6" }}
@@ -342,10 +349,16 @@ const ViewAnalytics = () => {
             </div>
           </div>
           <div className="metric-card">
+            <div className="stat-card-decor-analytics">
+              <img className="flowblue" src={images.fldesign} alt="" />
+            </div>
             <div className="metric-label">Avg Latency</div>
             <div className="metric-value">34ms</div>
           </div>
           <div className="metric-card">
+            <div className="stat-card-decor-analytics">
+              <img className="flowblue" src={images.fldesign} alt="" />
+            </div>
             <div className="metric-label">Peak Usage</div>
             <div className="metric-value">400 calls/day</div>
           </div>

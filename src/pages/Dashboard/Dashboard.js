@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import {
   User,
   Search,
+   HelpCircle,
   FileText,
   Menu,
   ChevronDown,
@@ -44,6 +45,8 @@ import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import { getTransactionsData, HandleApiCount } from "../../utils/Apis/api";
 import { GeneralKeys } from "../../Store/PubliPriviteKey";
 import { generateFrontendKeyPair } from "../../utils/helper";
+import { RxPlusCircled } from "react-icons/rx";
+import { IoCodeSlashSharp } from "react-icons/io5";
 
 const LucideIcons = {
   FileText,
@@ -833,18 +836,34 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
           <Menu size={18} />
         </button> */}
         <div className="Dash-search-container">
-          <Search size={18} className="Dash-search-icon" />
-          <input
-            type="text"
-            placeholder="Search for anything..."
-            className="Dash-search-input"
-          />
+    <p className="nav-pro-title">API <span className="by-flowpipe-text">by flowpipe</span></p>
         </div>
       </div>
 
       <div className="Dash-header-right">
-        <button className="Dash-notif-btn">
-          <HiOutlineBell size={24} />
+          <button
+          onClick={() => onNavigate("Billing_plans")}
+          className="Dash-header-btn"
+        >
+          <RxPlusCircled size={24} />
+          Balance
+        </button>
+
+        <button className="Dash-header-btn">
+          <IoCodeSlashSharp size={20} />
+          Developers API
+        </button>
+
+        <button
+          className="Dash-header-btn Dash-header-help-btn"
+          onClick={onHelpClick}
+        >
+          <HelpCircle size={20} />
+          <span>Help</span>
+        </button>
+      <button className="Dash-header-btn">
+          <HiOutlineBell size={20} />
+          <span>Updates</span>
         </button>
 
         <button

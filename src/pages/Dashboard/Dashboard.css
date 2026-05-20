@@ -14,7 +14,7 @@
   flex-direction: column;
   height: 100%;
   transition: width 0.3s ease;
-  border-radius: 0px 20px 20px 0px;
+  border-radius: 0px 16px 16px 0px;
   font-family: "Figtree";
   padding: 1rem;
 }
@@ -81,8 +81,8 @@
   align-items: center;
   flex-direction: row;
   gap: 0.6rem;
-  padding: 0.75rem 1rem;
-  border-radius: var(--border-radius-4);
+  padding: 0.65rem 1rem;
+  border-radius: var(--border-radius-6);
   transition: all 0.2s ease;
   font-size: var(--normal-text);
   font-weight: 500;
@@ -218,29 +218,15 @@
 .Dash-search-container {
   display: flex;
   align-items: center;
-  background: var(--search-bar);
-  border-radius: var(--border-radius-10);
-  padding: 0.5rem 1rem;
-  width: 400px;
-  max-width: 100%;
 }
+.nav-pro-title{
+  font-size: var(--main-heading);
+  font-weight: 500;
 
-.Dash-search-icon {
-  color: var(--white);
-  margin-right: 10px;
 }
-
-.Dash-search-input {
-  background: transparent;
-  border: none;
-  color: var(--white);
-  outline: none;
+.by-flowpipe-text{
   font-size: var(--normal-text);
-  width: 100%;
-}
-
-.Dash-search-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
 }
 
 .Dash-header-title {
@@ -258,23 +244,24 @@
 .Dash-header-btn {
   height: 36px;
   padding: 0 14px;
-  border-radius: var(--border-radius-6);
-  border: 1px solid var(--purple-main);
   background: transparent;
-  color: var(--purple-main);
+  color: var(--seetwo);
   font-size: var(--normal-text);
-  font-weight: 500;
+  font-weight: 200;
   display: flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  font-family: "Konnect";
+  letter-spacing: 0.2px;
+  font-family: "Figtree-light";
 }
 
 .Dash-notif-btn {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--white);
+  font-size: var(--normal-text);
+  font-weight: 200;
   cursor: pointer;
   padding: 8px;
   display: flex;
@@ -310,8 +297,8 @@
 }
 
 .sidebar-icon-img {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   object-fit: contain;
   transition: filter 0.2s ease;
 }
@@ -321,7 +308,7 @@
 }
 
 .sidebar-icon-active {
-  filter: invert(160%) sepia(10%) saturate(3015%) hue-rotate(22deg) brightness(109%) contrast(106%);
+  filter: invert(120%) sepia(48%) saturate(15%) hue-rotate(22deg) brightness(109%) contrast(106%);
 }
 
 .subgroup-icon {
@@ -636,13 +623,13 @@
 
 .sidebar-item.active {
   background: var(--black) !important;
-  color: var(--sweetyellow) !important;
+  color: var(--white) !important;
   border-left: none;
   padding-left: 1rem;
 }
 
 .sidebar-item.active svg {
-  color: #d9f99d;
+  color: var(--white);
 }
 
 .api-endpoint-item.active {
@@ -857,16 +844,16 @@
 }
 
 .active-subgroup-text {
-  background: #000000 !important;
-  color: var(--sweetyellow) !important;
+  background: var(--black) !important;
+  color: var(--white) !important;
 }
 
 .active-subgroup-text .subgroup-label {
-  color: var(--sweetyellow) !important;
+  color: var(--white) !important;
 }
 
 .active-subgroup-text svg {
-  color: var(--sweetyellow) !important;
+  color: var(--white) !important;
 }
 
 .theme-toggle-switch {

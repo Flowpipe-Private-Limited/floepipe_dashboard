@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FileCheck, Layers, ChevronRight, Cookie } from "lucide-react";
 import "./Products.css";
-import { IoMdArrowDropdown } from "react-icons/io";
+import images from "../../Images/Images";
 import { IoSearchOutline } from "react-icons/io5";
-import { LuFilter } from "react-icons/lu";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import Cookies from 'js-cookie';
 import {
@@ -179,7 +178,7 @@ const Products = () => {
 
   return (
     <div className="products-container">
-    
+
       <div className="products-header">
         <div>
           <div className="products-title-text">Products</div>
@@ -188,7 +187,7 @@ const Products = () => {
           </p>
         </div>
       </div>
-        <div className="category-slider-section">
+      <div className="category-slider-section">
         <div className="category-scroll-wrapper" ref={scrollContainerRef}>
           {categories.map((cat) => (
             <div
@@ -277,7 +276,9 @@ const Products = () => {
         <div className="products-grid">
           {filteredProducts.map((product) => (
             <div key={product.id} className="product-card">
-
+              <div className="stat-card-decor-product">
+                <img className="flowblue" src={images.fldesign} />
+              </div>
               <div>
                 <div className={`icon-container ${product.iconColor}`}>
                   {product.icon}
@@ -305,7 +306,7 @@ const Products = () => {
 
 
                 <button
-                  className={`action-btn ${product.status === "Pending"
+                  className={`action-btn-products ${product.status === "Pending"
                     ? "pending"
                     : product.status === "Subscribed"
                       ? "subscribed"

@@ -9,7 +9,7 @@
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 1rem;
   padding: 0px;
 }
 
@@ -204,7 +204,7 @@
 
 .stat-card {
   background: var(--white);
-  border-radius: var(--border-radius-8);
+  border-radius: var(--border-radius-12);
   padding: 10px;
   height: 102px;
   border: 1px solid var(--gray-300);
@@ -375,7 +375,7 @@
 
 .quick-card {
   background: var(--white);
-  border-radius: var(--border-radius-8);
+  border-radius: var(--border-radius-12);
   padding: 16px;
   border: 1px solid var(--black-500);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
@@ -630,7 +630,7 @@
 .dashboard-detailed-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1rem;
   padding-bottom: 40px;
 }
 
@@ -654,7 +654,7 @@
 .chart-header {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
@@ -763,7 +763,7 @@
   border-radius: var(--border-radius-12);
   height: 100%;
   border: 1px solid var(--black-500);
-  max-height: 70.6vh;
+  max-height: 71.8vh;
   overflow: auto;
 }
 
