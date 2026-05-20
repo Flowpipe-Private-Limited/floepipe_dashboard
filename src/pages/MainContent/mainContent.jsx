@@ -34,8 +34,27 @@ import {
 } from "../../utils/Apis/api";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 
+const CustomXAxisTick = (props) => {
+  const { x, y, payload } = props;
+  if (!payload || !payload.value) return null;
+  const parts = payload.value.split(" ");
+  return (
+    <g transform={`translate(${x},${y + 12})`}>
+      <text x={0} y={0} dy={0} textAnchor="middle" fill="#9ca3af" fontSize={12}>
+        <tspan x={0} dy={0}>
+          {parts[0]}
+        </tspan>
+        <tspan x={0} dy={15}>
+          {parts[1]}
+        </tspan>
+      </text>
+    </g>
+  );
+};
+
 const MainContent = () => {
   const [showBalance, setShowBalance] = useState(false);
+  const [selectedDuration, setSelectedDuration] = useState("Last 12 days");
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [isProduction, setIsProduction] = useState(false);
   const [transactionData, setTransactionData] = useState({});
@@ -268,20 +287,44 @@ const MainContent = () => {
     },
   ];
 
-  const productUsageData = [
-    { name: "Jan", usage: 4000, amt: 2400 },
-    { name: "Feb", usage: 3000, amt: 1398 },
-    { name: "Mar", usage: 2000, amt: 9800 },
-    { name: "Apr", usage: 2780, amt: 3908 },
-    { name: "May", usage: 1890, amt: 4800 },
-    { name: "Jun", usage: 2390, amt: 3800 },
-    { name: "Jul", usage: 3490, amt: 4300 },
-    { name: "Aug", usage: 4000, amt: 2400 },
-    { name: "Sep", usage: 3000, amt: 1398 },
-    { name: "Oct", usage: 2000, amt: 9800 },
-    { name: "Nov", usage: 2780, amt: 3908 },
-    { name: "Dec", usage: 1890, amt: 4800 },
+  const allUsageData = [
+    { name: "Jan 14", usage: 300, amt: 150 },
+    { name: "Jan 15", usage: 450, amt: 220 },
+    { name: "Jan 16", usage: 200, amt: 180 },
+    { name: "Jan 17", usage: 350, amt: 210 },
+    { name: "Jan 18", usage: 600, amt: 400 },
+    { name: "Jan 19", usage: 520, amt: 310 },
+    { name: "Jan 20", usage: 410, amt: 290 },
+    { name: "Jan 21", usage: 280, amt: 195 },
+    { name: "Jan 22", usage: 330, amt: 240 },
+    { name: "Jan 23", usage: 620, amt: 380 },
+    { name: "Jan 24", usage: 710, amt: 450 },
+    { name: "Jan 25", usage: 480, amt: 350 },
+    { name: "Jan 26", usage: 300, amt: 210 },
+    { name: "Jan 27", usage: 250, amt: 190 },
+    { name: "Jan 28", usage: 420, amt: 290 },
+    { name: "Jan 29", usage: 590, amt: 410 },
+    { name: "Jan 30", usage: 680, amt: 460 },
+    { name: "Jan 31", usage: 510, amt: 330 },
+    { name: "FEb 01", usage: 420, amt: 195 },
+    { name: "FEb 02", usage: 580, amt: 220 },
+    { name: "FEb 03", usage: 230, amt: 205 },
+    { name: "FEb 04", usage: 230, amt: 185 },
+    { name: "FEb 05", usage: 430, amt: 295 },
+    { name: "FEb 06", usage: 700, amt: 390 },
+    { name: "FEb 07", usage: 700, amt: 475 },
+    { name: "FEb 08", usage: 410, amt: 385 },
+    { name: "FEb 09", usage: 500, amt: 225 },
+    { name: "FEb 10", usage: 240, amt: 190 },
+    { name: "FEb 11", usage: 360, amt: 295 },
+    { name: "FEb 12", usage: 630, amt: 298 },
   ];
+
+  const productUsageData = selectedDuration === "Last 7 days"
+    ? allUsageData.slice(-7)
+    : selectedDuration === "Last 12 days"
+    ? allUsageData.slice(-12)
+    : allUsageData;
 
   const panLiteData = [
     {
@@ -646,18 +689,20 @@ const MainContent = () => {
               <h3>Product Usage</h3>
               <div className="chart-controls">
                 <div className="control-group">
-                  <p>Duration</p>
-                  <select defaultValue="Last 30 days">
-                    <option>Last 30 days</option>
-                    <option>Last 60 days</option>
-                    <option>Last 120 days</option>
-                    <option>Last 7 days</option>
-                    <option>Last Custom</option>
+                  <label>Duration</label>
+                  <select
+                    value={selectedDuration}
+                    onChange={(e) => setSelectedDuration(e.target.value)}
+                  >
+                    <option value="Last 30 days">Last 30 days</option>
+                    <option value="Last 7 days">Last 7 days</option>
+                    <option value="Last 12 days">Last 12 days</option>
                   </select>
                 </div>
                 <div className="control-group">
-                  <p>All Products</p>
+                  <label>All Products</label>
                   <select defaultValue="All Products">
+                    <option>All Products</option>
                     <option>Pan Lite</option>
                     <option>Driving License Advance</option>
                     <option>GST Verification Lite</option>
@@ -671,7 +716,7 @@ const MainContent = () => {
                 </div>
                 <div className="toggle-group">
                   <button className={`toggle-btn ${slider ? "" : "active"}`} onClick={()=>{setSlider(false)}}>Production</button>
-                  <button className={`toggle-btn ${slider ? "active" : ""}`} onClick={()=>{setSlider(true)}}>Test</button>
+                  {/* <button className={`toggle-btn ${slider ? "active" : ""}`} onClick={()=>{setSlider(true)}}>Test</button> */}
                 </div>
               </div>
             </div>
@@ -680,15 +725,16 @@ const MainContent = () => {
                 <ComposedChart data={productUsageData}>
                   <defs>
                     <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                      <stop offset="5%" stopColor="var(--purple-main)" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="var(--purple-main)" stopOpacity={0} />
                     </linearGradient>
                   </defs>
+                  <CartesianGrid vertical={false} stroke="#eef2f6" />
                   <XAxis
                     dataKey="name"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 12, fill: "#9ca3af" }}
+                    axisLine={{ stroke: "#111827", strokeWidth: 1 }}
+                    tickLine={{ stroke: "#9ca3af", strokeWidth: 1 }}
+                    tick={<CustomXAxisTick />}
                     dy={10}
                   />
                   <YAxis
@@ -696,28 +742,29 @@ const MainContent = () => {
                     axisLine={false}
                     tickLine={false}
                     tick={{ fontSize: 12, fill: "#9ca3af" }}
+                    domain={[0, 800]}
+                    ticks={[0, 200, 400, 600, 800]}
                   />
                   <Tooltip />
                   <Area
                     type="monotone"
                     dataKey="amt"
-                    stroke="#d8b4fe"
+                    stroke="none"
                     fillOpacity={1}
                     fill="url(#colorUv)"
                   />
                   <Line
                     type="monotone"
                     dataKey="amt"
-                    stroke="#a78bfa"
+                    stroke="var(--purple-main)"
                     strokeWidth={2}
-                    strokeDasharray="5 5"
-                    dot={false}
-                    activeDot={false}
+                    dot={{ r: 4, fill: "#fff", stroke: "var(--purple-main)", strokeWidth: 2 }}
+                    activeDot={{ r: 6, fill: "#fff", stroke: "var(--purple-main)", strokeWidth: 2 }}
                   />
                   <Bar
                     dataKey="usage"
-                    barSize={6}
-                    fill="#7c3aed"
+                    barSize={16}
+                    fill="var(--purple-main)"
                     radius={[10, 10, 0, 0]}
                   />
                 </ComposedChart>
@@ -733,7 +780,7 @@ const MainContent = () => {
                   <LuCodeXml
                     className="code-box-border"
                     size={20}
-                    color="#7c3aed"
+                    color="var(--purple-main)"
                   />
                 </div>
 
@@ -777,7 +824,7 @@ const MainContent = () => {
                   className="toggle-switch"
                   onClick={() => setIsProduction(!isProduction)}
                 >
-                  <span
+                  {/* <span
                     className={`trail-color ${!isProduction ? "active-text" : ""}`}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -785,7 +832,7 @@ const MainContent = () => {
                     }}
                   >
                     Trial
-                  </span>
+                  </span> */}
                   <div
                     className={`switch-track ${isProduction ? "active" : ""}`}
                   >

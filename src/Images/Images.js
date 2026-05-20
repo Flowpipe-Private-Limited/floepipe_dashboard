@@ -42,6 +42,8 @@ import LIVEAnimation from "../assets/images/LIVEAnimation.json";
 import kyccomplete from '../assets/images/kyccomplete.webp';
 // new images
 import fldesign from '../assets/images/fldesign.png';
+import paid from '../assets/images/paid.png';
+
 
 
 const images = {
@@ -88,6 +90,7 @@ const images = {
   kyccomplete,
   // new
   fldesign,
+  paid,
 };
 
 export default images;

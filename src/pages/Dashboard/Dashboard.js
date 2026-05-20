@@ -24,7 +24,7 @@ import {
   ShieldAlert,
   Stethoscope,
   MoreHorizontal,
-    Sun,
+  Sun,
 } from "lucide-react";
 import flowpipeLogo from "../../assets/images/FlowpipeLogo.png";
 import { useUserStore } from "../../Store/userStore";
@@ -296,10 +296,10 @@ export default function DashboardPage() {
     };
   }, []);
 
-  const setKeys = async() =>{
-     const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
-      await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
-  }
+  const setKeys = async () => {
+    const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
+    await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
+  };
 
   // Theme Logic
   useEffect(() => {
@@ -440,70 +440,70 @@ function Sidebar({ collapsed, data, onHelpClick }) {
   // Filter groups based on search
   const filteredConfig = search
     ? sideDashboardConfig
-      .map((item) => {
-        if (item?.type === "group") {
-          const filteredChildren = (item.children || [])
-            .filter(
-              (child) =>
-                (child?.label || "")
-                  .toLowerCase()
-                  .includes(search.toLowerCase()) ||
-                child?.children?.some(
-                  (subChild) =>
-                    (subChild?.label || "")
-                      .toLowerCase()
-                      .includes(search.toLowerCase()) ||
-                    subChild?.children?.some((leaf) =>
-                      (leaf?.label || "")
-                        .toLowerCase()
-                        .includes(search.toLowerCase()),
-                    ),
-                ),
-            )
-            .map((child) => ({
-              ...child,
-              children:
-                (child?.children || [])
-                  ?.map((subChild) => {
-                    if (subChild?.children) {
-                      return {
-                        ...subChild,
-                        children: subChild.children.filter((leaf) =>
-                          (leaf?.label || "")
-                            .toLowerCase()
-                            .includes(search.toLowerCase()),
-                        ),
-                      };
-                    }
-                    return subChild;
-                  })
-                  .filter(
+        .map((item) => {
+          if (item?.type === "group") {
+            const filteredChildren = (item.children || [])
+              .filter(
+                (child) =>
+                  (child?.label || "")
+                    .toLowerCase()
+                    .includes(search.toLowerCase()) ||
+                  child?.children?.some(
                     (subChild) =>
                       (subChild?.label || "")
                         .toLowerCase()
                         .includes(search.toLowerCase()) ||
-                      (subChild?.children && subChild.children.length > 0),
-                  ) || [],
-            }))
-            .filter(
-              (child) =>
-                (child?.children || [])?.length > 0 ||
-                (child?.label || "")
-                  .toLowerCase()
-                  .includes(search.toLowerCase()),
-            );
+                      subChild?.children?.some((leaf) =>
+                        (leaf?.label || "")
+                          .toLowerCase()
+                          .includes(search.toLowerCase()),
+                      ),
+                  ),
+              )
+              .map((child) => ({
+                ...child,
+                children:
+                  (child?.children || [])
+                    ?.map((subChild) => {
+                      if (subChild?.children) {
+                        return {
+                          ...subChild,
+                          children: subChild.children.filter((leaf) =>
+                            (leaf?.label || "")
+                              .toLowerCase()
+                              .includes(search.toLowerCase()),
+                          ),
+                        };
+                      }
+                      return subChild;
+                    })
+                    .filter(
+                      (subChild) =>
+                        (subChild?.label || "")
+                          .toLowerCase()
+                          .includes(search.toLowerCase()) ||
+                        (subChild?.children && subChild.children.length > 0),
+                    ) || [],
+              }))
+              .filter(
+                (child) =>
+                  (child?.children || [])?.length > 0 ||
+                  (child?.label || "")
+                    .toLowerCase()
+                    .includes(search.toLowerCase()),
+              );
 
-          return filteredChildren.length > 0
-            ? { ...item, children: filteredChildren }
+            return filteredChildren.length > 0
+              ? { ...item, children: filteredChildren }
+              : null;
+          }
+          return (item?.label || "")
+            .toLowerCase()
+            .includes(search.toLowerCase())
+            ? item
             : null;
-        }
-        return (item?.label || "")
-          .toLowerCase()
-          .includes(search.toLowerCase())
-          ? item
-          : null;
-      })
-      .filter(Boolean)
+        })
+        .filter(Boolean)
     : sideDashboardConfig;
 
   return (
@@ -580,8 +580,9 @@ function Sidebar({ collapsed, data, onHelpClick }) {
               <div key={idx} className="sidebar-group">
                 <button
                   onClick={() => toggleGroup(item.label)}
-                  className={`sidebar-item group-header ${collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"
-                    } ${isGroupActive ? "active" : ""}`}
+                  className={`sidebar-item group-header ${
+                    collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"
+                  } ${isGroupActive ? "active" : ""}`}
                 >
                   <div className="flex-items-center-gap-3">
                     {item.iconType === "image" ? (
@@ -628,24 +629,27 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                               if (subGroup.href) navigate(subGroup.href);
                               toggleSubGroup(item.label, subGroup.label);
                             }}
-                            className={`subgroup-button ${isSubGroupActive ? "active-subgroup-text" : ""
-                              }`}
+                            className={`subgroup-button ${
+                              isSubGroupActive ? "active-subgroup-text" : ""
+                            }`}
                           >
                             <div className="flex-items-center-gap-2">
-                              {subGroup.icon && (subGroup.iconType === "image" ? (
-                                <img
-                                  src={subGroup.icon}
-                                  alt={subGroup.label}
-                                  /* ✅ Active = #ccff00, Default = black */
-                                  className={`subgroup-icon ${isSubGroupActive ? "subgroup-icon-active" : "subgroup-icon-default"}`}
-                                />
-                              ) : (
-                                <SubIcon size={16} />
-                              ))}
+                              {subGroup.icon &&
+                                (subGroup.iconType === "image" ? (
+                                  <img
+                                    src={subGroup.icon}
+                                    alt={subGroup.label}
+                                    /* ✅ Active = #ccff00, Default = black */
+                                    className={`subgroup-icon ${isSubGroupActive ? "subgroup-icon-active" : "subgroup-icon-default"}`}
+                                  />
+                                ) : (
+                                  <SubIcon size={16} />
+                                ))}
 
                               <span
-                                className={`subgroup-label ${isSubGroupActive ? "active-subgroup-text" : ""
-                                  }`}
+                                className={`subgroup-label ${
+                                  isSubGroupActive ? "active-subgroup-text" : ""
+                                }`}
                               >
                                 {subGroup.label}
                               </span>
@@ -654,8 +658,9 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                             {subGroup.children?.length > 0 && (
                               <ChevronDown
                                 size={18}
-                                className={`transition-transform ${isSubGroupOpen ? "rotate-180" : ""
-                                  }`}
+                                className={`transition-transform ${
+                                  isSubGroupOpen ? "rotate-180" : ""
+                                }`}
                               />
                             )}
                           </button>
@@ -881,7 +886,7 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
               </div>
               <div className="profile-divider"></div>
 
-              <div className="profile-menu-item-spaced" onClick={toggleTheme}>
+              {/* <div className="profile-menu-item-spaced" onClick={toggleTheme}>
                 <div className="flex-items-center-gap-2">
                   {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
                   <span>{theme === "light" ? "Dark Mode" : "Light Mode"}</span>
@@ -893,8 +898,8 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
                     className={`theme-toggle-thumb ${theme === "dark" ? "shifted" : ""}`}
                   ></div>
                 </div>
-              </div>
-              <div className="profile-divider"></div>
+              </div> */}
+              {/* <div className="profile-divider"></div> */}
 
               <div
                 className="profile-menu-item"

@@ -18,8 +18,12 @@ import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebut
 import Popup from "../../components/ui/Popup/Popup";
 import { GetWalletBalance, GetWalletHistory } from "../../utils/Apis/api";
 import images from "../../Images/Images";
+import InvoiceModal from "./Invoice/InvoiceModal";
+import { CiWarning } from "react-icons/ci";
 
 const BillingPlans = () => {
+  const [selectedTx, setSelectedTx] = useState(null);
+  const [isInvoiceOpen, setIsInvoiceOpen] = useState(false);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [autoRecharge, setAutoRecharge] = useState(false);
   const [usageAlerts, setUsageAlerts] = useState(false);
@@ -419,12 +423,26 @@ const BillingPlans = () => {
                   </td>
 
                   <td>
-                    <button
-                      className="BillingPlans_download-btn"
-                      onClick={() => handleDownloadInvoice(tx)}
-                    >
-                      <LuDownload color="black" size={20} />
-                    </button>
+                    <div className="billingplans-down-view">
+                      {/* <button
+                        className="BillingPlans_download-btn"
+                        onClick={() => {
+                          setSelectedTx(tx);
+                          setIsInvoiceOpen(true);
+                        }}
+                      >
+                        <LuDownload color="black" size={20} />
+                      </button> */}
+                      <button
+                        className="BillingPlans_View"
+                        onClick={() => {
+                          setSelectedTx(tx);
+                          setIsInvoiceOpen(true);
+                        }}
+                      >
+                        View
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -537,7 +555,7 @@ const BillingPlans = () => {
       </div>
 
       <div className="BillingPlans_warning-banner">
-        <span className="BillingPlans_warning-icon">⚠️</span>
+        <span className="BillingPlans_warning-icon"><CiWarning color="var(--efffive)" size={24}/></span>
         Your account balance is running low. Add balance to avoid service
         interruption.
       </div>
@@ -557,6 +575,11 @@ const BillingPlans = () => {
           onClose={() => setIsSliderOpen(false)}
         />
       </Popup>
+      <InvoiceModal
+        isOpen={isInvoiceOpen}
+        onClose={() => setIsInvoiceOpen(false)}
+        tx={selectedTx}
+      />
     </div>
   );
 };

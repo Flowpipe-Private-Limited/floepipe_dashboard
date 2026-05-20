@@ -1,12 +1,49 @@
-import React from "react";
+import React, { useRef } from "react";
 import { HiOutlineShare, HiOutlineDownload } from "react-icons/hi";
+import html2pdf from "html2pdf.js";
 import "./Wallet_Invoice.css";
 import images from "../../../Images/Images";
 
 const Wallet_Invoice = ({ amount, onBack }) => {
+  const invoiceRef = useRef(null);
   const transactionId =
     "TXN" + Math.random().toString(36).substr(2, 9).toUpperCase();
   const invoiceNumber = "INV-WALLET-2026";
+
+  const handleDownload = () => {
+    const printContent = invoiceRef.current;
+    if (!printContent) return;
+
+    const opt = {
+      margin:       10,
+      filename:     `${invoiceNumber}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { 
+        scale: 2, 
+        useCORS: true,
+        ignoreElements: (element) => element.classList && element.classList.contains("invoice-actions")
+      },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(printContent).save();
+  };
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: `Invoice - ${invoiceNumber}`,
+          text: `Invoice details for Wallet Top-Up of ${amount}`,
+          url: window.location.href,
+        })
+        .catch((error) => console.log("Sharing failed", error));
+    } else {
+      alert(
+        `Invoice URL copied to clipboard: ${window.location.href}\nInvoice No: ${invoiceNumber}`,
+      );
+    }
+  };
   const date =
     new Date().toLocaleDateString("en-GB", {
       day: "numeric",
@@ -24,7 +61,7 @@ const Wallet_Invoice = ({ amount, onBack }) => {
 
   return (
     <div className="invoice-view-container">
-      <div className="invoice-paper">
+      <div className="invoice-paper" ref={invoiceRef}>
         <div className="invoice-top-section">
           <div className="invoice-brand">
             <div className="invoice-logo-wrapper">
@@ -141,11 +178,11 @@ const Wallet_Invoice = ({ amount, onBack }) => {
         </div>
 
         <div className="invoice-actions">
-          <button className="invoice-action-btn share">
+          <button className="invoice-action-btn share" onClick={handleShare}>
             <HiOutlineShare size={18} />
             Share Receipt
           </button>
-          <button className="invoice-action-btn download">
+          <button className="invoice-action-btn download" onClick={handleDownload}>
             <HiOutlineDownload size={18} />
             Download Invoice
           </button>
