@@ -20,7 +20,7 @@ const baseHandler = async (api, setLoading, onSuccess, onError, decrypt = false)
     }
   } catch (error) {
     console.error("API Request Error:", error);
-    const errorMessage = error?.response?.data?.message || error?.message || "Something went wrong";
+    const errorMessage = error?.response || error?.response?.data?.message || error?.message || "Something went wrong";
     onError(errorMessage);
   } finally {
     if (setLoading) setLoading(false);

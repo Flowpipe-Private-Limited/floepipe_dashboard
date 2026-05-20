@@ -244,7 +244,7 @@ const handlieFileUpload = (data) =>
     },
   });
 
-// Fetch User Details
+//  Fetch User Details
 
 const HandleGetOtp = (data) =>
   kycApiClient.post("mobileNumber/mobileOtp", data);
@@ -269,6 +269,18 @@ const HandlegetReports = (data, accesstoken, key) =>
     {
       headers: { secret_token: accesstoken },
     },
+  );
+  const HandleDownloadReport = (data, accesstoken, key) =>
+  kycApiClient.post(
+    `report/download`,
+    { ...data, publicKeyPem: key },
+    {
+      headers: {
+        secret_token: accesstoken,
+      },
+
+      responseType: "blob",
+    }
   );
 const HandleApiCount = (accesstoken, encryptedPayload, encrypt) =>
   kycApiClient.post(
@@ -334,6 +346,7 @@ export {
   GetWalletBalance,
   GetWalletHistory,
   HandlegetReports,
+  HandleDownloadReport,
   HandleGetProducts,
   HandleCreateReportResponse,
   getBillingTypeApi,

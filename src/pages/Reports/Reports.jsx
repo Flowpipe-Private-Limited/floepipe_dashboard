@@ -11,6 +11,7 @@ import {
 import {
   fetchPublickey,
   HandleCreateReportResponse,
+  HandleDownloadReport,
   HandleGetProducts,
   HandlegetReports,
 } from "../../utils/Apis/api";
@@ -18,6 +19,8 @@ import Cookies from "js-cookie";
 import { GeneralKeys } from "../../Store/PubliPriviteKey";
 import { useUserkey } from "../../Store/userKeyStore";
 import { encryptPayload } from "../../utils/helper";
+import { FiDownload } from "react-icons/fi";
+import { analytics } from "../../Store/analyticsStore";
 
 const DateRangePicker = ({ isOpen, onClose, onApply }) => {
   const [startDate, setStartDate] = useState(moment().startOf("month"));
@@ -436,19 +439,28 @@ const Reports = () => {
   const [appNameOpen, setAppNameOpen] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState("Select option");
-  const [selectedAppName, setSelectedAppName] = useState("Select option");
-  const [selectedStatus, setSelectedStatus] = useState("Select option");
+  const [selectedProductId, setSelectedProductId] = useState("Select option");
+  const [reportsLoading, setReportsLoading] = useState(false);
+  const [downloadLoading, setDownloadLoading] = useState("");
+  const [createReportLoading, setCreateReportLoading] = useState(false);
+  // const [selectedAppName, setSelectedAppName] = useState("Select option");
+  // const [selectedStatus, setSelectedStatus] = useState("Select option");
+  const [rangeDropdownOpen, setRangeDropdownOpen] = useState(false);
   const [duration, setDuration] = useState("Select Duration");
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [productsList, setProductsList] = useState([]);
   const [reportsList, setReportsList] = useState([]);
   const [tempSelectedRange, setTempSelectedRange] = useState("all");
+  const [productSearch, setProductSearch] = useState("");
+  const [reportSearch, setReportSearch] = useState("");
   const [selectedRange, setSelectedRange] = useState("all");
+  const [existError, setExistError] = useState("");
   const [Publickey, setPublickey] = useState("");
   const publicKey = GeneralKeys((state) => state.publicKey);
   const privateKey = GeneralKeys((state) => state.privateKey);
   const TestAccessToken = useUserkey((state) => state.TestAccessToken);
   const LiveAccessToken = useUserkey((state) => state.LiveAccessToken);
+  const serviceNameData = analytics((state) => state.serviceNameData);
 
   useEffect(() => {
     getProducts();
@@ -477,91 +489,150 @@ const Reports = () => {
   };
 
   const getAllReports = async (range = "all") => {
-    const payload = {
-      client: Cookies.get("clientId"),
-      date: range,
-    };
-    const accesstoken = LiveAccessToken || TestAccessToken;
-    if (Publickey) {
-      const encryptedPayload = await encryptPayload(payload, Publickey);
-      await EncryptedApirequestHandler(
-        () => HandlegetReports(encryptedPayload, accesstoken, publicKey),
-        null,
-        (res) => {
-          console.log("res in getting reports =====>>>", res);
-          if (res.success) {
-            const reportData = res?.data;
-            setReportsList(reportData);
-          } else {
-            setReportsList([]);
-          }
-        },
-        (err) => {
-          console.log(err);
-        },
-      );
+    try {
+      setReportsLoading(true);
+
+      const payload = {
+        client: Cookies.get("clientId"),
+        date: range,
+      };
+
+      const accesstoken = LiveAccessToken || TestAccessToken;
+
+      if (Publickey) {
+        const encryptedPayload = await encryptPayload(payload, Publickey);
+
+        await EncryptedApirequestHandler(
+          () => HandlegetReports(encryptedPayload, accesstoken, publicKey),
+          null,
+          (res) => {
+            console.log("res in getting reports =====>>>", res);
+
+            if (res.success) {
+              const reportData = res?.data;
+              setReportsList(reportData);
+            } else {
+              setReportsList([]);
+            }
+          },
+          (err) => {
+            console.log(err);
+          },
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setReportsLoading(false);
     }
   };
 
+  const filteredProductsList = productsList.filter((item) =>
+    item?.serviceName
+      ?.toString()
+      .toLowerCase()
+      .includes(productSearch.toLowerCase()),
+  );
+
+  const filteredReportsList = reportsList.filter((report) =>
+    report?.reportName
+      ?.toString()
+      .toLowerCase()
+      .includes(reportSearch.toLowerCase()),
+  );
+
   const getProducts = async () => {
-    await ApirequestHandler(
-      () => HandleGetProducts(),
-      null,
-      (res) => {
-        console.log("res in products =====>>>", res);
-        if (res.success) {
-          const prodData = res?.data;
-          const neededData = prodData.map((item) => ({
-            serviceId: item.serviceId,
-            serviceName: item.serviceName,
-          }));
-          console.log("neededData ====>>>", neededData);
-          const modifiedNeededData = [
-            { serviceId: "ALLPRODUCTS", serviceName: "All Products" },
-            ...neededData,
-          ];
-          setProductsList(modifiedNeededData);
-        } else {
-          setProductsList([]);
-        }
-      },
-      (err) => {
-        console.log(err);
-      },
-    );
+    if (serviceNameData) {
+      const modifiedNeededData = [
+        { serviceId: "ALLPRODUCTS", serviceName: "All Products" },
+        ...serviceNameData,
+      ];
+      setProductsList(modifiedNeededData);
+    } else {
+      setProductsList([]);
+    }
   };
+
+  // await ApirequestHandler(
+  //   () => HandleGetProducts(),
+  //   null,
+  //   (res) => {
+  //     console.log("res in products =====>>>", res);
+  //     if (res.success) {
+  //       const prodData = res?.data;
+  //       const neededData = prodData.map((item) => ({
+  //         serviceId: item.serviceId,
+  //         serviceName: item.serviceName,
+  //       }));
+  //       console.log("neededData ====>>>", neededData);
+  //       const modifiedNeededData = [
+  //         { serviceId: "ALLPRODUCTS", serviceName: "All Products" },
+  //         ...neededData,
+  //       ];
+  //       setProductsList(modifiedNeededData);
+  //     } else {
+  //       setProductsList([]);
+  //     }
+  //   },
+  //   (err) => {
+  //     console.log(err);
+  //   },
+  // );
+
   // const appsList = ["Test app", "Live app"];
   // const statusList = ["All", "Success", "Failure"];
 
   const handleDateApply = (start, end) => {
+    setExistError("");
     setDuration(`${start.format("DD/MM/YYYY")} - ${end.format("DD/MM/YYYY")}`);
     setIsDatePickerOpen(false);
   };
 
   const handleStoreRecord = async () => {
-    const payload = {
-      client: Cookies.get("clientId"),
-      duration: duration,
-      service: selectedProduct,
-    };
-    const accesstoken = LiveAccessToken || TestAccessToken;
-    const encryptedPayload = await encryptPayload(payload, Publickey);
-    await EncryptedApirequestHandler(
-      () =>
-        HandleCreateReportResponse(encryptedPayload, accesstoken, publicKey),
-      null,
-      (res) => {
-        console.log("res in creating reports =====>>>", res);
-        if (res.success) {
-          getAllReports();
-        } else {
-          console.log("some thing went wrong");
-        }
-      },
-      (err) => {
-        console.log(err);
-      },
-    );
+    try {
+      setCreateReportLoading(true);
+
+      const payload = {
+        client: Cookies.get("clientId"),
+        duration: duration,
+        service: selectedProduct,
+        serviceId: selectedProductId,
+      };
+
+      const accesstoken = LiveAccessToken || TestAccessToken;
+
+      const encryptedPayload = await encryptPayload(payload, Publickey);
+
+      await EncryptedApirequestHandler(
+        () =>
+          HandleCreateReportResponse(encryptedPayload, accesstoken, publicKey),
+        null,
+        (res) => {
+          console.log("res in creating reports =====>>>", res);
+
+          if (res.success) {
+            getAllReports();
+            handleClear();
+          } else {
+            console.log("some thing went wrong");
+            setExistError(res.message);
+          }
+        },
+        (err) => {
+          console.log(err);
+          if (err.status == 404) {
+            setExistError("No Records Found");
+          }
+          if (err.status == 400) {
+            setExistError("Report Already Exists");
+          }
+        },
+      );
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setCreateReportLoading(false);
+    }
   };
 
   const handleApplyFilter = () => {
@@ -569,14 +640,61 @@ const Reports = () => {
     getAllReports(tempSelectedRange);
   };
 
-  const handleRangeChange = (e) => {
-    setSelectedRange(e.target.value);
-  };
-
   const handleClear = () => {
     setDuration("Duration");
     setSelectedProduct("Select option");
+    setSelectedProductId("Select option");
   };
+
+  const handleDownloadReport = async (report) => {
+    try {
+      setDownloadLoading(report?._id || report?.reportName);
+
+      const payload = {
+        ...report,
+      };
+
+      const encryptedPayload = await encryptPayload(payload, Publickey);
+
+      const accesstoken = LiveAccessToken || TestAccessToken;
+
+      const response = await HandleDownloadReport(
+        encryptedPayload,
+        accesstoken,
+        publicKey,
+      );
+
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+
+      link.href = url;
+
+      link.setAttribute("download", "TransactionDetails.xlsx");
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.remove();
+
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setDownloadLoading("");
+    }
+  };
+
+  const rangeOptions = [
+    { label: "All", value: "all" },
+    { label: "Last 7 Days", value: "last7days" },
+    { label: "Last 30 Days", value: "last30days" },
+  ];
 
   return (
     <div className="reports-container">
@@ -590,7 +708,7 @@ const Reports = () => {
         </div>
 
         <div className="filter-grid">
-          <div className="form-group">
+          {/* <div className="form-group">
             <p className="label">Products</p>
             <div
               className="custom-select-trigger"
@@ -606,7 +724,9 @@ const Reports = () => {
                     className="select-option"
                     onClick={() => {
                       setSelectedProduct(item.serviceName);
+                      setSelectedProductId(item.serviceId);
                       setProductsOpen(false);
+                      setExistError("");
                     }}
                   >
                     {item.serviceName}
@@ -614,7 +734,62 @@ const Reports = () => {
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
+
+          <div className="form-group">
+  <p className="label">Products</p>
+
+  <div
+    className="custom-select-trigger"
+    onClick={() => setProductsOpen(!productsOpen)}
+  >
+    <span className="selected-product-text">{selectedProduct}</span>
+
+    <MdOutlineArrowDropDown
+      size={22}
+      className={`dropdown-arrow_reports ${productsOpen ? "open" : ""}`}
+    />
+  </div>
+
+  {productsOpen && (
+    <div className="select-dropdown-menu">
+      <div className="search-input-wrapper">
+        <input
+          type="text"
+          placeholder="Search product..."
+          value={productSearch}
+          onChange={(e) => setProductSearch(e.target.value)}
+          className="dropdown-search-input"
+          onClick={(e) => e.stopPropagation()}
+        />
+      </div>
+
+      <div className="dropdown-options-list">
+        {filteredProductsList.length > 0 ? (
+          filteredProductsList.map((item, i) => (
+            <div
+              key={i}
+              className={`select-option ${
+                selectedProductId === item.serviceId ? "active-option" : ""
+              }`}
+              onClick={() => {
+                setSelectedProduct(item.serviceName);
+                setSelectedProductId(item.serviceId);
+                setProductsOpen(false);
+                setExistError("");
+                setProductSearch("");
+              }}
+            >
+              {item.serviceName}
+            </div>
+          ))
+        ) : (
+          <div className="no-results-found">No products found</div>
+        )}
+      </div>
+    </div>
+  )}
+</div>
 
           {/* <div className="form-group">
             <p className="label">APP Name</p>
@@ -710,47 +885,104 @@ const Reports = () => {
         </div>
 
         <div className="run-report-container">
-          <button className="run-report-btn" onClick={handleStoreRecord}>
-            Run Report
+          <button
+            className="run-report-btn"
+            onClick={handleStoreRecord}
+            disabled={createReportLoading}
+          >
+            {createReportLoading ? "Generating..." : "Run Report"}
           </button>
+          {existError && <p className="error_show">{existError}</p>}
         </div>
       </div>
 
       <div className="page-header-card">
         <div className="table-header">
           <div className="filter-title">Result Set</div>
-          <div className="range-filter-container">
-            <select
-              className="range-select"
-              value={tempSelectedRange}
-              onChange={(e) => setTempSelectedRange(e.target.value)}
-            >
-              <option value="all">All</option>
-              <option value="last7days">Last 7 Days</option>
-              <option value="last30days">Last 30 Days</option>
-            </select>
 
-            <button className="apply-filter-btn" onClick={handleApplyFilter}>
-              Apply
-            </button>
+          <div className="range-filter-container">
+            <div className="reports-search-wrapper">
+              <input
+                type="text"
+                placeholder="Search reports..."
+                value={reportSearch}
+                onChange={(e) => setReportSearch(e.target.value)}
+                className="reports-search-input"
+              />
+            </div>
+            <div className="custom-range-dropdown">
+              <div
+                className="range-dropdown-trigger"
+                onClick={() => setRangeDropdownOpen(!rangeDropdownOpen)}
+              >
+                <span className="selected-range-text">
+                  {rangeOptions.find((item) => item.value === tempSelectedRange)
+                    ?.label || "Select Range"}
+                </span>
+                <MdOutlineArrowDropDown
+                  size={22}
+                  className={`dropdown-arrow_reports ${rangeDropdownOpen ? "open" : ""}`}
+                />
+              </div>
+
+              {rangeDropdownOpen && (
+                <div className="range-dropdown-menu">
+                  <div className="range-options-container">
+                    {rangeOptions.map((item, i) => (
+                      <label key={i} className="range-option-item">
+                        <div className="range-option-left">
+                          <input
+                            type="checkbox"
+                            checked={tempSelectedRange === item.value}
+                            onChange={() => {
+                              setTempSelectedRange(item.value);
+                            }}
+                          />
+
+                          <span>{item.label}</span>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+
+                  <div className="range-dropdown-footer">
+                    <button
+                      className="range-apply-btn"
+                      disabled={reportsLoading}
+                      onClick={() => {
+                        handleApplyFilter();
+                        setRangeDropdownOpen(false);
+                      }}
+                    >
+                      {reportsLoading ? "Loading..." : "Apply"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div className="result-placeholder">
           <div className="report-table-wrapper">
-            {reportsList && reportsList.length > 0 ? (
+            {reportsLoading ? (
+              <div className="table-loader-container">
+                <div className="table-loader"></div>
+                <p>Loading reports...</p>
+              </div>
+            ) : filteredReportsList && filteredReportsList.length > 0 ? (
               <table className="report-table">
                 <thead>
                   <tr>
                     <th>S.No</th>
                     <th>REPORT NAME</th>
                     <th>GENERATED AT</th>
-                    <th>STATUS</th>
+                    {/* <th>STATUS</th> */}
                     <th></th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {reportsList.map((report, i) => {
+                  {filteredReportsList.map((report, i) => {
                     return (
                       <tr key={i}>
                         <td>{i + 1 || "Transactions"}</td>
@@ -759,9 +991,13 @@ const Reports = () => {
                           {report?.reportName || "N/A"}
                         </td>
 
-                        <td>{report?.generatedAt || "08 Sep 2025,11:23 AM"}</td>
-
                         <td>
+                          {report?.createdDate && report?.createdTime
+                            ? `${report.createdDate} ${report.createdTime}`
+                            : "N/A"}
+                        </td>
+
+                        {/* <td>
                           <span
                             className={`status-badge ${
                               report?.status?.toLowerCase() || "completed"
@@ -769,10 +1005,24 @@ const Reports = () => {
                           >
                             {report?.status || "Completed"}
                           </span>
-                        </td>
+                        </td> */}
 
                         <td className="action-cell">
-                          <button className="action-btn">⋮</button>
+                          <button
+                            className="download-btn"
+                            onClick={() => handleDownloadReport(report)}
+                            disabled={
+                              downloadLoading ===
+                              (report?._id || report?.reportName)
+                            }
+                          >
+                            {downloadLoading ===
+                            (report?._id || report?.reportName) ? (
+                              <div className="btn-loader"></div>
+                            ) : (
+                              <FiDownload size={18} />
+                            )}
+                          </button>
                         </td>
                       </tr>
                     );

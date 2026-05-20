@@ -33,6 +33,7 @@ import {
   getTransactionsData,
 } from "../../utils/Apis/api";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import { analytics } from "../../Store/analyticsStore";
 
 const CustomXAxisTick = (props) => {
   const { x, y, payload } = props;
@@ -58,28 +59,27 @@ const MainContent = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [isProduction, setIsProduction] = useState(false);
   const [transactionData, setTransactionData] = useState({});
-    const [Publickey, setPublickey] = useState("");
-    const [slider, setSlider] = useState("");
+  const [Publickey, setPublickey] = useState("");
+  const [slider, setSlider] = useState("");
   // const [recentCallData, setRecentCallData] = useState([]);
   const [productData, setProductData] = useState({});
   const navigate = useNavigate();
   const whitelistIps = useUserkey((state) => state.whitelistIps);
   const TestAccessToken = useUserkey((state) => state.TestAccessToken);
   const LiveAccessToken = useUserkey((state) => state.LiveAccessToken);
-  const fetchRecentCallData = useUserkey((state) => state.fetchRecentCallData);
-  const fetchUserApiCount = useUserkey((state) => state.fetchUserApiCount);
-  const userApiCount = useUserkey((state) => state.userApiCount);
+  const fetchRecentCallData = analytics((state) => state.fetchRecentCallData);
+  const fetchUserApiCount = analytics((state) => state.fetchUserApiCount);
+  const userApiCount = analytics((state) => state.userApiCount);
+  const fetchServiceNameData = analytics((state) => state.fetchServiceNameData);
   const publicKey = GeneralKeys((state) => state.publicKey);
   const privateKey = GeneralKeys((state) => state.privateKey);
-  const recentCallData = useUserkey((state) => state.recentCallData);
+  const recentCallData = analytics((state) => state.recentCallData);
   const walletBalance = useUserkey((state) => state.walletBalance);
+  const serviceNameData = analytics((state) => state.serviceNameData);
+
   const clientId = Cookies.get("clientId");
 
-  console.log(
-    "walletBalance and recentCallData =====>>",
-    walletBalance,
-    recentCallData,
-  );
+  console.log("walletBalance and recentCallData =====>>", recentCallData);
 
   useEffect(() => {
     getUserApiCount();
@@ -103,25 +103,26 @@ const MainContent = () => {
     }
   };
 
-  const getPublickey = async () =>{
+  const getPublickey = async () => {
     await ApirequestHandler(
-        async () => fetchPublickey(),
-        null,
-        (res) => {
-          const { publicKey } = res;
-          console.log('publickey is this :', publicKey);
-          setPublickey(publicKey);
-        },
-        (errMessage) => {
-        console.log("error ===>>", errMessage)
-        }
-      );
-  }
+      async () => fetchPublickey(),
+      null,
+      (res) => {
+        const { publicKey } = res;
+        console.log("publickey is this :", publicKey);
+        setPublickey(publicKey);
+      },
+      (errMessage) => {
+        console.log("error ===>>", errMessage);
+      },
+    );
+  };
 
   useEffect(() => {
     fetchProductsData();
     fetchTransactionData();
-    getPublickey()
+    getPublickey();
+    fetchServiceNameData();
   }, []);
 
   useEffect(() => {
@@ -320,11 +321,12 @@ const MainContent = () => {
     { name: "FEb 12", usage: 630, amt: 298 },
   ];
 
-  const productUsageData = selectedDuration === "Last 7 days"
-    ? allUsageData.slice(-7)
-    : selectedDuration === "Last 12 days"
-    ? allUsageData.slice(-12)
-    : allUsageData;
+  const productUsageData =
+    selectedDuration === "Last 7 days"
+      ? allUsageData.slice(-7)
+      : selectedDuration === "Last 12 days"
+        ? allUsageData.slice(-12)
+        : allUsageData;
 
   const panLiteData = [
     {
@@ -702,8 +704,11 @@ const MainContent = () => {
                 <div className="control-group">
                   <label>All Products</label>
                   <select defaultValue="All Products">
-                    <option>All Products</option>
-                    <option>Pan Lite</option>
+                    {serviceNameData?.length > 0 &&
+                      serviceNameData?.map((service, i) => {
+                        return <option>{service?.serviceName}</option>;
+                      })}
+                    {/* <option>Pan Lite</option>
                     <option>Driving License Advance</option>
                     <option>GST Verification Lite</option>
                     <option>Aadhaar Based e-sign</option>
@@ -711,11 +716,18 @@ const MainContent = () => {
                     <option>Face match</option>
                     <option>Aadhaar Pro</option>
                     <option>IFSC Verification Lite</option>
-                    <option>Bank Account Verification Advance</option>
+                    <option>Bank Account Verification Advance</option> */}
                   </select>
                 </div>
                 <div className="toggle-group">
-                  <button className={`toggle-btn ${slider ? "" : "active"}`} onClick={()=>{setSlider(false)}}>Production</button>
+                  <button
+                    className={`toggle-btn ${slider ? "" : "active"}`}
+                    onClick={() => {
+                      setSlider(false);
+                    }}
+                  >
+                    Production
+                  </button>
                   {/* <button className={`toggle-btn ${slider ? "active" : ""}`} onClick={()=>{setSlider(true)}}>Test</button> */}
                 </div>
               </div>
@@ -725,8 +737,16 @@ const MainContent = () => {
                 <ComposedChart data={productUsageData}>
                   <defs>
                     <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--purple-main)" stopOpacity={0.2} />
-                      <stop offset="95%" stopColor="var(--purple-main)" stopOpacity={0} />
+                      <stop
+                        offset="5%"
+                        stopColor="var(--purple-main)"
+                        stopOpacity={0.2}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor="var(--purple-main)"
+                        stopOpacity={0}
+                      />
                     </linearGradient>
                   </defs>
                   <CartesianGrid vertical={false} stroke="#eef2f6" />
@@ -758,8 +778,18 @@ const MainContent = () => {
                     dataKey="amt"
                     stroke="var(--purple-main)"
                     strokeWidth={2}
-                    dot={{ r: 4, fill: "#fff", stroke: "var(--purple-main)", strokeWidth: 2 }}
-                    activeDot={{ r: 6, fill: "#fff", stroke: "var(--purple-main)", strokeWidth: 2 }}
+                    dot={{
+                      r: 4,
+                      fill: "#fff",
+                      stroke: "var(--purple-main)",
+                      strokeWidth: 2,
+                    }}
+                    activeDot={{
+                      r: 6,
+                      fill: "#fff",
+                      stroke: "var(--purple-main)",
+                      strokeWidth: 2,
+                    }}
                   />
                   <Bar
                     dataKey="usage"
@@ -774,42 +804,43 @@ const MainContent = () => {
 
           {/* CARDS LIST */}
           <div className="pan-lite-cards-container">
-            {recentCallData.map((item, index) => (
-              <div className="pan-lite-card" key={index}>
-                <div className="pan-icon-box">
-                  <LuCodeXml
-                    className="code-box-border"
-                    size={20}
-                    color="var(--purple-main)"
-                  />
-                </div>
-
-                <div className="pan-card-content">
-                  <div className="pan-card-header">
-                    <h4>{item.serviceName || item?.serviceId}</h4>
-                    <span>{item.period}</span>
+            {recentCallData &&
+              recentCallData?.map((item, index) => (
+                <div className="pan-lite-card" key={index}>
+                  <div className="pan-icon-box">
+                    <LuCodeXml
+                      className="code-box-border"
+                      size={20}
+                      color="var(--purple-main)"
+                    />
                   </div>
 
-                  <div className="pan-card-stats">
-                    <div className="stat-block">
-                      <span className="stat-val">{item.amount}</span>
-                      <span className="stat-lbl">Amount</span>
+                  <div className="pan-card-content">
+                    <div className="pan-card-header">
+                      <h4>{item.serviceName || item?.serviceId}</h4>
+                      <span>{item.period}</span>
                     </div>
-                    <div className="stat-block">
-                      <span className="stat-val">{item.status}</span>
-                      {/* <span className="stat-lbl">Money spent</span> */}
-                      <span className="stat-lbl">Status</span>
+
+                    <div className="pan-card-stats">
+                      <div className="stat-block">
+                        <span className="stat-val">{item.amount}</span>
+                        <span className="stat-lbl">Amount</span>
+                      </div>
+                      <div className="stat-block">
+                        <span className="stat-val">{item.status}</span>
+                        {/* <span className="stat-lbl">Money spent</span> */}
+                        <span className="stat-lbl">Status</span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Decorative shape – now on ALL cards */}
-                {/* <div className="pan-card-decor"></div> */}
-                <div className="stat-card-decor-panlite">
-                  <img className="flowblue" src={Images.fldesign} />
+                  {/* Decorative shape – now on ALL cards */}
+                  {/* <div className="pan-card-decor"></div> */}
+                  <div className="stat-card-decor-panlite">
+                    <img className="flowblue" src={Images.fldesign} />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
 
