@@ -48,7 +48,7 @@
 
 .tab-btn.active {
   background: var(--black);
-  color: var(--sweetyellow);
+  color: var(--white);
   border-top-right-radius: 0rem;
   border-bottom-right-radius: 0rem;
   border-top-left-radius: 0.5rem;
@@ -61,7 +61,7 @@
 
 .tab-btn-two.active {
   background: var(--black);
-  color: var(--sweetyellow);
+  color: var(--white);
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   border-top-left-radius: 0rem;

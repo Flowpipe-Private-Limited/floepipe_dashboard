@@ -49,7 +49,7 @@
   background-color: var(--white);
   border-radius: var(--border-radius-4);
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.02);
-  padding: 1.5rem 2rem;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -121,7 +121,7 @@
 .tabs-container-userpro {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   gap: 1rem;
   background: transparent;
   box-shadow: none;
@@ -177,6 +177,7 @@
   padding: 2rem;
   box-shadow: 0 3px 3px #0E0E0E1A;
   border: none;
+  margin-bottom: 1rem;
 }
 
 .section-header {

@@ -13,6 +13,16 @@
     border-radius: var(--border-radius-8);
     border:1px solid var(--gray-300)
 }
+.stat-card-decor-product {
+    position: absolute;
+    bottom: 5.5rem;
+    right: 2px;
+    width: 150px;
+    height: 85px;
+    border-radius: var(--border-radius-50);
+    pointer-events: none;
+    z-index: 0;
+}
 
 .products-title-group  {
   font-size: var(--main-heading);
@@ -252,11 +262,11 @@
 }
 
 /* ================= Button ================= */
-.action-btn {
+.action-btn-products {
   padding: 0.32rem 0.65rem;
    border-radius: var(--border-radius-8);
-  font-weight: 600;
-  font-size: var(--normal-text);
+  font-weight: 500;
+  font-size: var(--small-text);
   cursor: pointer;
   background: transparent;
   transition: all 0.2s;
@@ -264,32 +274,24 @@
 
 }
 
-.action-btn.subscribed {
+.action-btn-products.subscribed {
   font-size: var(--small-text);
-  /* increase text size */
+  border: 1px solid var(--green);
   font-weight: 600;
-  background-color: #e8fbef;
-  /* green */
-  color: #0d8836;
+  color: var(--green);
   cursor: not-allowed;
 }
 
-.action-btn.subscribed:hover {
-  background-color: #f5f3ff;
-}
-
-.action-btn.unsubscribed {
+.action-btn-products.unsubscribed {
   border: 1px solid var(--purple-main);
   color: var(--purple-main);
 }
 
-.action-btn.pending {
+.action-btn-products.pending {
   font-size: var(--small-text);
-  /* increase text size */
+  border: 1px solid var(--red);
   font-weight: 600;
-  background-color: #feecec;
-  color: #fff000;
-  color: #ff0000;
+  color: var(--red);
   cursor: not-allowed;
 }
 
@@ -384,7 +386,7 @@
     justify-content: center;
   }
 
-  .action-btn {
+  .action-btn-products {
     width: 100%;
     padding: 0.4rem 0.5rem;
   }
@@ -469,7 +471,7 @@
     font-size: var(--small-text-10);
   }
 
-  .action-btn {
+  .action-btn-products {
     width: 100%;
     padding: 0.45rem 0.5rem;
     font-size: var(--small-text);
@@ -546,7 +548,7 @@
     text-align: center;
   }
 
-  .action-btn {
+  .action-btn-products {
     padding: 0.4rem;
     font-size: var(--small-text-10);
     min-width: auto;
@@ -585,7 +587,7 @@
     font-size: 0.63rem;
   }
 
-  .action-btn {
+  .action-btn-products {
     font-size: var(--small-text-10);
     padding: 0.35rem;
   }

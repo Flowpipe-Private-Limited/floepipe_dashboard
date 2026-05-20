@@ -312,7 +312,6 @@ function BasicDetails() {
           </div>
         </div>
       </div>
-      <br />
       <div className="details-card">
         <div className="section-header">
           <h3 className="section-title">Company Details</h3>
