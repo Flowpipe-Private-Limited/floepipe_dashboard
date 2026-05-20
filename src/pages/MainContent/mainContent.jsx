@@ -33,6 +33,8 @@ import {
   getTransactionsData,
 } from "../../utils/Apis/api";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import { analytics } from "../../Store/analyticsStore";
+
 
 const CustomXAxisTick = (props) => {
   const { x, y, payload } = props;
@@ -69,16 +71,19 @@ const MainContent = () => {
   const fetchRecentCallData = useUserkey((state) => state.fetchRecentCallData);
   const fetchUserApiCount = useUserkey((state) => state.fetchUserApiCount);
   const userApiCount = useUserkey((state) => state.userApiCount);
+    const fetchServiceNameData = analytics((state) => state.fetchServiceNameData);
+  
   const publicKey = GeneralKeys((state) => state.publicKey);
   const privateKey = GeneralKeys((state) => state.privateKey);
   const recentCallData = useUserkey((state) => state.recentCallData);
   const walletBalance = useUserkey((state) => state.walletBalance);
+      const serviceNameData = analytics((state) => state.serviceNameData);
+
   const clientId = Cookies.get("clientId");
 
   console.log(
     "walletBalance and recentCallData =====>>",
-    walletBalance,
-    recentCallData,
+    serviceNameData
   );
 
   useEffect(() => {
@@ -121,7 +126,8 @@ const MainContent = () => {
   useEffect(() => {
     fetchProductsData();
     fetchTransactionData();
-    getPublickey()
+    getPublickey();
+    fetchServiceNameData();
   }, []);
 
   useEffect(() => {
@@ -702,8 +708,10 @@ const MainContent = () => {
                 <div className="control-group">
                   <label>All Products</label>
                   <select defaultValue="All Products">
-                    <option>All Products</option>
-                    <option>Pan Lite</option>
+                    {serviceNameData?.length > 0 && serviceNameData?.map((service, i)=>{
+                      return <option>{service?.serviceName}</option>
+                    })}
+                    {/* <option>Pan Lite</option>
                     <option>Driving License Advance</option>
                     <option>GST Verification Lite</option>
                     <option>Aadhaar Based e-sign</option>
@@ -711,7 +719,7 @@ const MainContent = () => {
                     <option>Face match</option>
                     <option>Aadhaar Pro</option>
                     <option>IFSC Verification Lite</option>
-                    <option>Bank Account Verification Advance</option>
+                    <option>Bank Account Verification Advance</option> */}
                   </select>
                 </div>
                 <div className="toggle-group">

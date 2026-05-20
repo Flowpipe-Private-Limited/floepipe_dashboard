@@ -257,6 +257,18 @@ const HandlegetReports = (data, accesstoken, key) =>
       headers: { secret_token: accesstoken },
     },
   );
+  const HandleDownloadReport = (data, accesstoken, key) =>
+  kycApiClient.post(
+    `report/download`,
+    { ...data, publicKeyPem: key },
+    {
+      headers: {
+        secret_token: accesstoken,
+      },
+
+      responseType: "blob",
+    }
+  );
 const HandleApiCount = (accesstoken, encryptedPayload, encrypt) =>
   kycApiClient.post(
     `analytics/ApiCallCount`,
@@ -320,6 +332,7 @@ export {
   GetWalletBalance,
   GetWalletHistory,
   HandlegetReports,
+  HandleDownloadReport,
   HandleGetProducts,
   HandleCreateReportResponse,
   getBillingTypeApi,

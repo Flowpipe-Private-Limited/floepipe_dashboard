@@ -6,8 +6,6 @@ import {
 } from "../utils/Apis/apiRequestHandler";
 import {
   ApiVerification,
-  getRecentCallData,
-  HandleApiCount,
   HandleFetchAllKeys,
   HandleFetchIP,
 } from "../utils/Apis/api";
@@ -23,9 +21,7 @@ export const useUserkey = create((set, get) => ({
   LiveAccessToken: "",
   whitelistIps: [],
   currentPublicIp: "",
-  userApiCount: "",
   walletBalance: "",
-  recentCallData: [],
   loading: false,
   error: null,
   fetchUserskeys: async (force = false) => {
@@ -79,51 +75,6 @@ export const useUserkey = create((set, get) => ({
       (res) => {
         set({
           whitelistIps: res?.data?.allowedIps || [],
-          loading: false,
-        });
-      },
-      (err) => {
-        set({ error: err, loading: false });
-      },
-    );
-  },
-
-  fetchUserApiCount: async (accesstoken, encryptedPayload, publicKey) => {
-    const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
-    set({ loading: true, error: null });
-    await EncryptedApirequestHandler(
-      async () => HandleApiCount(accesstoken, encryptedPayload, publicKey),
-      // async () => ApiVerification("KYC", "analytics/ApiCallCount", {...encryptedPayload, publicKeyPem}, accesstoken, "Post"),
-      null,
-      (res) => {
-        console.log("res in total api count====>>", res);
-        set({
-          userApiCount: res?.data || 0,
-          loading: false,
-        });
-      },
-      (err) => {
-        console.log("error while getting user api count ===>>", err)
-        set({ error: err, loading: false });
-      },
-    );
-  },
-
-  fetchRecentCallData: async (data) => {
-    set({ loading: true, error: null });
-    await ApirequestHandler(
-      async () => getRecentCallData(data),
-      null,
-      (res) => {
-        console.log("res in transaction data ====>>", res);
-        const result = res?.data;
-        const formattedData = result?.filter((item) => {
-          return item?.type == "DEBIT";
-        });
-        const slicedData = formattedData?.slice(0, 10);
-        set({
-          recentCallData: slicedData || [],
-          walletBalance: res?.walletBalance,
           loading: false,
         });
       },
