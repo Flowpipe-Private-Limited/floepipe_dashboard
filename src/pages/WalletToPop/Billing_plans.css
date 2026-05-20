@@ -13,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   background: var(--white);
   border-radius: var(--border-radius-8);
   padding: 1rem;
@@ -74,8 +74,8 @@
 .BillingPlans_stats-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .BillingPlans_stat-card {
@@ -232,7 +232,7 @@
 .BillingPlans_content-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  gap: 1rem;
 }
 
 /* Transactions Table */
@@ -355,7 +355,13 @@
   border-bottom: 1px solid var(--black-500);
   color:var(--black);
 }
-
+.billingplans-down-view{
+  display: flex;
+  flex-direction: row;
+  /* gap: 0.2rem;
+  align-items: center; */
+  /* justify-content: center; */
+}
 /* Center pills & buttons properly */
 .BillingPlans_tx-type,
 .BillingPlans_status-pill,
@@ -364,6 +370,12 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
+}
+
+.BillingPlans_View{
+  font-size: var(--small-text);
+  font-weight: 400;
+  color: var(--purple-main);
 }
 
 .BillingPlans_tx-type {
@@ -661,10 +673,10 @@ input:checked + .BillingPlans_slider:before {
 
 /* Warning Banner */
 .BillingPlans_warning-banner {
-  margin-top: 24px;
-  background: #fffbeb;
-  border: 1px solid #fcd34d;
-  color: #92400e;
+  margin-top: 1rem;
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  color: var(--warning-color);
   padding: 16px;
   border-radius: var(--border-radius-8);
   display: flex;

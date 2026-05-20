@@ -18,8 +18,12 @@ import Right_sidebutton from "../../components/ui/Right_sidebutton/Right_sidebut
 import Popup from "../../components/ui/Popup/Popup";
 import { GetWalletBalance } from "../../utils/Apis/api";
 import images from "../../Images/Images";
+import InvoiceModal from "./Invoice/InvoiceModal";
+import { CiWarning } from "react-icons/ci";
 
 const BillingPlans = () => {
+  const [selectedTx, setSelectedTx] = useState(null);
+  const [isInvoiceOpen, setIsInvoiceOpen] = useState(false);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [autoRecharge, setAutoRecharge] = useState(false);
   const [usageAlerts, setUsageAlerts] = useState(false);
@@ -195,7 +199,7 @@ const BillingPlans = () => {
       </div>
 
       <div className="BillingPlans_stats-row">
-        <div className="BillingPlans_stat-card">
+        {/* <div className="BillingPlans_stat-card">
           <div className="BillingPlans_stat-header">
             <div className="stat-card-decor-billingplans">
               <img className="flowblue" src={images.fldesign} />
@@ -224,7 +228,7 @@ const BillingPlans = () => {
             <h3>On going</h3>
             <span className="BillingPlans_badge">Active</span>
           </div>
-        </div>
+        </div> */}
         <div className="BillingPlans_stat-card">
              <div className="stat-card-decor-billingplans">
               <img className="flowblue" src={images.fldesign} />
@@ -348,9 +352,26 @@ const BillingPlans = () => {
                     </span>
                   </td>
                   <td>
-                    <button className="BillingPlans_download-btn">
-                      <LuDownload color="black" size={20} />
-                    </button>
+                    <div className="billingplans-down-view">
+                      {/* <button
+                        className="BillingPlans_download-btn"
+                        onClick={() => {
+                          setSelectedTx(tx);
+                          setIsInvoiceOpen(true);
+                        }}
+                      >
+                        <LuDownload color="black" size={20} />
+                      </button> */}
+                      <button
+                        className="BillingPlans_View"
+                        onClick={() => {
+                          setSelectedTx(tx);
+                          setIsInvoiceOpen(true);
+                        }}
+                      >
+                        View
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -463,7 +484,7 @@ const BillingPlans = () => {
       </div>
 
       <div className="BillingPlans_warning-banner">
-        <span className="BillingPlans_warning-icon">⚠️</span>
+        <span className="BillingPlans_warning-icon"><CiWarning color="var(--efffive)" size={24}/></span>
         Your account balance is running low. Add balance to avoid service
         interruption.
       </div>
@@ -483,6 +504,11 @@ const BillingPlans = () => {
           onClose={() => setIsSliderOpen(false)}
         />
       </Popup>
+      <InvoiceModal
+        isOpen={isInvoiceOpen}
+        onClose={() => setIsInvoiceOpen(false)}
+        tx={selectedTx}
+      />
     </div>
   );
 };

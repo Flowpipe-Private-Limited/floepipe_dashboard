@@ -1,0 +1,370 @@
+/* Backdrop styling */
+.invoice-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+/* Modal container */
+.invoice-modal-container {
+  background: var(--white);
+  width: 100%;
+  max-width: 650px;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  animation: modalFadeIn 0.3s ease-out;
+  overflow: hidden;
+}
+
+/* Scroll area for print-ready invoice */
+.invoice-modal-scroll {
+  overflow-y: auto;
+  padding: 40px;
+  flex-grow: 1;
+}
+
+/* Inner invoice paper container */
+.invoice-modal-content {
+  background: var(--white);
+}
+
+/* Header Section */
+.invoice-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.invoice-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.invoice-logo-img {
+  height: 45px;
+  width: auto;
+  background: var(--black);
+  border-radius: var(--border-radius-50);
+  padding: 0.3rem;
+}
+
+.invoice-logo-text {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  color: var(--black);
+  font-family: "Konnect-Medium";
+}
+
+.invoice-meta {
+  text-align: right;
+}
+
+.invoice-no-div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.invoice-meta-label {
+  font-size: var(--normal-text);
+  color: var(--gray-200);
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.invoice-meta-val {
+  font-size: var(--normal-text);
+  font-weight: 400;
+  color: var(--gray-200);
+  margin-bottom: 8px;
+}
+
+.invoice-meta-val:last-child {
+  margin-bottom: 0;
+}
+
+/* Addresses section */
+.invoice-addresses-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 25px;
+}
+.issuedfrom {
+  text-align: right;
+}
+
+.address-col-title {
+  font-size: var(--small-text);
+  font-weight: 400;
+  color: var(--gray-200);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.address-company {
+  font-size: var(--normal-text);
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 6px;
+  font-family: "Konnect-Medium";
+}
+
+.address-text {
+  font-size: var(--small-text-10);
+  color: var(--gray-200);
+  line-height: 1.7;
+}
+
+/* Details Bar (UTR & Billing Period) */
+.invoice-details-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--white-100);
+  border-radius: 8px;
+  padding: 14px 20px;
+  margin-bottom: 25px;
+}
+
+.bar-item-label {
+  font-size: var(--small-text-10);
+  font-weight: 500;
+  color: var(--gray-200);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.bar-item-val {
+  font-size: var(--small-text-10);
+  font-weight: 500;
+  color: var(--black);
+}
+
+/* Table styling */
+.invoice-table-wrapper {
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.inv-table th {
+  font-size: var(--small-text-10);
+  font-weight: 600;
+  color: var(--gray-500);
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--gray-300);
+  border-top: 1px solid var(--gray-300);
+  background-color: var(--white-100);
+}
+
+.inv-table td {
+  font-size: var(--small-text-10);
+  color: var(--gray-200);
+  padding: 14px 8px;
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.inv-table .row-total td {
+  border-bottom: none;
+  font-weight: 600;
+  color: #0f172a;
+      background: var(--white-100);
+}
+
+/* Purple Grand Total Bar */
+.purple-grand-total-bar {
+  background: var(--purple-main);
+  color: var(--white);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: var(--below-medium-heading);
+  font-family: "Konnect-Medium";
+  font-weight: 500;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.grand-total-val {
+  font-size: var(--medium-heading);
+  font-family: "Konnect-Medium";
+  font-weight: 500;
+}
+
+.two-buttons-invoice {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Stamp & Footer Row */
+.stamp-footer-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.thanks-note {
+  font-size: var(--normal-text);
+  color: var(--gray-200);
+}
+
+.paid-stamp-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.paid-stamp {
+  width: 100%;
+  height: 100%;
+}
+
+/* Bottom Action Buttons Bar */
+.invoice-modal-actions-bar {
+  border-top: 1px solid #e2e8f0;
+  padding: 20px 40px;
+  display: flex;
+  gap: 15px;
+  background: #f8fafc;
+  justify-content: center;
+}
+
+.btn-download-inv {
+  background: #0f172a; /* Slate 900 / Navy dark */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 4.5rem;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-download-inv:hover {
+  background: #1e293b;
+}
+
+.btn-download-inv svg {
+  color: #a3e635; /* Crisp green/lime download icon tint */
+}
+
+.btn-share-inv {
+  background: #ffffff;
+  color: var(--purple-main);
+  border: 1px solid var(--purple-main);
+  border-radius: 8px;
+  padding: 7px 5.7rem;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-share-inv:hover {
+  background: #f5f3ff;
+}
+
+/* Animations */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustment */
+@media (max-width: 640px) {
+  .invoice-modal-scroll {
+    padding: 20px;
+  }
+
+  .invoice-addresses-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .invoice-details-bar {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .invoice-header-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .invoice-meta {
+    text-align: left;
+  }
+
+  .stamp-footer-row {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .thanks-note {
+    text-align: center;
+  }
+
+  .invoice-modal-actions-bar {
+    flex-direction: column;
+    padding: 15px 20px;
+  }
+
+  .btn-download-inv,
+  .btn-share-inv {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.total-words-cell {
+  max-width: 250px;
+}
+
+.total-words-span {
+  font-weight: 600;
+  color: var(--black);
+  display: inline;
+  margin-left: 4px;
+}
