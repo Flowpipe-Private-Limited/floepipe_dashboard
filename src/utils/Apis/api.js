@@ -172,6 +172,19 @@ const GetBillingAmountApi = (clientId, month) =>
 //   kycApiwallettopup.post(`/generate-dynamic-qr`, payload);
 const GenerateStaticQrApi = () => kycApiwallettopup.post(`/generate-static-qr`);
 
+const HandleQrResponse = (data) => supperApiClient.post('apimodule/create-dynamic-qr', data);
+
+
+const HandleQrstatus = (orderId) => {
+  console.log("[STATUS API CALL]:", orderId);
+
+  return supperApiClient.get(
+    `apimodule/get-qr-payment-status/${orderId}`
+  );
+};
+
+const HandleQrPaymentResponse = (data) => supperApiClient.get(`ApiModuels/generate-dynamic-qr/${data}`);
+
 const VerifyFPIN = (data) => supperApiClient.post("Client/verify-fpin", data);
 
 const SubscribeService = (payload) =>
@@ -237,10 +250,10 @@ const HandleGetOtp = (data) =>
   kycApiClient.post("mobileNumber/mobileOtp", data);
 const HandleVerifyOtp = (data) =>
   kycApiClient.post("mobileNumber/mobileotpVerify", data);
-const HandleQrResponse = (data) =>
-  kycApiClient.post("ApiModuels/generate-dynamic-qr", data);
-const HandleQrPaymentResponse = (data) =>
-  kycApiClient.get(`ApiModuels/generate-dynamic-qr/${data}`);
+// const HandleQrResponse = (data) =>
+//   kycApiClient.post("ApiModuels/create-dynamic-qr", data);
+// const HandleQrPaymentResponse = (data) =>
+//   kycApiClient.get(`ApiModuels/generate-dynamic-qr/${data}`);
 const HandleCreateReportResponse = (data, accesstoken, key) =>
   kycApiClient.post(
     `report/create`,
@@ -314,6 +327,7 @@ export {
   HandleApiCount,
   HandleCreateIP,
   HandleQrResponse,
+  HandleQrstatus,
   HandleFetchIP,
   HandleDeleteIP,
   HandleDeleteKey,
