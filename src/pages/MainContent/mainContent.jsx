@@ -74,12 +74,12 @@ const MainContent = () => {
   const publicKey = GeneralKeys((state) => state.publicKey);
   const privateKey = GeneralKeys((state) => state.privateKey);
   const recentCallData = analytics((state) => state.recentCallData);
-  const walletBalance = useUserkey((state) => state.walletBalance);
+  const walletBalance = analytics((state) => state.walletBalance);
   const serviceNameData = analytics((state) => state.serviceNameData);
 
   const clientId = Cookies.get("clientId");
 
-  console.log("walletBalance and recentCallData =====>>", recentCallData);
+  console.log("walletBalance and recentCallData =====>>", transactionData);
 
   useEffect(() => {
     getUserApiCount();
@@ -189,7 +189,7 @@ const MainContent = () => {
     const month = String(currentDate.getMonth() + 1).padStart(2, "0");
     const year = currentDate.getFullYear();
 
-    const formatted = `${month} ${year}`;
+    const formatted = `${year}-${month}`;
 
     console.log("formatted ====>>", formatted);
     const payload = {
@@ -289,36 +289,36 @@ const MainContent = () => {
   ];
 
   const allUsageData = [
-    { name: "Jan 14", usage: 300, amt: 150 },
-    { name: "Jan 15", usage: 450, amt: 220 },
-    { name: "Jan 16", usage: 200, amt: 180 },
-    { name: "Jan 17", usage: 350, amt: 210 },
-    { name: "Jan 18", usage: 600, amt: 400 },
-    { name: "Jan 19", usage: 520, amt: 310 },
-    { name: "Jan 20", usage: 410, amt: 290 },
-    { name: "Jan 21", usage: 280, amt: 195 },
-    { name: "Jan 22", usage: 330, amt: 240 },
-    { name: "Jan 23", usage: 620, amt: 380 },
-    { name: "Jan 24", usage: 710, amt: 450 },
-    { name: "Jan 25", usage: 480, amt: 350 },
-    { name: "Jan 26", usage: 300, amt: 210 },
-    { name: "Jan 27", usage: 250, amt: 190 },
-    { name: "Jan 28", usage: 420, amt: 290 },
-    { name: "Jan 29", usage: 590, amt: 410 },
-    { name: "Jan 30", usage: 680, amt: 460 },
-    { name: "Jan 31", usage: 510, amt: 330 },
-    { name: "FEb 01", usage: 420, amt: 195 },
-    { name: "FEb 02", usage: 580, amt: 220 },
-    { name: "FEb 03", usage: 230, amt: 205 },
-    { name: "FEb 04", usage: 230, amt: 185 },
-    { name: "FEb 05", usage: 430, amt: 295 },
-    { name: "FEb 06", usage: 700, amt: 390 },
-    { name: "FEb 07", usage: 700, amt: 475 },
-    { name: "FEb 08", usage: 410, amt: 385 },
-    { name: "FEb 09", usage: 500, amt: 225 },
-    { name: "FEb 10", usage: 240, amt: 190 },
-    { name: "FEb 11", usage: 360, amt: 295 },
-    { name: "FEb 12", usage: 630, amt: 298 },
+    { name: "Jan 14", usage: 300, amt: 15 },
+    { name: "Jan 15", usage: 450, amt: 22 },
+    { name: "Jan 16", usage: 200, amt: 18 },
+    { name: "Jan 17", usage: 350, amt: 21 },
+    { name: "Jan 18", usage: 600, amt: 40 },
+    { name: "Jan 19", usage: 520, amt: 31 },
+    { name: "Jan 20", usage: 410, amt: 29 },
+    { name: "Jan 21", usage: 280, amt: 19 },
+    { name: "Jan 22", usage: 330, amt: 24 },
+    { name: "Jan 23", usage: 620, amt: 38 },
+    { name: "Jan 24", usage: 710, amt: 45 },
+    { name: "Jan 25", usage: 480, amt: 35 },
+    { name: "Jan 26", usage: 300, amt: 21 },
+    { name: "Jan 27", usage: 250, amt: 19 },
+    { name: "Jan 28", usage: 420, amt: 29 },
+    { name: "Jan 29", usage: 590, amt: 41 },
+    { name: "Jan 30", usage: 680, amt: 46 },
+    { name: "Jan 31", usage: 510, amt: 33 },
+    { name: "FEb 01", usage: 420, amt: 19 },
+    { name: "FEb 02", usage: 580, amt: 22 },
+    { name: "FEb 03", usage: 230, amt: 20 },
+    { name: "FEb 04", usage: 230, amt: 18 },
+    { name: "FEb 05", usage: 430, amt: 29 },
+    { name: "FEb 06", usage: 700, amt: 39 },
+    { name: "FEb 07", usage: 700, amt: 47 },
+    { name: "FEb 08", usage: 410, amt: 38 },
+    { name: "FEb 09", usage: 500, amt: 22 },
+    { name: "FEb 10", usage: 240, amt: 19 },
+    { name: "FEb 11", usage: 360, amt: 29 },
+    { name: "FEb 12", usage: 630, amt: 29 },
   ];
 
   const productUsageData =
@@ -766,13 +766,13 @@ const MainContent = () => {
                     ticks={[0, 200, 400, 600, 800]}
                   />
                   <Tooltip />
-                  <Area
+                  {/* <Area
                     type="monotone"
                     dataKey="amt"
                     stroke="none"
                     fillOpacity={1}
                     fill="url(#colorUv)"
-                  />
+                  /> */}
                   <Line
                     type="monotone"
                     dataKey="amt"
@@ -851,11 +851,11 @@ const MainContent = () => {
             <div className="table-header-row">
               <h3>Transactions stats</h3>
               <div className="table-controls">
-                <div
+                {/* <div
                   className="toggle-switch"
                   onClick={() => setIsProduction(!isProduction)}
                 >
-                  {/* <span
+                  <span
                     className={`trail-color ${!isProduction ? "active-text" : ""}`}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -863,7 +863,7 @@ const MainContent = () => {
                     }}
                   >
                     Trial
-                  </span> */}
+                  </span>
                   <div
                     className={`switch-track ${isProduction ? "active" : ""}`}
                   >
@@ -878,24 +878,25 @@ const MainContent = () => {
                   >
                     Production
                   </span>
-                </div>
+                </div> */}
 
-                <div className="control-group-sm">
+                {/* <div className="control-group-sm">
                   <p className="duration-p">Duration</p>
                   <select>
                     <option>Last 30 days</option>
                   </select>
-                </div>
-                <div className="control-group-sm">
+                </div> */}
+                {/* <div className="control-group-sm">
                   <p className="duration-p">Apps</p>
                   <select>
                     <option>Test App</option>
                   </select>
-                </div>
+                </div> */}
               </div>
             </div>
 
-            {isProduction ? (
+            {
+            // isProduction ? (
               <div className="table-wrapper-main">
                 <table className="custom-table-main">
                   <thead>
@@ -922,17 +923,18 @@ const MainContent = () => {
                   </tbody>
                 </table>
               </div>
-            ) : (
-              <div className="empty-state-container">
-                <img
-                  src={Images.trailimg}
-                  alt="No records found"
-                  className="empty-state-img"
-                />
-                <h4>No records found!</h4>
-                <p>Looks like you have no records yet in this category.</p>
-              </div>
-            )}
+            // ) : (
+            //   <div className="empty-state-container">
+            //     <img
+            //       src={Images.trailimg}
+            //       alt="No records found"
+            //       className="empty-state-img"
+            //     />
+            //     <h4>No records found!</h4>
+            //     <p>Looks like you have no records yet in this category.</p>
+            //   </div>
+            // )
+            }
           </div>
 
           {/* <div className="apps-running-card">

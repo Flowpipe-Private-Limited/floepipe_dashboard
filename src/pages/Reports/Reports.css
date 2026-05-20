@@ -49,6 +49,7 @@
 .report-table-wrapper {
   width: 100%;
   overflow-x: auto;
+  border-radius: var(--border-radius-12);
 }
 
 .report-table {
@@ -58,7 +59,8 @@
 }
 
 .report-table thead {
-  background: #f8f8f8;
+  background: var(--white-100);
+  border-radius: var(--border-radius-12);
 }
 
 .table-loader-container {
@@ -135,7 +137,7 @@
 
 .report-table th,
 .report-table td {
-  padding: 16px;
+  padding: 0.5rem;
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
@@ -150,7 +152,7 @@
 
 .report-table td {
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--black);
 }
 
 /* column widths */
@@ -204,10 +206,9 @@
 
 .result-placeholder {
   width: 100%;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 1rem;
-  border: 1px solid #e9e9e9;
+  background: var(--white);
+  border-radius: var(--border-radius-12);
+  border: 1px solid var(--gray-300);
 }
 
 .report-table-wrapper {
@@ -221,31 +222,33 @@
 }
 
 .report-table thead tr {
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid var(--gray-300);
 }
 
 .report-table th {
   text-align: left;
   padding: 1rem;
-  font-size: 12px;
+  font-size: var(--small-text);
   font-weight: 600;
-  color: #666666;
+  color: var(--gray-500);
   letter-spacing: 0.5px;
+  font-family: "Konnect-Medium";
+  background-color: var(--white-100);
 }
 
 .report-table td {
-  padding: 1rem;
+  padding: 0.5rem;
   font-size: 14px;
-  color: #1a1a1a;
-  border-bottom: 1px solid #f1f1f1;
+  color: var(--gray-200);
+  border-bottom: 1px solid var(--gray-300);
 }
 
 .report-name {
-  color: #7b7b7b;
+  color: var(--gray-200);
 }
 
 .source-text {
-  color: #0f7b53;
+  color: var(--green);
   font-weight: 500;
 }
 
@@ -260,8 +263,8 @@
 }
 
 .status-badge.completed {
-  background: #e7f8ed;
-  color: #28a745;
+  background: var(--deesee);
+  color: var(--green);
 }
 
 .status-badge.pending {
@@ -652,9 +655,7 @@
 }
 
 .result-placeholder {
-  background-color: var(--white-100);
   border-radius: var(--border-radius-12);
-  padding: 1.8rem;
   display: flex;
   flex-direction: row;
   align-items: center;

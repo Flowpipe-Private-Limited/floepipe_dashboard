@@ -976,6 +976,8 @@ const Reports = () => {
                     <th>S.No</th>
                     <th>REPORT NAME</th>
                     <th>GENERATED AT</th>
+                    <th>ACTION</th>
+
                     {/* <th>STATUS</th> */}
                     <th></th>
                   </tr>
