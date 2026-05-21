@@ -34,6 +34,7 @@ import {
 } from "../../utils/Apis/api";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import { analytics } from "../../Store/analyticsStore";
+import { useUserStore } from "../../Store/userStore";
 
 const CustomXAxisTick = (props) => {
   const { x, y, payload } = props;
@@ -74,6 +75,7 @@ const MainContent = () => {
   const fetchServiceNameData = analytics((state) => state.fetchServiceNameData);
   const publicKey = GeneralKeys((state) => state.publicKey);
   const privateKey = GeneralKeys((state) => state.privateKey);
+    const users = useUserStore((state) => state.users);
   const recentCallData = analytics((state) => state.recentCallData);
   const walletBalance = analytics((state) => state.walletBalance);
   const serviceNameData = analytics((state) => state.serviceNameData);
@@ -354,7 +356,7 @@ const MainContent = () => {
         <div className="stat-card-decor-name">
           <img className="flowblue" src={Images.fldesign} />
         </div>
-        <p className="welcome-text">Welcome, Vyshnavi</p>
+        <p className="welcome-text">Welcome, {users?.fullName}</p>
         <p className="name-subtitle">Your API dashboard is ready. Let's get started with your first API integration.</p>
       </div>
 
