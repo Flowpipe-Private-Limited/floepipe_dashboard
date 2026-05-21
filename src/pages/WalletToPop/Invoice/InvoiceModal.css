@@ -139,7 +139,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   background: var(--white-100);
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   padding: 14px 20px;
   margin-bottom: 25px;
 }
@@ -261,10 +261,10 @@
   background: #0f172a; /* Slate 900 / Navy dark */
   color: #ffffff;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   padding: 8px 4.5rem;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--normal-text);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -284,10 +284,10 @@
   background: #ffffff;
   color: var(--purple-main);
   border: 1px solid var(--purple-main);
-  border-radius: 8px;
+  border-radius: var(--border-radius-8);
   padding: 7px 5.7rem;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--normal-text);
   display: flex;
   align-items: center;
   gap: 8px;

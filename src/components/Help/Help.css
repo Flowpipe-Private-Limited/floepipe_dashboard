@@ -299,7 +299,7 @@
 .help-faq-text {
   font-size: var(--normal-text);
   font-weight: 500;
-  color: #333;
+  color: var(--black);
   flex: 1;
   padding-right: 10px;
 }
@@ -413,7 +413,7 @@
 
 .help-contact-text {
   font-size: var(--normal-text);
-  color: #333;
+  color: var(--black);
   font-weight: 500;
 }
 
@@ -429,7 +429,7 @@
 .help-detail-question {
   font-size: var(--large-heading);
   font-weight: 600;
-  color: #111;
+  color:var(--black);
   margin-bottom: 20px;
   line-height: 1.3;
 }
