@@ -149,6 +149,8 @@ const HandleDeleteKey = (data) =>
   supperApiClient.post(`client/delete/clientKeys`, data);
 const HandleGetProducts = () =>
   supperApiClient.get(`apimodule/get-all-services`);
+const HandleGetApiCost = (client, service, day) =>
+  supperApiClient.get(`analytics/service-analytics?clientId=${client}&serviceId=${service}&days=${day}`);
 
 const GetWalletBalance = (clientid) =>
   supperApiClient.get(`/apimodule/get-wallte-balance?clientId=${clientid}`);
@@ -337,6 +339,7 @@ export {
   HandleCreateKeys,
   HandleFetchAllKeys,
   HandleApiCount,
+  HandleGetApiCost,
   HandleCreateIP,
   HandleQrResponse,
   HandleQrstatus,
