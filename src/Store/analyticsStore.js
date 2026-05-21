@@ -6,6 +6,7 @@ import {
 import {
   getRecentCallData,
   HandleApiCount,
+  HandleGetApiCost,
   HandleGetProducts,
 } from "../utils/Apis/api";
 
@@ -13,6 +14,7 @@ export const analytics = create((set, get) => ({
   userApiCount: "",
   recentCallData: [],
   serviceNameData: [],
+  apiCallResponse: [],
 
   fetchUserApiCount: async (accesstoken, encryptedPayload, publicKey) => {
     set({ loading: true, error: null });
@@ -71,6 +73,25 @@ export const analytics = create((set, get) => ({
         }));
         set({
           serviceNameData: neededData || [],
+          loading: false,
+        });
+      },
+      (err) => {
+        set({ error: err, loading: false });
+      },
+    );
+  },
+
+  getApicallAmountData: async (client, service, days) => {
+    set({ loading: true, error: null });
+    await ApirequestHandler(
+      async () => HandleGetApiCost(client, service, days),
+      null,
+      (res) => {
+        console.log("res in api calls amount data ====>>", res);
+        const prodData = res?.data?.graphData;
+        set({
+          apiCallResponse: prodData || [],
           loading: false,
         });
       },

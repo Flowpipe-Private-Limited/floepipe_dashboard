@@ -34,6 +34,7 @@ import {
 } from "../../utils/Apis/api";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import { analytics } from "../../Store/analyticsStore";
+import { useUserStore } from "../../Store/userStore";
 
 const CustomXAxisTick = (props) => {
   const { x, y, payload } = props;
@@ -55,7 +56,8 @@ const CustomXAxisTick = (props) => {
 
 const MainContent = () => {
   const [showBalance, setShowBalance] = useState(false);
-  const [selectedDuration, setSelectedDuration] = useState("Last 12 days");
+  const [selectedDuration, setSelectedDuration] = useState("5");
+  const [selectedProduct, setSelectedProduct] = useState("PAN");
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [isProduction, setIsProduction] = useState(false);
   const [transactionData, setTransactionData] = useState({});
@@ -73,13 +75,15 @@ const MainContent = () => {
   const fetchServiceNameData = analytics((state) => state.fetchServiceNameData);
   const publicKey = GeneralKeys((state) => state.publicKey);
   const privateKey = GeneralKeys((state) => state.privateKey);
+    const users = useUserStore((state) => state.users);
   const recentCallData = analytics((state) => state.recentCallData);
   const walletBalance = analytics((state) => state.walletBalance);
   const serviceNameData = analytics((state) => state.serviceNameData);
-
+  const getApicallAmountData = analytics((state) => state.getApicallAmountData);
+  const apiCallResponse = analytics((state) => state.apiCallResponse);
   const clientId = Cookies.get("clientId");
 
-  console.log("walletBalance and recentCallData =====>>", transactionData);
+  console.log("walletBalance and recentCallData =====>>", apiCallResponse);
 
   useEffect(() => {
     getUserApiCount();
@@ -129,6 +133,10 @@ const MainContent = () => {
     const clientId = Cookies.get("clientId");
     fetchRecentCallData(clientId);
   }, []);
+  useEffect(() => {
+    const clientId = Cookies.get("clientId");
+    getApicallAmountData(clientId, selectedProduct, selectedDuration);
+  }, [selectedDuration, selectedProduct]);
 
   // const fetchRecentCallData = async () => {
   //   const clientId = Cookies.get("clientId");
@@ -328,60 +336,6 @@ const MainContent = () => {
         ? allUsageData.slice(-12)
         : allUsageData;
 
-  const panLiteData = [
-    {
-      title: "Pan Lite",
-      period: "Last 7 days",
-      amount: "₹ 800",
-      spent: "₹ 8000",
-    },
-    {
-      title: "Pan Lite",
-      period: "Last 7 days",
-      amount: "₹ 800",
-      spent: "₹ 8000",
-    },
-    {
-      title: "Pan Lite",
-      period: "Last 7 days",
-      amount: "₹ 800",
-      spent: "₹ 8000",
-    },
-    {
-      title: "Pan Lite",
-      period: "Last 7 days",
-      amount: "₹ 800",
-      spent: "₹ 8000",
-    },
-    {
-      title: "Pan Lite",
-      period: "Last 7 days",
-      amount: "₹ 800",
-      spent: "₹ 8000",
-    },
-    {
-      title: "Pan Lite",
-      period: "Last 7 days",
-      amount: "₹ 800",
-      spent: "₹ 8000",
-    },
-    {
-      title: "Pan Lite",
-      period: "Last 7 days",
-      amount: "₹ 800",
-      spent: "₹ 8000",
-    },
-  ];
-
-  const transactionStats = [
-    { name: "Driving License Advance", billable: 10, success: 10, failed: 8 },
-    { name: "GST Verification Lite", billable: 80, success: 80, failed: 6 },
-    { name: "Pan Advance", billable: 12, success: 12, failed: 6 },
-    { name: "IFSC Verification Lite", billable: 24, success: 24, failed: 3 },
-    { name: "Bank A/c Verification Lite", billable: 4, success: 4, failed: 9 },
-    { name: "FSSAI API", billable: 5, success: 5, failed: 4 },
-  ];
-
   const appsRunning = [
     { name: "Test App", keys: 3, products: 3 },
     { name: "Live App", keys: 3, products: 3 },
@@ -402,7 +356,7 @@ const MainContent = () => {
         <div className="stat-card-decor-name">
           <img className="flowblue" src={Images.fldesign} />
         </div>
-        <p className="welcome-text">Welcome, Vyshnavi</p>
+        <p className="welcome-text">Welcome, {users?.fullName}</p>
         <p className="name-subtitle">Your API dashboard is ready. Let's get started with your first API integration.</p>
       </div>
 
@@ -655,17 +609,17 @@ const MainContent = () => {
                     value={selectedDuration}
                     onChange={(e) => setSelectedDuration(e.target.value)}
                   >
-                    <option value="Last 30 days">Last 30 days</option>
-                    <option value="Last 7 days">Last 7 days</option>
-                    <option value="Last 12 days">Last 12 days</option>
+                    <option value="15">Last 15 days</option>
+                    <option value="10">Last 10 days</option>
+                    <option value="5">Last 5 days</option>
                   </select>
                 </div>
                 <div className="control-group">
                   <label>All Products</label>
-                  <select defaultValue="All Products">
+                  <select defaultValue="All Products" onChange={(e)=>setSelectedProduct(e.target.value)}>
                     {serviceNameData?.length > 0 &&
                       serviceNameData?.map((service, i) => {
-                        return <option>{service?.serviceName}</option>;
+                        return <option value={service?.serviceId}>{service?.serviceName}</option>;
                       })}
                     {/* <option>Pan Lite</option>
                     <option>Driving License Advance</option>
@@ -693,7 +647,7 @@ const MainContent = () => {
             </div>
             <div style={{ width: "100%", height: 300 }}>
               <ResponsiveContainer>
-                <ComposedChart data={productUsageData}>
+                <ComposedChart data={apiCallResponse}>
                   <defs>
                     <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                       <stop
@@ -709,13 +663,24 @@ const MainContent = () => {
                     </linearGradient>
                   </defs>
                   <CartesianGrid vertical={false} stroke="#eef2f6" />
-                  <XAxis
-                    dataKey="name"
+                  {/* <XAxis
+                    dataKey="date"
                     axisLine={{ stroke: "#111827", strokeWidth: 1 }}
                     tickLine={{ stroke: "#9ca3af", strokeWidth: 1 }}
                     tick={<CustomXAxisTick />}
                     dy={10}
-                  />
+                  /> */}
+                  <XAxis
+  dataKey="date"
+  interval={0}
+  angle={0}
+  textAnchor="end"
+  height={60}
+  tickFormatter={(value) => {
+    const [day, month] = value.split("-");
+    return `${day}/${month}`;
+  }}
+/>
                   <YAxis
                     hide={false}
                     axisLine={false}
@@ -732,7 +697,7 @@ const MainContent = () => {
                     fillOpacity={1}
                     fill="url(#colorUv)"
                   /> */}
-                  <Line
+                  {/* <Line
                     type="monotone"
                     dataKey="amt"
                     stroke="var(--purple-main)"
@@ -749,9 +714,9 @@ const MainContent = () => {
                       stroke: "var(--purple-main)",
                       strokeWidth: 2,
                     }}
-                  />
+                  /> */}
                   <Bar
-                    dataKey="usage"
+                    dataKey="totalAmount"
                     barSize={16}
                     fill="var(--purple-main)"
                     radius={[10, 10, 0, 0]}
@@ -855,7 +820,7 @@ const MainContent = () => {
             </div>
 
             {
-              // isProduction ? (
+            // isProduction ? (
               <div className="table-wrapper-main">
                 <table className="custom-table-main">
                   <thead>
@@ -882,17 +847,17 @@ const MainContent = () => {
                   </tbody>
                 </table>
               </div>
-              // ) : (
-              //   <div className="empty-state-container">
-              //     <img
-              //       src={Images.trailimg}
-              //       alt="No records found"
-              //       className="empty-state-img"
-              //     />
-              //     <h4>No records found!</h4>
-              //     <p>Looks like you have no records yet in this category.</p>
-              //   </div>
-              // )
+            // ) : (
+            //   <div className="empty-state-container">
+            //     <img
+            //       src={Images.trailimg}
+            //       alt="No records found"
+            //       className="empty-state-img"
+            //     />
+            //     <h4>No records found!</h4>
+            //     <p>Looks like you have no records yet in this category.</p>
+            //   </div>
+            // )
             }
           </div>
 
