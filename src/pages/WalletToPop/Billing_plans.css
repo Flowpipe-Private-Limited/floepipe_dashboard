@@ -21,7 +21,7 @@
 }
 
 .BillingPlans_header h1 {
-  font-size: var(--main-heading);
+  font-size: var(--medium-heading);
   font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--black);
@@ -119,7 +119,7 @@
 }
 
 .BillingPlans_stat-label {
-  font-size: var(--below-medium-heading);
+  font-size: var(--normal-text);
   color: var(--gray-200);
   font-weight: 400;
   margin: 0;
@@ -253,7 +253,7 @@
 }
 
 .BillingPlans_section-header h2 {
-  font-size: var(--main-heading);
+  font-size: var(--medium-heading);
   font-weight: 500;
   margin: 0;
   color: var(--black);
@@ -324,14 +324,11 @@
   color: var(--gray-500);
   font-weight: 500;
   font-size: var(--normal-text);
-  padding: 1rem;
-  font-family: "Konnect";
-  background-color: var(--white-100);
+  padding: 0.8rem;
   font-family: "Konnect-Medium";
+  background-color: var(--white-100);
   border-top: 1px solid var(--gray-300);
   border-bottom: 1px solid var(--gray-300);
-
-  
 }
 
  .BillingPlans_transactions-table td {
@@ -353,7 +350,8 @@
   vertical-align: middle;
   padding:0.4rem 1rem;
   border-bottom: 1px solid var(--black-500);
-  color:var(--black);
+  color: var(--gray-200);
+
 }
 .billingplans-down-view{
   display: flex;

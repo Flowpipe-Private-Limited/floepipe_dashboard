@@ -97,6 +97,7 @@
   position: sticky;
   top: 1.5rem;
   height: fit-content;
+  min-width: 0;
 }
 
 .kyc-mono-header {
@@ -104,7 +105,7 @@
   font-weight: 500;
   color: var(--black);
   letter-spacing: -0.025em;
-  font-size: var(--main-heading);
+  font-size: var(--medium-heading);
 }
 
 .kyc-section-header {
@@ -183,13 +184,13 @@
 .kyc-submit-button {
   width: 100%;
   max-width: 50%;
-  background: var(--kyc-primary);
-  color: var(--white);
+  background: var(--black);
+  color: var(--sweetyellow);
   border: none;
   border-radius: var(--border-radius-8);
   padding: 0.6rem;
   font-weight: 400;
-  font-size: var(--below-medium-heading);
+  font-size: var(--normal-text);
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -197,12 +198,6 @@
   justify-content: center;
   gap: 0.6rem;
   font-family: "Figtree";
-}
-
-.kyc-submit-button:hover:not(:disabled) {
-  background: var(--kyc-primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
 }
 
 .kyc-submit-button:disabled {
@@ -214,6 +209,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  min-width: 0;
 }
 
 .kyc-method-card {
@@ -566,7 +562,7 @@
   }
 
   .kyc-grid-container {
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1fr 1fr;
     gap: 1.75rem;
   }
 
@@ -802,7 +798,7 @@
 .selected-value {
   font-family: "Figtree";
   font-size: var(--normal-text);
-  color: var(--purple-main); /* Using visible purple instead of variable for certainty */
+  color: var(--black); /* Using visible purple instead of variable for certainty */
   word-break: break-all;
   line-height: 1.4;
 }

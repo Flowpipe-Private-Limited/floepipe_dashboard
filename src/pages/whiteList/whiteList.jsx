@@ -154,9 +154,9 @@ const WhiteListIP = () => {
           <thead>
             <tr>
               <th>SI.NO</th>
-              <th>IP Address</th>
-              <th>Comment</th>
-              <th>Action</th>
+              <th>IP ADDRESS</th>
+              <th>COMMENT</th>
+              <th>ACTION</th>
             </tr>
           </thead>
 

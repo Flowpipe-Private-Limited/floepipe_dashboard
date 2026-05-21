@@ -463,7 +463,7 @@
 }
 
 .filter-title {
-  font-size: var(--main-heading);
+  font-size: var(--medium-heading);
   font-weight: 500;
   color: var(--black);
   margin: 0;

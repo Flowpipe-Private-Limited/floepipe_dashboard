@@ -247,27 +247,18 @@
   cursor: pointer;
   transition: all 0.2s;
   border: 1px solid transparent;
-  font-family: "Konnect";
+  font-family: "Figtree";
 }
 
 .help-btn-primary {
-  background-color: var(--purple-main);
-  color: var(--white);
-  box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);
-}
-
-.help-btn-primary:hover {
-  background-color: #6d28d9;
+  background-color: var(--black);
+  color: var(--sweetyellow);
 }
 
 .help-btn-outline {
   background-color: var(--white);
   border-color: var(--purple-main);
   color: var(--purple-main);
-}
-
-.help-btn-outline:hover {
-  background-color: #f5f3ff;
 }
 
 /* FAQs Section */
@@ -277,10 +268,10 @@
 
 .help-section-title {
   font-size: var(--below-medium-heading);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--black);
   margin-bottom: 15px;
-  font-family: "Konnect";
+  font-family: "Konnect-Medium";
   text-align: left;
   width: 100%;
 }

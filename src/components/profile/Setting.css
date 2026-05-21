@@ -20,15 +20,20 @@
 
 .setting-title {
   font-size: var(--medium-heading);
+  font-weight: 500;
+  color: var(--black);
   margin: 0;
-  font-family: "JetBrainsMonoSemiBold";
+  font-family: "Konnect-Medium";
+  letter-spacing: -0.5px;
 }
 
 .setting-subsection-title {
-  font-size: var(--below-medium-heading);
-  font-family: "Konnect";
+  font-size: var(--medium-heading);
+  font-weight: 500;
   color: var(--black);
   margin-bottom: 1rem;
+  font-family: "Konnect-Medium";
+  letter-spacing: -0.5px;
 }
 
 /* Form */
@@ -70,18 +75,14 @@
 
 /* Button */
 .btn-next-setting {
-  background-color: var(--purple-main);
-  color: var(--white);
+  background-color: var(--black);
+  color: var(--sweetyellow);
   padding: 0.5rem 3rem;
   border: none;
   border-radius: var(--border-radius-4);
-  font-size: var(--small-text);;
+  font-size: var(--small-text);
   cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3);
   transition: background-color 0.2s;
-  font-family: "Konnect";
+  font-family: "Figtree";
 }
 
-.btn-next-setting:hover {
-  background-color: var(--purple-main);
-}

@@ -81,21 +81,21 @@
 
 .whitelist-table thead {
   background-color: var(--white-100);
-  color: var(--purple-main);
 }
 
 .whitelist-table th {
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1rem;
   text-align: left;
   font-weight: 500;
-  color: var(--black);
+  color: var(--gray-500);
   font-family: "Konnect-Medium";
+  font-size: var(--small-text);
 }
 
 .whitelist-table td {
   padding: 1rem 1rem;
   border-top: 1px solid var(--gray-300);
-  color: #374151;
+  color: var(--gray-200);
 }
 
 .status-btn {

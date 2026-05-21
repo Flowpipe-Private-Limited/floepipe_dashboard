@@ -207,10 +207,10 @@ const ApiKeys = () => {
         <table>
           <thead className="thead-header">
             <tr>
-              <th className="th-api">SI.No</th>
-              <th className="th-api">ClientId</th>
-              <th className="th-api">SecretKey</th>
-              <th className="th-api">Action</th>
+              <th className="th-api">SI.NO</th>
+              <th className="th-api">ClIENT ID</th>
+              <th className="th-api">SECRETKEY</th>
+              <th className="th-api">ACTION</th>
             </tr>
           </thead>
           <tbody>

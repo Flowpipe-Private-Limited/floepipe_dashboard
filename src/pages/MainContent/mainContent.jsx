@@ -398,44 +398,16 @@ const MainContent = () => {
 
   return (
     <div className="dashboard-container">
+      <div className="Dashboard-name-content">
+        <div className="stat-card-decor-name">
+          <img className="flowblue" src={Images.fldesign} />
+        </div>
+        <p className="welcome-text">Welcome, Vyshnavi</p>
+        <p className="name-subtitle">Your API dashboard is ready. Let's get started with your first API integration.</p>
+      </div>
+
       <div className="dashboard-top">
         <div className="dash-secone">
-          <div className="wallet-card-main">
-            <div className="wallet-top-check">
-              <span className="wallet-label">WALLET BALANCE</span>
-            </div>
-
-            <div className="wallet-middle">
-              <span className="wallet-dots">
-                {showBalance ? Number(walletBalance).toFixed(2) : "*******"}
-              </span>
-              <span
-                className="wallet-eye-icon"
-                onClick={() => setShowBalance(!showBalance)}
-                style={{ cursor: "pointer" }}
-              >
-                {showBalance ? <GoEye /> : <GoEyeClosed />}
-              </span>
-            </div>
-
-            <div className="wallet-actions">
-              {/* <div className="w-action" onClick={NavigateToBalance}>
-                <img
-                  className="statement-icon"
-                  src={Images.statement}
-                  alt="View Statement"
-                />
-                <span>View Statement</span>
-              </div> */}
-              <div
-                onClick={() => setIsSliderOpen(true)}
-                className="w-action-rupee"
-              >
-                <BiRupee size={20} />
-                Add Money
-              </div>
-            </div>
-          </div>
           <div className="stats-grid">
             <div className="stat-card">
               <div className="star-card-boxes-maincon">
@@ -542,19 +514,6 @@ const MainContent = () => {
               <div className="stat-card-decor-overview">
                 <img className="flowblue" src={Images.fldesign} />
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* PROMO */}
-        <div className="promo-card">
-          <img className="dashboardright-img" src={Images.dashboardrightnew} />
-          <div className="promo-content">
-            <h3>Manage your finance at your fingertips</h3>
-            <p className="promo-sub">Download App Now</p>
-            <div className="app-buttons">
-              <img className="app-btn-mock" src={Images.playstore} />
-              <img className="app-btn-mock" src={Images.Appstore} />
             </div>
           </div>
         </div>
@@ -896,7 +855,7 @@ const MainContent = () => {
             </div>
 
             {
-            // isProduction ? (
+              // isProduction ? (
               <div className="table-wrapper-main">
                 <table className="custom-table-main">
                   <thead>
@@ -923,17 +882,17 @@ const MainContent = () => {
                   </tbody>
                 </table>
               </div>
-            // ) : (
-            //   <div className="empty-state-container">
-            //     <img
-            //       src={Images.trailimg}
-            //       alt="No records found"
-            //       className="empty-state-img"
-            //     />
-            //     <h4>No records found!</h4>
-            //     <p>Looks like you have no records yet in this category.</p>
-            //   </div>
-            // )
+              // ) : (
+              //   <div className="empty-state-container">
+              //     <img
+              //       src={Images.trailimg}
+              //       alt="No records found"
+              //       className="empty-state-img"
+              //     />
+              //     <h4>No records found!</h4>
+              //     <p>Looks like you have no records yet in this category.</p>
+              //   </div>
+              // )
             }
           </div>
 

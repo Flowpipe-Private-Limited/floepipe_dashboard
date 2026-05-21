@@ -657,7 +657,7 @@ const KycReuseComponet = ({ data }) => {
             <div className="kyc-card-header-row">
               <div
                 className="kyc-mono-header"
-                style={{ fontSize: "1.125rem", marginBottom: 0 }}
+                style={{ fontSize: "var(--below-medium-heading)", marginBottom: 0 }}
               >
                 Example Request
               </div>
@@ -693,7 +693,7 @@ const KycReuseComponet = ({ data }) => {
           </div>
           <div className="kyc-card">
             <div className="kyc-card-header-row">
-              <div className="kyc-mono-header" style={{ fontSize: "1.125rem" }}>
+              <div className="kyc-mono-header" style={{ fontSize: "var(--below-medium-heading)" }}>
                 Example Response
               </div>
 
