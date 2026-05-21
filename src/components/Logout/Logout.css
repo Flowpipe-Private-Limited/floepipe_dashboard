@@ -28,7 +28,7 @@
 .logout-title {
   font-size: var(--medium-heading);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--black);
   margin-bottom: 12px;
 }
 
