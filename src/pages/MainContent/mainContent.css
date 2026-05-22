@@ -680,7 +680,7 @@
 /* --- CHART CARD --- */
 .product-usage-chart-card {
   background: var(--white);
-  border-radius: var(--border-radius-16);;
+  border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
   border: 1px solid var(--gray-300);
@@ -719,7 +719,7 @@
 }
 
 .control-group label {
-  font-size: var(--normal-text);
+  font-size: 14px;
   font-weight: 500;
   color: var(--gray-200);
   margin-bottom: 8px;
@@ -730,7 +730,7 @@
   border: 1px solid var(--gray-300);
   border-radius: var(--border-radius-8);
   padding: 12px 16px;
-  font-size: var(--normal-text);
+  font-size: 14px;
   color: var(--black);
   outline: none;
   background-color: var(--white);
@@ -772,7 +772,7 @@
   background: transparent;
   padding: 0 24px;
   border-radius: var(--border-radius-8);
-  font-size: var(--normal-text);
+  font-size: 14px;
   cursor: pointer;
   color: #6b7280;
   font-weight: 500;
@@ -1049,7 +1049,7 @@
 }
 
 .control-group-sm select {
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--black-1100);
   border-radius: var(--border-radius-6);
   padding: 0.5rem;
   font-size: var(--small-text);
@@ -1685,7 +1685,6 @@
 
   .dash-secone {
     flex-direction: column;
-    padding: 0.75rem;
     gap: 12px;
   }
 
@@ -1693,7 +1692,12 @@
     height: 180px;
     padding: 16px;
   }
-
+.stat-card .outline-btn.small {
+  padding: 2px 1px;
+  font-size: var(--small-text-10);
+  height: auto;
+  width: 130px;
+}
   .wallet-dots {
     font-size: var(--large-heading);
   }
@@ -1703,13 +1707,12 @@
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr fr;
     gap: 12px;
   }
 
   .stat-card {
-    height: 90px;
-    padding: 12px;
+    padding: 1rem;
   }
 
   .stat-card-decor {
@@ -1718,6 +1721,10 @@
     width: 120px;
     height: 75px;
   }
+  .stat-card-decor-overview {
+  position: absolute;
+  bottom: 2.9rem;
+}
 
   .promo-content {
     width: 70%;
@@ -1731,6 +1738,16 @@
   .section-title-mc {
     font-size: var(--medium-heading);
   }
+  .stat-card-decor-quickactions {
+  position: absolute;
+  bottom: 5.5rem;
+  right: 2px;
+  width: 150px;
+  height: 85px;
+  border-radius: var(--border-radius-50);
+  pointer-events: none;
+  z-index: 0;
+}
 
   .quick-action-main {
     grid-template-columns: 1fr;
@@ -1738,12 +1755,13 @@
   }
 
   .quick-actions {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr fr;
+    gap: 1rem;
   }
 
   .quick-card {
     padding: 12px;
+    height: 150px;
   }
 
   .quick-card-decor {
@@ -1779,8 +1797,8 @@
 
   .detailed-row-one,
   .detailed-row-two {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: 1fr fr;
+    gap: 1rem;
   }
 
   .product-usage-chart-card {
@@ -1797,9 +1815,11 @@
   }
 
   .chart-controls {
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
     gap: 8px;
+    flex-wrap: nowrap;
+    align-items: flex-end;
   }
 
   .control-group,
@@ -1809,6 +1829,7 @@
 
   .pan-lite-cards-container {
     padding: 0.75rem;
+    max-height: 77.8vh;
   }
 
   .pan-lite-card {
@@ -1825,8 +1846,11 @@
     padding: 0.4rem;
   }
 
-  .transactions-table-card,
-  .apps-running-card {
+  .transactions-table-card{
+    padding: 16px;
+  }
+
+    .apps-running-card {
     padding: 16px;
   }
 
@@ -1834,7 +1858,8 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 0.5rem;
+    /* padding: 1px; */
   }
 
   .table-header-row h3,

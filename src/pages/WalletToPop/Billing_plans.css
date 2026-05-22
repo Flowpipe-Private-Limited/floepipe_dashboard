@@ -1045,7 +1045,7 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_header h1 {
-    font-size: 23px;
+    font-size: var(--below-medium-heading);
   }
 
   .BillingPlans_stats-row {
@@ -1058,7 +1058,7 @@ input:checked + .BillingPlans_slider:before {
   }
 
   .BillingPlans_content-grid {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: fr 1fr;
   }
 
   .BillingPlans_transactions-table th,

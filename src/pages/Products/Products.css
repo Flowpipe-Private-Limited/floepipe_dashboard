@@ -347,12 +347,34 @@
 /* Desktop: min-width: 992px and max-width: 1199.98px */
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .products-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.9rem;
   }
 
+  .stat-card-decor-product {
+    position: absolute;
+    bottom: 7.9rem;
+    right: 2px;
+    width: 130px;
+}
+
   .product-card {
     min-height: 180px;
+  }
+  .products-title-text{
+    font-size: var(--below-medium-heading);
+  }
+  .category-item {
+  min-width: auto;
+  padding: 0 1.2rem;
+  height: 40px !important;
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--small-text) !important;
   }
 }
 

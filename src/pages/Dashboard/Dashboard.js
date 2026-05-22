@@ -841,13 +841,44 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
       </div>
 
       <div className="Dash-header-right">
-          <button
+          {/* <button
           onClick={() => onNavigate("Billing_plans")}
           className="Dash-header-btn"
         >
           <RxPlusCircled size={24} />
           Balance
-        </button>
+        </button> */}
+        <button
+  onClick={() => onNavigate("Billing_plans")}
+  className="Dash-header-btn"
+  onMouseEnter={(e) => {
+    e.currentTarget.innerHTML = `
+      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" 
+      stroke-linecap="round" stroke-linejoin="round" height="20" width="20" 
+      xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="16"></line>
+        <line x1="8" y1="12" x2="16" y2="12"></line>
+      </svg>
+      ₹ 2,465.08
+    `;
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.innerHTML = `
+      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" 
+      stroke-linecap="round" stroke-linejoin="round" height="20" width="20" 
+      xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="16"></line>
+        <line x1="8" y1="12" x2="16" y2="12"></line>
+      </svg>
+      Balance
+    `;
+  }}
+>
+  <RxPlusCircled size={24} />
+  Balance
+</button>
 
         <button className="Dash-header-btn">
           <IoCodeSlashSharp size={20} />

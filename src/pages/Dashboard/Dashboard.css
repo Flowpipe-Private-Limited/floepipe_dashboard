@@ -68,7 +68,7 @@
 
 .greeting-name {
   display: block;
-   font-family: "Konnect-Medium";
+  font-family: "Konnect-Medium";
 }
 
 .greeting-sub {
@@ -221,12 +221,14 @@
   display: flex;
   align-items: center;
 }
-.nav-pro-title{
+
+.nav-pro-title {
   font-size: var(--main-heading);
   font-weight: 500;
 
 }
-.by-flowpipe-text{
+
+.by-flowpipe-text {
   font-size: var(--normal-text);
   font-weight: 400;
 }
@@ -256,6 +258,13 @@
   cursor: pointer;
   letter-spacing: 0.2px;
   font-family: "Figtree-light";
+  position: relative;
+
+}
+
+.Dash-header-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 .Dash-notif-btn {
@@ -493,6 +502,7 @@
     opacity: 0;
     transform: translateX(10px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -693,6 +703,20 @@
   }
 }
 
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .nav-panel--expanded {
+    width: 200px;
+  }
+
+  .greeting-main {
+    font-size: var(--medium-heading);
+    font-weight: 500;
+    color: var(--black);
+    line-height: 1.2;
+    font-family: "Konnect-Medium";
+  }
+}
+
 @media (max-width: 1024px) {
   .mobile-dashboard-overlay {
     display: block;
@@ -757,6 +781,17 @@
 
   .Dash-header-right {
     display: none;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .Dash-header-right {
+    gap: 1px;
+  }
+
+  .Dash-header-btn {
+    height: 36px;
+    padding: 0 8px;
   }
 }
 
