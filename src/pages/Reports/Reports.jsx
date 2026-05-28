@@ -589,6 +589,11 @@ const Reports = () => {
   };
 
   const handleStoreRecord = async () => {
+    console.log("duration And selectedProduct", selectedProduct, duration)
+   if (duration === "Select Duration" || selectedProduct === "Select option") {
+  setExistError("Select Fields First");
+  return;
+}
     try {
       setCreateReportLoading(true);
 

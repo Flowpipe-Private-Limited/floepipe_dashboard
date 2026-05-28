@@ -47,6 +47,7 @@ import { GeneralKeys } from "../../Store/PubliPriviteKey";
 import { generateFrontendKeyPair } from "../../utils/helper";
 import { RxPlusCircled } from "react-icons/rx";
 import { IoCodeSlashSharp } from "react-icons/io5";
+import { analytics } from "../../Store/analyticsStore";
 
 const LucideIcons = {
   FileText,
@@ -285,7 +286,7 @@ export default function DashboardPage() {
   const navigate = useNavigate("");
   const fetchUserskeys = useUserkey((state) => state.fetchUserskeys);
   const searchRef = useRef(null);
-
+  const walletBalance = analytics((state) => state.walletBalance);
 
   useEffect(() => {
     fetchUsers();
@@ -329,7 +330,7 @@ export default function DashboardPage() {
         <Header
           onToggle={() => setCollapsed(!collapsed)}
           onNavigate={(path, options) => navigate(path, options)}
-          data={users}
+          data={{ ...users, walletBalance }}
           onHelpClick={() => setShowHelp(true)}
           onLogoutClick={() => setShowLogout(true)}
         />
@@ -342,7 +343,8 @@ export default function DashboardPage() {
           onClose={() => setShowLogout(false)}
           onConfirm={() => {
             Cookies.remove("clientId");
-            Cookies.remove("token");
+            Cookies.remove("accessToken");
+            Cookies.remove("refreshToken");
             setShowLogout(false);
             navigate("/login");
           }}
@@ -851,10 +853,10 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
           Balance
         </button> */}
         <button
-  onClick={() => onNavigate("Billing_plans")}
-  className="Dash-header-btn"
-  onMouseEnter={(e) => {
-    e.currentTarget.innerHTML = `
+          onClick={() => onNavigate("Billing_plans")}
+          className="Dash-header-btn"
+          onMouseEnter={(e) => {
+            e.currentTarget.innerHTML = `
       <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" 
       stroke-linecap="round" stroke-linejoin="round" height="20" width="20" 
       xmlns="http://www.w3.org/2000/svg">
@@ -862,11 +864,10 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
         <line x1="12" y1="8" x2="12" y2="16"></line>
         <line x1="8" y1="12" x2="16" y2="12"></line>
       </svg>
-      ₹ 2,465.08
-    `;
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.innerHTML = `
+      ₹ ${Number(data?.walletBalance).toFixed(2)}    `;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.innerHTML = `
       <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" 
       stroke-linecap="round" stroke-linejoin="round" height="20" width="20" 
       xmlns="http://www.w3.org/2000/svg">
@@ -876,11 +877,11 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
       </svg>
       Balance
     `;
-  }}
->
-  <RxPlusCircled size={24} />
-  Balance
-</button>
+          }}
+        >
+          <RxPlusCircled size={24} />
+          Balance
+        </button>
 
         <button className="Dash-header-btn">
           <IoCodeSlashSharp size={20} />

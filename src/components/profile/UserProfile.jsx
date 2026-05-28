@@ -87,6 +87,9 @@ export default function ProfilePage() {
         onClose={() => setShowLogout(false)}
         onConfirm={() => {
           setShowLogout(false);
+          Cookies.remove("clientId");
+          Cookies.remove("accessToken");
+          Cookies.remove("refreshToken");
           // Add any additional logout logic here (clearing tokens etc)
           navigate("/login");
         }}
@@ -123,7 +126,7 @@ const Input = ({
 function BasicDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const { users, updateUsers } = useUserStore();
-  console.log(users)
+  console.log(users);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

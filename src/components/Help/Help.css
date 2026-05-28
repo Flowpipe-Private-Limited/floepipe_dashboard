@@ -769,6 +769,7 @@
   font-size: var(--normal-text);
   outline: none;
   transition: border-color 0.2s;
+  color: var(--black);
 }
 
 .help-chat-footer-input:focus {

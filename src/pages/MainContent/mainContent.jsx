@@ -75,9 +75,8 @@ const MainContent = () => {
   const fetchServiceNameData = analytics((state) => state.fetchServiceNameData);
   const publicKey = GeneralKeys((state) => state.publicKey);
   const privateKey = GeneralKeys((state) => state.privateKey);
-    const users = useUserStore((state) => state.users);
+  const users = useUserStore((state) => state.users);
   const recentCallData = analytics((state) => state.recentCallData);
-  const walletBalance = analytics((state) => state.walletBalance);
   const serviceNameData = analytics((state) => state.serviceNameData);
   const getApicallAmountData = analytics((state) => state.getApicallAmountData);
   const apiCallResponse = analytics((state) => state.apiCallResponse);
@@ -296,46 +295,6 @@ const MainContent = () => {
     },
   ];
 
-  const allUsageData = [
-    { name: "Jan 14", usage: 300, amt: 15 },
-    { name: "Jan 15", usage: 450, amt: 22 },
-    { name: "Jan 16", usage: 200, amt: 18 },
-    { name: "Jan 17", usage: 350, amt: 21 },
-    { name: "Jan 18", usage: 600, amt: 40 },
-    { name: "Jan 19", usage: 520, amt: 31 },
-    { name: "Jan 20", usage: 410, amt: 29 },
-    { name: "Jan 21", usage: 280, amt: 19 },
-    { name: "Jan 22", usage: 330, amt: 24 },
-    { name: "Jan 23", usage: 620, amt: 38 },
-    { name: "Jan 24", usage: 710, amt: 45 },
-    { name: "Jan 25", usage: 480, amt: 35 },
-    { name: "Jan 26", usage: 300, amt: 21 },
-    { name: "Jan 27", usage: 250, amt: 19 },
-    { name: "Jan 28", usage: 420, amt: 29 },
-    { name: "Jan 29", usage: 590, amt: 41 },
-    { name: "Jan 30", usage: 680, amt: 46 },
-    { name: "Jan 31", usage: 510, amt: 33 },
-    { name: "FEb 01", usage: 420, amt: 19 },
-    { name: "FEb 02", usage: 580, amt: 22 },
-    { name: "FEb 03", usage: 230, amt: 20 },
-    { name: "FEb 04", usage: 230, amt: 18 },
-    { name: "FEb 05", usage: 430, amt: 29 },
-    { name: "FEb 06", usage: 700, amt: 39 },
-    { name: "FEb 07", usage: 700, amt: 47 },
-    { name: "FEb 08", usage: 410, amt: 38 },
-    { name: "FEb 09", usage: 500, amt: 22 },
-    { name: "FEb 10", usage: 240, amt: 19 },
-    { name: "FEb 11", usage: 360, amt: 29 },
-    { name: "FEb 12", usage: 630, amt: 29 },
-  ];
-
-  const productUsageData =
-    selectedDuration === "Last 7 days"
-      ? allUsageData.slice(-7)
-      : selectedDuration === "Last 12 days"
-        ? allUsageData.slice(-12)
-        : allUsageData;
-
   const appsRunning = [
     { name: "Test App", keys: 3, products: 3 },
     { name: "Live App", keys: 3, products: 3 },
@@ -357,7 +316,10 @@ const MainContent = () => {
           <img className="flowblue" src={Images.fldesign} />
         </div>
         <p className="welcome-text">Welcome, {users?.fullName}</p>
-        <p className="name-subtitle">Your API dashboard is ready. Let's get started with your first API integration.</p>
+        <p className="name-subtitle">
+          Your API dashboard is ready. Let's get started with your first API
+          integration.
+        </p>
       </div>
 
       <div className="dashboard-top">
@@ -616,10 +578,17 @@ const MainContent = () => {
                 </div>
                 <div className="control-group">
                   <label>All Products</label>
-                  <select defaultValue="All Products" onChange={(e)=>setSelectedProduct(e.target.value)}>
+                  <select
+                    defaultValue="All Products"
+                    onChange={(e) => setSelectedProduct(e.target.value)}
+                  >
                     {serviceNameData?.length > 0 &&
                       serviceNameData?.map((service, i) => {
-                        return <option value={service?.serviceId}>{service?.serviceName}</option>;
+                        return (
+                          <option value={service?.serviceId}>
+                            {service?.serviceName}
+                          </option>
+                        );
                       })}
                     {/* <option>Pan Lite</option>
                     <option>Driving License Advance</option>
@@ -671,16 +640,22 @@ const MainContent = () => {
                     dy={10}
                   /> */}
                   <XAxis
-  dataKey="date"
-  interval={0}
-  angle={0}
-  textAnchor="end"
-  height={60}
-  tickFormatter={(value) => {
-    const [day, month] = value.split("-");
-    return `${day}/${month}`;
-  }}
-/>
+                    dataKey="date"
+                    interval={0}
+                    angle={0}
+                    textAnchor="end"
+                    height={60}
+                    tickFormatter={(value) => {
+                      const [day, month, year] = value.split("-");
+
+                      const monthName = new Date(
+                        year,
+                        month - 1,
+                      ).toLocaleString("default", { month: "short" });
+
+                      return `${day} ${monthName}`;
+                    }}
+                  />
                   <YAxis
                     hide={false}
                     axisLine={false}
@@ -820,7 +795,7 @@ const MainContent = () => {
             </div>
 
             {
-            // isProduction ? (
+              // isProduction ? (
               <div className="table-wrapper-main">
                 <table className="custom-table-main">
                   <thead>
@@ -847,17 +822,17 @@ const MainContent = () => {
                   </tbody>
                 </table>
               </div>
-            // ) : (
-            //   <div className="empty-state-container">
-            //     <img
-            //       src={Images.trailimg}
-            //       alt="No records found"
-            //       className="empty-state-img"
-            //     />
-            //     <h4>No records found!</h4>
-            //     <p>Looks like you have no records yet in this category.</p>
-            //   </div>
-            // )
+              // ) : (
+              //   <div className="empty-state-container">
+              //     <img
+              //       src={Images.trailimg}
+              //       alt="No records found"
+              //       className="empty-state-img"
+              //     />
+              //     <h4>No records found!</h4>
+              //     <p>Looks like you have no records yet in this category.</p>
+              //   </div>
+              // )
             }
           </div>
 
