@@ -284,6 +284,8 @@ export default function DashboardPage() {
   const setPubKey = GeneralKeys((state) => state.setPubKey);
   const navigate = useNavigate("");
   const fetchUserskeys = useUserkey((state) => state.fetchUserskeys);
+  const searchRef = useRef(null);
+
 
   useEffect(() => {
     fetchUsers();
