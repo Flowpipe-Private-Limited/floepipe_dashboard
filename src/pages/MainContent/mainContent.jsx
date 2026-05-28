@@ -75,7 +75,7 @@ const MainContent = () => {
   const fetchServiceNameData = analytics((state) => state.fetchServiceNameData);
   const publicKey = GeneralKeys((state) => state.publicKey);
   const privateKey = GeneralKeys((state) => state.privateKey);
-    const users = useUserStore((state) => state.users);
+  const users = useUserStore((state) => state.users);
   const recentCallData = analytics((state) => state.recentCallData);
   const walletBalance = analytics((state) => state.walletBalance);
   const serviceNameData = analytics((state) => state.serviceNameData);
@@ -258,8 +258,8 @@ const MainContent = () => {
       href: "/dashboard/viewAnalytics",
     },
     {
-      title: "Start Free Trial",
-      subtext: "Test enterprise features",
+      title: "API Logs",
+      subtext: "Request & response logs",
       icon: Images.startfree,
       href: "/dashboard/Trial_Center",
     },
@@ -269,16 +269,23 @@ const MainContent = () => {
     {
       type: "stat",
       title: "Total API Calls",
-      value: "1.2M",
+      value: "0",
       icon: Images.graphicon,
       extra: "sparkline",
     },
     {
       type: "stat",
       title: "Active APIs",
-      value: "40.72 x 40.72",
+      value: "0",
       icon: Images.graphicon,
       extra: "badge",
+    },
+    {
+      type: "action",
+      title: "Total Transactions",
+      value: "0",
+      icon: Images.graphicon,
+      extra: "button",
     },
     {
       type: "stat",
@@ -286,13 +293,6 @@ const MainContent = () => {
       value: "54",
       icon: Images.graphicon,
       extra: "simple",
-    },
-    {
-      type: "action",
-      title: "Deploy to production",
-      value: "Go Live",
-      icon: Images.graphicon,
-      extra: "button",
     },
   ];
 
@@ -365,7 +365,7 @@ const MainContent = () => {
           <div className="stats-grid">
             <div className="stat-card">
               <div className="star-card-boxes-maincon">
-                <p className="stat-title">Total Transactions</p>
+                <p className="stat-title">Today Transactions</p>
                 <h3 className="stat-value">
                   {transactionData?.totalCount || 0}
                 </h3>
@@ -524,6 +524,7 @@ const MainContent = () => {
                           : item?.extra == "sparkline"
                             ? userApiCount?.apiCount
                             : userApiCount?.apiStore}
+                            
                       </h4>
                     </div>
                   )}
@@ -531,7 +532,7 @@ const MainContent = () => {
                   {item.type === "action" && (
                     <div style={{ marginTop: 5 }}>
                       <p className="quick-card-label-sm">{item.title}</p>
-                      <span className="quick-link-badge">Go Live</span>
+                      <span className="quick-link-badge">{transactionData?.totalCount || 0}</span>
                     </div>
                   )}
                 </div>
@@ -616,7 +617,7 @@ const MainContent = () => {
                 </div>
                 <div className="control-group">
                   <label>All Products</label>
-                  <select defaultValue="All Products" onChange={(e)=>setSelectedProduct(e.target.value)}>
+                  <select defaultValue="All Products" onChange={(e) => setSelectedProduct(e.target.value)}>
                     {serviceNameData?.length > 0 &&
                       serviceNameData?.map((service, i) => {
                         return <option value={service?.serviceId}>{service?.serviceName}</option>;
@@ -671,16 +672,16 @@ const MainContent = () => {
                     dy={10}
                   /> */}
                   <XAxis
-  dataKey="date"
-  interval={0}
-  angle={0}
-  textAnchor="end"
-  height={60}
-  tickFormatter={(value) => {
-    const [day, month] = value.split("-");
-    return `${day}/${month}`;
-  }}
-/>
+                    dataKey="date"
+                    interval={0}
+                    angle={0}
+                    textAnchor="end"
+                    height={60}
+                    tickFormatter={(value) => {
+                      const [day, month] = value.split("-");
+                      return `${day}/${month}`;
+                    }}
+                  />
                   <YAxis
                     hide={false}
                     axisLine={false}
@@ -820,7 +821,7 @@ const MainContent = () => {
             </div>
 
             {
-            // isProduction ? (
+              // isProduction ? (
               <div className="table-wrapper-main">
                 <table className="custom-table-main">
                   <thead>
@@ -847,17 +848,17 @@ const MainContent = () => {
                   </tbody>
                 </table>
               </div>
-            // ) : (
-            //   <div className="empty-state-container">
-            //     <img
-            //       src={Images.trailimg}
-            //       alt="No records found"
-            //       className="empty-state-img"
-            //     />
-            //     <h4>No records found!</h4>
-            //     <p>Looks like you have no records yet in this category.</p>
-            //   </div>
-            // )
+              // ) : (
+              //   <div className="empty-state-container">
+              //     <img
+              //       src={Images.trailimg}
+              //       alt="No records found"
+              //       className="empty-state-img"
+              //     />
+              //     <h4>No records found!</h4>
+              //     <p>Looks like you have no records yet in this category.</p>
+              //   </div>
+              // )
             }
           </div>
 
