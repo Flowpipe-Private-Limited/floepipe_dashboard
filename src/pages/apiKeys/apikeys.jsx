@@ -172,7 +172,7 @@ const ApiKeys = () => {
 
   return (
     <div className="api-keys-container">
-      <Eachpage_header headertitle={"API Keys"} />
+      <Eachpage_header  heading={"API Keys"} subtitle={"Manage your API keys"} />
 
       {/* Tabs */}
       <div className="tabs-wrapper">

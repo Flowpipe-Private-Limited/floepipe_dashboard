@@ -21,6 +21,7 @@ import { useUserkey } from "../../Store/userKeyStore";
 import { encryptPayload } from "../../utils/helper";
 import { FiDownload } from "react-icons/fi";
 import { analytics } from "../../Store/analyticsStore";
+import Global_Blackbutton from "../../components/ui/Buttons/Global_Blackbutton";
 
 const DateRangePicker = ({ isOpen, onClose, onApply }) => {
   const [startDate, setStartDate] = useState(moment().startOf("month"));
@@ -703,7 +704,7 @@ const Reports = () => {
 
   return (
     <div className="reports-container">
-      <Eachpage_header headertitle={"Reports"} />
+      <Eachpage_header  heading={"Reports"} subtitle={"Manage your reports"} />
       <div className="filter-card">
         <div className="filter-header">
           <h2 className="filter-title">Filter By</h2>
@@ -890,13 +891,14 @@ const Reports = () => {
         </div>
 
         <div className="run-report-container">
-          <button
+          <Global_Blackbutton
+          text={createReportLoading ? "Generating..." : "Run Report"}
             className="run-report-btn"
             onClick={handleStoreRecord}
             disabled={createReportLoading}
           >
-            {createReportLoading ? "Generating..." : "Run Report"}
-          </button>
+            
+          </Global_Blackbutton>
           {existError && <p className="error_show">{existError}</p>}
         </div>
       </div>

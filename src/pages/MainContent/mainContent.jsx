@@ -346,6 +346,30 @@ const MainContent = () => {
               </div>
             </div>
 
+
+            <div className="stat-card">
+              <div className="star-card-boxes-maincon">
+                <p className="stat-title">Transaction Volume</p>
+                <h3 className="stat-value">{`₹ ${transactionData?.totalAmount || 0}`}</h3>
+                <span className="stat-sub">
+                  This Month
+                  <span style={{ color: "var(--black)", fontWeight: 600 }}>
+                    vs
+                  </span>
+                  <span style={{ color: "var(--green)", fontWeight: 600 }}>
+                    0.00%
+                  </span>
+                </span>
+              </div>
+              <div>
+                <div className="right-arrow-logo"></div>
+              </div>
+              {/* Decorative circle */}
+              <div className="stat-card-decor-overview">
+                <img className="flowblue" src={Images.fldesign} />
+              </div>
+            </div>
+
             <div className="stat-card">
               <div className="star-card-boxes-maincon">
                 <div className="button-stat-card">
@@ -373,29 +397,6 @@ const MainContent = () => {
                 </span>
               </div>
 
-              {/* Decorative circle */}
-              <div className="stat-card-decor-overview">
-                <img className="flowblue" src={Images.fldesign} />
-              </div>
-            </div>
-
-            <div className="stat-card">
-              <div className="star-card-boxes-maincon">
-                <p className="stat-title">Transaction Volume</p>
-                <h3 className="stat-value">{`₹ ${transactionData?.totalAmount || 0}`}</h3>
-                <span className="stat-sub">
-                  This Month
-                  <span style={{ color: "var(--black)", fontWeight: 600 }}>
-                    vs
-                  </span>
-                  <span style={{ color: "var(--green)", fontWeight: 600 }}>
-                    0.00%
-                  </span>
-                </span>
-              </div>
-              <div>
-                <div className="right-arrow-logo"></div>
-              </div>
               {/* Decorative circle */}
               <div className="stat-card-decor-overview">
                 <img className="flowblue" src={Images.fldesign} />
@@ -486,7 +487,7 @@ const MainContent = () => {
                           : item?.extra == "sparkline"
                             ? userApiCount?.apiCount
                             : userApiCount?.apiStore}
-                            
+
                       </h4>
                     </div>
                   )}
@@ -637,7 +638,7 @@ const MainContent = () => {
                     tick={<CustomXAxisTick />}
                     dy={10}
                   /> */}
-                  <XAxis
+                  {/* <XAxis
                     dataKey="date"
                     interval={0}
                     angle={0}
@@ -653,12 +654,45 @@ const MainContent = () => {
 
                       return `${day} ${monthName}`;
                     }}
+                  /> */}
+                  <XAxis
+                    dataKey="date"
+                    interval={0}
+                    angle={0}
+                    textAnchor="middle"
+                    height={40}
+                    tick={({ x, y, payload }) => {
+                      const [day, month, year] = payload.value.split("-");
+
+                      const monthName = new Date(
+                        year,
+                        month - 1
+                      ).toLocaleString("default", { month: "short" });
+
+                      return (
+                        <g transform={`translate(${x},${y + 16})`}>
+                          <text
+                            textAnchor="middle"
+                            fill="var(--gray-200)"
+                            fontSize="14"
+                          >
+                            <tspan x="0" dy="0">
+                              {monthName}
+                            </tspan>
+
+                            <tspan x="0" dy="18">
+                              {day}
+                            </tspan>
+                          </text>
+                        </g>
+                      );
+                    }}
                   />
                   <YAxis
                     hide={false}
                     axisLine={false}
                     tickLine={false}
-                    tick={{ fontSize: 12, fill: "#9ca3af" }}
+                    tick={{ fontSize: 14, fill: "var(--gray-200)" }}
                     domain={[0, 800]}
                     ticks={[0, 200, 400, 600, 800]}
                   />

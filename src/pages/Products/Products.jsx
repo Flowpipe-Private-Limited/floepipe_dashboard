@@ -12,6 +12,9 @@ import {
   SubscribeService,
 } from "../../utils/Apis/api";
 import { CiFilter } from "react-icons/ci";
+import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
+import Images from "../../Images/Images";
+
 const Products = () => {
   const [filter, setFilter] = useState("All Products");
   const [categories, setCategories] = useState([]);
@@ -179,14 +182,18 @@ const Products = () => {
   return (
     <div className="products-container">
 
-      <div className="products-header">
+      {/* <div className="products-header">
         <div>
           <div className="products-title-text">Products</div>
           <p className="products-subtitle">
             Products are available for Subscription
           </p>
         </div>
-      </div>
+      </div> */}
+      <Eachpage_header
+        heading="Products"
+        subtitle="Products are available for Subscription"
+      />  
       <div className="category-slider-section">
         <div className="category-scroll-wrapper" ref={scrollContainerRef}>
           {categories.map((cat) => (

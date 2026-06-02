@@ -108,6 +108,7 @@
   gap: 40px;
   margin-bottom: 25px;
 }
+
 .issuedfrom {
   text-align: right;
 }
@@ -191,7 +192,7 @@
   border-bottom: none;
   font-weight: 600;
   color: #0f172a;
-      background: var(--white-100);
+  background: var(--white-100);
 }
 
 /* Purple Grand Total Bar */
@@ -258,18 +259,27 @@
 }
 
 .btn-download-inv {
-  background: #0f172a; /* Slate 900 / Navy dark */
-  color: #ffffff;
+  background: linear-gradient(180deg, #000000 0%, #717171 100%);
+  color: var(--sweetyellow);
   border: none;
+  padding: 8px 20px;
   border-radius: var(--border-radius-8);
-  padding: 8px 4.5rem;
-  font-weight: 600;
   font-size: var(--normal-text);
+  font-weight: 400;
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
+  font-family: "Figtree", sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  /* Inner Shadows */
+  box-shadow:
+    inset -2px 2px 6px rgba(228, 228, 228, 0.25),
+    inset 2px -2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .btn-download-inv:hover {
@@ -277,7 +287,8 @@
 }
 
 .btn-download-inv svg {
-  color: #a3e635; /* Crisp green/lime download icon tint */
+  color: #a3e635;
+  /* Crisp green/lime download icon tint */
 }
 
 .btn-share-inv {
@@ -305,6 +316,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

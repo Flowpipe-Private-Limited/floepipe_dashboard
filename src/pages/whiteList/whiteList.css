@@ -36,18 +36,25 @@
 }
 
 .add-ip-btn {
-  border-radius: var(--border-radius-8);;
-  background-color: var(--black);
-  padding: 0.5rem 1.5rem;
-  font-size: var(--normal-text);
-  font-weight: 600;
+  background: linear-gradient(180deg, #000000 0%, #717171 100%);
   color: var(--sweetyellow);
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   border: none;
+  padding: 8px 20px;
+  border-radius: var(--border-radius-8);
+  font-size: var(--normal-text);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
-  width: 100%;
-  font-family: "Figtree";
+  transition: all 0.2s;
+  font-family: "Figtree", sans-serif;
+  justify-content: center;
+
+  /* Inner Shadows */
+  box-shadow:
+    inset -2px 2px 6px rgba(228, 228, 228, 0.25),
+    inset 2px -2px 6px rgba(0, 0, 0, 0.25);
 
 }
 

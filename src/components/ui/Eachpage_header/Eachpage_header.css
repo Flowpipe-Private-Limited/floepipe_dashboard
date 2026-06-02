@@ -1,4 +1,4 @@
-.page-header-card-reports-main {
+/* .page-header-card-reports-main {
   background: var(--white);
   margin-bottom: 1rem;
   padding: 0.8rem;
@@ -12,4 +12,42 @@
   color: var(--black);
   margin: 0;
   font-family:"Konnect-Medium";
+} */
+
+.Dashboard-name-content {
+  background: var(--white);
+  padding: 1rem;
+  border-radius: var(--border-radius-12);
+  border: 1px solid var(--gray-300);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1rem;
+
+}
+
+.welcome-text {
+  color: var(--black);
+  font-weight: 500;
+  font-family: "Konnect";
+  font-size: var(--medium-heading);
+  font-family: "Konnect-Medium";
+}
+
+.name-subtitle {
+  color: var(--gray-200);
+  font-weight: 400;
+  font-family: "Figtree";
+  font-size: var(--normal-text);
+  font-family: "Figtree";
+}
+
+.stat-card-decor-name {
+  position: absolute;
+  bottom: -40px;
+  right: -4px;
+  width: 200px;
+  height: 120px;
+  border-radius: var(--border-radius-50);
+  pointer-events: none;
+  z-index: 0;
 }

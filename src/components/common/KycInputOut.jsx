@@ -449,7 +449,7 @@ const KycReuseComponet = ({ data }) => {
   return (
     <div className="kyc-input-container">
       {showCopyTip && <div className="kyc-copy-tip">✓ Copied to clipboard</div>}
-      <Eachpage_header headertitle={"KYC"} />
+      <Eachpage_header  heading={"KYC"} subtitle={"Manage your KYC information"} />
       <div className="kyc-grid-container">
         {/* LEFT INPUT SECTION */}
         <div className="kyc-card kyc-left-section">

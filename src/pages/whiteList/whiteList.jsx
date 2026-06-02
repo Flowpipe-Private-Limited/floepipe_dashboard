@@ -93,7 +93,7 @@ const WhiteListIP = () => {
 
   return (
     <div className="whitelist-container-main">
-      <Eachpage_header headertitle={"Whitelist IPs"} />
+      <Eachpage_header  heading={"Whitelist IPs"} subtitle={"Manage your whitelisted IPs"} />
       
       {/* IP Detection Banner */}
       {currentPublicIp && (
