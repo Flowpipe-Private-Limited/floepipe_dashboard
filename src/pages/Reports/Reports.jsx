@@ -474,6 +474,12 @@ const Reports = () => {
     }
   }, [Publickey]);
 
+  useEffect(()=>{
+    setTimeout(()=>{
+      setExistError("")
+    },6000)
+  },[existError])
+
   const getPublickey = async () => {
     await ApirequestHandler(
       async () => fetchPublickey(),
@@ -590,11 +596,11 @@ const Reports = () => {
   };
 
   const handleStoreRecord = async () => {
-    console.log("duration And selectedProduct", selectedProduct, duration)
-   if (duration === "Select Duration" || selectedProduct === "Select option") {
-  setExistError("Select Fields First");
-  return;
-}
+    console.log("duration And selectedProduct", selectedProduct, duration);
+    if (duration === "Select Duration" || selectedProduct === "Select option") {
+      setExistError("Select Fields First");
+      return;
+    }
     try {
       setCreateReportLoading(true);
 
@@ -628,9 +634,11 @@ const Reports = () => {
           console.log(err);
           if (err.status == 404) {
             setExistError("No Records Found");
+            handleClear();
           }
           if (err.status == 400) {
             setExistError("Report Already Exists");
+            handleClear();
           }
         },
       );
@@ -702,9 +710,22 @@ const Reports = () => {
     { label: "Last 30 Days", value: "last30days" },
   ];
 
+  const handleModifySearch = (e, searchValue) => {
+    const value = e.target.value;
+    const lowerSearchValue = searchValue.toLowerCase();
+    const trimmedValue = String(value).trim();
+    if (lowerSearchValue == "report") {
+      const reportModifiedValue = trimmedValue.replace(/[^a-zA-Z0-9/-]/g, "");
+      setReportSearch(reportModifiedValue);
+    } else {
+      const productModifiedValue = trimmedValue.replace(/[^a-zA-Z]/g, "");
+      setProductSearch(productModifiedValue);
+    }
+  };
+
   return (
     <div className="reports-container">
-      <Eachpage_header  heading={"Reports"} subtitle={"Manage your reports"} />
+      <Eachpage_header heading={"Reports"} subtitle={"Manage your reports"} />
       <div className="filter-card">
         <div className="filter-header">
           <h2 className="filter-title">Filter By</h2>
@@ -743,118 +764,71 @@ const Reports = () => {
           </div> */}
 
           <div className="form-group">
-  <p className="label">Products</p>
+            <p className="label">Products</p>
 
-  <div
-    className="custom-select-trigger"
-    onClick={() => setProductsOpen(!productsOpen)}
-  >
-    <span className="selected-product-text">{selectedProduct}</span>
-
-    <MdOutlineArrowDropDown
-      size={22}
-      className={`dropdown-arrow_reports ${productsOpen ? "open" : ""}`}
-    />
-  </div>
-
-  {productsOpen && (
-    <div className="select-dropdown-menu">
-      <div className="search-input-wrapper">
-        <input
-          type="text"
-          placeholder="Search product..."
-          value={productSearch}
-          onChange={(e) => setProductSearch(e.target.value)}
-          className="dropdown-search-input"
-          onClick={(e) => e.stopPropagation()}
-        />
-      </div>
-
-      <div className="dropdown-options-list">
-        {filteredProductsList.length > 0 ? (
-          filteredProductsList.map((item, i) => (
-            <div
-              key={i}
-              className={`select-option ${
-                selectedProductId === item.serviceId ? "active-option" : ""
-              }`}
-              onClick={() => {
-                setSelectedProduct(item.serviceName);
-                setSelectedProductId(item.serviceId);
-                setProductsOpen(false);
-                setExistError("");
-                setProductSearch("");
-              }}
-            >
-              {item.serviceName}
-            </div>
-          ))
-        ) : (
-          <div className="no-results-found">No products found</div>
-        )}
-      </div>
-    </div>
-  )}
-</div>
-
-          {/* <div className="form-group">
-            <p className="label">APP Name</p>
             <div
               className="custom-select-trigger"
-              onClick={() => setAppNameOpen(!appNameOpen)}
+              onClick={() => setProductsOpen(!productsOpen)}
             >
-              {selectedAppName} <MdOutlineArrowDropDown size={22} />
+              <span className="selected-product-text">{selectedProduct}</span>
+
+              <MdOutlineArrowDropDown
+                size={22}
+                className={`dropdown-arrow_reports ${productsOpen ? "open" : ""}`}
+              />
             </div>
 
-            {appNameOpen && (
+            {productsOpen && (
               <div className="select-dropdown-menu">
-                {appsList.map((item) => (
-                  <div
-                    key={item}
-                    className="select-option"
-                    onClick={() => {
-                      setSelectedAppName(item);
-                      setAppNameOpen(false);
-                    }}
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div> */}
+                <div className="search-input-wrapper">
+                  <input
+                    type="text"
+                    placeholder="Search product..."
+                    value={productSearch}
+                    onChange={(e) => handleModifySearch(e, "products")}
+                    className="dropdown-search-input"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </div>
 
-          {/* <div className="form-group">
-            <p className="label">Status</p>
-            <div
-              className="custom-select-trigger"
-              onClick={() => setStatusOpen(!statusOpen)}
-            >
-              {selectedStatus} <MdOutlineArrowDropDown size={22} />
-            </div>
-            {statusOpen && (
-              <div className="select-dropdown-menu">
-                {statusList.map((item) => (
-                  <div
-                    key={item}
-                    className="select-option"
-                    onClick={() => {
-                      setSelectedStatus(item);
-                      setStatusOpen(false);
-                    }}
-                  >
-                    {item}
-                  </div>
-                ))}
+                <div className="dropdown-options-list">
+                  {filteredProductsList.length > 0 ? (
+                    filteredProductsList.map((item, i) => (
+                      <div
+                        key={i}
+                        className={`select-option ${
+                          selectedProductId === item.serviceId
+                            ? "active-option"
+                            : ""
+                        }`}
+                        onClick={() => {
+                          setSelectedProduct(item.serviceName);
+                          setSelectedProductId(item.serviceId);
+                          setIsDatePickerOpen(false);
+                          setProductsOpen(false);
+                          setExistError("");
+                          setProductSearch("");
+                        }}
+                      >
+                        {item.serviceName}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="no-results-found">No products found</div>
+                  )}
+                </div>
               </div>
             )}
-          </div> */}
+          </div>
 
           <div className="form-group">
             <p className="label">Duration</p>
             <div
               className="input-trigger"
-              onClick={() => setIsDatePickerOpen(true)}
+              onClick={() => {
+                setIsDatePickerOpen(true);
+                setProductsOpen(false);
+              }}
             >
               {duration}
             </div>
@@ -892,13 +866,11 @@ const Reports = () => {
 
         <div className="run-report-container">
           <Global_Blackbutton
-          text={createReportLoading ? "Generating..." : "Run Report"}
+            text={createReportLoading ? "Generating..." : "Run Report"}
             className="run-report-btn"
             onClick={handleStoreRecord}
             disabled={createReportLoading}
-          >
-            
-          </Global_Blackbutton>
+          ></Global_Blackbutton>
           {existError && <p className="error_show">{existError}</p>}
         </div>
       </div>
@@ -913,7 +885,7 @@ const Reports = () => {
                 type="text"
                 placeholder="Search reports..."
                 value={reportSearch}
-                onChange={(e) => setReportSearch(e.target.value)}
+                onChange={(e) => handleModifySearch(e, "report")}
                 className="reports-search-input"
               />
             </div>
