@@ -61,7 +61,6 @@ const MainContent = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [isProduction, setIsProduction] = useState(false);
   const [transactionData, setTransactionData] = useState({});
-  const [Publickey, setPublickey] = useState("");
   const [slider, setSlider] = useState("");
   // const [recentCallData, setRecentCallData] = useState([]);
   const [productData, setProductData] = useState({});
@@ -73,6 +72,8 @@ const MainContent = () => {
   const fetchUserApiCount = analytics((state) => state.fetchUserApiCount);
   const userApiCount = analytics((state) => state.userApiCount);
   const fetchServiceNameData = analytics((state) => state.fetchServiceNameData);
+  const getPublicKey = GeneralKeys((state) => state.getPublicKey);
+  const PublicKey = GeneralKeys((state) => state.PublicKey);
   const publicKey = GeneralKeys((state) => state.publicKey);
   const privateKey = GeneralKeys((state) => state.privateKey);
   const users = useUserStore((state) => state.users);
@@ -86,7 +87,7 @@ const MainContent = () => {
 
   useEffect(() => {
     getUserApiCount();
-  }, [LiveAccessToken, TestAccessToken, Publickey]);
+  }, [LiveAccessToken, TestAccessToken, PublicKey]);
 
   const getUserApiCount = async () => {
     try {
@@ -106,25 +107,25 @@ const MainContent = () => {
     }
   };
 
-  const getPublickey = async () => {
-    await ApirequestHandler(
-      async () => fetchPublickey(),
-      null,
-      (res) => {
-        const { publicKey } = res;
-        console.log("publickey is this :", publicKey);
-        setPublickey(publicKey);
-      },
-      (errMessage) => {
-        console.log("error ===>>", errMessage);
-      },
-    );
-  };
+  // const getPublickey = async () => {
+  //   await ApirequestHandler(
+  //     async () => fetchPublickey(),
+  //     null,
+  //     (res) => {
+  //       const { publicKey } = res;
+  //       console.log("publickey is this :", publicKey);
+  //       setPublickey(publicKey);
+  //     },
+  //     (errMessage) => {
+  //       console.log("error ===>>", errMessage);
+  //     },
+  //   );
+  // };
 
   useEffect(() => {
     fetchProductsData();
     fetchTransactionData();
-    getPublickey();
+    getPublicKey();
     fetchServiceNameData();
   }, []);
 

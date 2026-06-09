@@ -11,6 +11,9 @@ const supperApiClient = axios.create({
 const kycApiClient = axios.create({
   baseURL: import.meta.env.REACT_APP_KYC_URL,
 });
+const kycGetApiClient = axios.create({
+  baseURL: import.meta.env.REACT_APP_KYC_URL_GET,
+});
 const kycClient = axios.create({
   baseURL: import.meta.env.REACT_APP_KYC_KEY_URL,
 });
@@ -123,14 +126,6 @@ const HandleGetUser = (clientId) =>
   });
 const UpdatedUserDetails = (data) =>
   supperApiClient.post("merchant/update/merchantdetails", data);
-
-const ClientService = (clientId, categoryId) =>
-  supperApiClient.get("/apimodule/services", {
-    params: {
-      clientId,
-      categoryId,
-    },
-  });
 const DashboardServices = () =>
   supperApiClient.get("/apimodule/dashboard-services");
 
@@ -191,20 +186,12 @@ const VerifyFPIN = (data) => supperApiClient.post("Client/verify-fpin", data);
 
 const SubscribeService = (payload) =>
   supperApiClient.post("/apimodule/subscribe-service", payload);
-DashboardServices;
-const getAllCategoriesService = () =>
-  supperApiClient.get("/apimodule/get-all-category");
 const getTransactionsData = (payload) =>
   supperApiClient.post(`/apimodule/debit-summary`, payload);
 const getProductsData = (payload) =>
   supperApiClient.post(`/apimodule/service-status-count`, payload);
 const getRecentCallData = (id) =>
   supperApiClient.get(`/apimodule/transaction-history?clientId=${id}`);
-
-const getServicesByCategoryService = (categoryId) =>
-  supperApiClient.get("/apimodule/service-config", {
-    params: { categoryId },
-  });
 const ApiVerification = (isMicro, URLS, data, token, method = "Post") => {
   console.log(isMicro, URLS, data, method);
   const headers = {
@@ -264,6 +251,21 @@ const HandleCreateReportResponse = (data, accesstoken, key) =>
       headers: { secret_token: accesstoken },
     },
   );
+
+// categories =======>>
+const getAllCategoriesService = () =>
+  kycGetApiClient.get("/category/get-all-category");
+const getServicesByCategoryService = (categoryId) =>
+  kycGetApiClient.get("/service/service-config", {
+    params: { categoryId },
+  });
+const ClientService = (clientId, categoryId) =>
+  kycGetApiClient.get("/subscription/services", {
+    params: {
+      clientId,
+      categoryId,
+    },
+  });
 const HandlegetReports = (data, accesstoken, key) =>
   kycApiClient.post(
     `report/getallReports`,

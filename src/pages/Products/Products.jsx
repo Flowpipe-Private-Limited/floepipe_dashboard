@@ -3,8 +3,10 @@ import { FileCheck, Layers, ChevronRight, Cookie } from "lucide-react";
 import "./Products.css";
 import images from "../../Images/Images";
 import { IoSearchOutline } from "react-icons/io5";
-import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
-import Cookies from 'js-cookie';
+import {
+  ApirequestHandler,
+} from "../../utils/Apis/apiRequestHandler";
+import Cookies from "js-cookie";
 import {
   getAllCategoriesService,
   getServicesByCategoryService,
@@ -14,6 +16,8 @@ import {
 import { CiFilter } from "react-icons/ci";
 import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header";
 import Images from "../../Images/Images";
+import { GeneralKeys } from "../../Store/PubliPriviteKey";
+import { useUserkey } from "../../Store/userKeyStore";
 
 const Products = () => {
   const [filter, setFilter] = useState("All Products");
@@ -22,12 +26,15 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
-
+  const PublicKey = GeneralKeys((state) => state.PublicKey);
+  const publicKey = GeneralKeys((state) => state.publicKey);
+  const privateKey = GeneralKeys((state) => state.privateKey);
+  const TestAccessToken = useUserkey((state) => state.TestAccessToken);
+  const LiveAccessToken = useUserkey((state) => state.LiveAccessToken);
   const scrollContainerRef = useRef(null);
 
   const fetchCategories = async () => {
     console.group("FETCH CATEGORIES");
-
     await ApirequestHandler(
       () => getAllCategoriesService(),
       null,
@@ -48,7 +55,7 @@ const Products = () => {
           setCategories([]);
         }
       },
-      (err) => console.error("Category Error:", err)
+      (err) => console.error("Category Error:", err),
     );
 
     console.groupEnd();
@@ -76,7 +83,6 @@ const Products = () => {
 
           setProducts(mappedProducts);
           fetchClientServices(mappedProducts, categoryId);
-
         } else {
           setProducts([]); // Show No Products UI
         }
@@ -84,14 +90,14 @@ const Products = () => {
       (err) => {
         console.error("Service Config Error:", err);
         setProducts([]);
-      }
+      },
     );
 
     console.groupEnd();
   };
   const fetchClientServices = async (currentProducts, categoryId) => {
     const clientId = Cookies.get("clientId");
-    console.log("clientId in fetchclientservice", clientId)
+    console.log("clientId in fetchclientservice", clientId);
     if (!clientId || !categoryId) return;
 
     await ApirequestHandler(
@@ -99,13 +105,13 @@ const Products = () => {
 
       null,
       (res) => {
-        console.log("res in fetchclientservices", res)
+        console.log("res in fetchclientservices", res);
         if (res?.success && Array.isArray(res.data)) {
           const clientServices = res.data;
 
           const updated = currentProducts.map((p) => {
             const found = clientServices.find(
-              (s) => s.serviceId === p.serviceId
+              (s) => s.serviceId === p.serviceId,
             );
             return found ? { ...p, status: found.status } : p;
           });
@@ -113,12 +119,12 @@ const Products = () => {
           setProducts(updated);
         }
       },
-      (err) => console.error("Client Service Error:", err)
+      (err) => console.error("Client Service Error:", err),
     );
   };
   const handleSubscribe = async (serviceId) => {
     const clientId = Cookies.get("clientId");
-    console.log("clientId in handlesubscribe", clientId)
+    console.log("clientId in handlesubscribe", clientId);
     if (!clientId || !selectedCategory) return;
 
     const payload = {
@@ -127,24 +133,24 @@ const Products = () => {
       serviceId,
       status: "Pending",
     };
-    console.log("payload  in handlesubscribe", payload)
+    console.log("payload  in handlesubscribe", payload);
     try {
       const res = await SubscribeService(payload);
-      console.log("res in handlesubscribe", res)
-      console.log("res in handlesubscribe1", res?.data?.success)
+      console.log("res in handlesubscribe", res);
+      console.log("res in handlesubscribe1", res?.data?.success);
       if (res?.data?.success) {
         const updatedServices = res.data.data.services;
 
         setProducts((prevProducts) =>
           prevProducts.map((product) => {
             const matchedService = updatedServices.find(
-              (s) => s.serviceId === product.serviceId
+              (s) => s.serviceId === product.serviceId,
             );
 
             return matchedService
               ? { ...product, status: matchedService.status }
               : product;
-          })
+          }),
         );
 
         // Optional: Remove this if you don't want filtering change
@@ -181,7 +187,6 @@ const Products = () => {
 
   return (
     <div className="products-container">
-
       {/* <div className="products-header">
         <div>
           <div className="products-title-text">Products</div>
@@ -193,14 +198,15 @@ const Products = () => {
       <Eachpage_header
         heading="Products"
         subtitle="Products are available for Subscription"
-      />  
+      />
       <div className="category-slider-section">
         <div className="category-scroll-wrapper" ref={scrollContainerRef}>
           {categories.map((cat) => (
             <div
               key={cat.categoryId}
-              className={`category-item ${selectedCategory === cat.categoryId ? "active" : ""
-                }`}
+              className={`category-item ${
+                selectedCategory === cat.categoryId ? "active" : ""
+              }`}
               onClick={() => {
                 setSelectedCategory(cat.categoryId);
                 fetchServicesByCategory(cat.categoryId);
@@ -247,23 +253,34 @@ const Products = () => {
           {isDropdownOpen && (
             <ul className="dropdown-menu">
               <li className="dropdown-menu-title">Filters</li>
-              <li className="dropdown-item" onClick={() => handleFilterSelect("All Products")}>
+              <li
+                className="dropdown-item"
+                onClick={() => handleFilterSelect("All Products")}
+              >
                 <span className="dot all"></span> All Products
               </li>
 
-              <li className="dropdown-item" onClick={() => handleFilterSelect("Subscribed")}>
+              <li
+                className="dropdown-item"
+                onClick={() => handleFilterSelect("Subscribed")}
+              >
                 <span className="dot subscribed"></span> Subscribed
               </li>
 
-              <li className="dropdown-item" onClick={() => handleFilterSelect("Subscribe")}>
+              <li
+                className="dropdown-item"
+                onClick={() => handleFilterSelect("Subscribe")}
+              >
                 <span className="dot unsubscribed"></span> Subscribe
               </li>
 
-              <li className="dropdown-item" onClick={() => handleFilterSelect("Pending Approvals")}>
+              <li
+                className="dropdown-item"
+                onClick={() => handleFilterSelect("Pending Approvals")}
+              >
                 <span className="dot pending"></span> Pending Approvals
               </li>
             </ul>
-
           )}
         </div>
       </div>
@@ -292,17 +309,12 @@ const Products = () => {
                 </div>
 
                 <div className="product-info">
-                  <div className="product-title-text">
-                    {product.title}
-                  </div>
-                  <p className="product-desc">
-                    {product.description}
-                  </p>
+                  <div className="product-title-text">{product.title}</div>
+                  <p className="product-desc">{product.description}</p>
                 </div>
               </div>
 
               <div className="card-footer">
-
                 <div className="credits-info">
                   <Layers size={14} />
 
@@ -311,19 +323,21 @@ const Products = () => {
                     : ""}
                 </div>
 
-
                 <button
-                  className={`action-btn-products ${product.status === "Pending"
-                    ? "pending"
-                    : product.status === "Subscribed"
-                      ? "subscribed"
-                      : "unsubscribed"
-                    }`}
+                  className={`action-btn-products ${
+                    product.status === "Pending"
+                      ? "pending"
+                      : product.status === "Subscribed"
+                        ? "subscribed"
+                        : "unsubscribed"
+                  }`}
                   disabled={
                     product.status === "Pending" ||
                     product.status === "Subscribed"
                   }
-                  onClick={() => handleSubscribe(product.serviceId, product.categoryId)}
+                  onClick={() =>
+                    handleSubscribe(product.serviceId, product.categoryId)
+                  }
                 >
                   {product.status === "Pending"
                     ? "Pending"
@@ -332,7 +346,6 @@ const Products = () => {
                       : "Subscribe"}
                 </button>
               </div>
-
             </div>
           ))}
         </div>

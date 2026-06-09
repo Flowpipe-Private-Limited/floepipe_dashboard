@@ -14,8 +14,8 @@ export default defineConfig({
         open: true,
         proxy: {
             "/api": {
-                target: "http://10.1.1.104:5000/api/v1/",
-                changeOrigin: true,
+           // target: "https://uatadminapi.flowpipe.com:1443/api/v1/",
+        target: "http://10.1.1.104:5000/api/v1/",                changeOrigin: true,
                 secure: false,
                 rewrite: (p) => p.replace(/^\/api/, ""),
             },
