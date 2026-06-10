@@ -10,6 +10,7 @@ import { ChangeEmailModal, ChangePhoneModal } from "./ContactModals";
 import "./UserProfile.css";
 import Setting from "./Setting";
 import Logout from "../Logout/Logout";
+import Cookies from "js-cookie";
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("basic");
@@ -42,7 +43,7 @@ export default function ProfilePage() {
 
       <div className="profile-card">
         <img
-          src="https://randomuser.me/api/portraits/men/45.jpg"
+          src="https://images.ottplay.com/images/jr-ntr-in-devara-1724751924.jpg"
           alt="User Profile"
           className="profile-image"
         />

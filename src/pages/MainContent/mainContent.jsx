@@ -98,7 +98,7 @@ const MainContent = () => {
         const data = {
           clientId: Cookies.get("clientId"),
         };
-        const encryptedPayload = await encryptPayload(data, Publickey);
+        const encryptedPayload = await encryptPayload(data, PublicKey);
         console.log("encryptedPayload ===>>", encryptedPayload);
         fetchUserApiCount(accesstoken, encryptedPayload, publicKey);
       }

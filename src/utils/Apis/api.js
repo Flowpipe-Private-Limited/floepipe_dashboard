@@ -130,10 +130,6 @@ const DashboardServices = () =>
   supperApiClient.get("/apimodule/dashboard-services");
 
 // supper Admin Key routes
-const HandleCreateKeys = (data) =>
-  supperApiClient.post("client/create/clientKeys", data);
-const HandleFetchAllKeys = (data) =>
-  supperApiClient.get(`client/get/TestandLive/clientKeys?clientId=${data}`);
 const HandleCreateIP = (data) =>
   supperApiClient.post(`client/whitelist/clientIp`, data);
 const HandleFetchIP = (clientId) =>
@@ -266,6 +262,15 @@ const ClientService = (clientId, categoryId) =>
       categoryId,
     },
   });
+
+// Api Keys =========>>>
+const HandleFetchAllKeys = (data) =>
+  kycGetApiClient.get(`/keys/TestandLive/clientKeys?clientId=${data}`);
+const HandleCreateKeys = (data, accesstoken, key) =>
+  kycApiClient.post("/keys/create/clientKeys", { ...data, publicKeyPem: key },  {
+      headers: { secret_token: accesstoken },
+    });
+
 const HandlegetReports = (data, accesstoken, key) =>
   kycApiClient.post(
     `report/getallReports`,
@@ -294,8 +299,6 @@ const HandleApiCount = (accesstoken, encryptedPayload, encrypt) =>
       headers: { secret_token: accesstoken },
     },
   );
-
-// const HandleFetchIP = (data) => kycApiClient.get(`IP/Getipwhitelist/${data?.MerchatID}`);
 
 const getAnalyticsService = (clientId) =>
   kycApiClient.get(

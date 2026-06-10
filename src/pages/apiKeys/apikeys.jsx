@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import { ApirequestHandler, EncryptedApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import { HandleCreateKeys } from "../../utils/Apis/api";
 import Loader from "../../components/common/Loader";
 import "./apikeys.css";
@@ -10,6 +10,9 @@ import { useUserkey } from "../../Store/userKeyStore";
 import { toast } from "react-toastify";
 import FlowpipeUnlockModal from "../../components/profile/PinVerify/FpinVerify";
 import WarningModal from "../../components/common/WarningModal";
+import Cookies from "js-cookie";
+import { GeneralKeys } from "../../Store/PubliPriviteKey";
+import { encryptPayload } from "../../utils/helper";
 
 const ApiKeys = () => {
   const [activeTab, setActiveTab] = useState("LIVE");
@@ -24,6 +27,9 @@ const ApiKeys = () => {
   const LiveAccessToken = useUserkey((state) => state.LiveAccessToken);
   const updateLiveKeys = useUserkey((state) => state.updateLiveKeys);
   const updateTestKeys = useUserkey((state) => state.updateTestKeys);
+  const PublicKey = GeneralKeys((state) => state.PublicKey);
+    const publicKey = GeneralKeys((state) => state.publicKey);
+    const privateKey = GeneralKeys((state) => state.privateKey);
 
   const [apierrorMessage, setApiErrormessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -44,57 +50,55 @@ const ApiKeys = () => {
     document.body.removeChild(link);
   };
 
-  const executeDelete = async (keyId) => {
-    if (
-      !window.confirm(
-        "Are you sure you want to delete this key? This action cannot be undone.",
-      )
-    )
-      return;
+  // const executeDelete = async (keyId) => {
+  //   if (
+  //     !window.confirm(
+  //       "Are you sure you want to delete this key? This action cannot be undone.",
+  //     )
+  //   )
+  //     return;
 
-    setLoading(true);
-    const payload = {
-      clientId: users?.clientId,
-      environment: activeTab,
-      keyId: keyId,
-    };
+  //   setLoading(true);
+  //   const payload = {
+  //     clientId: users?.clientId,
+  //     environment: activeTab,
+  //     keyId: keyId,
+  //   };
 
-    await ApirequestHandler(
-      async () => await HandleDeleteKey(payload),
-      setLoading,
-      () => {
-        if (activeTab === "LIVE") {
-          useUserkey.getState().clearLiveKeys();
-        } else {
-          useUserkey.getState().clearTestKeys();
-        }
-        toast.success(`${activeTab} Key Deleted Successfully`);
-        setLoading(false);
-      },
-      (err) => {
-        toast.error(err);
-        setLoading(false);
-      },
-    );
-  };
+  //   await ApirequestHandler(
+  //     async () => await HandleDeleteKey(payload),
+  //     setLoading,
+  //     () => {
+  //       if (activeTab === "LIVE") {
+  //         useUserkey.getState().clearLiveKeys();
+  //       } else {
+  //         useUserkey.getState().clearTestKeys();
+  //       }
+  //       toast.success(`${activeTab} Key Deleted Successfully`);
+  //       setLoading(false);
+  //     },
+  //     (err) => {
+  //       toast.error(err);
+  //       setLoading(false);
+  //     },
+  //   );
+  // };
 
   const executeGenerateKey = async () => {
     setLoading(true);
-    let userData = users;
-    if (!userData?.clientId || !userData?.email) {
-      await fetchUsers();
-      userData = useUserStore.getState().users;
-    }
+
+    const clientId = await Cookies.get("clientId");
 
     const payload = {
-      clientId: userData?.clientId,
+      clientId: clientId,
       environment: activeTab,
     };
 
     console.log("ApiURL", activeTab, payload);
-
-    await ApirequestHandler(
-      async () => HandleCreateKeys(payload),
+    const accesstoken = LiveAccessToken || TestAccessToken;
+    const encryptedPayload = await encryptPayload(payload, PublicKey);
+    await EncryptedApirequestHandler(
+      async () => HandleCreateKeys(encryptedPayload, accesstoken, publicKey),
       setLoading,
       (res) => {
         const { data } = res;
@@ -105,9 +109,9 @@ const ApiKeys = () => {
           updateTestKeys(data);
         }
         setLoading(false);
-        toast.success(`${activeTab} Key Generated Successfully`);
       },
       (err) => {
+        console.log("err in creating api keys====>>>", err)
         setApiErrormessage(err);
         setLoading(false);
       },
@@ -172,7 +176,7 @@ const ApiKeys = () => {
 
   return (
     <div className="api-keys-container">
-      <Eachpage_header  heading={"API Keys"} subtitle={"Manage your API keys"} />
+      <Eachpage_header heading={"API Keys"} subtitle={"Manage your API keys"} />
 
       {/* Tabs */}
       <div className="tabs-wrapper">
@@ -228,13 +232,13 @@ const ApiKeys = () => {
                         display: "flex",
                         gap: "10px",
                         alignItems: "center",
-                        justifyContent:'center'
+                        justifyContent: "center",
                       }}
                     >
                       <Download
                         size={16}
                         className="action-icon"
-                        style={{ cursor: "pointer", color:"var(--green)" }}
+                        style={{ cursor: "pointer", color: "var(--green)" }}
                         onClick={() =>
                           initiateDownload(
                             LiveSecretKey,
@@ -243,12 +247,12 @@ const ApiKeys = () => {
                           )
                         }
                       />
-                      <Trash2
+                      {/* <Trash2
                         size={16}
                         className="action-icon"
                         style={{ cursor: "pointer", color: "var(--red)" }}
                         onClick={() => initiateDelete(LiveSecretKey)}
-                      />
+                      /> */}
                     </div>
                   </td>
                 </tr>
@@ -272,7 +276,7 @@ const ApiKeys = () => {
                       display: "flex",
                       gap: "10px",
                       alignItems: "center",
-                      justifyContent:'center'
+                      justifyContent: "center",
                     }}
                   >
                     <Download
@@ -287,12 +291,12 @@ const ApiKeys = () => {
                         )
                       }
                     />
-                    <Trash2
+                    {/* <Trash2
                       size={16}
                       className="action-icon"
                       style={{ cursor: "pointer", color: "var(--red)" }}
                       onClick={() => initiateDelete(TestSecretKey)}
-                    />
+                    /> */}
                   </div>
                 </td>
               </tr>
