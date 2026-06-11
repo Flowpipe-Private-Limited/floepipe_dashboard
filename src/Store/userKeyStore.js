@@ -73,8 +73,9 @@ export const useUserkey = create((set, get) => ({
       async () => HandleFetchIP(clientId),
       null,
       (res) => {
+        console.log("res in getting ips ======>>", res)
         set({
-          whitelistIps: res?.data?.allowedIps || [],
+          whitelistIps: res?.whitelistIP || [],
           loading: false,
         });
       },

@@ -58,6 +58,10 @@
 
 }
 
+.add-ip-btn:disabled{
+  cursor: not-allowed;
+}
+
 .note-text {
   margin-top: 0.5rem;
   font-size: var(--small-text);

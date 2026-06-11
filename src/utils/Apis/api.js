@@ -130,30 +130,21 @@ const DashboardServices = () =>
   supperApiClient.get("/apimodule/dashboard-services");
 
 // supper Admin Key routes
-const HandleCreateIP = (data) =>
-  supperApiClient.post(`client/whitelist/clientIp`, data);
-const HandleFetchIP = (clientId) =>
-  supperApiClient.get(`client/Get/whitelist/clientIp?clientId=${clientId}`);
-const HandleDeleteIP = (data) =>
-  supperApiClient.post(`client/delete/whitelist/clientIp`, data);
 const HandleDeleteKey = (data) =>
   supperApiClient.post(`client/delete/clientKeys`, data);
 const HandleGetProducts = () =>
   supperApiClient.get(`apimodule/get-all-services`);
 const HandleGetApiCost = (client, service, day) =>
-  supperApiClient.get(`analytics/service-analytics?clientId=${client}&serviceId=${service}&days=${day}`);
+  supperApiClient.get(
+    `analytics/service-analytics?clientId=${client}&serviceId=${service}&days=${day}`,
+  );
 
 const GetWalletBalance = (clientid) =>
   supperApiClient.get(`/apimodule/get-wallte-balance?clientId=${clientid}`);
 
- const GetWalletHistory = (
-  clientId,
-  range = "120days",
-  page = 1,
-  limit = 20
-) =>
+const GetWalletHistory = (clientId, range = "120days", page = 1, limit = 20) =>
   supperApiClient.get(
-    `/apimodule/topup-history?clientId=${clientId}&range=${range}&page=${page}&limit=${limit}`
+    `/apimodule/topup-history?clientId=${clientId}&range=${range}&page=${page}&limit=${limit}`,
   );
 
 const getBillingTypeApi = (clientId) =>
@@ -165,18 +156,17 @@ const GetBillingAmountApi = (clientId, month) =>
 //   kycApiwallettopup.post(`/generate-dynamic-qr`, payload);
 const GenerateStaticQrApi = () => kycApiwallettopup.post(`/generate-static-qr`);
 
-const HandleQrResponse = (data) => supperApiClient.post('apimodule/create-dynamic-qr', data);
-
+const HandleQrResponse = (data) =>
+  supperApiClient.post("apimodule/create-dynamic-qr", data);
 
 const HandleQrstatus = (orderId) => {
   console.log("[STATUS API CALL]:", orderId);
 
-  return supperApiClient.get(
-    `apimodule/get-qr-payment-status/${orderId}`
-  );
+  return supperApiClient.get(`apimodule/get-qr-payment-status/${orderId}`);
 };
 
-const HandleQrPaymentResponse = (data) => supperApiClient.get(`ApiModuels/generate-dynamic-qr/${data}`);
+const HandleQrPaymentResponse = (data) =>
+  supperApiClient.get(`ApiModuels/generate-dynamic-qr/${data}`);
 
 const VerifyFPIN = (data) => supperApiClient.post("Client/verify-fpin", data);
 
@@ -219,8 +209,7 @@ const ApiVerification = (isMicro, URLS, data, token, method = "Post") => {
     return apiClient.post(finalURL, data, { headers });
   }
 };
-const fetchPublickey = () =>
-  kycClient.get(`/api/v1/ApiModuels/key/Publickey`);
+const fetchPublickey = () => kycClient.get(`/api/v1/ApiModuels/key/Publickey`);
 const handlieFileUpload = (data) =>
   kycApiClient.post(`/client/image/blur_Check`, data, {
     headers: {
@@ -267,10 +256,29 @@ const ClientService = (clientId, categoryId) =>
 const HandleFetchAllKeys = (data) =>
   kycGetApiClient.get(`/keys/TestandLive/clientKeys?clientId=${data}`);
 const HandleCreateKeys = (data, accesstoken, key) =>
-  kycApiClient.post("/keys/create/clientKeys", { ...data, publicKeyPem: key },  {
+  kycApiClient.post(
+    "/keys/create/clientKeys",
+    { ...data, publicKeyPem: key },
+    {
       headers: { secret_token: accesstoken },
-    });
+    },
+  );
 
+// whitelist ip ==========>>>
+const HandleFetchIP = (clientId) =>
+  kycGetApiClient.get(`/ip/get/whitelist/${clientId}`);
+const HandleCreateIP = (data, accesstoken, key) =>
+  kycApiClient.post(
+    `/ip/store/whitelist`,
+    { ...data, publicKeyPem: key },
+    {
+      headers: { secret_token: accesstoken },
+    },
+  );
+const HandleDeleteIP = (id, client) =>
+  kycGetApiClient.delete(`/ip/delete/whitelist/${id}/${client}`);
+
+// Reports =========>>>
 const HandlegetReports = (data, accesstoken, key) =>
   kycApiClient.post(
     `report/getallReports`,
@@ -279,7 +287,7 @@ const HandlegetReports = (data, accesstoken, key) =>
       headers: { secret_token: accesstoken },
     },
   );
-  const HandleDownloadReport = (data, accesstoken, key) =>
+const HandleDownloadReport = (data, accesstoken, key) =>
   kycApiClient.post(
     `report/download`,
     { ...data, publicKeyPem: key },
@@ -289,8 +297,9 @@ const HandlegetReports = (data, accesstoken, key) =>
       },
 
       responseType: "blob",
-    }
+    },
   );
+
 const HandleApiCount = (accesstoken, encryptedPayload, encrypt) =>
   kycApiClient.post(
     `analytics/ApiCallCount`,

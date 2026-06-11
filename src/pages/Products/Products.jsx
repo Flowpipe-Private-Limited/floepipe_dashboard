@@ -3,9 +3,7 @@ import { FileCheck, Layers, ChevronRight, Cookie } from "lucide-react";
 import "./Products.css";
 import images from "../../Images/Images";
 import { IoSearchOutline } from "react-icons/io5";
-import {
-  ApirequestHandler,
-} from "../../utils/Apis/apiRequestHandler";
+import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import Cookies from "js-cookie";
 import {
   getAllCategoriesService,
@@ -185,6 +183,13 @@ const Products = () => {
     setIsDropdownOpen(false);
   };
 
+  const handleSearchChange = (e) => {
+    const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+    setSearchText(value);
+  };
+
+  const activeFilterCount = filter !== "All Products" ? 1 : 0;
+
   return (
     <div className="products-container">
       {/* <div className="products-header">
@@ -235,7 +240,7 @@ const Products = () => {
           <input
             type="text"
             value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={handleSearchChange}
             placeholder="Search"
             className="products-search-input"
           />
@@ -248,6 +253,9 @@ const Products = () => {
             aria-label="Open filters"
           >
             <CiFilter size={20} />
+            {activeFilterCount > 0 && (
+              <span className="filter-count">({activeFilterCount})</span>
+            )}
           </button>
 
           {isDropdownOpen && (
