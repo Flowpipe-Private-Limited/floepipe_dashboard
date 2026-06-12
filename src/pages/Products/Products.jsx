@@ -111,7 +111,9 @@ const Products = () => {
             const found = clientServices.find(
               (s) => s.serviceId === p.serviceId,
             );
-            return found ? { ...p, status: found.status } : p;
+            return found
+              ? { ...p, status: found.status, credits: found.credits }
+              : p;
           });
 
           setProducts(updated);
@@ -182,6 +184,8 @@ const Products = () => {
     setFilter(selectedFilter);
     setIsDropdownOpen(false);
   };
+
+  console.log("filteredProducts =======>>", filteredProducts);
 
   const handleSearchChange = (e) => {
     const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
