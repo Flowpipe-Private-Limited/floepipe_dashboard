@@ -300,6 +300,16 @@ const HandleDownloadReport = (data, accesstoken, key) =>
     },
   );
 
+// view analytics ===========>>>
+const getLast7DaysHits = (client, service, category) =>
+  kycGetApiClient.get("/analytics/last-7-days", {
+    params: {
+      client,
+      service,
+      category,
+    },
+  });
+
 const HandleApiCount = (accesstoken, encryptedPayload, encrypt) =>
   kycApiClient.post(
     `analytics/ApiCallCount`,
@@ -313,9 +323,6 @@ const getAnalyticsService = (clientId) =>
   kycApiClient.get(
     `/inhouse/analytics/Analyticalreports${clientId ? `?clientId=${clientId}` : ""}`,
   );
-
-const getLast7DaysHits = (clientId) =>
-  supperApiClient.get(`/analytics/last-7-days/${clientId}`);
 
 const getApiErrorCount = (clientId) =>
   kycApiClient.post(`analytics/ApiErrorCount`, { clientId });

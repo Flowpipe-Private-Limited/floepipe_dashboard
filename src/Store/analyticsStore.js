@@ -69,6 +69,7 @@ export const analytics = create((set, get) => ({
         const prodData = res?.data;
         const neededData = prodData.map((item) => ({
           serviceId: item.serviceId,
+          categoryId: item.categoryId,
           serviceName: item.serviceName,
         }));
         set({

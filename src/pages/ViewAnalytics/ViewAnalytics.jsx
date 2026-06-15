@@ -24,6 +24,7 @@ import {
 } from "../../utils/Apis/api";
 import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
 import images from "../../Images/Images";
+import { analytics } from "../../Store/analyticsStore";
 
 // Custom tick renderer for API Cost Breakdown to stack Month and Day labels or handle long names
 const CustomXAxisTick = ({ x, y, payload }) => {
@@ -52,78 +53,180 @@ const ViewAnalytics = () => {
   const [services, setServices] = useState([]);
   const [dailyStats, setDailyStats] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedServiceKey, setSelectedServiceKey] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
+const [selectedService, setSelectedService] = useState("all");
   const [hitsData, setHitsData] = useState([]);
   const [errorData, setErrorData] = useState([]);
+  const serviceNameData = analytics((state) => state.serviceNameData);
+  console.log("serviceNameData in view analytics =====>>", serviceNameData);
 
-  const fetchAnalytics = async () => {
-    try {
-      const currentClientId =
-        Cookies.get("clientId") || localStorage.getItem("clientId");
-      const [res, hitsRes, errorRes] = await Promise.all([
-        getAnalyticsService(currentClientId),
-        getLast7DaysHits(currentClientId).catch(() => ({
-          data: { success: false },
-        })),
-        getApiErrorCount(currentClientId).catch(() => ({
-          data: { success: false },
-        })),
-      ]);
+  // const fetchAnalytics = async () => {
+  //   try {
+  //     const currentClientId =
+  //       Cookies.get("clientId") || localStorage.getItem("clientId");
+  //     const [res, hitsRes, errorRes] = await Promise.all([
+  //       getAnalyticsService(currentClientId),
+  //       getLast7DaysHits(
+  //         currentClientId,
+  //         selectedService,
+  //         selectedCategory,
+  //       ).catch(() => ({
+  //         data: { success: false },
+  //       })),
+  //       ,
+  //       getApiErrorCount(currentClientId).catch(() => ({
+  //         data: { success: false },
+  //       })),
+  //     ]);
 
-      console.log("Analytics Response:", res.data);
-      console.log("Hits Response:", hitsRes?.data);
-      console.log("Errors Response:", errorRes?.data);
+  //     console.log("Analytics Response:", res.data);
+  //     console.log("Hits Response:", hitsRes?.data);
+  //     console.log("Errors Response:", errorRes?.data);
 
-      if (res?.data?.success) {
-        const rawData = res.data.data;
-        const rawDailyStats = res.data.dailyStats || [];
+  //     if (res?.data?.success) {
+  //       const rawData = res.data.data;
+  //       const rawDailyStats = res.data.dailyStats || [];
 
-        let clientServices = [];
-        let clientDailyStats = [];
+  //       let clientServices = [];
+  //       let clientDailyStats = [];
 
-        if (currentClientId) {
-          const clientRecord = rawData.find(
-            (c) => c.clientId === currentClientId,
-          );
-          if (clientRecord) {
-            clientServices = clientRecord.services || [];
-          } else {
-            clientServices = rawData.flatMap((c) => c.services || []);
-          }
-          clientDailyStats = rawDailyStats.filter(
-            (item) => item.clientId === currentClientId,
-          );
-          if (clientDailyStats.length === 0) {
-            clientDailyStats = rawDailyStats;
-          }
+  //       if (currentClientId) {
+  //         const clientRecord = rawData.find(
+  //           (c) => c.clientId === currentClientId,
+  //         );
+  //         if (clientRecord) {
+  //           clientServices = clientRecord.services || [];
+  //         } else {
+  //           clientServices = rawData.flatMap((c) => c.services || []);
+  //         }
+  //         clientDailyStats = rawDailyStats.filter(
+  //           (item) => item.clientId === currentClientId,
+  //         );
+  //         if (clientDailyStats.length === 0) {
+  //           clientDailyStats = rawDailyStats;
+  //         }
+  //       } else {
+  //         clientServices = rawData.flatMap((c) => c.services || []);
+  //         clientDailyStats = rawDailyStats;
+  //       }
+
+  //       setServices(clientServices);
+  //       setDailyStats(clientDailyStats);
+  //     }
+
+  //     if (hitsRes?.data?.success) {
+  //       setHitsData(hitsRes.data.data || []);
+  //     }
+
+  //     // errorRes structure is typically { data: { statusCode: 200, data: [...], message: "..." } }
+  //     // or similar standard API response
+  //     if (errorRes?.data?.statusCode === 200 || errorRes?.data?.success) {
+  //       setErrorData(errorRes.data.data || []);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching analytics in ViewAnalytics:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const fetchBaseAnalytics = async () => {
+  try {
+    const currentClientId =
+      Cookies.get("clientId") || localStorage.getItem("clientId");
+
+    const [res, errorRes] = await Promise.all([
+      getAnalyticsService(currentClientId),
+      getApiErrorCount(currentClientId).catch(() => ({
+        data: { success: false },
+      })),
+    ]);
+
+    console.log("Analytics Response:", res.data);
+    console.log("Errors Response:", errorRes?.data);
+
+    if (res?.data?.success) {
+      const rawData = res.data.data;
+      const rawDailyStats = res.data.dailyStats || [];
+
+      let clientServices = [];
+      let clientDailyStats = [];
+
+      if (currentClientId) {
+        const clientRecord = rawData.find(
+          (c) => c.clientId === currentClientId
+        );
+
+        if (clientRecord) {
+          clientServices = clientRecord.services || [];
         } else {
           clientServices = rawData.flatMap((c) => c.services || []);
-          clientDailyStats = rawDailyStats;
         }
 
-        setServices(clientServices);
-        setDailyStats(clientDailyStats);
+        clientDailyStats = rawDailyStats.filter(
+          (item) => item.clientId === currentClientId
+        );
+
+        if (clientDailyStats.length === 0) {
+          clientDailyStats = rawDailyStats;
+        }
+      } else {
+        clientServices = rawData.flatMap((c) => c.services || []);
+        clientDailyStats = rawDailyStats;
       }
 
-      if (hitsRes?.data?.success) {
-        setHitsData(hitsRes.data.data || []);
-      }
-
-      // errorRes structure is typically { data: { statusCode: 200, data: [...], message: "..." } }
-      // or similar standard API response
-      if (errorRes?.data?.statusCode === 200 || errorRes?.data?.success) {
-        setErrorData(errorRes.data.data || []);
-      }
-    } catch (error) {
-      console.error("Error fetching analytics in ViewAnalytics:", error);
-    } finally {
-      setLoading(false);
+      setServices(clientServices);
+      setDailyStats(clientDailyStats);
     }
-  };
+
+    if (
+      errorRes?.data?.statusCode === 200 ||
+      errorRes?.data?.success
+    ) {
+      setErrorData(errorRes.data.data || []);
+    }
+  } catch (error) {
+    console.error("Base analytics error:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const fetchHits = async () => {
+  try {
+    const currentClientId =
+      Cookies.get("clientId") || localStorage.getItem("clientId");
+
+    const hitsRes = await getLast7DaysHits(
+      currentClientId,
+      selectedService,
+      selectedCategory
+    ).catch(() => ({
+      data: { success: false },
+    }));
+
+    console.log("Hits Response:", hitsRes?.data);
+
+    if (hitsRes?.data?.success) {
+      setHitsData(hitsRes.data.data || []);
+    }
+  } catch (error) {
+    console.error("Hits API error:", error);
+  }
+};
 
   useEffect(() => {
-    fetchAnalytics();
+    fetchBaseAnalytics();
   }, []);
+
+useEffect(() => {
+  const timeout = setTimeout(() => {
+    fetchHits();
+  }, 100);
+
+  return () => clearTimeout(timeout);
+}, [selectedServiceKey]);
 
   // Compute overall header metrics
   const totalRequests = services.reduce(
@@ -143,7 +246,7 @@ const ViewAnalytics = () => {
 
   // Extract unique categories for filtering dropdown
   const uniqueCategories = [
-    ...new Set(services.map((s) => s.category).filter(Boolean)),
+    ...new Set(serviceNameData.map((s) => s.serviceName).filter(Boolean)),
   ];
 
   // Filter services by selected product/category
@@ -165,19 +268,13 @@ const ViewAnalytics = () => {
   })();
 
   // 1. API Hit Counts Data
-  const hitCountsData =
-    hitsData.length > 0
-      ? hitsData.map((item) => {
-          const dayNum = item.date ? item.date.split("-")[2] : "";
-          return {
-            name: `${item.day} ${dayNum}`,
-            hits: item.hits || 0,
-          };
-        })
-      : last7DaysList.map((dayName) => ({
-          name: dayName,
-          hits: 0,
-        }));
+const hitCountsData =
+  hitsData?.length > 0
+    ? hitsData.map((item) => ({
+        name: `${item.day} ${item.date.split("-")[2]}`,
+        hits: item.hits || 0,
+      }))
+    : [];
 
   // 2. Error Tracking Data (Success vs Failed transactions)
   const errTotalSuccess = errorData.reduce(
@@ -299,6 +396,23 @@ const ViewAnalytics = () => {
     );
   }
 
+const handleSelection = (serviceId) => {
+  setSelectedServiceKey(serviceId);
+
+  if (serviceId === "all") {
+    setSelectedService("all");
+    setSelectedCategory("all");
+    return;
+  }
+
+  const selectedItem = serviceNameData.find(
+    (item) => item.serviceId === serviceId
+  );
+
+  setSelectedService(selectedItem?.serviceId || "all");
+  setSelectedCategory(selectedItem?.categoryId || "all");
+};
+
   return (
     <div className="analytics-container">
       <div className="analytic-main-container">
@@ -379,18 +493,19 @@ const ViewAnalytics = () => {
             <div className="dropdown-container">
               <span className="dropdown-label">Category Filter</span>
               <div className="dropdown-wrapper">
-                <select
-                  className="dropdown-select"
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                >
-                  <option value="all">All Products</option>
-                  {uniqueCategories.map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-                </select>
+               <select
+  className="dropdown-select"
+  value={selectedServiceKey}
+  onChange={(e) => handleSelection(e.target.value)}
+>
+  <option value="all">All Products</option>
+
+  {serviceNameData.map((item) => (
+    <option key={item.serviceId} value={item.serviceId}>
+      {item.serviceName}
+    </option>
+  ))}
+</select>
                 <span className="dropdown-arrow">&#9662;</span>
               </div>
             </div>
