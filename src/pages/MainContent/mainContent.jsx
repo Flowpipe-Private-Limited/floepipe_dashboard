@@ -93,7 +93,7 @@ const MainContent = () => {
     try {
       const accesstoken = LiveAccessToken || TestAccessToken;
 
-      if (accesstoken && publicKey && Publickey) {
+      if (accesstoken && publicKey && PublicKey) {
         console.log("Token available, calling API", publicKey);
         const data = {
           clientId: Cookies.get("clientId"),
@@ -846,7 +846,7 @@ const MainContent = () => {
                         <td
                           style={{ color: "var(--black)", fontWeight: "600" }}
                         >
-                          {row.totalCount}
+                          {row.successCount}
                         </td>
                         <td>{row.successCount}</td>
                         <td>{row.failedCount}</td>

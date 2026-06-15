@@ -3,7 +3,10 @@ import { FileCheck, Layers, ChevronRight, Cookie } from "lucide-react";
 import "./Products.css";
 import images from "../../Images/Images";
 import { IoSearchOutline } from "react-icons/io5";
-import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import {
+  ApirequestHandler,
+  EncryptedApirequestHandler,
+} from "../../utils/Apis/apiRequestHandler";
 import Cookies from "js-cookie";
 import {
   getAllCategoriesService,
@@ -16,6 +19,7 @@ import Eachpage_header from "../../components/ui/Eachpage_header/Eachpage_header
 import Images from "../../Images/Images";
 import { GeneralKeys } from "../../Store/PubliPriviteKey";
 import { useUserkey } from "../../Store/userKeyStore";
+import { encryptPayload } from "../../utils/helper";
 
 const Products = () => {
   const [filter, setFilter] = useState("All Products");
@@ -29,6 +33,7 @@ const Products = () => {
   const privateKey = GeneralKeys((state) => state.privateKey);
   const TestAccessToken = useUserkey((state) => state.TestAccessToken);
   const LiveAccessToken = useUserkey((state) => state.LiveAccessToken);
+  const [loading, setLoading] = useState(false);
   const scrollContainerRef = useRef(null);
 
   const fetchCategories = async () => {
@@ -134,31 +139,60 @@ const Products = () => {
       status: "Pending",
     };
     console.log("payload  in handlesubscribe", payload);
-    try {
-      const res = await SubscribeService(payload);
-      console.log("res in handlesubscribe", res);
-      console.log("res in handlesubscribe1", res?.data?.success);
-      if (res?.data?.success) {
-        const updatedServices = res.data.data.services;
+    const accesstoken = LiveAccessToken || TestAccessToken;
+    const encryptedPayload = await encryptPayload(payload, PublicKey);
+    await EncryptedApirequestHandler(
+      async () =>
+        await await SubscribeService(encryptedPayload, accesstoken, publicKey),
+      setLoading,
+      (res) => {
+        console.log("res ====>>", res)
+        if (res?.success) {
+          const updatedServices = res.data.services;
 
-        setProducts((prevProducts) =>
-          prevProducts.map((product) => {
-            const matchedService = updatedServices.find(
-              (s) => s.serviceId === product.serviceId,
-            );
+          setProducts((prevProducts) =>
+            prevProducts.map((product) => {
+              const matchedService = updatedServices.find(
+                (s) => s.serviceId === product.serviceId,
+              );
 
-            return matchedService
-              ? { ...product, status: matchedService.status }
-              : product;
-          }),
-        );
+              return matchedService
+                ? { ...product, status: matchedService.status }
+                : product;
+            }),
+          );
+        }
+      },
+      (errMessage) => {
+        console.log("errMessage adding ip====>>", errMessage);
+        setLoading(false);
+      },
+    );
+    // const res = await SubscribeService(
+    //   encryptedPayload,
+    //   accesstoken,
+    //   publicKey,
+    // );
+    // console.log("res in handlesubscribe", res?.data);
+    // console.log("res in handlesubscribe1", res?.data?.success);
+    // if (res?.data?.success) {
+    //   const updatedServices = res.data.data.services;
 
-        // Optional: Remove this if you don't want filtering change
-        // setFilter("Pending Approvals");
-      }
-    } catch (error) {
-      console.error("Subscribe Error:", error);
-    }
+    //   setProducts((prevProducts) =>
+    //     prevProducts.map((product) => {
+    //       const matchedService = updatedServices.find(
+    //         (s) => s.serviceId === product.serviceId,
+    //       );
+
+    //       return matchedService
+    //         ? { ...product, status: matchedService.status }
+    //         : product;
+    //     }),
+    //   );
+
+    //   // Optional: Remove this if you don't want filtering change
+    //   // setFilter("Pending Approvals");
+    // }
   };
   useEffect(() => {
     fetchCategories();

@@ -134,10 +134,6 @@ const HandleDeleteKey = (data) =>
   supperApiClient.post(`client/delete/clientKeys`, data);
 const HandleGetProducts = () =>
   supperApiClient.get(`apimodule/get-all-services`);
-const HandleGetApiCost = (client, service, day) =>
-  supperApiClient.get(
-    `analytics/service-analytics?clientId=${client}&serviceId=${service}&days=${day}`,
-  );
 
 const GetWalletBalance = (clientid) =>
   supperApiClient.get(`/apimodule/get-wallte-balance?clientId=${clientid}`);
@@ -170,8 +166,6 @@ const HandleQrPaymentResponse = (data) =>
 
 const VerifyFPIN = (data) => supperApiClient.post("Client/verify-fpin", data);
 
-const SubscribeService = (payload) =>
-  supperApiClient.post("/apimodule/subscribe-service", payload);
 const getTransactionsData = (payload) =>
   supperApiClient.post(`/apimodule/debit-summary`, payload);
 const getProductsData = (payload) =>
@@ -252,6 +246,16 @@ const ClientService = (clientId, categoryId) =>
     },
   });
 
+// subscriptions ==========>>
+const SubscribeService = (data, accesstoken, key) =>
+  kycApiClient.post(
+    "/subscription/subscribe-service",
+    { ...data, publicKeyPem: key },
+    {
+      headers: { secret_token: accesstoken },
+    },
+  );
+
 // Api Keys =========>>>
 const HandleFetchAllKeys = (data) =>
   kycGetApiClient.get(`/keys/TestandLive/clientKeys?clientId=${data}`);
@@ -300,6 +304,11 @@ const HandleDownloadReport = (data, accesstoken, key) =>
     },
   );
 
+// over view ============>>>
+const HandleGetApiCost = (client, service, day) =>
+  kycGetApiClient.get(
+    `analytics/service-analytics?clientId=${client}&serviceId=${service}&days=${day}`,
+  );
 // view analytics ===========>>>
 const getLast7DaysHits = (client, service, category) =>
   kycGetApiClient.get("/analytics/last-7-days", {
