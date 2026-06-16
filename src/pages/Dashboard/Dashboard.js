@@ -786,6 +786,7 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
   const location = useLocation();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const clientId = Cookies.get("clientId")
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -905,7 +906,7 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
           onClick={() => setIsProfileOpen(!isProfileOpen)}
         >
           <img
-            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+          src="https://images.ottplay.com/images/jr-ntr-in-devara-1724751924.jpg"
             alt="User avatar"
             className="Dash-header-avatar-img"
           />
@@ -916,14 +917,14 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
             <div className="profile-header-info">
               <div className="profile-avatar-circle">
                 <img
-                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+          src="https://images.ottplay.com/images/jr-ntr-in-devara-1724751924.jpg"
                   alt="User"
                 />
               </div>
               <div className="profile-user-details">
-                <h4 className="profile-name">Natashia khaleria</h4>
-                <p className="profile-email">chennurisrikanth@ntar.com</p>
-                <p className="profile-id">06ONQ14174</p>
+                <h4 className="profile-name">{data.fullName}</h4>
+                <p className="profile-email">{data?.email}</p>
+                <p className="profile-id">{clientId}</p>
               </div>
             </div>
 
