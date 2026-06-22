@@ -11,8 +11,17 @@ const supperApiClient = axios.create({
 const kycApiClient = axios.create({
   baseURL: import.meta.env.REACT_APP_KYC_URL,
 });
+const ApiClient = axios.create({
+  baseURL: import.meta.env.REACT_APP_KYC_URL_CLIENT,
+});
 const kycGetApiClient = axios.create({
   baseURL: import.meta.env.REACT_APP_KYC_URL_GET,
+});
+const kycGetApiClientAnalytics = axios.create({
+  baseURL: import.meta.env.REACT_APP_KYC_URL_GET_ANALYTICS,
+});
+const kycApiClientAnalytics = axios.create({
+  baseURL: import.meta.env.REACT_APP_KYC_URL_ANALYTICS,
 });
 const kycClient = axios.create({
   baseURL: import.meta.env.REACT_APP_KYC_KEY_URL,
@@ -132,8 +141,6 @@ const DashboardServices = () =>
 // supper Admin Key routes
 const HandleDeleteKey = (data) =>
   supperApiClient.post(`client/delete/clientKeys`, data);
-const HandleGetProducts = () =>
-  supperApiClient.get(`apimodule/get-all-services`);
 
 const GetWalletBalance = (clientid) =>
   supperApiClient.get(`/apimodule/get-wallte-balance?clientId=${clientid}`);
@@ -165,13 +172,6 @@ const HandleQrPaymentResponse = (data) =>
   supperApiClient.get(`ApiModuels/generate-dynamic-qr/${data}`);
 
 const VerifyFPIN = (data) => supperApiClient.post("Client/verify-fpin", data);
-
-const getTransactionsData = (payload) =>
-  supperApiClient.post(`/apimodule/debit-summary`, payload);
-const getProductsData = (payload) =>
-  supperApiClient.post(`/apimodule/service-status-count`, payload);
-const getRecentCallData = (id) =>
-  supperApiClient.get(`/apimodule/transaction-history?clientId=${id}`);
 const ApiVerification = (isMicro, URLS, data, token, method = "Post") => {
   console.log(isMicro, URLS, data, method);
   const headers = {
@@ -213,7 +213,6 @@ const handlieFileUpload = (data) =>
   });
 
 //  Fetch User Details
-
 const HandleGetOtp = (data) =>
   kycApiClient.post("mobileNumber/mobileOtp", data);
 const HandleVerifyOtp = (data) =>
@@ -246,6 +245,18 @@ const ClientService = (clientId, categoryId) =>
     },
   });
 
+// transactions ===========>>
+const getTransactionsData = (data, accesstoken, key) =>
+  ApiClient.post(
+    `/transaction/debit-summary`,
+    { ...data, publicKeyPem: key },
+    {
+      headers: { secret_token: accesstoken },
+    },
+  );
+const getRecentCallData = (id) =>
+  kycGetApiClient.get(`/transaction/transaction-history?clientId=${id}`);
+
 // subscriptions ==========>>
 const SubscribeService = (data, accesstoken, key) =>
   kycApiClient.post(
@@ -255,6 +266,8 @@ const SubscribeService = (data, accesstoken, key) =>
       headers: { secret_token: accesstoken },
     },
   );
+const getProductsData = (client) =>
+  kycGetApiClient.get(`/subscription/service-status-count/${client}`);
 
 // Api Keys =========>>>
 const HandleFetchAllKeys = (data) =>
@@ -267,6 +280,10 @@ const HandleCreateKeys = (data, accesstoken, key) =>
       headers: { secret_token: accesstoken },
     },
   );
+
+// services ========>\
+const HandleGetProducts = () =>
+  kycGetApiClient.get(`/service/get-all-services`);
 
 // whitelist ip ==========>>>
 const HandleFetchIP = (clientId) =>
@@ -306,21 +323,21 @@ const HandleDownloadReport = (data, accesstoken, key) =>
 
 // over view ============>>>
 const HandleGetApiCost = (client, service, day) =>
-  kycGetApiClient.get(
+  kycGetApiClientAnalytics.get(
     `analytics/service-analytics?clientId=${client}&serviceId=${service}&days=${day}`,
   );
+
 // view analytics ===========>>>
 const getLast7DaysHits = (client, service, category) =>
-  kycGetApiClient.get("/analytics/last-7-days", {
+  kycGetApiClientAnalytics.get("/analytics/last-7-days", {
     params: {
       client,
       service,
       category,
     },
   });
-
 const HandleApiCount = (accesstoken, encryptedPayload, encrypt) =>
-  kycApiClient.post(
+  kycApiClientAnalytics.post(
     `analytics/ApiCallCount`,
     { ...encryptedPayload, publicKeyPem: encrypt },
     {

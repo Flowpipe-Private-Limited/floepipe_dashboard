@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./mainContent.css";
 import { GoArrowUpRight, GoArrowDownLeft } from "react-icons/go";
 import Images from "../../Images/Images";
@@ -32,7 +32,10 @@ import {
   getRecentCallData,
   getTransactionsData,
 } from "../../utils/Apis/api";
-import { ApirequestHandler } from "../../utils/Apis/apiRequestHandler";
+import {
+  ApirequestHandler,
+  EncryptedApirequestHandler,
+} from "../../utils/Apis/apiRequestHandler";
 import { analytics } from "../../Store/analyticsStore";
 import { useUserStore } from "../../Store/userStore";
 
@@ -82,12 +85,15 @@ const MainContent = () => {
   const getApicallAmountData = analytics((state) => state.getApicallAmountData);
   const apiCallResponse = analytics((state) => state.apiCallResponse);
   const clientId = Cookies.get("clientId");
+  const accessToken = LiveAccessToken || TestAccessToken; // stable derived value
+  const isFirstRender = useRef(true);
 
   console.log("walletBalance and recentCallData =====>>", apiCallResponse);
 
   useEffect(() => {
+    if (!accessToken || !PublicKey || !publicKey) return; // guard
     getUserApiCount();
-  }, [LiveAccessToken, TestAccessToken, PublicKey]);
+  }, [accessToken, PublicKey]);
 
   const getUserApiCount = async () => {
     try {
@@ -123,18 +129,37 @@ const MainContent = () => {
   // };
 
   useEffect(() => {
-    fetchProductsData();
-    fetchTransactionData();
-    getPublicKey();
-    fetchServiceNameData();
-  }, []);
+    const init = async () => {
+      await Promise.all([
+        fetchProductsData(),
+        fetchServiceNameData(),
+        fetchRecentCallData(clientId),
+      ]);
+
+      const key = await getPublicKey();
+
+      if (key) {
+        // ✅ Read token from store at this exact moment, not from stale closure
+        const currentToken = GeneralKeys.getState
+          ? useUserkey.getState().LiveAccessToken ||
+            useUserkey.getState().TestAccessToken
+          : accessToken;
+
+        await fetchTransactionData(key, publicKey, currentToken);
+      }
+    };
+    init();
+  }, []); // runs once on mount
 
   useEffect(() => {
     const clientId = Cookies.get("clientId");
     fetchRecentCallData(clientId);
   }, []);
   useEffect(() => {
-    const clientId = Cookies.get("clientId");
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // skip — already called in init above
+    }
     getApicallAmountData(clientId, selectedProduct, selectedDuration);
   }, [selectedDuration, selectedProduct]);
 
@@ -167,12 +192,10 @@ const MainContent = () => {
   // };
 
   const fetchProductsData = async () => {
-    const payload = {
-      clientId: Cookies.get("clientId"),
-    };
+    const clientId = await Cookies.get("clientId");
     try {
       await ApirequestHandler(
-        () => getProductsData(payload),
+        () => getProductsData(clientId),
         null,
         (res) => {
           console.log("res of products in dashboard ======>>>>", res);
@@ -191,39 +214,82 @@ const MainContent = () => {
     }
   };
 
-  const fetchTransactionData = async () => {
+  // In fetchTransactionData, don't rely on closure at all
+  const fetchTransactionData = async (pubKey, privKey) => {
     const currentDate = new Date();
-
     const month = String(currentDate.getMonth() + 1).padStart(2, "0");
     const year = currentDate.getFullYear();
-
     const formatted = `${year}-${month}`;
 
-    console.log("formatted ====>>", formatted);
     const payload = {
       clientId: Cookies.get("clientId"),
       month: formatted,
     };
+
+    // ✅ Read token directly from Zustand store at call time — always fresh
+    const { LiveAccessToken, TestAccessToken } = useUserkey.getState();
+    const token = LiveAccessToken || TestAccessToken;
+
+    // ✅ Read privateKey directly from store too
+    const { publicKey: privKey2 } = GeneralKeys.getState();
+
+    if (!token) {
+      console.log("No token available yet");
+      return;
+    }
+
+    const encryptedPayload = await encryptPayload(payload, pubKey);
+
     try {
-      await ApirequestHandler(
-        () => getTransactionsData(payload),
+      await EncryptedApirequestHandler(
+        () => getTransactionsData(encryptedPayload, token, privKey2),
         null,
         (res) => {
-          console.log("res in dashboard ======>>>>", res);
-          if (res.success) {
-            setTransactionData(res?.data);
-          } else {
-            setTransactionData({});
-          }
+          console.log("res in transaction data ======>>>>", res);
+          if (res.success) setTransactionData(res?.data);
+          else setTransactionData({});
         },
-        (err) => {
-          console.log(err);
-        },
+        (err) => console.log(err),
       );
     } catch (error) {
       console.log("error while getting transaction data ===>>", error);
     }
   };
+
+  // const fetchTransactionData = async (key, publicKey, accessToken) => {
+  //   const currentDate = new Date();
+
+  //   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  //   const year = currentDate.getFullYear();
+
+  //   const formatted = `${year}-${month}`;
+
+  //   console.log("formatted ====>>", formatted);
+  //   const payload = {
+  //     clientId: Cookies.get("clientId"),
+  //     month: formatted,
+  //   };
+  //   const encryptedPayload = await encryptPayload(payload, key);
+  //   try {
+  //     await EncryptedApirequestHandler(
+  //       () => getTransactionsData(encryptedPayload, accessToken, publicKey),
+  //       null,
+  //       (res) => {
+  //         console.log("res in transaction data ======>>>>", res);
+  //         if (res.success) {
+  //           setTransactionData(res?.data);
+  //         } else {
+  //           setTransactionData({});
+  //         }
+  //       },
+  //       (err) => {
+  //         console.log(err);
+  //       },
+  //     );
+  //   } catch (error) {
+  //     console.log("error while getting transaction data ===>>", error);
+  //   }
+  // };
 
   const NavigateToBalance = () => {
     navigate("/dashboard/Billing_Plans");
@@ -330,7 +396,7 @@ const MainContent = () => {
               <div className="star-card-boxes-maincon">
                 <p className="stat-title">Today Transactions</p>
                 <h3 className="stat-value">
-                  {transactionData?.totalCount || 0}
+                  {transactionData?.todayTransactions || 0}
                 </h3>
                 <span className="stat-sub">
                   This Month
@@ -346,7 +412,6 @@ const MainContent = () => {
                 <img className="flowblue" src={Images.fldesign} />
               </div>
             </div>
-
 
             <div className="stat-card">
               <div className="star-card-boxes-maincon">
@@ -483,12 +548,11 @@ const MainContent = () => {
                     <div style={{ marginTop: 5 }}>
                       <p className="quick-card-label-sm">{item.title}</p>
                       <h4 className="quick-card-val-lg">
-                        {item.extra == "simple"
-                          ? whitelistIps?.length
-                          : item?.extra == "sparkline"
-                            ? userApiCount?.apiCount
-                            : userApiCount?.apiStore}
-
+                        {item.extra === "simple"
+                          ? (whitelistIps?.length ?? 0)
+                          : item.extra === "sparkline"
+                            ? (userApiCount?.apiCount ?? 0)
+                            : (userApiCount?.apiStore ?? 0)}
                       </h4>
                     </div>
                   )}
@@ -496,7 +560,9 @@ const MainContent = () => {
                   {item.type === "action" && (
                     <div style={{ marginTop: 5 }}>
                       <p className="quick-card-label-sm">{item.title}</p>
-                      <span className="quick-link-badge">{transactionData?.totalCount || 0}</span>
+                      <span className="quick-link-badge">
+                        {transactionData?.totalCount || 0}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -581,7 +647,10 @@ const MainContent = () => {
                 </div>
                 <div className="control-group">
                   <label>All Products</label>
-                  <select defaultValue="All Products" onChange={(e) => setSelectedProduct(e.target.value)}>
+                  <select
+                    defaultValue="All Products"
+                    onChange={(e) => setSelectedProduct(e.target.value)}
+                  >
                     {serviceNameData?.length > 0 &&
                       serviceNameData?.map((service, i) => {
                         return (
@@ -667,7 +736,7 @@ const MainContent = () => {
 
                       const monthName = new Date(
                         year,
-                        month - 1
+                        month - 1,
                       ).toLocaleString("default", { month: "short" });
 
                       return (
