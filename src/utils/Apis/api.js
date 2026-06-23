@@ -123,7 +123,7 @@ supperApiClient.interceptors.response.use(
   handleResponseError,
 );
 
-// Supper Admin Routes
+// Supper Admin Routes - client Related
 const Register = (data) => supperApiClient.post("client/register", data);
 const HandleRefreshToken = () => supperApiClient.post("client/refresh-token");
 const SendOTP = (data) => supperApiClient.post("client/login/send-otp", data);
