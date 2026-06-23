@@ -255,7 +255,7 @@ const getRecentCallData = (id) =>
 
 // subscriptions ==========>>
 const SubscribeService = (data, accesstoken, key) =>
-  kycApiClient.post(
+  ApiClient.post(
     "/subscription/subscribe-service",
     { ...data, publicKeyPem: key },
     {
@@ -269,7 +269,7 @@ const getProductsData = (client) =>
 const HandleFetchAllKeys = (data) =>
   kycGetApiClient.get(`/keys/TestandLive/clientKeys?clientId=${data}`);
 const HandleCreateKeys = (data, accesstoken, key) =>
-  kycApiClient.post(
+  ApiClient.post(
     "/keys/create/clientKeys",
     { ...data, publicKeyPem: key },
     {
@@ -285,7 +285,7 @@ const HandleGetProducts = () =>
 const HandleFetchIP = (clientId) =>
   kycGetApiClient.get(`/ip/get/whitelist/${clientId}`);
 const HandleCreateIP = (data, accesstoken, key) =>
-  kycApiClient.post(
+  ApiClient.post(
     `/ip/store/whitelist`,
     { ...data, publicKeyPem: key },
     {
