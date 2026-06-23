@@ -123,7 +123,7 @@ supperApiClient.interceptors.response.use(
   handleResponseError,
 );
 
-// Supper Admin Routes - client Related
+// Supper Admin Routes - client Related 
 const Register = (data) => supperApiClient.post("client/register", data);
 const HandleRefreshToken = () => supperApiClient.post("client/refresh-token");
 const SendOTP = (data) => supperApiClient.post("client/login/send-otp", data);
@@ -154,10 +154,6 @@ const getBillingTypeApi = (clientId) =>
   supperApiClient.get(`/client/is-monthly-pay/${clientId}`);
 const GetBillingAmountApi = (clientId, month) =>
   supperApiClient.get(`/apimodule/billing-records/${clientId}/${month}`);
-// Generate Dynamic QR API
-// const GenerateDynamicQrApi = (payload) =>
-//   kycApiwallettopup.post(`/generate-dynamic-qr`, payload);
-const GenerateStaticQrApi = () => kycApiwallettopup.post(`/generate-static-qr`);
 
 const HandleQrResponse = (data) =>
   supperApiClient.post("apimodule/create-dynamic-qr", data);
