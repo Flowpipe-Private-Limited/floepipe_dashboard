@@ -81,7 +81,7 @@ const OtpScreen = ({ navigation }) => {
     setLoading(true);
     setErrorMessage("");
 
-    const dataToSend = { otp: finalOtp, "channel": "MOBILE" }
+    const dataToSend = { otp: finalOtp, "channel": "MOBILE", mobile:mobileNumber }
 
     await ApirequestHandler(
       async () => await VerifyOTP(dataToSend, token),  // Token is updated in header verifyOTP section
