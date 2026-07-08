@@ -8,6 +8,9 @@ const supperApiClient = axios.create({
 });
 
 // KYC MICROSERVICE BASE URL
+const kycServiceApiClient = axios.create({
+  baseURL: import.meta.env.REACT_APP_KYC_SERVICE_CALL,
+});
 const kycApiClient = axios.create({
   baseURL: import.meta.env.REACT_APP_KYC_URL,
 });
@@ -185,13 +188,13 @@ const ApiVerification = (isMicro, URLS, data, token, method = "Post") => {
   }
 
   const clientMap = {
-    KYC: kycApiClient,
+    KYC: kycServiceApiClient,
     RECHARGE: RechargeApiClient,
     BBPS: bbpsApiClient,
     SupperAdmin: supperApiClient,
   };
 
-  const apiClient = clientMap[isMicro] || kycApiClient;
+  const apiClient = clientMap[isMicro] || kycServiceApiClient;
 
   if (method.toLowerCase() === "get") {
     return apiClient.get(finalURL, { headers, params: data });
