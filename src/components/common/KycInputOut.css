@@ -896,6 +896,7 @@
 .kyc-status-group {
   display: flex;
   padding: 4px;
+  flex-wrap: wrap;
   border-radius: var(--border-radius-10);
 }
 

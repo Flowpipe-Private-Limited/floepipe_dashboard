@@ -20,6 +20,7 @@ export default function OtpLogin() {
   const token = location.state?.token;
   const mobileNumber = location.state?.mobileNumber;
   const BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
+  const client = localStorage.getItem("clientId")
 
   const CORRECT_OTP = "123456";
 
@@ -60,7 +61,7 @@ export default function OtpLogin() {
       console.log("Verifying OTP in registerotp:", finalOtp, "with token:", token);
       const response = await axios.post(
         `${BASE_URL}/api/v1/client/login/verify-otp`,
-        { token, otp: finalOtp, "channel": "MOBILE" }
+        { token, otp: finalOtp, "channel": "MOBILE", clientId: client }
       );
       console.log("OTP verification response:", response?.data);
 
