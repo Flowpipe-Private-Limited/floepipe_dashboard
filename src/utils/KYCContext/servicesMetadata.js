@@ -92,7 +92,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/verify",
+        URLS: "pan/verify",
         LiveUrl: `${KYC_BASE}/pan/business/verify`,
       },
       title: {
@@ -119,7 +119,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/knowDirector",
+        URLS: "pan/knowDirector",
         LiveUrl: `${KYC_BASE}/internal/pan/knowDirector`,
       },
       title: {
@@ -147,7 +147,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/getgst_in/withpan",
+        URLS: "pan/getgst_in/withpan",
         LiveUrl: `${KYC_BASE}/internal/pan/getgst_in/withpan`,
       },
       title: {
@@ -175,7 +175,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/tan/verify",
+        URLS: "pan/tan/verify",
         LiveUrl: `${KYC_BASE}/internal/pan/tan/verify`,
       },
       title: {
@@ -202,7 +202,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/panNameMatch",
+        URLS: "pan/panNameMatch",
         LiveUrl: `${KYC_BASE}/internal/pan/panNameMatch`,
       },
       title: {
@@ -229,7 +229,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/gst/with/pan",
+        URLS: "pan/gst/with/pan",
         LiveUrl: `${KYC_BASE}/internal/pan/gst/with/pan`,
       },
       title: {
@@ -256,7 +256,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/panName/DobVerify",
+        URLS: "pan/panName/DobVerify",
         LiveUrl: `${KYC_BASE}/internal/pan/panName/DobVerify`,
       },
       title: {
@@ -283,7 +283,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/know/fatherName",
+        URLS: "pan/know/fatherName",
         LiveUrl: `${KYC_BASE}/internal/pan/know/fatherName`,
       },
       title: {
@@ -310,7 +310,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/know/itdStatus/otp_generate",
+        URLS: "pan/know/itdStatus/otp_generate",
         LiveUrl: `${KYC_BASE}/internal/pan/know/itdStatus/otp_generate`,
       },
       title: {
@@ -337,7 +337,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/know/itdStatus/otp_validate",
+        URLS: "pan/know/itdStatus/otp_validate",
         LiveUrl: `${KYC_BASE}/internal/pan/know/itdStatus/otp_validate`,
       },
       title: {
@@ -364,7 +364,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/pan/verify_to_aadhaar",
+        URLS: "pan/verify_to_aadhaar",
         LiveUrl: `${KYC_BASE}/internal/pan/verify_to_aadhaar`,
       },
       title: {
@@ -393,7 +393,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/gst/comprehensivegst/verify",
+        URLS: "gst/comprehensivegst/verify",
         LiveUrl: `${KYC_BASE}/internal/gst/comprehensivegst/verify`,
       },
       title: {
@@ -420,7 +420,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/gst/gstAdvance/verify",
+        URLS: "gst/gstAdvance/verify",
         LiveUrl: `${KYC_BASE}/internal/gst/gstAdvance/verify`,
       },
       title: {
@@ -449,7 +449,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/aadhaar/digilocker/verify",
+        URLS: "aadhaar/digilocker/verify",
         LiveUrl: `${KYC_BASE}/internal/aadhaar/digilocker/verify`,
       },
       title: {
@@ -477,7 +477,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/aadhaar/pan/maskedverify",
+        URLS: "aadhaar/pan/maskedverify",
         LiveUrl: `${KYC_BASE}/internal/aadhaar/pan/maskedverify`,
       },
       title: {
@@ -507,7 +507,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/bank/bankAccount/Verify",
+        URLS: "bank/bankAccount/Verify",
         LiveUrl: `${KYC_BASE}/internal/bank/bankAccount/Verify`,
       },
       title: {
@@ -535,7 +535,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/bank/cibil/verify",
+        URLS: "bank/cibil/verify",
         LiveUrl: `${KYC_BASE}/internal/bank/cibil/verify`,
       },
       title: {
@@ -583,7 +583,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/udyam/verify",
+        URLS: "business/udyam/verify",
         LiveUrl: `${KYC_BASE}/internal/business/udyam/verify`,
       },
       title: {
@@ -610,7 +610,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/IEC/verify",
+        URLS: "business/IEC/verify",
         LiveUrl: `${KYC_BASE}/internal/business/IEC/verify`,
       },
       title: {
@@ -637,7 +637,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/cinbased/company/search",
+        URLS: "business/cinbased/company/search",
         LiveUrl: `${KYC_BASE}/internal/business/cinbased/company/search`,
       },
       title: {
@@ -665,7 +665,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/companylist/verify",
+        URLS: "business/companylist/verify",
         LiveUrl: `${KYC_BASE}/internal/business/companylist/verify`,
       },
       title: {
@@ -693,7 +693,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "api/v1/client/business/din/verify",
+        URLS: "business/din/verify",
         LiveUrl: `${KYC_BASE}/internal/business/din/verify`,
       },
       title: {
@@ -720,7 +720,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/Gstin/verify",
+        URLS: "business/Gstin/verify",
         LiveUrl: `${KYC_BASE}/internal/business/Gstin/verify`,
       },
       title: {
@@ -747,7 +747,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/Gstintopan/verify",
+        URLS: "business/Gstintopan/verify",
         LiveUrl: `${KYC_BASE}/internal/business/Gstintopan/verify`,
       },
       title: {
@@ -775,7 +775,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/GstIn/TaxPayer/verify",
+        URLS: "business/GstIn/TaxPayer/verify",
         LiveUrl: `${KYC_BASE}/internal/business/GstIn/TaxPayer/verify`,
       },
       title: {
@@ -803,7 +803,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/Gstin/ViewAndTrack/verify",
+        URLS: "business/Gstin/ViewAndTrack/verify",
         LiveUrl: `${KYC_BASE}/internal/business/Gstin/ViewAndTrack/verify`,
       },
       title: {
@@ -831,7 +831,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/DGFT/verify",
+        URLS: "business/DGFT/verify",
         LiveUrl: `${KYC_BASE}/internal/business/DGFT/verify`,
       },
       title: {
@@ -859,7 +859,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/LEI/verify",
+        URLS: "business/LEI/verify",
         LiveUrl: `${KYC_BASE}/internal/business/LEI/verify`,
       },
       title: {
@@ -887,7 +887,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/udyogAadhaar/verify",
+        URLS: "business/udyogAadhaar/verify",
         LiveUrl: `${KYC_BASE}/internal/business/udyogAadhaar/verify`,
       },
       title: {
@@ -915,7 +915,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/shopest/verify",
+        URLS: "business/shopest/verify",
         LiveUrl: `${KYC_BASE}/internal/business/shopest/verify`,
       },
       title: {
@@ -943,7 +943,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/business/udyogAadhaar/verify",
+        URLS: "business/udyogAadhaar/verify",
         LiveUrl: `${KYC_BASE}/internal/business/udyogAadhaar/verify`,
       },
       title: {
@@ -973,7 +973,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/employee/uan/basic",
+        URLS: "employee/uan/basic",
         LiveUrl: `${KYC_BASE}/internal/employee/uan/basic`,
       },
       title: {
@@ -1001,7 +1001,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/employee/dual_employment/check",
+        URLS: "employee/dual_employment/check",
         LiveUrl: `${KYC_BASE}/internal/employee/dual_employment/check`,
       },
       title: {
@@ -1030,7 +1030,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/vehicle/rcverify",
+        URLS: "vehicle/rcverify",
         LiveUrl: `${KYC_BASE}/internal/vehicle/rcverify`,
       },
       title: {
@@ -1057,7 +1057,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/vehicle/driving_license/verify",
+        URLS: "vehicle/driving_license/verify",
         LiveUrl: `${KYC_BASE}/internal/vehicle/driving_license/verify`,
       },
       title: {
@@ -1084,7 +1084,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/vehicle/register",
+        URLS: "vehicle/register",
         LiveUrl: `${KYC_BASE}/internal/vehicle/register`,
       },
       title: {
@@ -1111,7 +1111,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/vehicle/stolen_vehicle/verification",
+        URLS: "vehicle/stolen_vehicle/verification",
         LiveUrl: `${KYC_BASE}/internal/vehicle/stolen_vehicle/verification`,
       },
       title: {
@@ -1138,7 +1138,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/vehicle/challan_via_rc",
+        URLS: "vehicle/challan_via_rc",
         LiveUrl: `${KYC_BASE}/internal/vehicle/challan_via_rc`,
       },
       title: {
@@ -1167,7 +1167,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/face/facematch",
+        URLS: "face/facematch",
         LiveUrl: `${KYC_BASE}/internal/face/facematch`,
       },
       title: {
@@ -1195,7 +1195,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/image/blur_Check",
+        URLS: "image/blur_Check",
         LiveUrl: `${KYC_BASE}/image/blur_Check`,
       },
       title: {
@@ -1224,7 +1224,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/image/ai_deepfake_check",
+        URLS: "image/ai_deepfake_check",
         LiveUrl: `${KYC_BASE}/image/ai_deepfake_check`,
       },
       title: {
@@ -1253,7 +1253,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/image/deepfake_check",
+        URLS: "image/deepfake_check",
         LiveUrl: `${KYC_BASE}/image/deepfake_check`,
       },
       title: {
@@ -1282,7 +1282,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/image/ai_image_check",
+        URLS: "image/ai_image_check",
         LiveUrl: `${KYC_BASE}/image/ai_image_check`,
       },
       title: {
@@ -1312,7 +1312,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/ocr/pan",
+        URLS: "ocr/pan",
         LiveUrl: `${KYC_BASE}/internal/ocr/pan`,
       },
       title: {
@@ -1320,11 +1320,98 @@ export const SERVICES_METADATA = [
         headerTitle: "Extract details from PAN image",
         submitButton: "Extract",
       },
-      inputParams: ["image"],
+      inputFile: ["file"],
+      isBase64: true,
       isToken: true,
       isMicro: "KYC",
       isDisable: false,
       exampleCurl: `curl --location '${KYC_BASE}/internal/ocr/pan' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "image": "base64_string" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "PANOCR")?.examples[0]?.message || {}, // dummy
+    },
+  },
+  {
+    id: "ocr_voter",
+    categoryId: "OCR_DOCUMENT_AI",
+    label: "Voter",
+    categoryId: "OCR_DOCUMENT_AI",
+    label: "VOTER OCR",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "ocr/voter",
+        LiveUrl: `${KYC_BASE}/internal/ocr/voter`,
+      },
+      title: {
+        header: "VOTER OCR",
+        headerTitle: "Extract details from voter image",
+        submitButton: "Extract",
+      },
+      inputFile: ["file"],
+      isBase64: true,
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/internal/ocr/voter' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "image": "base64_string" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
+    },
+  },
+  {
+    id: "ocr_dl",
+    categoryId: "OCR_DOCUMENT_AI",
+    label: "DRIVING LICENCE OCR",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "ocr/Dl/verify",
+        LiveUrl: `${KYC_BASE}/internal/ocr/Dl/verify`,
+      },
+      title: {
+        header: "DRIVING LICENCE OCR",
+        headerTitle: "Extract details from driving licence image",
+        submitButton: "Extract",
+      },
+      inputFile: ["file"],
+      isBase64: true,
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/internal/ocr/Dl/verify' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "image": "base64_string" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
+    },
+  },
+  {
+    id: "ocr_passport",
+    categoryId: "OCR_DOCUMENT_AI",
+    label: "PASSPORT OCR",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "ocr/passport/verify",
+        LiveUrl: `${KYC_BASE}/internal/ocr/passport/verify`,
+      },
+      title: {
+        header: "DRIVING LICENCE OCR",
+        headerTitle: "Extract details from passport image",
+        submitButton: "Extract",
+      },
+      inputFile: ["file"],
+      isBase64: true,
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/internal/ocr/passport/verify' \\
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "image": "base64_string" }'`,
@@ -1341,7 +1428,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/government/voterId/verify",
+        URLS: "government/voterId/verify",
         LiveUrl: `${KYC_BASE}/internal/government/voterId/verify`,
       },
       title: {
@@ -1368,7 +1455,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/government/electricity_bill",
+        URLS: "government/electricity_bill",
         LiveUrl: `${KYC_BASE}/internal/government/electricity_bill`,
       },
       title: {
@@ -1395,7 +1482,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/government/passport_fileNo/verify",
+        URLS: "government/passport_fileNo/verify",
         LiveUrl: `${KYC_BASE}/internal/government/passport_fileNo/verify`,
       },
       title: {
@@ -1422,7 +1509,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/government/passport_fileNo/verify",
+        URLS: "government/passport_fileNo/verify",
         LiveUrl: `${KYC_BASE}/internal/government/passport_fileNo/verify`,
       },
       title: {
@@ -1460,7 +1547,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/government/passport_fileNo/verify",
+        URLS: "government/passport_fileNo/verify",
         LiveUrl: `${KYC_BASE}/internal/government/passport_fileNo/verify`,
       },
       title: {
@@ -1498,7 +1585,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/government/passport_fileNo/verify",
+        URLS: "government/passport_fileNo/verify",
         LiveUrl: `${KYC_BASE}/internal/government/passport_fileNo/verify`,
       },
       title: {
@@ -1525,7 +1612,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/government/electricity_bill",
+        URLS: "government/electricity_bill",
         LiveUrl: `${KYC_BASE}/government/electricity_bill`,
       },
       title: {
@@ -1554,7 +1641,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/contact/pan/verify",
+        URLS: "contact/pan/verify",
         LiveUrl: `${KYC_BASE}/internal/contact/pan/verify`,
       },
       title: {
@@ -1581,7 +1668,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/contact/uan/verify",
+        URLS: "contact/uan/verify",
         LiveUrl: `${KYC_BASE}/internal/contact/uan/verify`,
       },
       title: {
@@ -1608,7 +1695,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/contact/advanceData/getOtp",
+        URLS: "contact/advanceData/getOtp",
         LiveUrl: `${KYC_BASE}/internal/contact/advanceData/getOtp`,
       },
       title: {
@@ -1635,7 +1722,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/contact/advanceData/getOtp",
+        URLS: "contact/advanceData/getOtp",
         LiveUrl: `${KYC_BASE}/internal/contact/advanceData/getOtp`,
       },
       title: {
@@ -1662,7 +1749,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/mobileNumber/otp_generation",
+        URLS: "mobileNumber/otp_generation",
         LiveUrl: `${KYC_BASE}/internal/mobileNumber/otp_generation`,
       },
       title: {
@@ -1689,7 +1776,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/mobileNumber/pan/verify",
+        URLS: "mobileNumber/pan/verify",
         LiveUrl: `${KYC_BASE}/mobileNumber/pan/verify`,
       },
       title: {
@@ -1718,7 +1805,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/diligence/court/record",
+        URLS: "diligence/court/record",
         LiveUrl: `${KYC_BASE}/diligence/court/record`,
       },
       title: {
@@ -1741,249 +1828,249 @@ export const SERVICES_METADATA = [
   },
 
   // Pre-configured for Sidebar Navigation
-  {
-    id: "recharge_operators",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "/Operators",
-        LiveUrl: `${RECHARGE_BASE}/Operators`,
-      },
-      title: {
-        header: "Fetch Operators",
-        headerTitle: "Fetch mobile operator details",
-        submitButton: "Fetch Operators",
-      },
-      inputParams: ["mobileNumber"],
-      Inputvalues: ["9876543210"],
-      isToken: true,
-      isMicro: "RECHARGE",
-      isDisable: true,
-      exampleCurl: `curl --location '${RECHARGE_BASE}/Operators' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobileNumber": "9876543210" }'`,
-      exampleResponse: {},
-    },
-  },
-  {
-    id: "recharge_plans",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "/Plans",
-        LiveUrl: `${RECHARGE_BASE}/Plans`,
-      },
-      title: {
-        header: "Fetch Plans",
-        headerTitle: "Fetch recharge plans",
-        submitButton: "Fetch Plans",
-      },
-      inputParams: ["operatorcode", "circle"],
-      Inputvalues: ["AT", "1"],
-      isToken: true,
-      isMicro: "RECHARGE",
-      isDisable: true,
-      exampleCurl: `curl --location '${RECHARGE_BASE}/Plans' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "operatorcode": "AT", "circle": "1" }'`,
-      exampleResponse: {},
-    },
-  },
-  {
-    id: "recharge_offers",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "/OffersPlans",
-        LiveUrl: `${RECHARGE_BASE}/OffersPlans`,
-      },
-      title: {
-        header: "Fetch Offers",
-        headerTitle: "Fetch special offers",
-        submitButton: "Fetch Offers",
-      },
-      inputParams: ["operator_code", "mobile_no"],
-      Inputvalues: ["AT", "9876543210"],
-      isToken: true,
-      isMicro: "RECHARGE",
-      isDisable: true,
-      exampleCurl: `curl --location '${RECHARGE_BASE}/OffersPlans' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "operator_code": "AT", "mobile_no": "9876543210" }'`,
-      exampleResponse: {},
-    },
-  },
-  {
-    id: "recharge_recharge_url",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "/RechargeURL",
-        LiveUrl: `${RECHARGE_BASE}/RechargeURL`,
-      },
-      title: {
-        header: "Recharge URL",
-        headerTitle: "Initiate Recharge",
-        submitButton: "Recharge",
-      },
-      inputParams: ["mobile", "amount"],
-      Inputvalues: ["9876543210", "100"],
-      isToken: true,
-      isMicro: "RECHARGE",
-      isDisable: true,
-      exampleCurl: `curl --location '${RECHARGE_BASE}/RechargeURL' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobile": "9876543210", "amount": "100" }'`,
-      exampleResponse: {},
-    },
-  },
-  {
-    id: "recharge_old_plans",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "/OldPlans",
-        LiveUrl: `${RECHARGE_BASE}/OldPlans`,
-      },
-      title: {
-        header: "Old Plans",
-        headerTitle: "Fetch old plans",
-        submitButton: "Fetch Old Plans",
-      },
-      inputParams: ["mobile"],
-      Inputvalues: ["9876543210"],
-      isToken: true,
-      isMicro: "RECHARGE",
-      isDisable: true,
-      exampleCurl: `curl --location '${RECHARGE_BASE}/OldPlans' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobile": "9876543210" }'`,
-      exampleResponse: {},
-    },
-  },
+  // {
+  //   id: "recharge_operators",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "/Operators",
+  //       LiveUrl: `${RECHARGE_BASE}/Operators`,
+  //     },
+  //     title: {
+  //       header: "Fetch Operators",
+  //       headerTitle: "Fetch mobile operator details",
+  //       submitButton: "Fetch Operators",
+  //     },
+  //     inputParams: ["mobileNumber"],
+  //     Inputvalues: ["9876543210"],
+  //     isToken: true,
+  //     isMicro: "RECHARGE",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${RECHARGE_BASE}/Operators' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobileNumber": "9876543210" }'`,
+  //     exampleResponse: {},
+  //   },
+  // },
+  // {
+  //   id: "recharge_plans",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "/Plans",
+  //       LiveUrl: `${RECHARGE_BASE}/Plans`,
+  //     },
+  //     title: {
+  //       header: "Fetch Plans",
+  //       headerTitle: "Fetch recharge plans",
+  //       submitButton: "Fetch Plans",
+  //     },
+  //     inputParams: ["operatorcode", "circle"],
+  //     Inputvalues: ["AT", "1"],
+  //     isToken: true,
+  //     isMicro: "RECHARGE",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${RECHARGE_BASE}/Plans' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "operatorcode": "AT", "circle": "1" }'`,
+  //     exampleResponse: {},
+  //   },
+  // },
+  // {
+  //   id: "recharge_offers",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "/OffersPlans",
+  //       LiveUrl: `${RECHARGE_BASE}/OffersPlans`,
+  //     },
+  //     title: {
+  //       header: "Fetch Offers",
+  //       headerTitle: "Fetch special offers",
+  //       submitButton: "Fetch Offers",
+  //     },
+  //     inputParams: ["operator_code", "mobile_no"],
+  //     Inputvalues: ["AT", "9876543210"],
+  //     isToken: true,
+  //     isMicro: "RECHARGE",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${RECHARGE_BASE}/OffersPlans' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "operator_code": "AT", "mobile_no": "9876543210" }'`,
+  //     exampleResponse: {},
+  //   },
+  // },
+  // {
+  //   id: "recharge_recharge_url",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "/RechargeURL",
+  //       LiveUrl: `${RECHARGE_BASE}/RechargeURL`,
+  //     },
+  //     title: {
+  //       header: "Recharge URL",
+  //       headerTitle: "Initiate Recharge",
+  //       submitButton: "Recharge",
+  //     },
+  //     inputParams: ["mobile", "amount"],
+  //     Inputvalues: ["9876543210", "100"],
+  //     isToken: true,
+  //     isMicro: "RECHARGE",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${RECHARGE_BASE}/RechargeURL' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobile": "9876543210", "amount": "100" }'`,
+  //     exampleResponse: {},
+  //   },
+  // },
+  // {
+  //   id: "recharge_old_plans",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "/OldPlans",
+  //       LiveUrl: `${RECHARGE_BASE}/OldPlans`,
+  //     },
+  //     title: {
+  //       header: "Old Plans",
+  //       headerTitle: "Fetch old plans",
+  //       submitButton: "Fetch Old Plans",
+  //     },
+  //     inputParams: ["mobile"],
+  //     Inputvalues: ["9876543210"],
+  //     isToken: true,
+  //     isMicro: "RECHARGE",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${RECHARGE_BASE}/OldPlans' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobile": "9876543210" }'`,
+  //     exampleResponse: {},
+  //   },
+  // },
 
-  {
-    id: "bbps_category",
-    config: {
-      apiUrl: {
-        Method: "Get",
-        URLS: "/billerInfo/Category",
-        LiveUrl: `${BBPS_BASE}/billerInfo/Category`,
-      },
-      title: {
-        header: "Fetch Category",
-        headerTitle: "Fetch all BBPS categories",
-        submitButton: "Fetch Category",
-      },
-      inputParams: [],
-      Inputvalues: [],
-      isToken: true,
-      isMicro: "BBPS",
-      isDisable: true,
-      exampleCurl: `curl --location '${BBPS_BASE}/billerInfo/Category' \\\n--header 'secret_token: {{secret_token}}'`,
-      exampleResponse: {},
-    },
-  },
-  {
-    id: "bbps_biller_info",
-    config: {
-      apiUrl: {
-        Method: "Get",
-        URLS: "/billerInfo/Biller",
-        LiveUrl: `${BBPS_BASE}/billerInfo/Biller`,
-      },
-      title: {
-        header: "Fetch Biller Info",
-        headerTitle: "Fetch biller information",
-        submitButton: "Fetch Biller Info",
-      },
-      inputParams: ["billerId"],
-      Inputvalues: ["XYZ"],
-      isToken: true,
-      isMicro: "BBPS",
-      isDisable: true,
-      exampleCurl: `curl --location '${BBPS_BASE}/billerInfo/Biller?billerId=XYZ' \\\n--header 'secret_token: {{secret_token}}'`,
-      exampleResponse: {},
-    },
-  },
-  {
-    id: "bbps_bill_fetch",
-    config: {
-      apiUrl: {
-        Method: "Get",
-        URLS: "/billFetch",
-        LiveUrl: `${BBPS_BASE}/billFetch`,
-      },
-      title: {
-        header: "Bill Fetch",
-        headerTitle: "Fetch bill details",
-        submitButton: "Fetch Bill",
-      },
-      inputParams: ["customerNumber"],
-      Inputvalues: ["9876543210"],
-      isToken: true,
-      isMicro: "BBPS",
-      isDisable: true,
-      exampleCurl: `curl --location '${BBPS_BASE}/billFetch?customerNumber=9876543210' \\\n--header 'secret_token: {{secret_token}}'`,
-      exampleResponse: {},
-    },
-  },
-  {
-    id: "bbps_bill_pay",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "/billPay",
-        LiveUrl: `${BBPS_BASE}/billPay`,
-      },
-      title: {
-        header: "Bill Pay",
-        headerTitle: "Pay a fetched bill",
-        submitButton: "Pay Bill",
-      },
-      inputParams: ["billId"],
-      Inputvalues: ["BILL123"],
-      isToken: true,
-      isMicro: "BBPS",
-      isDisable: true,
-      exampleCurl: `curl --location '${BBPS_BASE}/billPay' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "billId": "BILL123" }'`,
-      exampleResponse: {},
-    },
-  },
-  {
-    id: "bbps_bill_validation",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "/billValidation",
-        LiveUrl: `${BBPS_BASE}/billValidation`,
-      },
-      title: {
-        header: "Bill Validation",
-        headerTitle: "Validate bill details",
-        submitButton: "Validate Bill",
-      },
-      inputParams: ["billId"],
-      Inputvalues: ["BILL123"],
-      isToken: true,
-      isMicro: "BBPS",
-      isDisable: true,
-      exampleCurl: `curl --location '${BBPS_BASE}/billValidation' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "billId": "BILL123" }'`,
-      exampleResponse: {},
-    },
-  },
-  {
-    id: "bbps_quick_pay",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "/quickPay",
-        LiveUrl: `${BBPS_BASE}/quickPay`,
-      },
-      title: {
-        header: "Quick Pay",
-        headerTitle: "Quickly pay a bill",
-        submitButton: "Quick Pay",
-      },
-      inputParams: ["mobile"],
-      Inputvalues: ["9876543210"],
-      isToken: true,
-      isMicro: "BBPS",
-      isDisable: true,
-      exampleCurl: `curl --location '${BBPS_BASE}/quickPay' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobile": "9876543210" }'`,
-      exampleResponse: {},
-    },
-  },
+  // {
+  //   id: "bbps_category",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Get",
+  //       URLS: "/billerInfo/Category",
+  //       LiveUrl: `${BBPS_BASE}/billerInfo/Category`,
+  //     },
+  //     title: {
+  //       header: "Fetch Category",
+  //       headerTitle: "Fetch all BBPS categories",
+  //       submitButton: "Fetch Category",
+  //     },
+  //     inputParams: [],
+  //     Inputvalues: [],
+  //     isToken: true,
+  //     isMicro: "BBPS",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${BBPS_BASE}/billerInfo/Category' \\\n--header 'secret_token: {{secret_token}}'`,
+  //     exampleResponse: {},
+  //   },
+  // },
+  // {
+  //   id: "bbps_biller_info",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Get",
+  //       URLS: "/billerInfo/Biller",
+  //       LiveUrl: `${BBPS_BASE}/billerInfo/Biller`,
+  //     },
+  //     title: {
+  //       header: "Fetch Biller Info",
+  //       headerTitle: "Fetch biller information",
+  //       submitButton: "Fetch Biller Info",
+  //     },
+  //     inputParams: ["billerId"],
+  //     Inputvalues: ["XYZ"],
+  //     isToken: true,
+  //     isMicro: "BBPS",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${BBPS_BASE}/billerInfo/Biller?billerId=XYZ' \\\n--header 'secret_token: {{secret_token}}'`,
+  //     exampleResponse: {},
+  //   },
+  // },
+  // {
+  //   id: "bbps_bill_fetch",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Get",
+  //       URLS: "/billFetch",
+  //       LiveUrl: `${BBPS_BASE}/billFetch`,
+  //     },
+  //     title: {
+  //       header: "Bill Fetch",
+  //       headerTitle: "Fetch bill details",
+  //       submitButton: "Fetch Bill",
+  //     },
+  //     inputParams: ["customerNumber"],
+  //     Inputvalues: ["9876543210"],
+  //     isToken: true,
+  //     isMicro: "BBPS",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${BBPS_BASE}/billFetch?customerNumber=9876543210' \\\n--header 'secret_token: {{secret_token}}'`,
+  //     exampleResponse: {},
+  //   },
+  // },
+  // {
+  //   id: "bbps_bill_pay",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "/billPay",
+  //       LiveUrl: `${BBPS_BASE}/billPay`,
+  //     },
+  //     title: {
+  //       header: "Bill Pay",
+  //       headerTitle: "Pay a fetched bill",
+  //       submitButton: "Pay Bill",
+  //     },
+  //     inputParams: ["billId"],
+  //     Inputvalues: ["BILL123"],
+  //     isToken: true,
+  //     isMicro: "BBPS",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${BBPS_BASE}/billPay' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "billId": "BILL123" }'`,
+  //     exampleResponse: {},
+  //   },
+  // },
+  // {
+  //   id: "bbps_bill_validation",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "/billValidation",
+  //       LiveUrl: `${BBPS_BASE}/billValidation`,
+  //     },
+  //     title: {
+  //       header: "Bill Validation",
+  //       headerTitle: "Validate bill details",
+  //       submitButton: "Validate Bill",
+  //     },
+  //     inputParams: ["billId"],
+  //     Inputvalues: ["BILL123"],
+  //     isToken: true,
+  //     isMicro: "BBPS",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${BBPS_BASE}/billValidation' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "billId": "BILL123" }'`,
+  //     exampleResponse: {},
+  //   },
+  // },
+  // {
+  //   id: "bbps_quick_pay",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "/quickPay",
+  //       LiveUrl: `${BBPS_BASE}/quickPay`,
+  //     },
+  //     title: {
+  //       header: "Quick Pay",
+  //       headerTitle: "Quickly pay a bill",
+  //       submitButton: "Quick Pay",
+  //     },
+  //     inputParams: ["mobile"],
+  //     Inputvalues: ["9876543210"],
+  //     isToken: true,
+  //     isMicro: "BBPS",
+  //     isDisable: true,
+  //     exampleCurl: `curl --location '${BBPS_BASE}/quickPay' \\\n--header 'Content-Type: application/json' \\\n--header 'secret_token: {{secret_token}}' \\\n--data '{ "mobile": "9876543210" }'`,
+  //     exampleResponse: {},
+  //   },
+  // },
 
   // 12. Geo & Location
   {
@@ -1993,7 +2080,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/location/pincode/geofencing",
+        URLS: "location/pincode/geofencing",
         LiveUrl: `${KYC_BASE}/internal/location/pincode/geofencing`,
       },
       title: {
@@ -2021,7 +2108,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/location/longLat/geofencing",
+        URLS: "location/longLat/geofencing",
         LiveUrl: `${KYC_BASE}/location/longLat/geofencing`,
       },
       title: {
@@ -2051,7 +2138,7 @@ export const SERVICES_METADATA = [
     config: {
       apiUrl: {
         Method: "Post",
-        URLS: "client/professional/docter/verify",
+        URLS: "professional/docter/verify",
         LiveUrl: `${KYC_BASE}/internal/professional/docter/verify`,
       },
       title: {

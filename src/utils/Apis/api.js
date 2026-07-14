@@ -169,21 +169,37 @@ const HandleQrPaymentResponse = (data) =>
   supperApiClient.get(`ApiModuels/generate-dynamic-qr/${data}`);
 
 const VerifyFPIN = (data) => supperApiClient.post("Client/verify-fpin", data);
+
 const ApiVerification = (isMicro, URLS, data, token, method = "Post") => {
   console.log(isMicro, URLS, data, method);
-  const headers = {
-    secret_token: token,
-  };
+
+  const isFormData = data instanceof FormData;
+
+  // Extract entries for path-param replacement — works for both plain objects and FormData
+  const dataEntries = isFormData
+    ? Object.fromEntries(data.entries())
+    : data && typeof data === "object"
+      ? data
+      : {};
 
   // Replace path parameters (e.g., :category) if they exist in the data
   let finalURL = URLS;
-  if (data && typeof data === "object") {
-    Object.keys(data).forEach((key) => {
-      if (finalURL.includes(`:${key}`)) {
-        finalURL = finalURL.replace(`:${key}`, encodeURIComponent(data[key]));
-      }
-    });
-  }
+  Object.keys(dataEntries).forEach((key) => {
+    if (finalURL.includes(`:${key}`)) {
+      finalURL = finalURL.replace(
+        `:${key}`,
+        encodeURIComponent(dataEntries[key]),
+      );
+    }
+  });
+
+  // For FormData, do NOT set Content-Type manually — Axios (and the browser)
+  // will set it automatically with the correct multipart boundary.
+  // For plain JSON, set application/json.
+  const headers = {
+    secret_token: token,
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
+  };
 
   const clientMap = {
     KYC: kycServiceApiClient,
@@ -195,7 +211,8 @@ const ApiVerification = (isMicro, URLS, data, token, method = "Post") => {
   const apiClient = clientMap[isMicro] || kycServiceApiClient;
 
   if (method.toLowerCase() === "get") {
-    return apiClient.get(finalURL, { headers, params: data });
+    // GET: pass plain params (not FormData)
+    return apiClient.get(finalURL, { headers, params: dataEntries });
   } else {
     return apiClient.post(finalURL, data, { headers });
   }
