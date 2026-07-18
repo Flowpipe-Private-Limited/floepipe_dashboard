@@ -1406,6 +1406,37 @@ export const SERVICES_METADATA = [
         {}, // dummy
     },
   },
+  {
+    id: "ocr_aadhaar",
+    categoryId: "OCR_DOCUMENT_AI",
+    label: "AADHAAR OCR",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "/ocr/aadhaar/verify",
+        LiveUrl: `${KYC_BASE}/ocr/aadhaar/verify`,
+      },
+      title: {
+        header: "AADHAAR OCR",
+        headerTitle: "Extract details from Aadhar image",
+        submitButton: "Extract Aadhar Details",
+      },
+      inputFile: [
+        { name: "front image" },
+        // { name: "back image", optional: true },
+      ],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/ocr/aadhaar/verify' \\
+        --header 'content-type: multipart/form-data' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "image": "base64_string" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "AADHAAR_OCR")?.examples[0]?.message ||
+        {}, // dummy
+    },
+  },
 
   // 10. Government ID Services
   {
