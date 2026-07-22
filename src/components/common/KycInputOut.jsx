@@ -62,6 +62,7 @@ const KycReuseComponet = ({ data }) => {
   const { setPubKey } = GeneralKeys();
   const [formData, setFormData] = useState({}); // text fields
   const [fileData, setFileData] = useState({});
+  const [fileInputResetKey, setFileInputResetKey] = useState(0); // bump to visually clear file inputs
   const [accessToken, setAccessToken] = useState("");
   const [Publickey, setPublickey] = useState("");
   const [publickeyLoading, setPublickeyLoading] = useState(false);
@@ -90,7 +91,10 @@ const KycReuseComponet = ({ data }) => {
     const initialFileData = {};
     if (data?.inputFile) {
       data.inputFile.forEach((param) => {
-        initialFileData[param] = null;
+        const paramName = typeof param === "object" ? param?.name : param;
+        if (paramName) {
+          initialFileData[paramName] = null;
+        }
       });
     }
     setFileData(initialFileData);
@@ -108,6 +112,7 @@ const KycReuseComponet = ({ data }) => {
     setApiErrormessage("");
     setErrors({}); // Reset validation errors when switching services
     setPublickeyError(""); // Reset key error on transition
+    setFileInputResetKey((k) => k + 1); // visually clear any selected files
   }, [data, LiveAccessToken, TestAccessToken]);
 
   useEffect(() => {
@@ -116,10 +121,10 @@ const KycReuseComponet = ({ data }) => {
   }, []);
 
   const isIpWhitelisted = whitelistIps.some(
-    (item) => item.ipAddress === currentPublicIp,
+    (item) => item?.ipAddress === currentPublicIp,
   );
-  const showIpWarning =
-    currentPublicIp && !isIpWhitelisted && data?.isMicro !== "SupperAdmin";
+
+  const showIpWarning = currentPublicIp && !isIpWhitelisted;
 
   // const HandleChangeInput = (e) => {
   //   console.log("Handle input change is trigred");
@@ -176,103 +181,37 @@ const KycReuseComponet = ({ data }) => {
     }
   };
 
+  /**
+   * Builds the request payload.
+   * - No files  → returns a plain JS object (JSON body).
+   * - Has files → returns a FormData with text fields appended flat
+   *               (each key as its own field) plus the file(s).
+   *
+   * For the encrypted flow, pass the ALREADY-ENCRYPTED object as
+   * `jsonFields` and the original `fileData` as `files`.
+   */
   const buildPayload = (jsonFields, files) => {
     const hasFiles = Object.values(files).some(Boolean);
 
     if (!hasFiles) return jsonFields; // ← plain JSON path (no change)
 
-    // ← multipart path
+    // ← multipart path: append every text/encrypted field flat
     const fd = new FormData();
-    // Send all JSON fields as a single "data" blob so the API can parse them
-    fd.append("data", JSON.stringify(jsonFields));
+    Object.entries(jsonFields).forEach(([key, value]) => {
+      // Objects / arrays need to be stringified
+      fd.append(
+        key,
+        typeof value === "object" && value !== null
+          ? JSON.stringify(value)
+          : value,
+      );
+    });
     // Attach each file under its own field name
     Object.entries(files).forEach(([fieldName, file]) => {
       if (file) fd.append(fieldName, file, file.name);
     });
     return fd;
   };
-
-  // const HandleVerificaton = async () => {
-  //   let locationData = {};
-  //   setApiErrormessage("");
-
-  //   const isEncryptedFlow = data?.isMicro !== "SupperAdmin";
-  //   let currentKey = Publickey;
-
-  //   if (isEncryptedFlow && !currentKey) {
-  //     setPublickeyLoading(true);
-  //     currentKey = await GetPublickey(true); // Attempt to fetch immediately and capture the result
-  //     if (!currentKey) {
-  //       setApiErrormessage("Encryption keys not loaded. Please ensure you have a stable connection.");
-  //       return;
-  //     }
-  //   }
-
-  //   if (data?.isGeoLocation) {
-  //     try {
-  //       const position = await new Promise((resolve, reject) => {
-  //         navigator.geolocation.getCurrentPosition(resolve, reject, {
-  //           enableHighAccuracy: true,
-  //           timeout: 10000,
-  //           maximumAge: 0,
-  //         });
-  //       });
-
-  //       locationData = {
-  //         latitude: position.coords.latitude,
-  //         longitude: position.coords.longitude,
-  //       };
-  //     } catch (error) {
-  //       let errorMsg = "Location access failed.";
-  //       if (error.code === error.PERMISSION_DENIED) {
-  //         errorMsg = "Location permission denied. Please allow location access to proceed.";
-  //       } else if (error.code === error.POSITION_UNAVAILABLE) {
-  //         errorMsg = "Location information is unavailable.";
-  //       } else if (error.code === error.TIMEOUT) {
-  //         errorMsg = "The request to get user location timed out.";
-  //       }
-  //       setApiErrormessage(errorMsg);
-  //       return;
-  //     }
-  //   }
-
-  //   const payloadForApi = { ...formData, ...locationData };
-
-  //   if (isEncryptedFlow) {
-  //     const encrypted = await encryptPayload(payloadForApi, currentKey);
-  //     const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
-  //     await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
-
-  //     setLoading(true);
-  //     await EncryptedApirequestHandler(
-  //       async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, { ...encrypted, publicKeyPem }, accessToken, data?.apiUrl?.Method || 'Post'),
-  //       setLoading,
-  //       (res) => {
-  //         setApiResponse(res);
-  //         setApiErrormessage('');
-  //       },
-  //       (errorMessage) => {
-  //         setApiErrormessage(errorMessage);
-  //         setLoading(false);
-  //       }
-  //     );
-  //   } else {
-  //     setLoading(true);
-  //     await ApirequestHandler(
-  //       async () => await ApiVerification(data?.isMicro, data?.apiUrl?.URLS, payloadForApi, accessToken, data?.apiUrl?.Method || 'Post'),
-  //       setLoading,
-  //       (res) => {
-  //         setApiResponse(res);
-  //         setApiErrormessage('');
-  //       },
-  //       (errorMessage) => {
-  //         setApiErrormessage(errorMessage);
-  //         setLoading(false);
-  //       }
-  //     );
-  //   }
-  // };
-
   const HandleVerificaton = async () => {
     // in production use above one
     let locationData = {};
@@ -321,13 +260,28 @@ const KycReuseComponet = ({ data }) => {
       }
     }
 
-    const payload = { ...formData, ...locationData };
-    const payloadForApi = buildPayload(payload, fileData);
+    // Plain-object payload (text fields + location only).
+    // Files are kept separate so encryptPayload always gets a plain object.
+    const plainPayload = { ...formData, ...locationData };
+
+    console.log("handle verification plainPayload:", plainPayload);
+    console.log(
+      "handle verification fileData:",
+      Object.fromEntries(
+        Object.entries(fileData).map(([k, v]) => [k, v?.name ?? null]),
+      ),
+    );
 
     if (isEncryptedFlow) {
-      const encrypted = await encryptPayload(payloadForApi, currentKey);
+      // 1. Encrypt only the plain-object fields (never pass FormData to encryptPayload)
+      const encrypted = await encryptPayload(plainPayload, currentKey);
       const { publicKeyPem, privateKeyPem } = await generateFrontendKeyPair();
       await setPubKey({ publicKey: publicKeyPem, privateKey: privateKeyPem });
+
+      // 2. Now build the final payload — if files exist, wrap encrypted fields
+      //    + publicKeyPem into FormData alongside the files.
+      const encryptedWithKey = { ...encrypted, publicKeyPem };
+      const payloadForApi = buildPayload(encryptedWithKey, fileData);
 
       setLoading(true);
       await EncryptedApirequestHandler(
@@ -335,13 +289,13 @@ const KycReuseComponet = ({ data }) => {
           await ApiVerification(
             data?.isMicro,
             data?.apiUrl?.URLS,
-            { ...encrypted, publicKeyPem },
+            payloadForApi,
             accessToken,
             data?.apiUrl?.Method || "Post",
           ),
         setLoading,
         (res) => {
-          setApiResponse(res);
+          setApiResponse(res || {});
           setApiErrormessage("");
         },
         (errorMessage) => {
@@ -350,6 +304,9 @@ const KycReuseComponet = ({ data }) => {
         },
       );
     } else {
+      // Non-encrypted: build payload (JSON or FormData) and send directly
+      const payloadForApi = buildPayload(plainPayload, fileData);
+
       setLoading(true);
       await ApirequestHandler(
         async () =>
@@ -362,7 +319,7 @@ const KycReuseComponet = ({ data }) => {
           ),
         setLoading,
         (res) => {
-          setApiResponse(res);
+          setApiResponse(res || {});
           setApiErrormessage("");
         },
         (errorMessage) => {
@@ -461,10 +418,12 @@ const KycReuseComponet = ({ data }) => {
           curl += ` \\\n--form '${key}="${value}"'`;
         }
       });
-      (data?.inputFile || []).forEach((key) => {
-        const file = fileData[key];
+      (data?.inputFile || []).forEach((param) => {
+        const keyName = typeof param === "object" ? param?.name : param;
+        if (!keyName) return;
+        const file = fileData[keyName];
         const fileName = file ? file.name : "your_file.jpg";
-        curl += ` \\\n--form '${key}=@"/path/to/${fileName}"'`;
+        curl += ` \\\n--form '${keyName}=@"/path/to/${fileName}"'`;
       });
     } else {
       // JSON payload
@@ -584,10 +543,12 @@ const KycReuseComponet = ({ data }) => {
               </div>
             ))}
 
-            {data?.inputFile?.map((input, index) => (
+            {data?.inputFile?.map((input, index) => {
+              const inputName = typeof input === "object" ? input?.name : input;
+              return (
               <div key={index} className="kyc-input-group">
                 <div className="kyc-label">
-                  {input?.name.replace(/([A-Z])/g, " $1").toUpperCase()}{" "}
+                  {inputName?.replace(/([A-Z])/g, " $1").toUpperCase()}{" "}
                   <div style={{ display: "flex", gap: "12px"}}>
                     {input?.optional && <span className="kyc-label-sub">
                       {input?.optional && "Optional"}
@@ -598,14 +559,15 @@ const KycReuseComponet = ({ data }) => {
                   </div>
                 </div>
                 <input
+                  key={`${fileInputResetKey}-${inputName}`} // ← reset visually when service changes
                   type="file"
-                  name={input?.name}
+                  name={inputName}
                   disabled={data?.isDisable}
-                  className={`kyc-input-field ${errors?.[input?.name] ? "error" : fileData?.[input?.name] ? "success" : ""}`}
+                  className={`kyc-input-field ${errors?.[inputName] ? "error" : fileData?.[inputName] ? "success" : ""}`}
                   onChange={HandleChangeInput}
                   // ← no value prop: file inputs are uncontrolled
                 />
-                {fileData?.[input?.name] && (
+                {fileData?.[inputName] && (
                   <p
                     className="kyc-success-msg"
                     style={{
@@ -614,11 +576,11 @@ const KycReuseComponet = ({ data }) => {
                       marginTop: "4px",
                     }}
                   >
-                    Selected: {fileData[input?.name].name} (
-                    {(fileData[input?.name].size / 1024).toFixed(1)} KB)
+                    Selected: {fileData[inputName].name} (
+                    {(fileData[inputName].size / 1024).toFixed(1)} KB)
                   </p>
                 )}
-                {errors?.[input?.name] && (
+                {errors?.[inputName] && (
                   <p className="kyc-error-msg">
                     <svg
                       style={{
@@ -636,11 +598,11 @@ const KycReuseComponet = ({ data }) => {
                         clipRule="evenodd"
                       />
                     </svg>
-                    {errors[input?.name]}
+                    {errors[inputName]}
                   </p>
                 )}
               </div>
-            ))}
+            )})}
 
             <button
               className="kyc-submit-button"

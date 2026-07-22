@@ -414,7 +414,7 @@ const BillingPlans = () => {
 
                   <td>{tx.paymentMode || "UPI"}</td>
 
-                  <td>₹{tx.amount}</td>
+                  <td>{tx.amount}</td>
 
                   <td>
                     <span className="BillingPlans_status-pill completed">

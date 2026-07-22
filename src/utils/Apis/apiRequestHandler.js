@@ -2,11 +2,17 @@ import { GeneralKeys } from "../../Store/PubliPriviteKey";
 import { decryptServerResponse } from "../helper";
 
 // Helper to handle common request logic
-const baseHandler = async (api, setLoading, onSuccess, onError, decrypt = false) => {
+const baseHandler = async (
+  api,
+  setLoading,
+  onSuccess,
+  onError,
+  decrypt = false,
+) => {
   if (setLoading) setLoading(true);
   try {
     const response = await api();
-    console.log('apiRequest response response', response.data)
+    console.log("apiRequest response response", response.data);
     let data = response.data;
     if (decrypt) {
       const { privateKey } = GeneralKeys.getState();
@@ -20,7 +26,13 @@ const baseHandler = async (api, setLoading, onSuccess, onError, decrypt = false)
     }
   } catch (error) {
     console.error("API Request Error:", error);
-    const errorMessage = error?.response || error?.response?.data?.message || error?.message || "Something went wrong";
+
+    const errorMessage =
+      error?.message ||
+      error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      "Something went wrong";
+
     onError(errorMessage);
   } finally {
     if (setLoading) setLoading(false);
@@ -30,6 +42,9 @@ const baseHandler = async (api, setLoading, onSuccess, onError, decrypt = false)
 export const ApirequestHandler = (api, setLoading, onSuccess, onError) =>
   baseHandler(api, setLoading, onSuccess, onError);
 
-export const EncryptedApirequestHandler = (api, setLoading, onSuccess, onError) =>
-  baseHandler(api, setLoading, onSuccess, onError, true);
-
+export const EncryptedApirequestHandler = (
+  api,
+  setLoading,
+  onSuccess,
+  onError,
+) => baseHandler(api, setLoading, onSuccess, onError, true);
