@@ -206,6 +206,30 @@ export const apiExamples = [
     ],
   },
   {
+  name: "CHEQUE_OCR",
+  examples: [
+    {
+      statusCode: 200,
+      message: {
+        httpCode: 200,
+        success: true,
+        message: "Valid",
+        data: {
+          status: "success",
+          results: [
+            {
+              type: "cheque",
+              details: {
+                additionalProp: {}
+              }
+            }
+          ]
+        },
+      },
+    },
+  ],
+},
+  {
     name: "PANFN",
     examples: [
       {

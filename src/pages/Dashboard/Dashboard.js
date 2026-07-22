@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import {
   User,
   Search,
-   HelpCircle,
+  HelpCircle,
   FileText,
   Menu,
   ChevronDown,
@@ -48,6 +48,7 @@ import { generateFrontendKeyPair } from "../../utils/helper";
 import { RxPlusCircled } from "react-icons/rx";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import { analytics } from "../../Store/analyticsStore";
+import { GetTotalBalance } from "../../utils/Apis/api"; // adjust path
 
 const LucideIcons = {
   FileText,
@@ -447,70 +448,70 @@ function Sidebar({ collapsed, data, onHelpClick }) {
   // Filter groups based on search
   const filteredConfig = search
     ? sideDashboardConfig
-        .map((item) => {
-          if (item?.type === "group") {
-            const filteredChildren = (item.children || [])
-              .filter(
-                (child) =>
-                  (child?.label || "")
-                    .toLowerCase()
-                    .includes(search.toLowerCase()) ||
-                  child?.children?.some(
+      .map((item) => {
+        if (item?.type === "group") {
+          const filteredChildren = (item.children || [])
+            .filter(
+              (child) =>
+                (child?.label || "")
+                  .toLowerCase()
+                  .includes(search.toLowerCase()) ||
+                child?.children?.some(
+                  (subChild) =>
+                    (subChild?.label || "")
+                      .toLowerCase()
+                      .includes(search.toLowerCase()) ||
+                    subChild?.children?.some((leaf) =>
+                      (leaf?.label || "")
+                        .toLowerCase()
+                        .includes(search.toLowerCase()),
+                    ),
+                ),
+            )
+            .map((child) => ({
+              ...child,
+              children:
+                (child?.children || [])
+                  ?.map((subChild) => {
+                    if (subChild?.children) {
+                      return {
+                        ...subChild,
+                        children: subChild.children.filter((leaf) =>
+                          (leaf?.label || "")
+                            .toLowerCase()
+                            .includes(search.toLowerCase()),
+                        ),
+                      };
+                    }
+                    return subChild;
+                  })
+                  .filter(
                     (subChild) =>
                       (subChild?.label || "")
                         .toLowerCase()
                         .includes(search.toLowerCase()) ||
-                      subChild?.children?.some((leaf) =>
-                        (leaf?.label || "")
-                          .toLowerCase()
-                          .includes(search.toLowerCase()),
-                      ),
-                  ),
-              )
-              .map((child) => ({
-                ...child,
-                children:
-                  (child?.children || [])
-                    ?.map((subChild) => {
-                      if (subChild?.children) {
-                        return {
-                          ...subChild,
-                          children: subChild.children.filter((leaf) =>
-                            (leaf?.label || "")
-                              .toLowerCase()
-                              .includes(search.toLowerCase()),
-                          ),
-                        };
-                      }
-                      return subChild;
-                    })
-                    .filter(
-                      (subChild) =>
-                        (subChild?.label || "")
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                        (subChild?.children && subChild.children.length > 0),
-                    ) || [],
-              }))
-              .filter(
-                (child) =>
-                  (child?.children || [])?.length > 0 ||
-                  (child?.label || "")
-                    .toLowerCase()
-                    .includes(search.toLowerCase()),
-              );
+                      (subChild?.children && subChild.children.length > 0),
+                  ) || [],
+            }))
+            .filter(
+              (child) =>
+                (child?.children || [])?.length > 0 ||
+                (child?.label || "")
+                  .toLowerCase()
+                  .includes(search.toLowerCase()),
+            );
 
-            return filteredChildren.length > 0
-              ? { ...item, children: filteredChildren }
-              : null;
-          }
-          return (item?.label || "")
-            .toLowerCase()
-            .includes(search.toLowerCase())
-            ? item
+          return filteredChildren.length > 0
+            ? { ...item, children: filteredChildren }
             : null;
-        })
-        .filter(Boolean)
+        }
+        return (item?.label || "")
+          .toLowerCase()
+          .includes(search.toLowerCase())
+          ? item
+          : null;
+      })
+      .filter(Boolean)
     : sideDashboardConfig;
 
   return (
@@ -587,9 +588,8 @@ function Sidebar({ collapsed, data, onHelpClick }) {
               <div key={idx} className="sidebar-group">
                 <button
                   onClick={() => toggleGroup(item.label)}
-                  className={`sidebar-item group-header ${
-                    collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"
-                  } ${isGroupActive ? "active" : ""}`}
+                  className={`sidebar-item group-header ${collapsed ? "sidebar-collapsed" : "sidebar-expanded-kyc"
+                    } ${isGroupActive ? "active" : ""}`}
                 >
                   <div className="flex-items-center-gap-3">
                     {item.iconType === "image" ? (
@@ -636,9 +636,8 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                               if (subGroup.href) navigate(subGroup.href);
                               toggleSubGroup(item.label, subGroup.label);
                             }}
-                            className={`subgroup-button ${
-                              isSubGroupActive ? "active-subgroup-text" : ""
-                            }`}
+                            className={`subgroup-button ${isSubGroupActive ? "active-subgroup-text" : ""
+                              }`}
                           >
                             <div className="flex-items-center-gap-2">
                               {subGroup.icon &&
@@ -654,9 +653,8 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                                 ))}
 
                               <span
-                                className={`subgroup-label ${
-                                  isSubGroupActive ? "active-subgroup-text" : ""
-                                }`}
+                                className={`subgroup-label ${isSubGroupActive ? "active-subgroup-text" : ""
+                                  }`}
                               >
                                 {subGroup.label}
                               </span>
@@ -665,9 +663,8 @@ function Sidebar({ collapsed, data, onHelpClick }) {
                             {subGroup.children?.length > 0 && (
                               <ChevronDown
                                 size={18}
-                                className={`transition-transform ${
-                                  isSubGroupOpen ? "rotate-180" : ""
-                                }`}
+                                className={`transition-transform ${isSubGroupOpen ? "rotate-180" : ""
+                                  }`}
                               />
                             )}
                           </button>
@@ -787,7 +784,47 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const dropdownRef = useRef(null);
   const clientId = Cookies.get("clientId")
+  const [walletBalance, setWalletBalance] = useState(0);
 
+  useEffect(() => {
+    const fetchWalletBalance = async () => {
+      console.log("========== Wallet Balance API ==========");
+      console.log("Request Started");
+      console.log("Client ID:", clientId);
+
+      try {
+        const response = await GetTotalBalance(clientId);
+
+        console.log("Wallet Balance API Response:", response);
+
+        const balance = response?.data?.balance || response?.balance || 0;
+
+        console.log("Extracted Balance:", balance);
+
+        setWalletBalance(balance);
+
+        console.log("Wallet Balance Updated Successfully");
+      } catch (error) {
+        console.error("Wallet Balance API Failed");
+        console.error("Message:", error?.message);
+
+        if (error?.response) {
+          console.error("Status:", error.response.status);
+          console.error("Response:", error.response.data);
+        }
+
+        setWalletBalance(0);
+      } finally {
+        console.log("========== Wallet Balance API Completed ==========");
+      }
+    };
+
+    if (clientId) {
+      fetchWalletBalance();
+    } else {
+      console.warn("Wallet Balance API Skipped: Client ID not found.");
+    }
+  }, [clientId]);
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -841,12 +878,12 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
           <Menu size={18} />
         </button> */}
         <div className="Dash-search-container">
-    <p className="nav-pro-title">API <span className="by-flowpipe-text">by flowpipe</span></p>
+          <p className="nav-pro-title">API <span className="by-flowpipe-text">by flowpipe</span></p>
         </div>
       </div>
 
       <div className="Dash-header-right">
-          {/* <button
+        {/* <button
           onClick={() => onNavigate("Billing_plans")}
           className="Dash-header-btn"
         >
@@ -893,10 +930,10 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
           className="Dash-header-btn Dash-header-help-btn"
           onClick={onHelpClick}
         >
-          <HelpCircle size={20} />
-          <span>Help</span>
+          {/* <HelpCircle size={20} /> */}
+          {/* <span>Help</span> */}
         </button>
-      <button className="Dash-header-btn">
+        <button className="Dash-header-btn">
           <HiOutlineBell size={20} />
           <span>Updates</span>
         </button>
@@ -906,7 +943,7 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
           onClick={() => setIsProfileOpen(!isProfileOpen)}
         >
           <img
-          src="https://images.ottplay.com/images/jr-ntr-in-devara-1724751924.jpg"
+            src="https://images.ottplay.com/images/jr-ntr-in-devara-1724751924.jpg"
             alt="User avatar"
             className="Dash-header-avatar-img"
           />
@@ -917,7 +954,7 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
             <div className="profile-header-info">
               <div className="profile-avatar-circle">
                 <img
-          src="https://images.ottplay.com/images/jr-ntr-in-devara-1724751924.jpg"
+                  src="https://images.ottplay.com/images/jr-ntr-in-devara-1724751924.jpg"
                   alt="User"
                 />
               </div>
