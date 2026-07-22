@@ -146,6 +146,9 @@ const HandleDeleteKey = (data) =>
 const GetWalletBalance = (clientid) =>
   supperApiClient.get(`/apimodule/get-wallte-balance?clientId=${clientid}`);
 
+const GetTotalBalance = (clientId) =>
+  supperApiClient.get(`/wallet/balance/${clientId}`);
+
 const GetWalletHistory = (clientId, range = "120days", page = 1, limit = 20) =>
   supperApiClient.get(
     `/apimodule/topup-history?clientId=${clientId}&range=${range}&page=${page}&limit=${limit}`,
@@ -408,6 +411,7 @@ export {
   HandleDeleteIP,
   HandleDeleteKey,
   GetWalletBalance,
+  GetTotalBalance,
   GetWalletHistory,
   HandlegetReports,
   HandleDownloadReport,

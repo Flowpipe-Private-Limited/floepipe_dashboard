@@ -1470,7 +1470,69 @@ export const SERVICES_METADATA = [
         apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
     },
   },
-
+  {
+    id: "ocr_aadhaar",
+    categoryId: "OCR_DOCUMENT_AI",
+    label: "AADHAAR OCR",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "/ocr/aadhaar/verify",
+        LiveUrl: `${KYC_BASE}/ocr/aadhaar/verify`,
+      },
+      title: {
+        header: "AADHAAR OCR",
+        headerTitle: "Extract details from Aadhar image",
+        submitButton: "Extract Aadhar Details",
+      },
+      inputFile: [
+        { name: "front image" },
+         { name: "back image", optional: true },
+      ],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/ocr/aadhaar/verify' \\
+        --header 'content-type: multipart/form-data' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "image": "base64_string" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "AADHAAR_OCR")?.examples[0]?.message ||
+        {}, // dummy
+    },
+  },
+{
+  id: "ocr_cheque",
+  categoryId: "OCR_DOCUMENT_AI",
+  label: "CHEQUE OCR",
+  config: {
+    apiUrl: {
+      Method: "Post",
+      URLS: "/ocr/cheque/verify",
+      LiveUrl: `${KYC_BASE}/ocr/cheque/verify`,
+    },
+    title: {
+      header: "CHEQUE OCR",
+      headerTitle: "Extract details from Cheque image",
+      submitButton: "Extract Cheque Details",
+    },
+    inputFile: [
+      { name: "front image" },
+      
+       { name: "back image", optional: true },
+    ],
+    isToken: true,
+    isMicro: "KYC",
+    isDisable: false,
+    exampleCurl: `curl --location '${KYC_BASE}/ocr/cheque/verify' \\
+      --header 'content-type: multipart/form-data' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{ "image": "base64_string" }'`,
+    exampleResponse:
+      apiExamples.find((e) => e.name === "CHEQUE_OCR")?.examples[0]?.message ||
+      {}, 
+  },
+},
   // 10. Government ID Services
   {
     id: "gov_voter_id",
