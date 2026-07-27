@@ -1718,33 +1718,6 @@ export const SERVICES_METADATA = [
         apiExamples.find((e) => e.name === "ELEC")?.examples[0]?.message || {},
     },
   },
-  {
-    id: "gov_electricity",
-    categoryId: "GOVERNMENT_ID",
-    label: "Electricity Bill",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "government/electricity_bill",
-        LiveUrl: `${KYC_BASE}/government/electricity_bill`,
-      },
-      title: {
-        header: "Electricity Bill",
-        headerTitle: "Verify Electricity Bill details",
-        submitButton: "Fetch Bill",
-      },
-      inputParams: ["consumerId", "biller"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/government/electricity_bill' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "consumerId": "123456789", "biller": "TNEB" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "ELEC")?.examples[0]?.message || {},
-    },
-  },
 
   // 11. Contact & Communication
   {
