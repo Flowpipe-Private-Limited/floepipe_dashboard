@@ -1670,33 +1670,6 @@ export const SERVICES_METADATA = [
     },
   },
   {
-    id: "gov_electricity",
-    categoryId: "GOVERNMENT_ID",
-    label: "Electricity Bill",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "government/electricity_bill",
-        LiveUrl: `${KYC_BASE}/internal/government/electricity_bill`,
-      },
-      title: {
-        header: "Electricity Bill",
-        headerTitle: "Verify Electricity Bill details",
-        submitButton: "Verify",
-      },
-      inputParams: ["passportFileNo", "DateOfBirth"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/government/electricity_bill' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "passportFileNo": "123456789", "DateOfBirth": "TNEB" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "ELEC")?.examples[0]?.message || {},
-    },
-  },
-  {
     id: "passport_fileno",
     categoryId: "GOVERNMENT_ID",
     label: "Verify Passport File No",
