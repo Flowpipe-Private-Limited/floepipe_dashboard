@@ -52,7 +52,8 @@ const AppRoute = () => {
 
         {/* User DashBoard Routes */}
         {/* <Route path="/dashboard" element={<ProtectionRoute><Dashboard /></ProtectionRoute>}> */}
-        <Route path="/dashboard" element={<SessionManager><Dashboard /></SessionManager>}>
+        {/* <Route path="/dashboard" element={<SessionManager><Dashboard /></SessionManager>}> */}
+        <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<MainContent />} />
           <Route path="generate/SecretToken" element={<GenerateSecretToken />} />
           <Route path="Profile" element={<ProfilePage />} />
