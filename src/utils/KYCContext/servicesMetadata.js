@@ -502,10 +502,129 @@ export const SERVICES_METADATA = [
   },
 
   // 4. Banking & Financial
+
+  // 1. Account Penny Drop
   {
-    id: "bank_account_verification",
+    id: "account_penny_drop",
     categoryId: "BANKING_FINANCIAL",
-    label: "BANK ACCOUNT VERIFICAION",
+    label: "ACCOUNT PENNY DROP",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "account/verify/penny-drop",
+        LiveUrl: `${KYC_BASE}/account/verify/penny-drop`,
+      },
+      title: {
+        header: "BANK ACCOUNT VERIFICATION",
+        headerTitle: "Verify Bank IFSC details",
+        submitButton: "Verify Account",
+      },
+      inputParams: ["accountNumber", "ifscCode"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/account/verify/penny-drop' \\
+      --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{ "accountNumber":"XXXXXX9648", "ifscCode": "SBIN0001234" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "BANKVALID")?.examples[0]?.message ||
+        {},
+    },
+  },
+
+  // 2. Account Penny Less
+  {
+    id: "account_penny_less",
+    categoryId: "BANKING_FINANCIAL",
+    label: "ACCOUNT PENNY LESS",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "account/verify/penny-less",
+        LiveUrl: `${KYC_BASE}/account/verify/penny-less`,
+      },
+      title: {
+        header: "BANK ACCOUNT VERIFICATION",
+        headerTitle: "Verify Bank IFSC details",
+        submitButton: "Verify Account",
+      },
+      inputParams: ["accountNumber", "ifscCode"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/bank/bankAccount/Verify' \\
+      --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{ "accountNumber":"XXXXXX9648", "ifscCode": "SBIN0001234" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "BANKVALID")?.examples[0]?.message ||
+        {},
+    },
+  },
+  // 3. Advanced Bank Account Verify
+  {
+    id: "advanced_bank_account_verify",
+    categoryId: "BANKING_FINANCIAL",
+    label: "ADVANCED BANK ACCOUNT VERIFY",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "bank/bankAccount/Verify",
+        LiveUrl: `${KYC_BASE}/bank/bankAccount/Verify`,
+      },
+      title: {
+        header: "BANK ACCOUNT VERIFICATION",
+        headerTitle: "Verify Bank IFSC details",
+        submitButton: "Verify Account",
+      },
+      inputParams: ["accountNumber", "ifscCode"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/bank/bankAccount/Verify' \\
+      --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{ "accountNumber":"XXXXXX9648", "ifscCode": "SBIN0001234" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "BANKVALID")?.examples[0]?.message ||
+        {},
+    },
+  },
+  // 4. IFSC Code Check
+  {
+    id: "ifsc_code_check",
+    categoryId: "BANKING_FINANCIAL",
+    label: "IFSC CODE CHECK",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "bin/getBankDetails",
+        LiveUrl: `${KYC_BASE}/bin/getBankDetails`,
+      },
+      title: {
+        header: "IFSC CODE CHECK",
+        headerTitle: "Verify IFSC Code Details",
+        submitButton: "Verify IFSC",
+      },
+      inputParams: ["ifscCode"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/bin/getBankDetails' \\
+      --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{ "ifscCode": "SBIN0001234" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "BANKVALID")?.examples[0]?.message ||
+        {},
+    },
+  },
+  // 5. Cheque Classification
+  {
+    id: "cheque_classification",
+    categoryId: "BANKING_FINANCIAL",
+    label: "CHEQUE CLASSIFICATION",
     config: {
       apiUrl: {
         Method: "Post",
@@ -513,23 +632,24 @@ export const SERVICES_METADATA = [
         LiveUrl: `${KYC_BASE}/internal/bank/bankAccount/Verify`,
       },
       title: {
-        header: "BANK ACCOUNT VERIFICATION",
-        headerTitle: "Verify Bank IFSC details",
-        submitButton: "Verify IFSC",
+        header: "CHEQUE CLASSIFICATION",
+        headerTitle: "Classify Cheque Details",
+        submitButton: "Classify Cheque",
       },
       inputParams: ["accountNumber", "ifscCode"],
       isToken: true,
       isMicro: "KYC",
       isDisable: false,
       exampleCurl: `curl --location '${KYC_BASE}/internal/bank/bankAccount/Verify' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "accountNumber":"XXXXXX9648" "ifscCode": "SBIN0001234" }'`,
+      --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{ "accountNumber":"XXXXXX9648", "ifscCode": "SBIN0001234" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "BANKVALID")?.examples[0]?.message ||
-        {}, // dummy
+        {},
     },
   },
+  // cibil verification
   {
     id: "cibil_verification",
     categoryId: "BANKING_FINANCIAL",
@@ -977,7 +1097,7 @@ export const SERVICES_METADATA = [
 
   // 6. Employment & Income
   {
-    id: "employment_uan_basic",
+    id: "uan_basic",
     categoryId: "EMPLOYMENT_INCOME",
     label: "Basic UAN Verification",
     config: {
@@ -1359,10 +1479,7 @@ export const SERVICES_METADATA = [
         headerTitle: "Extract details from PAN image",
         submitButton: "Extract Pan Details",
       },
-      inputFile: [
-        { name: "front" },
-        { name: "back", optional: true },
-      ],
+      inputFile: [{ name: "front" }, { name: "back", optional: true }],
       isToken: true,
       isMicro: "KYC",
       isDisable: false,
@@ -1390,10 +1507,7 @@ export const SERVICES_METADATA = [
         headerTitle: "Extract details from VOTER image",
         submitButton: "Extract Voter Details",
       },
-      inputFile: [
-        { name: "front" },
-        { name: "back", optional: true },
-      ],
+      inputFile: [{ name: "front" }, { name: "back", optional: true }],
       isToken: true,
       isMicro: "KYC",
       isDisable: false,
@@ -1423,10 +1537,7 @@ export const SERVICES_METADATA = [
         headerTitle: "Extract details from driving licence image",
         submitButton: "Extract",
       },
-      inputFile: [
-        { name: "front" },
-        { name: "back", optional: true },
-      ],
+      inputFile: [{ name: "front" }, { name: "back", optional: true }],
       isBase64: true,
       isToken: true,
       isMicro: "KYC",
@@ -1454,10 +1565,7 @@ export const SERVICES_METADATA = [
         headerTitle: "Extract details from passport image",
         submitButton: "Extract",
       },
-      inputFile: [
-        { name: "front" },
-        { name: "back", optional: true },
-      ],
+      inputFile: [{ name: "front" }, { name: "back", optional: true }],
       isBase64: true,
       isToken: true,
       isMicro: "KYC",

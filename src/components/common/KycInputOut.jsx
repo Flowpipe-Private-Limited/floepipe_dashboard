@@ -781,7 +781,6 @@ const KycReuseComponet = ({ data }) => {
                       setSelectedExampleCode(data?.exampleResponse || {});
                     }}
                   >
-                    {" "}
                     Response
                   </button>
                   {[200, 400, 403, 404, 429, 500, 503].map((code) => (

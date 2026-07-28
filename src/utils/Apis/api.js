@@ -363,8 +363,8 @@ const HandleApiCount = (accesstoken, encryptedPayload, encrypt) =>
   );
 
 const getAnalyticsService = (clientId) =>
-  kycApiClient.get(
-    `/inhouse/analytics/Analyticalreports${clientId ? `?clientId=${clientId}` : ""}`,
+  kycGetApiClientAnalytics.get(
+    `/analytics/Analyticalreports${clientId ? `?clientId=${clientId}` : ""}`,
   );
 
 const getApiErrorCount = (clientId) =>
