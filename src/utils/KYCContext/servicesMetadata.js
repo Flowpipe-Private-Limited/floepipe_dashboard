@@ -2323,6 +2323,146 @@ export const SERVICES_METADATA = [
           ?.message || {}, // dummy
     },
   },
+  {
+    id: "Lat_long_digi_pin",
+    categoryId: "GEO_LOCATION",
+    label: "Longitude, Latitude To Digipin",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/longLat/digipin",
+        LiveUrl: `${KYC_BASE}/location/longLat/digipin`,
+      },
+      title: {
+        header: "Longitude/Latitude To DIGIPIN",
+        headerTitle: "Longitude/Latitude To DIGIPIN",
+        submitButton: "search",
+      },
+      inputParams: ["latitude", "longitude"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/longLat/digipin' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "latitude":"12.9716", "longitude": "77.5946" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+  {
+    id: "digi_pin_Lat_long",
+    categoryId: "GEO_LOCATION",
+    label: "Digipin To Longitude/Latitude",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/digipin/longLat",
+        LiveUrl: `${KYC_BASE}/location/digipin/longLat`,
+      },
+      title: {
+        header: "Digipin To longitud",
+        headerTitle: "Digipin To longitud",
+        submitButton: "search",
+      },
+      inputParams: ["digiPin"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/digipin/longLat' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "digiPin": " " }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+  {
+    id: "address_digi_pin",
+    categoryId: "GEO_LOCATION",
+    label: "Address to Digi Pin",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/address/digipin",
+        LiveUrl: `${KYC_BASE}/location/address/digipin`,
+      },
+      title: {
+        header: "Address to Digi Pin",
+        headerTitle: "Address to Digi Pin",
+        submitButton: "search",
+      },
+      inputParams: ["address"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/address/digipin' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "address": "" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+  {
+    id: "Geo_tagging",
+    categoryId: "GEO_LOCATION",
+    label: "Geo Taggin",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/geo/tagging",
+        LiveUrl: `${KYC_BASE}/location/geo/tagging`,
+      },
+      title: {
+        header: "Geo Taggin",
+        headerTitle: "Geo Taggin",
+        submitButton: "search",
+      },
+      inputParams: ["latitude", "longitude"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/geo/tagging' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "latitude": "","longitude":"" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+  {
+    id: "Geo_tagging_dist_calcu",
+    categoryId: "GEO_LOCATION",
+    label: "Calculate Distance with geo Taggin",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/geo/tagging/distance_calculation",
+        LiveUrl: `${KYC_BASE}/location/geo/tagging/distance_calculation`,
+      },
+      title: {
+        header: "Geo Taggin",
+        headerTitle: "Geo Taggin",
+        submitButton: "search",
+      },
+      inputParams: ["address","latitude", "longitude"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/geo/tagging/distance_calculation' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "address": "", "latitude": "", "longitude": "" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
 
   // 14. Professional Verification
   {
