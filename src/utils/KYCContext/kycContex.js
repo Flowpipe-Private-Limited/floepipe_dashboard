@@ -25,6 +25,7 @@ export const ERROR_RESPONSES = {
 };
 
 export const apiExamples = [
+  // 1. PAN Services
   {
     name: "PAN",
     examples: [
@@ -63,6 +64,7 @@ export const apiExamples = [
       },
     ],
   },
+  // PAN Detailed
   {
     name: "PAN_DETAILED",
     examples: [
@@ -82,6 +84,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Business PAN
   {
     name: "BUSINESS_PAN",
     examples: [
@@ -101,6 +104,7 @@ export const apiExamples = [
       },
     ],
   },
+  // PAN Director
   {
     name: "PAN_DIRECTOR",
     examples: [
@@ -118,6 +122,7 @@ export const apiExamples = [
       },
     ],
   },
+  // PAN to GST
   {
     name: "PAN_TO_GST",
     examples: [
@@ -136,6 +141,7 @@ export const apiExamples = [
       },
     ],
   },
+  // PAN to Aadhaar
   {
     name: "PTA",
     examples: [
@@ -156,6 +162,7 @@ export const apiExamples = [
       },
     ],
   },
+  // PAN Name Match
   {
     name: "NM",
     examples: [
@@ -174,6 +181,7 @@ export const apiExamples = [
       },
     ],
   },
+  // PAN OCR
   {
     name: "PAN_OCR",
     examples: [
@@ -184,51 +192,53 @@ export const apiExamples = [
           success: true,
           message: "Valid",
           data: {
-    "date": {
-      "conf": 96,
-      "value": "15/03/1995"
-    },
-    "father": {
-      "conf": 97,
-      "value": "RAJESH KUMAR SHARMA"
-    },
-    "name": {
-      "conf": 98,
-      "value": "AMIT SHARMA"
-    },
-    "pan_no": {
-      "conf": 99,
-      "value": "ABCDE1234F"
-    }
-},
+            date: {
+              conf: 96,
+              value: "15/03/1995",
+            },
+            father: {
+              conf: 97,
+              value: "RAJESH KUMAR SHARMA",
+            },
+            name: {
+              conf: 98,
+              value: "AMIT SHARMA",
+            },
+            pan_no: {
+              conf: 99,
+              value: "ABCDE1234F",
+            },
+          },
         },
       },
     ],
   },
+  // 9. OCR & Document AI — Cheque OCR
   {
-  name: "CHEQUE_OCR",
-  examples: [
-    {
-      statusCode: 200,
-      message: {
-        httpCode: 200,
-        success: true,
-        message: "Valid",
-        data: {
-          status: "success",
-          results: [
-            {
-              type: "cheque",
-              details: {
-                additionalProp: {}
-              }
-            }
-          ]
+    name: "CHEQUE_OCR",
+    examples: [
+      {
+        statusCode: 200,
+        message: {
+          httpCode: 200,
+          success: true,
+          message: "Valid",
+          data: {
+            status: "success",
+            results: [
+              {
+                type: "cheque",
+                details: {
+                  additionalProp: {},
+                },
+              },
+            ],
+          },
         },
       },
-    },
-  ],
-},
+    ],
+  },
+  // PAN Father Name
   {
     name: "PANFN",
     examples: [
@@ -254,6 +264,7 @@ export const apiExamples = [
       },
     ],
   },
+  // 4. Banking & Financial — Card Verification
   {
     name: "FCV",
     examples: [
@@ -280,6 +291,7 @@ export const apiExamples = [
       },
     ],
   },
+  // BIN / Card Issuer Info
   {
     name: "BIN",
     examples: [
@@ -302,6 +314,7 @@ export const apiExamples = [
       },
     ],
   },
+  // 3. Aadhaar & DigiLocker — Aadhaar Verification Initiate
   {
     name: "AVI",
     examples: [
@@ -320,6 +333,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Aadhaar Verification Status
   {
     name: "AVS",
     examples: [
@@ -363,6 +377,7 @@ export const apiExamples = [
       },
     ],
   },
+  // 11. Contact & Communication — Mobile OTP Generate
   {
     name: "MOG",
     examples: [
@@ -380,6 +395,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Mobile OTP Verify
   {
     name: "MOV",
     examples: [
@@ -396,6 +412,7 @@ export const apiExamples = [
       },
     ],
   },
+  // 2. GST Services
   {
     name: "GST",
     examples: [
@@ -420,6 +437,7 @@ export const apiExamples = [
       },
     ],
   },
+  // 8. Face & AI Verification — Face Match
   {
     name: "FACE",
     examples: [
@@ -436,6 +454,7 @@ export const apiExamples = [
       },
     ],
   },
+  // 5. Business & Company — Shop & Establishment
   {
     name: "SHOP",
     examples: [
@@ -454,6 +473,7 @@ export const apiExamples = [
       },
     ],
   },
+  // CIN Verification
   {
     name: "CIN",
     examples: [
@@ -496,6 +516,7 @@ export const apiExamples = [
       },
     ],
   },
+  // 6. Employment & Income — UAN Basic
   {
     name: "EMPLOYUANBASIC",
     examples: [
@@ -523,6 +544,7 @@ export const apiExamples = [
       },
     ],
   },
+  // CIN Based Company Search
   {
     name: "CINBASECOMPANYSEARCH",
     examples: [
@@ -542,6 +564,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Company Search
   {
     name: "COMPANYSEARCH",
     examples: [
@@ -572,6 +595,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Udyam / MSME Verification
   {
     name: "UDAM",
     examples: [
@@ -611,6 +635,7 @@ export const apiExamples = [
       },
     ],
   },
+  // DIN Verification
   {
     name: "DIN",
     examples: [
@@ -642,6 +667,7 @@ export const apiExamples = [
       },
     ],
   },
+  // GSTIN Verify
   {
     name: "GSTIN",
     examples: [
@@ -693,6 +719,7 @@ export const apiExamples = [
       },
     ],
   },
+  // PAN using GSTIN
   {
     name: "PANUSINGGSTIN",
     examples: [
@@ -717,6 +744,7 @@ export const apiExamples = [
       },
     ],
   },
+  // GSTIN View and Track
   {
     name: "GSTINVIEWTRACK",
     examples: [
@@ -771,6 +799,7 @@ export const apiExamples = [
       },
     ],
   },
+  // GSTIN Taxpayer
   {
     name: "GSTINTAXPAYER",
     examples: [
@@ -814,6 +843,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Mobile to PAN
   {
     name: "MOP",
     examples: [
@@ -868,6 +898,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Mobile to Address
   {
     name: "MTA",
     examples: [
@@ -889,6 +920,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Udyam Verification (alternate)
   {
     name: "UDYAM",
     examples: [
@@ -907,6 +939,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Bank Penny Drop
   {
     name: "BPD",
     examples: [
@@ -926,6 +959,7 @@ export const apiExamples = [
       },
     ],
   },
+  // IFSC Code Check
   {
     name: "IFSC",
     examples: [
@@ -946,6 +980,7 @@ export const apiExamples = [
       },
     ],
   },
+  // 12. Geo & Location — Pincode Geofencing
   {
     name: "GEWPINCODE",
     examples: [
@@ -966,6 +1001,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Lat/Long Geofencing
   {
     name: "GEWLATLONG",
     examples: [
@@ -986,6 +1022,115 @@ export const apiExamples = [
       },
     ],
   },
+  // Lat/Long To DigiPin
+  {
+    name: "LATLONGTODIGIPIN",
+    examples: [
+      {
+        statusCode: 200,
+        message: {
+          httpCode: 200,
+          success: true,
+          message: "Valid",
+          data: [
+            {
+              address_components: [
+                {
+                  long_name: "Bengaluru",
+                  short_name: "Bengaluru",
+                  types: ["locality", "political"],
+                },
+              ],
+              digipin: "4P3-JK8-52C9",
+              formatted_address:
+                "67/1, KG Halli, D' Souza Layout, Ashok Nagar, Bengaluru, Karnataka 560001, India",
+              place_id: "ChIJMwxhFQEXrjsREmfopv7rqkk",
+              types: ["establishment", "point_of_interest"],
+            },
+          ],
+        },
+      },
+    ],
+  },
+  // DigiPin To Lat/Long
+  {
+    name: "DIGIPINTOLATLONG",
+    examples: [
+      {
+        statusCode: 200,
+        message: {
+          httpCode: 200,
+          success: true,
+          message: "Valid",
+          data: [
+            {
+              address_components: [
+                {
+                  long_name: "67/1",
+                  short_name: "67/1",
+                  types: ["premise"],
+                },
+              ],
+              geometry: {
+                location: {
+                  lat: 12.9715865,
+                  lng: 77.5945942,
+                },
+                location_type: "ROOFTOP",
+                viewport: {
+                  northeast: {
+                    lat: 12.9729432302915,
+                    lng: 77.5959021802915,
+                  },
+                  southwest: {
+                    lat: 12.9702452697085,
+                    lng: 77.59320421970848,
+                  },
+                },
+              },
+              formatted_address:
+                "67/1, KG Halli, D' Souza Layout, Ashok Nagar, Bengaluru, Karnataka 560001, India",
+              place_id: "ChIJMwxhFQEXrjsREmfopv7rqkk",
+              types: ["street_address"],
+            },
+          ],
+        },
+      },
+    ],
+  },
+  // GEOTAGGING
+  {
+    name: "GEOTAGGING",
+    examples: [
+      {
+        statusCode: 200,
+        message: {
+          httpCode: 200,
+          success: true,
+          message: "Valid",
+          data: "67/1, KG Halli, D' Souza Layout, Ashok Nagar, Bengaluru, Karnataka 560001, India",
+        },
+      },
+    ],
+  },
+  // GEOTAGDISTANCECALCULATE
+  {
+    name: "GEOTAGDISTANCECALCULATE",
+    examples: [
+      {
+        statusCode: 200,
+        message: {
+          httpCode: 200,
+          success: true,
+          message: "Valid",
+          data: [
+            { distance: '1.345km'},
+          ],
+        },
+      },
+    ],
+  },
+  // Bank Account Validation
   {
     name: "BANKVALID",
     examples: [
@@ -1013,6 +1158,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Pincode to City/State
   {
     name: "PCG",
     examples: [
@@ -1031,6 +1177,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Image Blur Check
   {
     name: "IB",
     examples: [
@@ -1047,6 +1194,7 @@ export const apiExamples = [
       },
     ],
   },
+  // AI Image Check
   {
     name: "AIC",
     examples: [
@@ -1063,6 +1211,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Deepfake Image Check
   {
     name: "DIC",
     examples: [
@@ -1079,6 +1228,7 @@ export const apiExamples = [
       },
     ],
   },
+  // AI + Deepfake Combined Check
   {
     name: "ADIC",
     examples: [
@@ -1096,6 +1246,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Mobile Number — Fetch Operator
   {
     name: "FO",
     examples: [
@@ -1115,6 +1266,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Fetch Plans
   {
     name: "FP",
     examples: [
@@ -1135,6 +1287,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Recharge / Payment
   {
     name: "RP",
     examples: [
@@ -1154,6 +1307,7 @@ export const apiExamples = [
       },
     ],
   },
+  // BBPS — Biller Info
   {
     name: "BillerInfo",
     examples: [
@@ -1172,6 +1326,7 @@ export const apiExamples = [
       },
     ],
   },
+  // BBPS — Bill Fetch
   {
     name: "BillFetch",
     examples: [
@@ -1190,6 +1345,7 @@ export const apiExamples = [
       },
     ],
   },
+  // BBPS — Bill Pay
   {
     name: "BillPay",
     examples: [
@@ -1207,6 +1363,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Instant Pay
   {
     name: "InstantPay",
     examples: [
@@ -1231,6 +1388,7 @@ export const apiExamples = [
       },
     ],
   },
+  // 10. Government ID Services — Voter ID
   {
     name: "VoterID",
     examples: [
@@ -1250,6 +1408,7 @@ export const apiExamples = [
       },
     ],
   },
+  // 7. Vehicle & Transport — Driving License
   {
     name: "DL",
     examples: [
@@ -1269,6 +1428,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Passport Verification
   {
     name: "Passport",
     examples: [
@@ -1288,6 +1448,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Vehicle RC
   {
     name: "RC",
     examples: [
@@ -1307,6 +1468,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Utility Bill
   {
     name: "Utility",
     examples: [
@@ -1326,6 +1488,7 @@ export const apiExamples = [
       },
     ],
   },
+  // RC Challan
   {
     name: "RC_CHALLAN",
     examples: [
@@ -1345,6 +1508,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Import Export Certificate (IEC)
   {
     name: "IEC",
     examples: [
@@ -1363,6 +1527,7 @@ export const apiExamples = [
       },
     ],
   },
+  // Bank Statement Analysis
   {
     name: "BANK_STATEMENT",
     examples: [
@@ -1387,6 +1552,7 @@ export const apiExamples = [
     ],
   },
 ];
+
 const validationPatterns = [
   {
     key: "mobile",
