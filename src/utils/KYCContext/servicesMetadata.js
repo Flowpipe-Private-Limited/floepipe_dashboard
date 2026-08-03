@@ -444,34 +444,7 @@ export const SERVICES_METADATA = [
   },
 
   // 3. Aadhaar & DigiLocker
-  {
-    id: "digilocker_verify",
-    categoryId: "AADHAAR_DIGILOCKER",
-    label: "Digilocker Verify Account",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "aadhaar/digilocker/verify",
-        LiveUrl: `${KYC_BASE}/internal/aadhaar/digilocker/verify`,
-      },
-      title: {
-        header: "DigiLocker Verification",
-        headerTitle: "Verify DigiLocker account details",
-        submitButton: "Verify Account",
-      },
-      inputParams: ["mobileNumber"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/aadhaar/digilocker/verify' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "mobileNumber": "9876543210" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {},
-    },
-  },
-  // E Aadhaar Verification (Digilocker)
+   // E Aadhaar Verification (Digilocker)
   {
     id: "e-aadhaar_verification",
     categoryId: "AADHAAR_DIGILOCKER",
@@ -499,7 +472,7 @@ export const SERVICES_METADATA = [
         apiExamples.find((e) => e.name === "AVS")?.examples[0]?.message || {},
     },
   },
-  {
+   {
     id: "aadhaar_to_masked_pan",
     categoryId: "AADHAAR_DIGILOCKER",
     label: "Aadhaar To Masked PAN",
@@ -527,6 +500,35 @@ export const SERVICES_METADATA = [
         {},
     },
   },
+  {
+    id: "digilocker_verify",
+    categoryId: "AADHAAR_DIGILOCKER",
+    label: "Digilocker Verify Account",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "aadhaar/digilocker/verify",
+        LiveUrl: `${KYC_BASE}/internal/aadhaar/digilocker/verify`,
+      },
+      title: {
+        header: "DigiLocker Verification",
+        headerTitle: "Verify DigiLocker account details",
+        submitButton: "Verify Account",
+      },
+      inputParams: ["mobileNumber"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/internal/aadhaar/digilocker/verify' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "mobileNumber": "9876543210" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {},
+    },
+  },
+ 
+ 
 
   // 4. Banking & Financial
 
@@ -2077,9 +2079,37 @@ export const SERVICES_METADATA = [
 
   // RISK DUE DILIGENCE
   {
+    id: "court_record_check_diy",
+    categoryId: "RISK_DUE_DILIGENCE",
+    label: "Court Records Check(DIY)",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "diligence/court/record",
+        LiveUrl: `${KYC_BASE}/diligence/court/record`,
+      },
+      title: {
+        header: "Court Records Check(DIY)",
+        headerTitle: "Check court recores history",
+        submitButton: "Check",
+      },
+      inputParams: ["recordName", "address"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/diligence/court/record' \\
+          --header 'Content-Type: application/json' \\
+          --header 'secret_token: {{secret_token}}' \\
+          --data '{ "recordName": "9876543210", "address":"XYZ@gmail.com" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "MOP")?.examples[0]
+          ?.message || {},
+    },
+  },
+  {
     id: "domain_verify",
     categoryId: "RISK_DUE_DILIGENCE",
-    label: "domain Verify",
+    label: "Domain Verification",
     config: {
       apiUrl: {
         Method: "Post",
@@ -2087,7 +2117,7 @@ export const SERVICES_METADATA = [
         LiveUrl: `${KYC_BASE}/diligence/domain/verify`,
       },
       title: {
-        header: "domain verify",
+        header: "Domain Verification",
         headerTitle: "Verify DOMAIN NAME",
         submitButton: "Check",
       },
@@ -2107,7 +2137,7 @@ export const SERVICES_METADATA = [
   {
     id: "advance_profile",
     categoryId: "RISK_DUE_DILIGENCE",
-    label: "Advance profile",
+    label: "Profile Advance",
     config: {
       apiUrl: {
         Method: "Post",
@@ -2115,7 +2145,7 @@ export const SERVICES_METADATA = [
         LiveUrl: `${KYC_BASE}/diligence/advance/profile`,
       },
       title: {
-        header: "Advance profile",
+        header: "Profile Advance",
         headerTitle: "View Advance profile",
         submitButton: "Check",
       },
@@ -2132,34 +2162,7 @@ export const SERVICES_METADATA = [
           ?.message || {},
     },
   },
-  {
-    id: "court_record_check_diy",
-    categoryId: "RISK_DUE_DILIGENCE",
-    label: "Check court record",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "diligence/court/record",
-        LiveUrl: `${KYC_BASE}/diligence/court/record`,
-      },
-      title: {
-        header: "check court record",
-        headerTitle: "Check court recores history",
-        submitButton: "Check",
-      },
-      inputParams: ["recordName", "address"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/diligence/court/record' \\
-          --header 'Content-Type: application/json' \\
-          --header 'secret_token: {{secret_token}}' \\
-          --data '{ "recordName": "9876543210", "address":"XYZ@gmail.com" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "MOP")?.examples[0]
-          ?.message || {},
-    },
-  },
+  
 
   // 12. Geo & Location
   {
@@ -2363,7 +2366,7 @@ export const SERVICES_METADATA = [
     {
     id: "prof_insurance",
     categoryId: "PROFESSIONAL_VERIFICATION",
-    label: "Insurance Verification",
+    label: "Insurance Agent Verification",
 
     config: {
       apiUrl: {
@@ -2373,7 +2376,7 @@ export const SERVICES_METADATA = [
       },
 
       title: {
-        header: "Insurance Verification",
+        header: "Insurance Agent Verification",
         headerTitle: "Verify Insurance details",
         submitButton: "Verify Insurance",
       },
@@ -2401,7 +2404,7 @@ export const SERVICES_METADATA = [
   {
     id: "prof_ca",
     categoryId: "PROFESSIONAL_VERIFICATION",
-    label: "Chartered Accountant Verification",
+    label: "CA Verification",
 
     config: {
       apiUrl: {
@@ -2411,7 +2414,7 @@ export const SERVICES_METADATA = [
       },
 
       title: {
-        header: "Chartered Accountant Verification",
+        header: "CA Verification",
         headerTitle: "Verify Chartered Accountant details",
         submitButton: "Verify CA",
       },
@@ -2498,7 +2501,81 @@ export const SERVICES_METADATA = [
         apiExamples.find((e) => e.name === "DENTIST")?.examples[0]?.message || {},
     },
   },
-  
+  // other category
+  {
+  id: "fssai_verification",
+  categoryId: "OTHER_SERVICES",
+  label: "FSSAI Verification",
+
+  config: {
+    apiUrl: {
+      Method: "Post",
+      URLS: "common/fssai/verify",
+      LiveUrl: `${KYC_BASE}/internal/common/fssai/verify`,
+    },
+
+    title: {
+      header: "FSSAI Verification",
+      headerTitle: "Verify FSSAI details",
+      submitButton: "Verify FSSAI",
+    },
+
+    inputParams: [
+      "FSSAINumber",
+    ],
+
+    isToken: true,
+    isMicro: "KYC",
+
+    exampleCurl: `curl --location '${KYC_BASE}/internal/business/fssai/verify' \\
+--header 'Content-Type: application/json' \\
+--header 'secret_token: {{secret_token}}' \\
+--data '{
+  "FSSAINumber": "12345678901234"
+}'`,
+
+    exampleResponse:
+      apiExamples.find((e) => e.name === "FSSAI")?.examples[0]?.message || {},
+  },
+},
+{
+  id: "name_match",
+  categoryId: "OTHER_SERVICES",
+  label: "Name Match Verification",
+
+  config: {
+    apiUrl: {
+      Method: "Post",
+      URLS: "compareNames",
+      LiveUrl: `${KYC_BASE}/internal/common/compareNames`,
+    },
+
+    title: {
+      header: "Name Match Verification",
+      headerTitle: "Compare Names",
+      submitButton: "Compare Names",
+    },
+
+    inputParams: [
+      "firstName",
+      "secondName",
+    ],
+
+    isToken: true,
+    isMicro: "KYC",
+
+    exampleCurl: `curl --location '${KYC_BASE}/internal/common/compareNames' \\
+--header 'Content-Type: application/json' \\
+--header 'secret_token: {{secret_token}}' \\
+--data '{
+  "firstName": "Poonam",
+  "secondName": "Poonam"
+}'`,
+
+    exampleResponse:
+      apiExamples.find((e) => e.name === "NAME_MATCH")?.examples[0]?.message || {},
+  },
+},
 
   // Pre-configured for Sidebar Navigation
   // {
