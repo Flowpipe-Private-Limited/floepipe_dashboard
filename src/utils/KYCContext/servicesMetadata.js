@@ -194,7 +194,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "number": "ABCDE1234F" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {},
     },
   },
   {
@@ -383,7 +383,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "panNumber": "ABCDE1234F" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {},
     },
   },
 
@@ -439,7 +439,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "GstNo": "33AACCC1234F1Z1" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "GST")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "GST")?.examples[0]?.message || {},
     },
   },
 
@@ -468,7 +468,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "mobileNumber": "9876543210" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {},
     },
   },
   // E Aadhaar Verification (Digilocker)
@@ -496,8 +496,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "aadhaarNumber": "123456789012" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "AADHAAR")?.examples[0]?.message ||
-        {},
+        apiExamples.find((e) => e.name === "AVS")?.examples[0]?.message || {},
     },
   },
   {
@@ -702,7 +701,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "panNumber":"XXXXXX58657", "customerName":"JOHN", "customerMobile":"XXXXX7485"}'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "SHOP")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "BANKVALID")?.examples[0]?.message || {},
     },
   },
 
@@ -785,7 +784,7 @@ export const SERVICES_METADATA = [
           --header 'secret_token: {{secret_token}}' \\
           --data '{ "iecNumber": "0123456789" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "IEC")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "IEC")?.examples[0]?.message || {},
     },
   },
   {
@@ -813,7 +812,7 @@ export const SERVICES_METADATA = [
           --data '{ "CompanyName": "XYZ PVT LIT" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "CINBASECOMPANYSEARCH")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
   {
@@ -841,7 +840,7 @@ export const SERVICES_METADATA = [
           --data '{ "CompanyName": "XYZ PVT LIT" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "COMPANYSEARCH")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
   {
@@ -868,7 +867,7 @@ export const SERVICES_METADATA = [
           --header 'secret_token: {{secret_token}}' \\
           --data '{ "dinNumber": "xxxxxx4578" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "DIN")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "DIN")?.examples[0]?.message || {},
     },
   },
   {
@@ -895,7 +894,7 @@ export const SERVICES_METADATA = [
           --header 'secret_token: {{secret_token}}' \\
           --data '{ "gstinNumber": "XYZ PVT LIT" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "GSTIN")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "GSTIN")?.examples[0]?.message || {},
     },
   },
   {
@@ -923,7 +922,7 @@ export const SERVICES_METADATA = [
           --data '{ "gstinNumber": "XYZ PVT LIT" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "PANUSINGGSTIN")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
   {
@@ -951,7 +950,7 @@ export const SERVICES_METADATA = [
           --data '{ "gstinNumber": "XYZ PVT LIT"}'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "GSTINTAXPAYER")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
   {
@@ -979,7 +978,7 @@ export const SERVICES_METADATA = [
           --data '{ "gstinNumber": "XYZ PVT LIT","Financialyear":"2025-26" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "GSTINVIEWTRACK")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
   {
@@ -1007,7 +1006,7 @@ export const SERVICES_METADATA = [
           --data '{ "DGFT":"2025-26" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "CINBASECOMPANYSEARCH")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
   {
@@ -1035,7 +1034,7 @@ export const SERVICES_METADATA = [
           --data '{ "CompanyName":"2025-26" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "CINBASECOMPANYSEARCH")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
   {
@@ -1063,7 +1062,7 @@ export const SERVICES_METADATA = [
           --data '{ "UAMNumber":"2025-26" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "CINBASECOMPANYSEARCH")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
   {
@@ -1091,7 +1090,7 @@ export const SERVICES_METADATA = [
           --data '{ "registrationNumber":"", "state":"" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "CINBASECOMPANYSEARCH")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
   {
@@ -1119,7 +1118,7 @@ export const SERVICES_METADATA = [
           --data '{ "UAMNumber":"2025-26", "customerNumber":"" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "CINBASECOMPANYSEARCH")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
 
@@ -1149,7 +1148,7 @@ export const SERVICES_METADATA = [
         --data '{ "uanNumber": "123456789012" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "EMPLOYUANBASIC")?.examples[0]
-          ?.message || {}, // dummy
+          ?.message || {},
     },
   },
   {
@@ -1176,7 +1175,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "uanNumber": "123456789012", "panNumber": "ABCDE1234F" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {},
     },
   },
 
@@ -1517,7 +1516,7 @@ export const SERVICES_METADATA = [
         --data '{ "image": "base64_string" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "PAN_OCR")?.examples[0]?.message ||
-        {}, // dummy
+        {},
     },
   },
   {
@@ -1544,8 +1543,8 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "image": "base64_string" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "VOTER_OCR")?.examples[0]?.message ||
-        {}, // dummy
+        apiExamples.find((e) => e.name === "VoterID")?.examples[0]?.message ||
+        {},
       URLS: "ocr/voter",
       LiveUrl: `${KYC_BASE}/internal/ocr/voter`,
     },
@@ -1575,7 +1574,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "image": "base64_string" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {},
     },
   },
   {
@@ -1603,7 +1602,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "image": "base64_string" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {},
     },
   },
   {
@@ -1751,7 +1750,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "voterId": "ABC1234567" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "VOTER")?.examples[0]?.message || {},
+        apiExamples.find((e) => e.name === "VoterID")?.examples[0]?.message || {},
     },
   },
   {
@@ -2101,7 +2100,7 @@ export const SERVICES_METADATA = [
           --header 'secret_token: {{secret_token}}' \\
           --data '{ "recordName": "9876543210", "address":"XYZ@gmail.com" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "CHECKCOURTRECORD")?.examples[0]
+        apiExamples.find((e) => e.name === "MOP")?.examples[0]
           ?.message || {},
     },
   },
