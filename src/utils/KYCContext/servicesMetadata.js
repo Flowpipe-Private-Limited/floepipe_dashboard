@@ -2077,6 +2077,62 @@ export const SERVICES_METADATA = [
 
   // RISK DUE DILIGENCE
   {
+    id: "domain_verify",
+    categoryId: "RISK_DUE_DILIGENCE",
+    label: "domain Verify",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "diligence/domain/verify",
+        LiveUrl: `${KYC_BASE}/diligence/domain/verify`,
+      },
+      title: {
+        header: "domain verify",
+        headerTitle: "Verify DOMAIN NAME",
+        submitButton: "Check",
+      },
+      inputParams: ["domain", "emailAddress"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/diligence/domain/verify' \\
+          --header 'Content-Type: application/json' \\
+          --header 'secret_token: {{secret_token}}' \\
+          --data '{ "domain": "", "emailAddress":"XYZ@gmail.com" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "MOP")?.examples[0]
+          ?.message || {},
+    },
+  },
+  {
+    id: "advance_profile",
+    categoryId: "RISK_DUE_DILIGENCE",
+    label: "Advance profile",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "diligence/advance/profile",
+        LiveUrl: `${KYC_BASE}/diligence/advance/profile`,
+      },
+      title: {
+        header: "Advance profile",
+        headerTitle: "View Advance profile",
+        submitButton: "Check",
+      },
+      inputParams: ["mobileNumber"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/diligence/advance/profile' \\
+          --header 'Content-Type: application/json' \\
+          --header 'secret_token: {{secret_token}}' \\
+          --data '{ "mobileNumber":"3506745321" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "MOP")?.examples[0]
+          ?.message || {},
+    },
+  },
+  {
     id: "court_record_check_diy",
     categoryId: "RISK_DUE_DILIGENCE",
     label: "Check court record",

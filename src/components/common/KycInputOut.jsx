@@ -104,7 +104,7 @@ const KycReuseComponet = ({ data }) => {
       const isLive =
         data?.apiUrl?.LiveUrl?.includes("/LIVE/") ||
         data?.apiUrl?.URLS?.includes("/LIVE/");
-      setAccessToken(isLive ? LiveAccessToken : TestAccessToken);
+      // setAccessToken(LiveAccessToken);
     }
 
     setApiResponse(null);
