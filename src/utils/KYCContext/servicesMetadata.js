@@ -2360,6 +2360,80 @@ export const SERVICES_METADATA = [
   },
 
   // 14. Professional Verification
+    {
+    id: "prof_insurance",
+    categoryId: "PROFESSIONAL_VERIFICATION",
+    label: "Insurance Verification",
+
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "professional/Insurance/verify",
+        LiveUrl: `${KYC_BASE}/internal/professional/Insurance/verify`,
+      },
+
+      title: {
+        header: "Insurance Verification",
+        headerTitle: "Verify Insurance details",
+        submitButton: "Verify Insurance",
+      },
+
+      inputParams: [
+        "PanNumber",
+        "MobileNumber",
+      ],
+
+      isToken: true,
+      isMicro: "KYC",
+
+      exampleCurl: `curl --location '${KYC_BASE}/internal/professional/charteredAccount/verify' \\
+      --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{
+        "PanNumber": "ABCDE1234F",
+        "MobileNumber": "9876543210"
+      }'`,
+
+      exampleResponse:
+        apiExamples.find((e) => e.name === "INSURANCE")?.examples[0]?.message || {},
+    },
+  },
+  {
+    id: "prof_ca",
+    categoryId: "PROFESSIONAL_VERIFICATION",
+    label: "Chartered Accountant Verification",
+
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "professional/ca/verify",
+        LiveUrl: `${KYC_BASE}/internal/professional/charteredAccount/verify`,
+      },
+
+      title: {
+        header: "Chartered Accountant Verification",
+        headerTitle: "Verify Chartered Accountant details",
+        submitButton: "Verify CA",
+      },
+
+      inputParams: [
+        "MembershipNumber",
+      ],
+
+      isToken: true,
+      isMicro: "KYC",
+
+      exampleCurl: `curl --location '${KYC_BASE}/internal/professional/ca/verify' \\
+      --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{
+        "MembershipNumber": "123456"
+      }'`,
+
+      exampleResponse:
+        apiExamples.find((e) => e.name === "CA")?.examples[0]?.message || {},
+    },
+  },
   {
     id: "prof_doctor",
     categoryId: "PROFESSIONAL_VERIFICATION",
@@ -2383,9 +2457,48 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "registrationNumber": "DOC12345" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {},
     },
   },
+  {
+    id: "prof_dentist",
+    categoryId: "PROFESSIONAL_VERIFICATION",
+    label: "Dentist Verification",
+
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "professional/dentist/verify",
+        LiveUrl: `${KYC_BASE}/internal/professional/dentist/verify`,
+      },
+
+      title: {
+        header: "Dentist Verification",
+        headerTitle: "Verify Dentist details",
+        submitButton: "Verify Dentist",
+      },
+
+      inputParams: [
+        "RegistrationNumber",
+        "state",
+      ],
+
+      isToken: true,
+      isMicro: "KYC",
+
+      exampleCurl: `curl --location '${KYC_BASE}/internal/professional/dentist/verify' \\
+      --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{
+        "RegistrationNumber": "DOC12345",
+        "state": "Telangana"
+      }'`,
+
+      exampleResponse:
+        apiExamples.find((e) => e.name === "DENTIST")?.examples[0]?.message || {},
+    },
+  },
+  
 
   // Pre-configured for Sidebar Navigation
   // {
