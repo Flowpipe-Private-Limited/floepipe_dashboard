@@ -34,7 +34,7 @@ export const SERVICES_METADATA = [
   {
     id: "pan_verify",
     categoryId: "PAN_SERVICES",
-    label: "PAN Verification",
+    label: "PAN Basic Verification",
     config: {
       apiUrl: {
         Method: "Post",
@@ -42,7 +42,7 @@ export const SERVICES_METADATA = [
         LiveUrl: `${KYC_BASE}/pan/verify`,
       },
       title: {
-        header: "PAN Verification",
+        header: "PAN Basic Verification",
         headerTitle: "Verify PAN details basic",
         submitButton: "Verify PAN",
       },
@@ -112,6 +112,33 @@ export const SERVICES_METADATA = [
       exampleResponse:
         apiExamples.find((e) => e.name === "BUSINESS_PAN")?.examples[0]
           ?.message || {},
+    },
+  },
+  {
+    id: "aadhaar_verify_with_pan",
+    categoryId: "PAN_SERVICES",
+    label: "PAN To Masked Aadhaar",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "pan/verify_to_aadhaar",
+        LiveUrl: `${KYC_BASE}/internal/pan/verify_to_aadhaar`,
+      },
+      title: {
+        header: "PAN To Masked Aadhaar",
+        headerTitle: "Aadhaar Verify with PAN",
+        submitButton: "Generate OTP",
+      },
+      inputParams: ["panNumber"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/internal/pan/verify_to_aadhaar' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "panNumber": "ABCDE1234F" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {},
     },
   },
   {
@@ -227,7 +254,7 @@ export const SERVICES_METADATA = [
   {
     id: "gst_with_pan",
     categoryId: "PAN_SERVICES",
-    label: "GST WITH PAN",
+    label: "PAN to GST",
     config: {
       apiUrl: {
         Method: "Post",
@@ -235,7 +262,7 @@ export const SERVICES_METADATA = [
         LiveUrl: `${KYC_BASE}/internal/pan/gst/with/pan`,
       },
       title: {
-        header: "GST WITH PAN",
+        header: "PAN to GST",
         headerTitle: "Know gst with Pan",
         submitButton: "submit pan",
       },
@@ -254,7 +281,7 @@ export const SERVICES_METADATA = [
   {
     id: "verify_dob_with_pan",
     categoryId: "PAN_SERVICES",
-    label: "VERIFY DOB WITH PAN",
+    label: "PAN Name DOB",
     config: {
       apiUrl: {
         Method: "Post",
@@ -262,7 +289,7 @@ export const SERVICES_METADATA = [
         LiveUrl: `${KYC_BASE}/internal/pan/panName/DobVerify`,
       },
       title: {
-        header: "VERIFY DOB WITH PAN",
+        header: "PAN Name DOB",
         headerTitle: "Verify you Date of Birth with Pan",
         submitButton: "submit pan",
       },
@@ -281,7 +308,7 @@ export const SERVICES_METADATA = [
   {
     id: "father_name_with_pan",
     categoryId: "PAN_SERVICES",
-    label: "Know FatherName WITH PAN",
+    label: "PAN to Father Name",
     config: {
       apiUrl: {
         Method: "Post",
@@ -289,7 +316,7 @@ export const SERVICES_METADATA = [
         LiveUrl: `${KYC_BASE}/internal/pan/know/fatherName`,
       },
       title: {
-        header: "KNOW FATHER NAME WITH PAN",
+        header: "PAN to Father Name",
         headerTitle: "Know Father Name with pan Number",
         submitButton: "submit pan",
       },
@@ -359,33 +386,6 @@ export const SERVICES_METADATA = [
   //       apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {}, // dummy
   //   },
   // },
-  {
-    id: "aadhaar_verify_with_pan",
-    categoryId: "PAN_SERVICES",
-    label: "Aadhaar Verify with PAN",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "pan/verify_to_aadhaar",
-        LiveUrl: `${KYC_BASE}/internal/pan/verify_to_aadhaar`,
-      },
-      title: {
-        header: "Aadhaar Verify with PAN",
-        headerTitle: "Aadhaar Verify with PAN",
-        submitButton: "Generate OTP",
-      },
-      inputParams: ["panNumber"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/pan/verify_to_aadhaar' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "panNumber": "ABCDE1234F" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {},
-    },
-  },
 
   // 2. GST Service
   {
@@ -530,7 +530,7 @@ export const SERVICES_METADATA = [
 
   // 4. Banking & Financial
 
-  // 1. Account Penny Drop
+  //  Account Penny Drop
   {
     id: "account_penny_drop",
     categoryId: "BANKING_FINANCIAL",
@@ -560,7 +560,7 @@ export const SERVICES_METADATA = [
     },
   },
 
-  // 2. Account Penny Less
+  //  Account Penny Less
   {
     id: "account_penny_less",
     categoryId: "BANKING_FINANCIAL",
@@ -589,11 +589,11 @@ export const SERVICES_METADATA = [
         {},
     },
   },
-  // 3. Advanced Bank Account Verify
+  //  Advanced Bank Account Verify
   {
     id: "advanced_bank_account_verify",
     categoryId: "BANKING_FINANCIAL",
-    label: "ADVANCED BANK ACCOUNT VERIFY",
+    label: "ADVANCED BANK ACCOUNT Verification",
     config: {
       apiUrl: {
         Method: "Post",
@@ -601,7 +601,7 @@ export const SERVICES_METADATA = [
         LiveUrl: `${KYC_BASE}/bank/bankAccount/Verify`,
       },
       title: {
-        header: "BANK ACCOUNT VERIFICATION",
+        header: "ADVANCED BANK ACCOUNT VERIFICATION",
         headerTitle: "Verify Bank IFSC details",
         submitButton: "Verify Account",
       },
@@ -618,7 +618,36 @@ export const SERVICES_METADATA = [
         {},
     },
   },
-  // 4. IFSC Code Check
+  // bin
+  {
+    id: "bin_verification",
+    categoryId: "BANKING_FINANCIAL",
+    label: "BINVERIFICATION",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "bin/verification",
+        LiveUrl: `${KYC_BASE}/bin/verification`,
+      },
+      title: {
+        header: "BINVERIFICATION",
+        headerTitle: "Verify BIN Details",
+        submitButton: "Verify BIN",
+      },
+      inputParams: ["binNumber"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/bin/verification' \\
+--header 'Content-Type: application/json' \\
+--header 'secret_token: {{secret_token}}' \\
+--data '{ "binNumber": "457173" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "BINVERIFICATION")?.examples[0]
+          ?.message || {},
+    },
+  },
+  //  IFSC Code Check
   {
     id: "ifsc_code_check",
     categoryId: "BANKING_FINANCIAL",
@@ -647,7 +676,7 @@ export const SERVICES_METADATA = [
         {},
     },
   },
-  // 5. Cheque Classification
+  //  Cheque Classification
   {
     id: "cheque_classification",
     categoryId: "BANKING_FINANCIAL",
@@ -701,7 +730,8 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "panNumber":"XXXXXX58657", "customerName":"JOHN", "customerMobile":"XXXXX7485"}'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "BANKVALID")?.examples[0]?.message || {},
+        apiExamples.find((e) => e.name === "BANKVALID")?.examples[0]?.message ||
+        {},
     },
   },
 
@@ -1632,8 +1662,7 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "image": "base64_string" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "AADHAAR_OCR")?.examples[0]
-          ?.message || {}, // dummy
+        apiExamples.find((e) => e.name === "AVS")?.examples[0]?.message || {}, // dummy
     },
   },
   {
@@ -1683,7 +1712,7 @@ export const SERVICES_METADATA = [
         headerTitle: "Extract details from NID document",
         submitButton: "Extract NID Details",
       },
-      inputParams: ["frontImgUrl"],
+      inputParams: ["frontImgUrl", "backImgUrl"],
       isToken: true,
       isMicro: "KYC",
       isDisable: false,
@@ -1750,7 +1779,8 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "voterId": "ABC1234567" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "VoterID")?.examples[0]?.message || {},
+        apiExamples.find((e) => e.name === "VoterID")?.examples[0]?.message ||
+        {},
     },
   },
   {
@@ -2100,8 +2130,7 @@ export const SERVICES_METADATA = [
           --header 'secret_token: {{secret_token}}' \\
           --data '{ "domain": "", "emailAddress":"XYZ@gmail.com" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "MOP")?.examples[0]
-          ?.message || {},
+        apiExamples.find((e) => e.name === "MOP")?.examples[0]?.message || {},
     },
   },
   {
@@ -2128,8 +2157,7 @@ export const SERVICES_METADATA = [
           --header 'secret_token: {{secret_token}}' \\
           --data '{ "mobileNumber":"3506745321" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "MOP")?.examples[0]
-          ?.message || {},
+        apiExamples.find((e) => e.name === "MOP")?.examples[0]?.message || {},
     },
   },
   {
@@ -2156,8 +2184,7 @@ export const SERVICES_METADATA = [
           --header 'secret_token: {{secret_token}}' \\
           --data '{ "recordName": "9876543210", "address":"XYZ@gmail.com" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "MOP")?.examples[0]
-          ?.message || {},
+        apiExamples.find((e) => e.name === "MOP")?.examples[0]?.message || {},
     },
   },
 
@@ -2360,7 +2387,7 @@ export const SERVICES_METADATA = [
   },
 
   // 14. Professional Verification
-    {
+  {
     id: "prof_insurance",
     categoryId: "PROFESSIONAL_VERIFICATION",
     label: "Insurance Verification",
@@ -2378,10 +2405,7 @@ export const SERVICES_METADATA = [
         submitButton: "Verify Insurance",
       },
 
-      inputParams: [
-        "PanNumber",
-        "MobileNumber",
-      ],
+      inputParams: ["PanNumber", "MobileNumber"],
 
       isToken: true,
       isMicro: "KYC",
@@ -2395,7 +2419,8 @@ export const SERVICES_METADATA = [
       }'`,
 
       exampleResponse:
-        apiExamples.find((e) => e.name === "INSURANCE")?.examples[0]?.message || {},
+        apiExamples.find((e) => e.name === "INSURANCE")?.examples[0]?.message ||
+        {},
     },
   },
   {
@@ -2416,9 +2441,7 @@ export const SERVICES_METADATA = [
         submitButton: "Verify CA",
       },
 
-      inputParams: [
-        "MembershipNumber",
-      ],
+      inputParams: ["MembershipNumber"],
 
       isToken: true,
       isMicro: "KYC",
@@ -2478,10 +2501,7 @@ export const SERVICES_METADATA = [
         submitButton: "Verify Dentist",
       },
 
-      inputParams: [
-        "RegistrationNumber",
-        "state",
-      ],
+      inputParams: ["RegistrationNumber", "state"],
 
       isToken: true,
       isMicro: "KYC",
@@ -2495,10 +2515,10 @@ export const SERVICES_METADATA = [
       }'`,
 
       exampleResponse:
-        apiExamples.find((e) => e.name === "DENTIST")?.examples[0]?.message || {},
+        apiExamples.find((e) => e.name === "DENTIST")?.examples[0]?.message ||
+        {},
     },
   },
-  
 
   // Pre-configured for Sidebar Navigation
   // {
