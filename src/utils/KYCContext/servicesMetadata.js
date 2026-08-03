@@ -305,60 +305,60 @@ export const SERVICES_METADATA = [
         apiExamples.find((e) => e.name === "PANFN")?.examples[0]?.message || {},
     },
   },
-  {
-    id: "generate_pan_itd",
-    categoryId: "PAN_SERVICES",
-    label: "PAN ITD GENERATE",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "pan/know/itdStatus/otp_generate",
-        LiveUrl: `${KYC_BASE}/internal/pan/know/itdStatus/otp_generate`,
-      },
-      title: {
-        header: "PAN ITD GENERATE",
-        headerTitle: "Generate OTP for ITD with pan",
-        submitButton: "Generate OTP",
-      },
-      inputParams: ["panNumber"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/pan/know/itdStatus/otp_generate' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "panNumber": "ABCDE1234F" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {}, // dummy
-    },
-  },
-  {
-    id: "verify_pan_itd",
-    categoryId: "PAN_SERVICES",
-    label: "PAN ITD Verify",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "pan/know/itdStatus/otp_validate",
-        LiveUrl: `${KYC_BASE}/internal/pan/know/itdStatus/otp_validate`,
-      },
-      title: {
-        header: "PAN ITD Verify",
-        headerTitle: "Verify OTP for ITD with pan",
-        submitButton: "Generate OTP",
-      },
-      inputParams: ["panNumber"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/pan/know/itdStatus/otp_validate' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "panNumber": "ABCDE1234F" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {}, // dummy
-    },
-  },
+  // {
+  //   id: "generate_pan_itd",
+  //   categoryId: "PAN_SERVICES",
+  //   label: "PAN ITD GENERATE",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "pan/know/itdStatus/otp_generate",
+  //       LiveUrl: `${KYC_BASE}/internal/pan/know/itdStatus/otp_generate`,
+  //     },
+  //     title: {
+  //       header: "PAN ITD GENERATE",
+  //       headerTitle: "Generate OTP for ITD with pan",
+  //       submitButton: "Generate OTP",
+  //     },
+  //     inputParams: ["panNumber"],
+  //     isToken: true,
+  //     isMicro: "KYC",
+  //     isDisable: false,
+  //     exampleCurl: `curl --location '${KYC_BASE}/internal/pan/know/itdStatus/otp_generate' \\
+  //       --header 'Content-Type: application/json' \\
+  //       --header 'secret_token: {{secret_token}}' \\
+  //       --data '{ "panNumber": "ABCDE1234F" }'`,
+  //     exampleResponse:
+  //       apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {}, // dummy
+  //   },
+  // },
+  // {
+  //   id: "verify_pan_itd",
+  //   categoryId: "PAN_SERVICES",
+  //   label: "PAN ITD Verify",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "pan/know/itdStatus/otp_validate",
+  //       LiveUrl: `${KYC_BASE}/internal/pan/know/itdStatus/otp_validate`,
+  //     },
+  //     title: {
+  //       header: "PAN ITD Verify",
+  //       headerTitle: "Verify OTP for ITD with pan",
+  //       submitButton: "Generate OTP",
+  //     },
+  //     inputParams: ["panNumber"],
+  //     isToken: true,
+  //     isMicro: "KYC",
+  //     isDisable: false,
+  //     exampleCurl: `curl --location '${KYC_BASE}/internal/pan/know/itdStatus/otp_validate' \\
+  //       --header 'Content-Type: application/json' \\
+  //       --header 'secret_token: {{secret_token}}' \\
+  //       --data '{ "panNumber": "ABCDE1234F" }'`,
+  //     exampleResponse:
+  //       apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {}, // dummy
+  //   },
+  // },
   {
     id: "aadhaar_verify_with_pan",
     categoryId: "PAN_SERVICES",
@@ -495,6 +495,34 @@ export const SERVICES_METADATA = [
         --header 'Content-Type: application/json' \\
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "aadhaarNumber": "123456789012" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "AADHAAR")?.examples[0]?.message ||
+        {},
+    },
+  },
+  {
+    id: "aadhaar_to_masked_pan",
+    categoryId: "AADHAAR_DIGILOCKER",
+    label: "Aadhaar To Masked PAN",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "aadhaar/pan/maskedverify",
+        LiveUrl: `${KYC_BASE}/internal/aadhaar/pan/maskedverify`,
+      },
+      title: {
+        header: "Aadhaar To Masked PAN",
+        headerTitle: "Verify Aadhaar to Masked PAN details",
+        submitButton: "Verify",
+      },
+      inputParams: ["aadhaarNumber"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/internal/aadhaar/pan/maskedverify' \\
+      --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{ "aadhaarNumber": "123456789012" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "AADHAAR")?.examples[0]?.message ||
         {},
@@ -1595,7 +1623,7 @@ export const SERVICES_METADATA = [
       },
       inputFile: [
         { name: "front image" },
-         { name: "back image", optional: true },
+        { name: "back image", optional: true },
       ],
       isToken: true,
       isMicro: "KYC",
@@ -1605,42 +1633,99 @@ export const SERVICES_METADATA = [
         --header 'secret_token: {{secret_token}}' \\
         --data '{ "image": "base64_string" }'`,
       exampleResponse:
-        apiExamples.find((e) => e.name === "AADHAAR_OCR")?.examples[0]?.message ||
-        {}, // dummy
+        apiExamples.find((e) => e.name === "AADHAAR_OCR")?.examples[0]
+          ?.message || {}, // dummy
     },
   },
-{
-  id: "ocr_cheque",
-  categoryId: "OCR_DOCUMENT_AI",
-  label: "CHEQUE OCR",
-  config: {
-    apiUrl: {
-      Method: "Post",
-      URLS: "/ocr/cheque/verify",
-      LiveUrl: `${KYC_BASE}/ocr/cheque/verify`,
-    },
-    title: {
-      header: "CHEQUE OCR",
-      headerTitle: "Extract details from Cheque image",
-      submitButton: "Extract Cheque Details",
-    },
-    inputFile: [
-      { name: "front image" },
-      
-       { name: "back image", optional: true },
-    ],
-    isToken: true,
-    isMicro: "KYC",
-    isDisable: false,
-    exampleCurl: `curl --location '${KYC_BASE}/ocr/cheque/verify' \\
+  {
+    id: "ocr_cheque",
+    categoryId: "OCR_DOCUMENT_AI",
+    label: "CHEQUE OCR",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "/ocr/cheque/verify",
+        LiveUrl: `${KYC_BASE}/ocr/cheque/verify`,
+      },
+      title: {
+        header: "CHEQUE OCR",
+        headerTitle: "Extract details from Cheque image",
+        submitButton: "Extract Cheque Details",
+      },
+      inputFile: [
+        { name: "front image" },
+
+        { name: "back image", optional: true },
+      ],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/ocr/cheque/verify' \\
       --header 'content-type: multipart/form-data' \\
       --header 'secret_token: {{secret_token}}' \\
       --data '{ "image": "base64_string" }'`,
-    exampleResponse:
-      apiExamples.find((e) => e.name === "CHEQUE_OCR")?.examples[0]?.message ||
-      {}, 
+      exampleResponse:
+        apiExamples.find((e) => e.name === "CHEQUE_OCR")?.examples[0]
+          ?.message || {},
+    },
   },
-},
+  {
+    id: "comprehensive_nid_ocr",
+    categoryId: "OCR_DOCUMENT_AI",
+    label: "Comprehensive NID (OCR)",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "/ocr/comprehensive-nid/verify",
+        LiveUrl: `${KYC_BASE}/ocr/comprehensive-nid/verify`,
+      },
+      title: {
+        header: "Comprehensive NID (OCR)",
+        headerTitle: "Extract details from NID document",
+        submitButton: "Extract NID Details",
+      },
+      inputParams: ["frontImgUrl"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/ocr/comprehensive-nid/verify' \\
+        --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{ "image": "base64_string" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "COMPREHENSIVE_NID_OCR")?.examples[0]
+          ?.message || {},
+    },
+  },
+  {
+    id: "new_doc_classification",
+    categoryId: "OCR_DOCUMENT_AI",
+    label: "New Doc Classification",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "/ocr/doc-classification/verify",
+        LiveUrl: `${KYC_BASE}/ocr/doc-classification/verify`,
+      },
+      title: {
+        header: "New Doc Classification",
+        headerTitle: "Classify uploaded document",
+        submitButton: "Classify Document",
+      },
+      inputParams: ["imgUrl"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/ocr/doc-classification/verify' \\
+        --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{ "image": "base64_string" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "DOC_CLASSIFICATION")?.examples[0]
+          ?.message || {},
+    },
+  },
+
   // 10. Government ID Services
   {
     id: "gov_voter_id",
@@ -1772,66 +1857,66 @@ export const SERVICES_METADATA = [
         apiExamples.find((e) => e.name === "ELEC")?.examples[0]?.message || {},
     },
   },
-  {
-    id: "tin_verify",
-    categoryId: "GOVERNMENT_ID",
-    label: "Verify tin",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "government/passport_fileNo/verify",
-        LiveUrl: `${KYC_BASE}/internal/government/passport_fileNo/verify`,
-      },
-      title: {
-        header: "Tin Verify",
-        headerTitle: "Verify Tin details",
-        submitButton: "Verify",
-      },
-      inputParams: ["TIN"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/government/passport_fileNo/verify' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "passportFileNo":"", "surname":"","firstName":"","gender":"", "countryCode":"","dateOfBirth":"","passportType":"","dateOfExpiry":"","mrz1":"","mrz2":"" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "ELEC")?.examples[0]?.message || {},
-    },
-  },
+  // {
+  //   id: "tin_verify",
+  //   categoryId: "GOVERNMENT_ID",
+  //   label: "Verify tin",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "government/passport_fileNo/verify",
+  //       LiveUrl: `${KYC_BASE}/internal/government/passport_fileNo/verify`,
+  //     },
+  //     title: {
+  //       header: "Tin Verify",
+  //       headerTitle: "Verify Tin details",
+  //       submitButton: "Verify",
+  //     },
+  //     inputParams: ["TIN"],
+  //     isToken: true,
+  //     isMicro: "KYC",
+  //     isDisable: false,
+  //     exampleCurl: `curl --location '${KYC_BASE}/internal/government/passport_fileNo/verify' \\
+  //       --header 'Content-Type: application/json' \\
+  //       --header 'secret_token: {{secret_token}}' \\
+  //       --data '{ "passportFileNo":"", "surname":"","firstName":"","gender":"", "countryCode":"","dateOfBirth":"","passportType":"","dateOfExpiry":"","mrz1":"","mrz2":"" }'`,
+  //     exampleResponse:
+  //       apiExamples.find((e) => e.name === "ELEC")?.examples[0]?.message || {},
+  //   },
+  // },
 
   // 11. Contact & Communication
+  // {
+  //   id: "pan_verify",
+  //   categoryId: "CONTACT_COMMUNICATION",
+  //   label: "pan Verification",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "contact/pan/verify",
+  //       LiveUrl: `${KYC_BASE}/internal/contact/pan/verify`,
+  //     },
+  //     title: {
+  //       header: "pan Verification",
+  //       headerTitle: "Get pan with Mobile Number",
+  //       submitButton: "submit",
+  //     },
+  //     inputParams: ["mobileNumber"],
+  //     isToken: true,
+  //     isMicro: "KYC",
+  //     isDisable: false,
+  //     exampleCurl: `curl --location '${KYC_BASE}/internal/contact/pan/verify' \\
+  //         --header 'Content-Type: application/json' \\
+  //         --header 'secret_token: {{secret_token}}' \\
+  //         --data '{ "mobileNumber": "9876543210" }'`,
+  //     exampleResponse:
+  //       apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {},
+  //   },
+  // },
   {
-    id: "pan_verify",
+    id: "mobile_to_uan",
     categoryId: "CONTACT_COMMUNICATION",
-    label: "pan Verification",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "contact/pan/verify",
-        LiveUrl: `${KYC_BASE}/internal/contact/pan/verify`,
-      },
-      title: {
-        header: "pan Verification",
-        headerTitle: "Get pan with Mobile Number",
-        submitButton: "submit",
-      },
-      inputParams: ["mobileNumber"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/contact/pan/verify' \\
-          --header 'Content-Type: application/json' \\
-          --header 'secret_token: {{secret_token}}' \\
-          --data '{ "mobileNumber": "9876543210" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {},
-    },
-  },
-  {
-    id: "uan_verify",
-    categoryId: "CONTACT_COMMUNICATION",
-    label: "uan Verification",
+    label: "Mobile To UAN",
     config: {
       apiUrl: {
         Method: "Post",
@@ -1839,76 +1924,76 @@ export const SERVICES_METADATA = [
         LiveUrl: `${KYC_BASE}/internal/contact/uan/verify`,
       },
       title: {
-        header: "uan Verification",
-        headerTitle: "Get uan with Mobile Number",
-        submitButton: "submit",
+        header: "Mobile To UAN",
+        headerTitle: "Get UAN with Mobile Number",
+        submitButton: "Submit",
       },
       inputParams: ["mobileNumber"],
       isToken: true,
       isMicro: "KYC",
       isDisable: false,
       exampleCurl: `curl --location '${KYC_BASE}/internal/contact/uan/verify' \\
-          --header 'Content-Type: application/json' \\
-          --header 'secret_token: {{secret_token}}' \\
-          --data '{ "mobileNumber": "9876543210" }'`,
+      --header 'Content-Type: application/json' \\
+      --header 'secret_token: {{secret_token}}' \\
+      --data '{ "mobileNumber": "9876543210" }'`,
       exampleResponse:
         apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {},
     },
   },
-  {
-    id: "advance_data",
-    categoryId: "CONTACT_COMMUNICATION",
-    label: "Advance Data with Mobile Number",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "contact/advanceData/getOtp",
-        LiveUrl: `${KYC_BASE}/internal/contact/advanceData/getOtp`,
-      },
-      title: {
-        header: "Advance Data with Mobile Number",
-        headerTitle: "Advance Details with Mobile Number, send OTP",
-        submitButton: "submit",
-      },
-      inputParams: ["mobileNumber"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/contact/advanceData/getOtp' \\
-          --header 'Content-Type: application/json' \\
-          --header 'secret_token: {{secret_token}}' \\
-          --data '{ "mobileNumber": "9876543210" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {},
-    },
-  },
-  {
-    id: "advance_data_verify_otp",
-    categoryId: "CONTACT_COMMUNICATION",
-    label: "Advance Data with Mobile Number verify OTP",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "contact/advanceData/getOtp",
-        LiveUrl: `${KYC_BASE}/internal/contact/advanceData/getOtp`,
-      },
-      title: {
-        header: "Advance Data with Mobile Number",
-        headerTitle: "Advance Details with Mobile Number, Verify OTP",
-        submitButton: "submit",
-      },
-      inputParams: ["mobileNumber"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/contact/advanceData/getOtp' \\
-          --header 'Content-Type: application/json' \\
-          --header 'secret_token: {{secret_token}}' \\
-          --data '{ "mobileNumber": "9876543210" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {},
-    },
-  },
+  // {
+  //   id: "advance_data",
+  //   categoryId: "CONTACT_COMMUNICATION",
+  //   label: "Advance Data with Mobile Number",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "contact/advanceData/getOtp",
+  //       LiveUrl: `${KYC_BASE}/internal/contact/advanceData/getOtp`,
+  //     },
+  //     title: {
+  //       header: "Advance Data with Mobile Number",
+  //       headerTitle: "Advance Details with Mobile Number, send OTP",
+  //       submitButton: "submit",
+  //     },
+  //     inputParams: ["mobileNumber"],
+  //     isToken: true,
+  //     isMicro: "KYC",
+  //     isDisable: false,
+  //     exampleCurl: `curl --location '${KYC_BASE}/internal/contact/advanceData/getOtp' \\
+  //         --header 'Content-Type: application/json' \\
+  //         --header 'secret_token: {{secret_token}}' \\
+  //         --data '{ "mobileNumber": "9876543210" }'`,
+  //     exampleResponse:
+  //       apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {},
+  //   },
+  // },
+  // {
+  //   id: "advance_data_verify_otp",
+  //   categoryId: "CONTACT_COMMUNICATION",
+  //   label: "Advance Data with Mobile Number verify OTP",
+  //   config: {
+  //     apiUrl: {
+  //       Method: "Post",
+  //       URLS: "contact/advanceData/getOtp",
+  //       LiveUrl: `${KYC_BASE}/internal/contact/advanceData/getOtp`,
+  //     },
+  //     title: {
+  //       header: "Advance Data with Mobile Number",
+  //       headerTitle: "Advance Details with Mobile Number, Verify OTP",
+  //       submitButton: "submit",
+  //     },
+  //     inputParams: ["mobileNumber"],
+  //     isToken: true,
+  //     isMicro: "KYC",
+  //     isDisable: false,
+  //     exampleCurl: `curl --location '${KYC_BASE}/internal/contact/advanceData/getOtp' \\
+  //         --header 'Content-Type: application/json' \\
+  //         --header 'secret_token: {{secret_token}}' \\
+  //         --data '{ "mobileNumber": "9876543210" }'`,
+  //     exampleResponse:
+  //       apiExamples.find((e) => e.name === "MOG")?.examples[0]?.message || {},
+  //   },
+  // },
   {
     id: "contact_mobile_otp",
     categoryId: "CONTACT_COMMUNICATION",
@@ -2018,6 +2103,232 @@ export const SERVICES_METADATA = [
       exampleResponse:
         apiExamples.find((e) => e.name === "CHECKCOURTRECORD")?.examples[0]
           ?.message || {},
+    },
+  },
+
+  // 12. Geo & Location
+  {
+    id: "geo_pincode",
+    categoryId: "GEO_LOCATION",
+    label: "Pincode Geofencing",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/pincode/geofencing",
+        LiveUrl: `${KYC_BASE}/internal/location/pincode/geofencing`,
+      },
+      title: {
+        header: "Pincode Geofencing",
+        headerTitle: "Verify Pincode specific geofence",
+        submitButton: "Verify Range",
+      },
+      inputParams: ["pincode", "latitude", "longitude"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/internal/location/pincode/geofencing' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "pincode": "560001", "latitude": "12.9716", "longitude": "77.5946" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWPINCODE")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+  {
+    id: "Lat_long_geo",
+    categoryId: "GEO_LOCATION",
+    label: "Longitude/Latitude Geofencing",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/longLat/geofencing",
+        LiveUrl: `${KYC_BASE}/location/longLat/geofencing`,
+      },
+      title: {
+        header: "Longitude/Latitude Geofencing",
+        headerTitle: "Longitude/Latitude Geofencing",
+        submitButton: "search",
+      },
+      inputParams: ["latitude", "longitude"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/longLat/geofencing' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "latitude":"12.9716", "longitude": "77.5946" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+  {
+    id: "Lat_long_digi_pin",
+    categoryId: "GEO_LOCATION",
+    label: "Longitude, Latitude To Digipin",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/longLat/digipin",
+        LiveUrl: `${KYC_BASE}/location/longLat/digipin`,
+      },
+      title: {
+        header: "Longitude/Latitude To DIGIPIN",
+        headerTitle: "Longitude/Latitude To DIGIPIN",
+        submitButton: "search",
+      },
+      inputParams: ["latitude", "longitude"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/longLat/digipin' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "latitude":"12.9716", "longitude": "77.5946" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+  {
+    id: "digi_pin_Lat_long",
+    categoryId: "GEO_LOCATION",
+    label: "Digipin To Longitude/Latitude",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/digipin/longLat",
+        LiveUrl: `${KYC_BASE}/location/digipin/longLat`,
+      },
+      title: {
+        header: "Digipin To longitud",
+        headerTitle: "Digipin To longitud",
+        submitButton: "search",
+      },
+      inputParams: ["digiPin"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/digipin/longLat' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "digiPin": " " }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+  {
+    id: "address_digi_pin",
+    categoryId: "GEO_LOCATION",
+    label: "Address to Digi Pin",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/address/digipin",
+        LiveUrl: `${KYC_BASE}/location/address/digipin`,
+      },
+      title: {
+        header: "Address to Digi Pin",
+        headerTitle: "Address to Digi Pin",
+        submitButton: "search",
+      },
+      inputParams: ["address"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/address/digipin' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "address": "" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+  {
+    id: "Geo_tagging",
+    categoryId: "GEO_LOCATION",
+    label: "Geo Tagging",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/geo/tagging",
+        LiveUrl: `${KYC_BASE}/location/geo/tagging`,
+      },
+      title: {
+        header: "Geo Tagging",
+        headerTitle: "Geo Tagging",
+        submitButton: "search",
+      },
+      inputParams: ["latitude", "longitude"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/geo/tagging' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "latitude": "","longitude":"" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+  {
+    id: "Geo_tagging_dist_calcu",
+    categoryId: "GEO_LOCATION",
+    label: "Calculate Distance with geo Taggin",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "location/geo/tagging/distance_calculation",
+        LiveUrl: `${KYC_BASE}/location/geo/tagging/distance_calculation`,
+      },
+      title: {
+        header: "Geo Taggin",
+        headerTitle: "Geo Taggin",
+        submitButton: "search",
+      },
+      inputParams: ["address", "latitude", "longitude"],
+      isToken: true,
+      isMicro: "KYC",
+      isDisable: false,
+      exampleCurl: `curl --location '${KYC_BASE}/location/geo/tagging/distance_calculation' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "address": "", "latitude": "", "longitude": "" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
+          ?.message || {}, // dummy
+    },
+  },
+
+  // 14. Professional Verification
+  {
+    id: "prof_doctor",
+    categoryId: "PROFESSIONAL_VERIFICATION",
+    label: "Doctor Verification",
+    config: {
+      apiUrl: {
+        Method: "Post",
+        URLS: "professional/docter/verify",
+        LiveUrl: `${KYC_BASE}/internal/professional/docter/verify`,
+      },
+      title: {
+        header: "Doctor Verification",
+        headerTitle: "Verify Medical Professional details",
+        submitButton: "Verify Doctor",
+      },
+      inputParams: ["registrationNumber"],
+      isToken: true,
+      isMicro: "KYC",
+      exampleCurl: `curl --location '${KYC_BASE}/internal/professional/docter/verify' \\
+        --header 'Content-Type: application/json' \\
+        --header 'secret_token: {{secret_token}}' \\
+        --data '{ "registrationNumber": "DOC12345" }'`,
+      exampleResponse:
+        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
     },
   },
 
@@ -2265,232 +2576,6 @@ export const SERVICES_METADATA = [
   //     exampleResponse: {},
   //   },
   // },
-
-  // 12. Geo & Location
-  {
-    id: "geo_pincode",
-    categoryId: "GEO_LOCATION",
-    label: "Pincode Geofencing",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "location/pincode/geofencing",
-        LiveUrl: `${KYC_BASE}/internal/location/pincode/geofencing`,
-      },
-      title: {
-        header: "Pincode Geofencing",
-        headerTitle: "Verify Pincode specific geofence",
-        submitButton: "Verify Range",
-      },
-      inputParams: ["pincode", "latitude", "longitude"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/internal/location/pincode/geofencing' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "pincode": "560001", "latitude": "12.9716", "longitude": "77.5946" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "GEWPINCODE")?.examples[0]
-          ?.message || {}, // dummy
-    },
-  },
-  {
-    id: "Lat_long_geo",
-    categoryId: "GEO_LOCATION",
-    label: "Longitude/Latitude Geofencing",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "location/longLat/geofencing",
-        LiveUrl: `${KYC_BASE}/location/longLat/geofencing`,
-      },
-      title: {
-        header: "Longitude/Latitude Geofencing",
-        headerTitle: "Longitude/Latitude Geofencing",
-        submitButton: "search",
-      },
-      inputParams: ["latitude", "longitude"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/location/longLat/geofencing' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "latitude":"12.9716", "longitude": "77.5946" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
-          ?.message || {}, // dummy
-    },
-  },
-  {
-    id: "Lat_long_digi_pin",
-    categoryId: "GEO_LOCATION",
-    label: "Longitude, Latitude To Digipin",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "location/longLat/digipin",
-        LiveUrl: `${KYC_BASE}/location/longLat/digipin`,
-      },
-      title: {
-        header: "Longitude/Latitude To DIGIPIN",
-        headerTitle: "Longitude/Latitude To DIGIPIN",
-        submitButton: "search",
-      },
-      inputParams: ["latitude", "longitude"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/location/longLat/digipin' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "latitude":"12.9716", "longitude": "77.5946" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
-          ?.message || {}, // dummy
-    },
-  },
-  {
-    id: "digi_pin_Lat_long",
-    categoryId: "GEO_LOCATION",
-    label: "Digipin To Longitude/Latitude",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "location/digipin/longLat",
-        LiveUrl: `${KYC_BASE}/location/digipin/longLat`,
-      },
-      title: {
-        header: "Digipin To longitud",
-        headerTitle: "Digipin To longitud",
-        submitButton: "search",
-      },
-      inputParams: ["digiPin"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/location/digipin/longLat' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "digiPin": " " }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
-          ?.message || {}, // dummy
-    },
-  },
-  {
-    id: "address_digi_pin",
-    categoryId: "GEO_LOCATION",
-    label: "Address to Digi Pin",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "location/address/digipin",
-        LiveUrl: `${KYC_BASE}/location/address/digipin`,
-      },
-      title: {
-        header: "Address to Digi Pin",
-        headerTitle: "Address to Digi Pin",
-        submitButton: "search",
-      },
-      inputParams: ["address"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/location/address/digipin' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "address": "" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
-          ?.message || {}, // dummy
-    },
-  },
-  {
-    id: "Geo_tagging",
-    categoryId: "GEO_LOCATION",
-    label: "Geo Taggin",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "location/geo/tagging",
-        LiveUrl: `${KYC_BASE}/location/geo/tagging`,
-      },
-      title: {
-        header: "Geo Taggin",
-        headerTitle: "Geo Taggin",
-        submitButton: "search",
-      },
-      inputParams: ["latitude", "longitude"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/location/geo/tagging' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "latitude": "","longitude":"" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
-          ?.message || {}, // dummy
-    },
-  },
-  {
-    id: "Geo_tagging_dist_calcu",
-    categoryId: "GEO_LOCATION",
-    label: "Calculate Distance with geo Taggin",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "location/geo/tagging/distance_calculation",
-        LiveUrl: `${KYC_BASE}/location/geo/tagging/distance_calculation`,
-      },
-      title: {
-        header: "Geo Taggin",
-        headerTitle: "Geo Taggin",
-        submitButton: "search",
-      },
-      inputParams: ["address","latitude", "longitude"],
-      isToken: true,
-      isMicro: "KYC",
-      isDisable: false,
-      exampleCurl: `curl --location '${KYC_BASE}/location/geo/tagging/distance_calculation' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "address": "", "latitude": "", "longitude": "" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "GEWLATLONG")?.examples[0]
-          ?.message || {}, // dummy
-    },
-  },
-
-  // 14. Professional Verification
-  {
-    id: "prof_doctor",
-    categoryId: "PROFESSIONAL_VERIFICATION",
-    label: "Doctor Verification",
-    config: {
-      apiUrl: {
-        Method: "Post",
-        URLS: "professional/docter/verify",
-        LiveUrl: `${KYC_BASE}/internal/professional/docter/verify`,
-      },
-      title: {
-        header: "Doctor Verification",
-        headerTitle: "Verify Medical Professional details",
-        submitButton: "Verify Doctor",
-      },
-      inputParams: ["registrationNumber"],
-      isToken: true,
-      isMicro: "KYC",
-      exampleCurl: `curl --location '${KYC_BASE}/internal/professional/docter/verify' \\
-        --header 'Content-Type: application/json' \\
-        --header 'secret_token: {{secret_token}}' \\
-        --data '{ "registrationNumber": "DOC12345" }'`,
-      exampleResponse:
-        apiExamples.find((e) => e.name === "PAN")?.examples[0]?.message || {}, // dummy
-    },
-  },
 ];
 
 export const getServiceById = (id) =>
