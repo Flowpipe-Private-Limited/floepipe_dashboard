@@ -786,45 +786,45 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
   const clientId = Cookies.get("clientId")
   const [walletBalance, setWalletBalance] = useState(0);
 
-  useEffect(() => {
-    const fetchWalletBalance = async () => {
-      console.log("========== Wallet Balance API ==========");
-      console.log("Request Started");
-      console.log("Client ID:", clientId);
+ useEffect(() => {
+  const fetchWalletBalance = async () => {
+    console.log("========== Wallet Balance API ==========");
+    console.log("Request Started");
+    console.log("Client ID:", clientId);
 
-      try {
-        const response = await GetTotalBalance(clientId);
+    try {
+      const response = await GetTotalBalance(clientId);
 
-        console.log("Wallet Balance API Response:", response);
+      console.log("Wallet Balance API Response:", response);
 
-        const balance = response?.data?.balance || response?.balance || 0;
+      const balance = response?.data?.data?.availableBalance || 0;
 
-        console.log("Extracted Balance:", balance);
+      console.log("Extracted Balance:", balance);
 
-        setWalletBalance(balance);
+      setWalletBalance(balance);
 
-        console.log("Wallet Balance Updated Successfully");
-      } catch (error) {
-        console.error("Wallet Balance API Failed");
-        console.error("Message:", error?.message);
+      console.log("Wallet Balance Updated Successfully");
+    } catch (error) {
+      console.error("Wallet Balance API Failed");
+      console.error("Message:", error?.message);
 
-        if (error?.response) {
-          console.error("Status:", error.response.status);
-          console.error("Response:", error.response.data);
-        }
-
-        setWalletBalance(0);
-      } finally {
-        console.log("========== Wallet Balance API Completed ==========");
+      if (error?.response) {
+        console.error("Status:", error.response.status);
+        console.error("Response:", error.response.data);
       }
-    };
 
-    if (clientId) {
-      fetchWalletBalance();
-    } else {
-      console.warn("Wallet Balance API Skipped: Client ID not found.");
+      setWalletBalance(0);
+    } finally {
+      console.log("========== Wallet Balance API Completed ==========");
     }
-  }, [clientId]);
+  };
+
+  if (clientId) {
+    fetchWalletBalance();
+  } else {
+    console.warn("Wallet Balance API Skipped: Client ID not found.");
+  }
+}, [clientId]);
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -890,36 +890,37 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
           <RxPlusCircled size={24} />
           Balance
         </button> */}
-        <button
-          onClick={() => onNavigate("Billing_plans")}
-          className="Dash-header-btn"
-          onMouseEnter={(e) => {
-            e.currentTarget.innerHTML = `
-      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" 
-      stroke-linecap="round" stroke-linejoin="round" height="20" width="20" 
-      xmlns="http://www.w3.org/2000/svg">
+       <button
+  onClick={() => onNavigate("Billing_plans")}
+  className="Dash-header-btn"
+  onMouseEnter={(e) => {
+    e.currentTarget.innerHTML = `
+      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
+        stroke-linecap="round" stroke-linejoin="round" height="20" width="20"
+        xmlns="http://www.w3.org/2000/svg">
         <circle cx="12" cy="12" r="10"></circle>
         <line x1="12" y1="8" x2="12" y2="16"></line>
         <line x1="8" y1="12" x2="16" y2="12"></line>
       </svg>
-      ₹ ${Number(data?.walletBalance).toFixed(2)}    `;
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.innerHTML = `
-      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" 
-      stroke-linecap="round" stroke-linejoin="round" height="20" width="20" 
-      xmlns="http://www.w3.org/2000/svg">
+      ₹ ${Number(walletBalance).toFixed(2)}
+    `;
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.innerHTML = `
+      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
+        stroke-linecap="round" stroke-linejoin="round" height="20" width="20"
+        xmlns="http://www.w3.org/2000/svg">
         <circle cx="12" cy="12" r="10"></circle>
         <line x1="12" y1="8" x2="12" y2="16"></line>
         <line x1="8" y1="12" x2="16" y2="12"></line>
       </svg>
       Balance
     `;
-          }}
-        >
-          <RxPlusCircled size={24} />
-          Balance
-        </button>
+  }}
+>
+  <RxPlusCircled size={24} />
+  Balance
+</button>
 
         <button className="Dash-header-btn">
           <IoCodeSlashSharp size={20} />

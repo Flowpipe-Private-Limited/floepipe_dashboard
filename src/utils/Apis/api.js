@@ -7,6 +7,10 @@ const supperApiClient = axios.create({
   baseURL: import.meta.env.REACT_APP_VITE_API,
 });
 
+const walletApiClient = axios.create({
+  baseURL: import.meta.env.REACT_APP_WALLET_URL,
+});
+
 // KYC MICROSERVICE BASE URL
 const kycServiceApiClient = axios. create ({ baseURL : import. meta. env. REACT_APP_KYC_SERVICE_CALL, });
 const kycApiClient = axios.create({
@@ -147,7 +151,7 @@ const GetWalletBalance = (clientid) =>
   supperApiClient.get(`/apimodule/get-wallte-balance?clientId=${clientid}`);
 
 const GetTotalBalance = (clientId) =>
-  supperApiClient.get(`/wallet/balance/${clientId}`);
+  walletApiClient.get(`/wallet/balance/${clientId}`);
 
 const GetWalletHistory = (clientId, range = "120days", page = 1, limit = 20) =>
   supperApiClient.get(
