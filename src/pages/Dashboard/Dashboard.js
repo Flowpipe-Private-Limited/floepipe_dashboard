@@ -796,6 +796,7 @@ function Header({ onToggle, data, onNavigate, onHelpClick, onLogoutClick }) {
       const response = await GetTotalBalance(clientId);
 
       console.log("Wallet Balance API Response:", response);
+      console.log("response from g3tbalance", response.data.data.availableBalance)
 
       const balance = response?.data?.data?.availableBalance || 0;
 
